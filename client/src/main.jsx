@@ -7,6 +7,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <Provider>
       <App />
+      <h1 className="text-red-600 ">sdaffdsfdsfdsfsdfdsa</h1>
     </Provider>
   </React.StrictMode>
 );

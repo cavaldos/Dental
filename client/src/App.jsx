@@ -1,13 +1,12 @@
 import { useState } from "react";
 import { RouterProvider } from "react-router-dom";
-
-import "./App.css";
-
+import "./index.css";
 function App() {
-  const [count, setCount] = useState(0);
   return (
     <>
-      <RouterProvider router={routers} />
+      <h1 className="mx-auto text-lg text-red-600">home</h1>
+
+      {/* <RouterProvider router={routers} /> */}
     </>
   );
 }

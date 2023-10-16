@@ -1,13 +1,8 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: [
-    "./pages/**/*.{html,js}",
-    "./components/**/*.{html,js}",
-    { raw: '<div class="font-bold">', extension: "html" },
-  ],
+  content: ["./src/pages/**/*.{html,js,jsx}", "./src/components/**/*.{html,js,jsx}"],
   darkMode: "class",
   mode: "jit",
-
   theme: {
     extend: {
       fontFamily: {

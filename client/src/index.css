@@ -5,3 +5,16 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+/* index.css */
+
+:root {
+  font-family: "Nunito", sans-serif, "Inter", system-ui, Avenir, Helvetica,
+    Arial, sans-serif;
+  font-weight: 625;
+}
+
+body {
+  background-color: #f7fafc;
+}

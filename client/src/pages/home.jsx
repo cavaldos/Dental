@@ -1,8 +1,10 @@
-const SignPage = () => {
+const HomePage = () => {
   return (
-    <div>
-      <h1>Sign Page</h1>
-    </div>
+    <>
+      <div>
+        <h1 className="text-red-600">Home Page</h1>
+      </div>
+    </>
   );
 };
-export default SignPage;
+export default HomePage;
