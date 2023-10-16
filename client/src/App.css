@@ -1,10 +1,6 @@
 /* index.css */
-@tailwind base;
-@layer base {
-  body {
-    @apply font-nunito;
-  }
-}
+
+
 :root {
   font-family: "Nunito", sans-serif, "Inter", system-ui, Avenir, Helvetica,
     Arial, sans-serif;

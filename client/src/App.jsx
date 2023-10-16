@@ -1,13 +1,13 @@
 import { useState } from "react";
+import { RouterProvider } from "react-router-dom";
 
 import "./App.css";
 
 function App() {
   const [count, setCount] = useState(0);
-
   return (
     <>
-      <div className="App">sadfsdfsdfsdasf</div>
+      <RouterProvider router={routers} />
     </>
   );
 }
