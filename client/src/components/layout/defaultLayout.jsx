@@ -1,9 +1,10 @@
 import { Outlet } from "react-router-dom";
+import Header from "~/components/header/header";
 
 const DefaultLayout = () => {
   return (
     <>
-      <h1 className="text-red-600">Default Layout</h1>
+      <Header />
       <Outlet />
     </>
   );

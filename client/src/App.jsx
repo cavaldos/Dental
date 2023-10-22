@@ -1,10 +1,21 @@
 import { RouterProvider } from "react-router-dom";
-import routers from "~/routes";
+
+import {
+  GuestRouter,
+  AdminRouter,
+  DentistRouter,
+  StaffRouter,
+  OnlineRouter,
+} from "~/routes";
+import { useSelector } from "react-redux";
+import { useState } from "react";
 function App() {
+  const routes = useSelector((state) => state.route.route);
+
+
   return (
     <>
-    <h1 className="text-red-600 h-[100vh] bg-black ">Default Layout</h1>
-      {/* <RouterProvider router={routers} /> */}
+      <RouterProvider router={OnlineRouter} />
     </>
   );
 }

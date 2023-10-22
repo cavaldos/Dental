@@ -5,13 +5,13 @@ export const countSlice = createSlice({
   initialState: {
     value: 3333,
   },
-    reducers: {
-        increment: (state) => {
-            state.value += 1;
-        },
-        decrement: (state) => {
-            state.value -= 1;
-        }
+  reducers: {
+    increment: (state) => {
+      state.value += 1;
+    },
+    decrement: (state) => {
+      state.value -= 1;
+    },
   },
 });
 
