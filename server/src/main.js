@@ -15,8 +15,7 @@ app.use(morgan("tiny"));
 app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 
-
-// // =======================================
+// // ==========================================
 app.get("/", (req, res) => {
   try {
     pool.query("SELECT * FROM Users u", (err, result) => {
