@@ -1,10 +1,11 @@
-import { createBrowserRouter, Outlet } from "react-router-dom";
+import { createBrowserRouter } from "react-router-dom";
 
-import HomePage from "~/pages/home";
-import AddPage from "~/pages/add";
+import DefaultLayout from "../components/layout/default.layout";
+
+import AdminPage from "~/pages/admin";
 export default createBrowserRouter([
   {
-    element: <HomePage />,
+    element: <DefaultLayout />,
     path: "/",
   },
   {
