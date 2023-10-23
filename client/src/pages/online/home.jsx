@@ -4,7 +4,7 @@ const HomePage = () => {
 
   return (
     <>
-      <div className="w-full h-full flex ">
+    
         <div className="mx-auto">
           <div
             style={{
@@ -34,7 +34,7 @@ const HomePage = () => {
             </div>
           </div>
         </div>
-      </div>
+  
     </>
   );
 };

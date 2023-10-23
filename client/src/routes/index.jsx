@@ -9,11 +9,18 @@ import GuestPage from "~/pages/guest";
 import StaffPage from "~/pages/staff";
 import DentistPage from "~/pages/dentist";
 
+
+import AddPage from "~/pages/online/add";
 const OnlineRouter = [
   {
     path: "/",
     component: HomePage,
     Layout: DefaultLayout ,
+  },
+  {
+    path: "/add",
+    component: AddPage,
+    Layout: DefaultLayout,
   },
   {
     path: "/signin",

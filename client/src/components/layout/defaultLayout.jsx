@@ -5,7 +5,7 @@ const DefaultLayout = ({ children }) => {
     <>
      
       <Header />
-      <div className="h-[100vh] w-[100vw] pt-10  bg-slate-200 flex justify-center">
+      <div className="min-h-[100vh] min-w-[100vw] pt-10  bg-slate-200 flex justify-center">
         {children}
       </div>
     </>
