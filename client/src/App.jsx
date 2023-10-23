@@ -1,48 +1,58 @@
-import { RouterProvider } from "react-router-dom";
-
 import {
-  GuestRouter,
-  AdminRouter,
-  DentistRouter,
-  StaffRouter,
   OnlineRouter,
+  AdminRouter,
+  GuestRouter,
+  StaffRouter,
+  DentistRouter,
 } from "~/routes";
-import { useSelector } from "react-redux";
-import { useState } from "react";
-function App() {
-  const routes = useSelector((state) => state.route.route);
 
-  const routersMap = {
-    guest: GuestRouter,
-    admin: AdminRouter,
-    dentist: DentistRouter,
-    staff: StaffRouter,
-    default: OnlineRouter,
+import { Fragment } from "react";
+import { useSelector } from "react-redux";
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  Outlet,
+} from "react-router-dom";
+
+function App() {
+  const user = useSelector((state) => state.user);
+  const VerifyRoure = () => {
+    switch (user.role) {
+      case "admin":
+        return AdminRouter;
+      case "guest":
+        return GuestRouter;
+      case "staff":
+        return StaffRouter;
+      case "dentist":
+        return DentistRouter;
+      default:
+        return OnlineRouter;
+    }
   };
-  console.log(routes);
-  const [veryroute, setVeryroute] = useState(routersMap.default);
-  // switch (routes) {
-  //   case "guest":
-  //     veryroute = routersMap.guest;
-  //     break;
-  //   case "admin":
-  //     veryroute = routersMap.admin;
-  //     break;
-  //   case "dentist":
-  //     veryroute = routersMap.dentist;
-  //     break;
-  //   case "staff":
-  //     veryroute = routersMap.staff;
-  //     break;
-  //   default:
-  //     veryroute = routersMap.default;
-  //     break;
-  // }
-  // setVeryroute(routersMap.admin);
 
   return (
     <>
-      <RouterProvider router={veryroute} />
+      <Router>
+        <Routes>
+          {VerifyRoure().map((route, index) => {
+            const Layout = route.Layout === null ? Fragment : route.Layout;
+            const Page = route.component;
+            return (
+              <Route
+                key={index}
+                path={route.path}
+                element={
+                  <Layout>
+                    <Page />
+                  </Layout>
+                }
+              />
+            );
+          })}
+        </Routes>
+      </Router>
     </>
   );
 }

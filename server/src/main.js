@@ -6,7 +6,7 @@ import cors from "cors";
 import colors from "ansicolors";
 import IP from "./config/ip.js";
 import pool from "./config/connectDB.js";
-import { Connect } from "./config/connectDB.js";
+import { Connect } from "./config/connectDB.js"; 
 Connect();
 
 app.use(express.json());

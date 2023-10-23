@@ -1,82 +1,66 @@
-import { createBrowserRouter } from "react-router-dom";
-
 import DefaultLayout from "~/components/layout/defaultLayout";
 
-import HomePage from "~/pages/online/home";
 import SignInPage from "~/pages/online/signin";
 import SignUpPage from "~/pages/online/signup";
+import HomePage from "~/pages/online/home";
 
 import AdminPage from "~/pages/admin";
-import DentistPage from "~/pages/dentist";
 import GuestPage from "~/pages/guest";
 import StaffPage from "~/pages/staff";
+import DentistPage from "~/pages/dentist";
 
-const OnlineRouter = createBrowserRouter([
+const OnlineRouter = [
   {
     path: "/",
-    element: <HomePage />,
+    component: HomePage,
+    Layout: DefaultLayout ,
   },
   {
     path: "/signin",
-    element: <SignInPage />,
+    component: SignInPage,
+    Layout: null,
   },
   {
     path: "/signup",
-    element: <SignUpPage />,
+    component: SignUpPage,
+    Layout: null,
   },
-]);
+];
 
-const GuestRouter = createBrowserRouter([
+const AdminRouter = [
   {
     path: "/",
-    element: <DefaultLayout />,
-    children: [
-      {
-        path: "/",
-        element: <GuestPage />,
-      },
-    ],
+    component: AdminPage,
+    Layout: DefaultLayout,
   },
-]);
+ 
+];
 
-const AdminRouter = createBrowserRouter([
+const GuestRouter = [
   {
     path: "/",
-    element: <DefaultLayout />,
-    children: [
-      {
-        path: "/",
-        element: <AdminPage />,
-      },
-    ],
+    component: GuestPage,
+    Layout: DefaultLayout,
   },
-]);
+  
+];
 
-const DentistRouter = createBrowserRouter([
+const StaffRouter = [
   {
     path: "/",
-    element: <DefaultLayout />,
-    children: [
-      {
-        path: "/",
-        element: <DentistPage />,
-      },
-    ],
+    component: StaffPage,
+    Layout: DefaultLayout,
   },
-]);
+ 
+];
 
-const StaffRouter = createBrowserRouter([
+const DentistRouter = [
   {
     path: "/",
-    element: <DefaultLayout />,
-    children: [
-      {
-        path: "/",
-        element: <StaffPage />,
-      },
-    ],
+    component: DentistPage,
+    Layout: DefaultLayout,
   },
-]);
+  
+];
 
-
-export { GuestRouter, AdminRouter, DentistRouter, StaffRouter, OnlineRouter };
+export { OnlineRouter, AdminRouter, GuestRouter, StaffRouter, DentistRouter };

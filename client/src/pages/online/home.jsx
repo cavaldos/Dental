@@ -5,10 +5,9 @@ const HomePage = () => {
 
   return (
     <>
-      <Header />
-     <div className="w-full h-full flex ">
-       <h1 className="mx-auto">Home page</h1>
-     </div>
+      <div className="w-full h-full flex ">
+        <h1 className="mx-auto">Home page</h1>
+      </div>
     </>
   );
 };

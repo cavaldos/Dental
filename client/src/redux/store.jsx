@@ -1,5 +1,5 @@
 import countSlice from "./features/countSlice";
-import routeSlice from "./features/routeSlice";
+import userSlice from "./features/userSlice";
 import { configureStore, combineReducers } from "@reduxjs/toolkit";
 import {
   persistStore,
@@ -16,11 +16,11 @@ const persistConfig = {
   key: "root",
   version: 1,
   storage,
-  whitelist: [],
+  whitelist: ["count", "user"],
 };
 const rootReducer = combineReducers({
-    count: countSlice,
-    route: routeSlice,
+  count: countSlice,
+  user: userSlice,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

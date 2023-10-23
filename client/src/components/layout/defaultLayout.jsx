@@ -1,11 +1,13 @@
-import { Outlet } from "react-router-dom";
 import Header from "~/components/header/header";
 
-const DefaultLayout = () => {
+const DefaultLayout = ({ children }) => {
   return (
     <>
+     
       <Header />
-      <Outlet />
+      <div className="h-[100vh] w-[100vw] pt-10  bg-slate-200 flex justify-center">
+        {children}
+      </div>
     </>
   );
 };
