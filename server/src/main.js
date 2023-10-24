@@ -6,7 +6,7 @@ import cors from "cors";
 import colors from "ansicolors";
 import IP from "./config/ip.js";
 import pool from "./config/connectDB.js";
-import { Connect } from "./config/connectDB.js"; 
+import { Connect } from "./config/connectDB.js";
 Connect();
 
 app.use(express.json());
@@ -18,14 +18,17 @@ app.use(express.urlencoded({ extended: true }));
 // // ==========================================
 app.get("/", (req, res) => {
   try {
-    pool.query("SELECT * FROM Users u", (err, result) => {
-      console.log(result);
-      res.send(result);
-    });
-
+    // pool.query("SELECT * FROM Users u", (err, result) => {
+    //   console.log(result);
+    //   res.send(result);
+    // });
+    res.json({ message: "Hello World" });
   } catch (error) {
     console.log(error);
   }
+});
+pool.query("SELECT * FROM NHASI", (err, result) => {
+  console.log(result);
 });
 
 const port = process.env.PORT || 4000;

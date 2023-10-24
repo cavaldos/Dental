@@ -2,10 +2,10 @@ import mysql from "mysql2";
 
 const pool = mysql.createPool({
   host: "localhost",
-  user: "root",
+  user: "test",
   port: 3308,
   database: "dentists",
-  password: "root",
+  password: "test",
   waitForConnections: true,
   connectionLimit: 100,
   maxIdle: 100,
@@ -35,5 +35,8 @@ const Connect = () => {
     return;
   });
 };
+
+
+
 export { Connect };
 export default pool;
