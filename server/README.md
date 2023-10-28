@@ -7,24 +7,24 @@ npm install # yarn
 ```shell
 npm run dev  # yarn dev
 ```
-2. Create docker compose with mysql
+2. Create docker compose with mssql
+```shell
+docker compose -f mssql.yml up -d
+```
+***UserName :sa***
+```shell
+password123@
+```
+
+
+
+#### ======================================================
+
+1. Create docker compose with mysql
+
 ```shell
 docker compose -f mysql.yml -p dentists up -d
-```
-***Config file .yml***
-```yml
-version: '3.8'
-services: 
-  mysql:
-    image: mysql:5.7.40 
-    restart: always
-    ports:
-      - "3308:3306"
-    environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: dentists
-      MYSQL_USER: test
-      MYSQL_PASSWORD: test
+
 ```
 
 ### Build docker

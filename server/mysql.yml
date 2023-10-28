@@ -8,8 +8,22 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: dentists
+      MYSQL_USER: guest
+      MYSQL_PASSWORD: guest
       MYSQL_USER: test
       MYSQL_PASSWORD: test
+      MYSQL_USER: test
+      MYSQL_PASSWORD: test
+
+
+
+   
+   
+      # MYSQL_GUEST: guest
+      # MYSQL_GUEST_PASSWORD: guest
+      # MYSQL_USER: admin
+      # MYSQL_PASSWORD: admin
+  
 
 
 
