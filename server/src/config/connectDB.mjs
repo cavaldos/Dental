@@ -17,7 +17,7 @@ const config = {
   },
 };
 const pool = new sql.ConnectionPool(config);
-export const poolConnect = pool.connect(config);
+export const poolConnect = await pool.connect(config);
 
 export const Connect = async () => {
   try {
