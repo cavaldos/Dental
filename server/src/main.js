@@ -6,10 +6,12 @@ import cors from "cors";
 import colors from "ansicolors";
 import IP from "./config/ip.js";
 
-import { ConnectMSSQL, poolConnect } from "./config/connectDB.js";
+import {  poolConnect } from "./config/connectDB.js";
 import { load, add, del, patch, getTables } from "./utils/mssql.js";
 
-ConnectMSSQL();
+
+poolConnect();
+
 app.use(express.json());
 dotenv.config();
 app.use(morgan("tiny"));
@@ -23,8 +25,12 @@ app.listen(port, host, () => {
   console.log(`  🚀  ➜ Network:  `, colors.green(`http://${IP}:${port}\n`));
 });
 // ====================test function
+// ====================test function
+// ====================test function
+// ====================test function
+// ====================test function
 
-load("SELECT * FROM Users u");
+// load("SELECT * FROM Users u");
 
 const entity = {
   id: 54,
@@ -42,3 +48,4 @@ const condition = "id = 1";
 // del(tableName, condition);
 // patch(tableName, newentity, condition);
 // add(tableName, entity);
+// getTables();
