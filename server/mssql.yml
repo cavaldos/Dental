@@ -9,6 +9,7 @@ services:
       ACCEPT_EULA: Y
       MSSQL_PID: "Developer"
       MSSQL_CONFIG_CONNECTIVITY: "LOCAL"
+
     ports:
       - "1444:1433"
 

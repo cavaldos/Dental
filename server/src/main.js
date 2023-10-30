@@ -6,11 +6,11 @@ import cors from "cors";
 import colors from "ansicolors";
 import IP from "./config/ip.js";
 
-import {  poolConnect } from "./config/connectDB.js";
+import { poolConnect } from "./config/connectDB.js";
 import { load, add, del, patch, getTables } from "./utils/mssql.js";
 
-
-poolConnect();
+poolConnect("loginA", "password1234@");
+poolConnect("loginB", "password1234@");
 
 app.use(express.json());
 dotenv.config();
