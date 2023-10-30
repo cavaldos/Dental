@@ -10,4 +10,3 @@ VALUES (1, 'khanh@gmail.com', 'khanh', '123456'),
         
 INSERT INTO Users 
 VALUES (2, 'khadsafnh@gmail.com', 'khsdfanh', '12345fds6'),
-        
