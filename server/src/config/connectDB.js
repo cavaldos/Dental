@@ -1,7 +1,10 @@
 import sql from "mssql-plus";
+
 import dotenv from "dotenv";
-dotenv.config()
-const PORT= Number(process.env.MSSQL_PORT)
+import colors from "ansicolors";
+dotenv.config();
+const PORT = Number(process.env.MSSQL_PORT);
+
 const config = {
   user: process.env.MSSQL_USERNAME,
   password: process.env.MSSQL_PASSWORD,
@@ -10,8 +13,8 @@ const config = {
   database: process.env.DATABASE,
   options: {
     enableArithAbort: true,
-    trustServerCertificate: true, // Tắt xác nhận chứng chỉ
-    encrypt: true, // Sử dụng kết nối mã hóa SSL
+    trustServerCertificate: true, 
+    encrypt: true, 
   },
   pool: {
     max: 100,
@@ -20,24 +23,24 @@ const config = {
   },
 };
 
-const ConnectMSSQL = async () => {
+const poolConnect = async (name, pass) => {
   try {
-    await sql.connect(config);
-    console.log("    🔥 SQL Server connection successful!\n");
-  } catch (error) {
-    console.error("    🔥 SQL Server connection error !!!!!   \n");
-  }
-};
-
-
-const poolConnect = async () => {
-  try {
-    let pool = new sql.ConnectionPool(config);
-    await pool.connect(config);
+    const connectionConfig = {
+      ...config,
+      user: name || config.user,
+      password: pass || config.password,
+    };
+    let pool = new sql.ConnectionPool(connectionConfig);
+    await pool.connect();
+    console.log(
+      `    🔥 SQL Server poolconnection successful !!! username:`,
+      colors.red(`${connectionConfig.user}`),
+      `\n`
+    );
     return pool;
   } catch (error) {
-    console.error("    🔥 poolconnect connection error !!!!!   \n");
+    console.error(`    🔥 poolconnect connection error !!!!!   \n`);
   }
 };
 
-export { ConnectMSSQL, poolConnect };
+export { poolConnect };
