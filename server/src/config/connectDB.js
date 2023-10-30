@@ -1,4 +1,4 @@
-import sql from "mssql";
+import sql from "mssql-plus";
 
 const config = {
   user: "sa",
@@ -9,6 +9,7 @@ const config = {
   options: {
     enableArithAbort: true,
     trustServerCertificate: true, // Tắt xác nhận chứng chỉ
+    encrypt: true, // Sử dụng kết nối mã hóa SSL
   },
   pool: {
     max: 100,
@@ -17,25 +18,24 @@ const config = {
   },
 };
 
-    // console.log("    🔥 SQL Server connection successful!\n");
-//    console.log("    🔥 SQL Server connection error:");
-
-const pool = new sql.ConnectionPool(config);
-export const poolConnect = pool.connect(config);
-
-export const Connect = async () => {
+const ConnectMSSQL = async () => {
   try {
     await sql.connect(config);
-    if (pool.connecting) {
-      console.log("    🔥 SQL Server connecting...");
-    }
-    if (pool.connected) {
-      console.log("    🔥 SQL Server connected!");
-    }
-    
+    console.log("    🔥 SQL Server connection successful!\n");
   } catch (error) {
-    console.log("    🔥 SQL Server connection error:");
-    console.error(error);
+    console.error("    🔥 SQL Server connection error !!!!!   \n");
   }
 };
-export default pool;
+
+
+const poolConnect = async () => {
+  try {
+    let pool = new sql.ConnectionPool(config);
+    await pool.connect(config);
+    return pool;
+  } catch (error) {
+    console.error("    🔥 poolconnect connection error !!!!!   \n");
+  }
+};
+
+export { ConnectMSSQL, poolConnect };
