@@ -1,11 +1,13 @@
 import sql from "mssql-plus";
-
+import dotenv from "dotenv";
+dotenv.config()
+const PORT= Number(process.env.MSSQL_PORT)
 const config = {
-  user: "sa",
-  password: "password123@",
-  server: "localhost",
-  port: 1444,
-  database: "master",
+  user: process.env.MSSQL_USERNAME,
+  password: process.env.MSSQL_PASSWORD,
+  server: process.env.MSSQL_SERVER,
+  port: PORT,
+  database: process.env.DATABASE,
   options: {
     enableArithAbort: true,
     trustServerCertificate: true, // Tắt xác nhận chứng chỉ

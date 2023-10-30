@@ -23,7 +23,7 @@ docker compose -f mssql.yml up -d
 ```shell
 password123@
 ```
-
+### ` Rename` `.env.example` to `.env`
 ## Documentation
 
 ### Requests
