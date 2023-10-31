@@ -1,39 +1,46 @@
-import mysql from "mysql2";
+import sql from "mssql-plus";
 
-const pool = mysql.createPool({
-  host: "localhost",
-  user: "root",
-  port: 3308,
-  database: "dentists",
-  password: "root",
-  waitForConnections: true,
-  connectionLimit: 100,
-  maxIdle: 100,
-  idleTimeout: 60000,
-  queueLimit: 0,
-  enableKeepAlive: true,
-  keepAliveInitialDelay: 0,
-});
-pool.on("connection", (connection) => {
-  console.log("    🔥 MySQL Connection successful!");
-});
+import dotenv from "dotenv";
+import colors from "ansicolors";
+dotenv.config();
+const PORT = Number(process.env.MSSQL_PORT);
 
-const Connect = () => {
-  pool.getConnection((err, connection) => {
-    if (err) {
-      if (err.code === "PROTOCOL_CONNECTION_LOST") {
-        console.error("    🔥 Database connection was closed.");
-      }
-      if (err.code === "ER_CON_COUNT_ERROR") {
-        console.error("    🔥 Database has too many connections.");
-      }
-      if (err.code === "ECONNREFUSED") {
-        console.error("    🔥 Database connection was refused.");
-      }
-    }
-    if (connection) connection.release();
-    return;
-  });
+const config = {
+  user: process.env.MSSQL_USERNAME,
+  password: process.env.MSSQL_PASSWORD,
+  server: process.env.MSSQL_SERVER,
+  port: PORT,
+  database: process.env.DATABASE,
+  options: {
+    enableArithAbort: true,
+    trustServerCertificate: true, 
+    encrypt: true, 
+  },
+  pool: {
+    max: 100,
+    min: 0,
+    idleTimeoutMillis: 60000,
+  },
 };
-export { Connect };
-export default pool;
+
+const poolConnect = async (name, pass) => {
+  try {
+    const connectionConfig = {
+      ...config,
+      user: name || config.user,
+      password: pass || config.password,
+    };
+    let pool = new sql.ConnectionPool(connectionConfig);
+    await pool.connect();
+    console.log(
+      `    🔥 SQL Server poolconnection successful !!! username:`,
+      colors.red(`${connectionConfig.user}`),
+      `\n`
+    );
+    return pool;
+  } catch (error) {
+    console.error(`    🔥 poolconnect connection error !!!!!   \n`);
+  }
+};
+
+export { poolConnect };
