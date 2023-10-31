@@ -16,7 +16,7 @@ services:
      - sqlserver_volume:/var/opt/mssql
     networks:
       my_network:
-        ipv4_address:  10.0.5.2  # Đặt địa chỉ IP tĩnh cho container
+         ipv4_address: 10.0.5.2 # Đặt địa chỉ IP tĩnh cho container
 volumes:
   sqlserver_volume:
     driver: local
@@ -25,6 +25,7 @@ networks:
     driver: bridge
     ipam:
       config:
-        - subnet: 10.0.5.0/30 # Đặt subnet cho mạng cầu
-          gateway: 10.0.5.1 
+        - subnet:  10.0.5.2/30 # Đặt subnet cho mạng cầu
+          gateway: 10.0.5.3 # Đặt gateway cho mạng cầu
 
+# docker compose -f mssql.yml up -d

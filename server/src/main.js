@@ -8,12 +8,12 @@ import IP from "./config/ip.js";
 
 import { poolConnect } from "./config/connectDB.js";
 import { load, add, del, patch, getTables } from "./utils/mssql.js";
-
+import setup from "./config/setup.js";
 poolConnect();
-
 poolConnect("loginA", "password123@");
 poolConnect("loginB", "password123@");
 
+setup();
 app.use(express.json());
 dotenv.config();
 app.use(morgan("tiny"));
@@ -32,8 +32,8 @@ app.listen(port, host, () => {
 // ====================test function
 // ====================test function
 
-// load("SELECT * FROM Users u");
 
+load("SELECT * FROM Users u");
 const entity = {
   id: 54,
   email: "khadasfdsfgsdfnh@gmail.com",
