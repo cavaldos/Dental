@@ -67,3 +67,26 @@ const newentity = {
 const condition = "id = 1";
 patch(tableName, newentity, condition);
 ```
+### Push to Docker Hub
+1.  Commit your image
+```shell
+docker commit <id-docker-container> khanh29072003/mssql-image:tag
+```
+2. show images
+```shell
+docker images 
+```
+4. Push to Docker Hub
+
+```shell
+ docker image push khanh29072003/mssql-image:1.0.0 
+```
+### Pull from Docker Hub
+1. Pull from Docker Hub
+```shell
+docker pull khanh29072003/mssql-image:1.0.0
+```
+2. Run image
+```shell
+docker run -p 1436:1433 -d khanh29072003/mssql-image:1.0.0
+```
