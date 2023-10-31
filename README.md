@@ -1,4 +1,6 @@
 # Dentist client
+###  ER diagram
+![](./screen/ERdiagram.png)
 
 ### Install
 
