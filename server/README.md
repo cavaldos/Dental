@@ -1,63 +1,69 @@
 ## Dentist Server
+
 #### Install
-1. Install packages 
+
+1. Install packages
+
 ```shell
 npm install # yarn
 ```
+
 ```shell
 npm run dev  # yarn dev
 ```
-2. Create docker compose with mysql
-```shell
-docker compose -f mysql.yml -p dentists up -d
-```
-***Config file .yml***
-```yml
-version: '3.8'
-services: 
-  mysql:
-    image: mysql:5.7.40 
-    restart: always
-    ports:
-      - "3308:3306"
-    environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: dentists
-      MYSQL_USER: test
-      MYSQL_PASSWORD: test
-```
 
-### Build docker
-
-
-1.Build your updated version of the image, using the `docker build` command.
+2. Create docker compose with mssql
 
 ```shell
-docker build -t  dentists-server .
+docker compose -f mssql.yml up -d
 ```
 
-2.Start a new container using the updated code.
+**_UserName :sa_**
 
 ```shell
-docker run -dp 3000:3000  dentists-server .
+password123@
 ```
-3. Check docker container
-```shell
-docker ps -a
+### ` Rename` `.env.example` to `.env`
+## Documentation
+
+### Requests
+
+#### Direct `./utils/mssql.js`
+
+1. Load
+
+```js
+load("SELECT * FROM Users u");
 ```
-4. Check docker logs
-```shell
-docker logs <container_id>
+
+2. add
+
+```js
+const entity = {
+  id: 54,
+  email: "21126090@gmail.com",
+  name: "vu vo",
+  password: "12455563456",
+};
+const tableName = "Users";
+add(tableName, entity);
 ```
-5. Stop docker container
-```shell
-docker stop <container_id>
+
+3. del
+
+```js
+const tableName = "Users";
+const condition = "id = 1";
+del(tableName, condition);
 ```
-6. Remove docker container
-```shell
-docker rm <container_id>
-```
-7. Remove docker image
-```shell
-docker rmi <image_id>
+
+4.  patch
+
+```js
+const newentity = {
+  name: "New Name",
+  email: "newemail@example.com",
+};
+const condition = "id = 1";
+patch(tableName, newentity, condition);
 ```
