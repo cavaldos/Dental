@@ -12,14 +12,14 @@ services:
       MSSQL_CONFIG_CONNECTIVITY: "LOCAL"  
     ports:
       - "1444:1433"
-    volumes:
-     - sqlserver_volume:/var/opt/mssql
+    # volumes:
+    #  - sqlserver_volume:/var/opt/mssql
     networks:
       my_network:
          ipv4_address: 10.0.5.2 # Đặt địa chỉ IP tĩnh cho container
-volumes:
-  sqlserver_volume:
-    driver: local
+# volumes:
+#   sqlserver_volume:
+#     driver: local
 networks:
   my_network:
     driver: bridge
