@@ -10,19 +10,19 @@ import { poolConnect } from "./config/connectDB.js";
 import { load, add, del, patch, getTables } from "./utils/mssql.js";
 // import setup from "./config/setup.js";
 poolConnect();
-const createTablesSLQ = `  
-CREATE TABLE KHACHHANGG
-(
-    SODT VARCHAR(10) PRIMARY KEY,
-    HOTEN NVARCHAR(50),
-    PHAI NVARCHAR(5) CHECK(PHAI IN (N'Nam', N'Nữ')),
-    NGAYSINH DATE,
-	DIACHI NVARCHAR(250),
-	MATKHAU VARCHAR(20),
-	_DAKHOA BIT DEFAULT 0
-);
+// const createTablesSLQ = `
+// CREATE TABLE KHACHHANGG
+// (
+//     SODT VARCHAR(10) PRIMARY KEY,
+//     HOTEN NVARCHAR(50),
+//     PHAI NVARCHAR(5) CHECK(PHAI IN (N'Nam', N'Nữ')),
+//     NGAYSINH DATE,
+// 	DIACHI NVARCHAR(250),
+// 	MATKHAU VARCHAR(20),
+// 	_DAKHOA BIT DEFAULT 0
+// );
 
-`;
+// `;
 
 // setup();
 app.use(express.json());
@@ -38,15 +38,12 @@ app.listen(port, host, () => {
   console.log(`  🚀  ➜ Network:  `, colors.green(`http://${IP}:${port}\n`));
 });
 
-
-
-
 // ====================test function
 // ====================test function
 // ====================test function
 // ====================test function
 // ====================test function
-load(createTablesSLQ);  
+// load(createTablesSLQ);
 
 // load("SELECT * FROM Users u");
 // const entity = {
