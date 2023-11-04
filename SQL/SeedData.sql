@@ -257,7 +257,7 @@ VALUES ('NS0005', 4, N'Thay răng giả. Tôi muốn thay chiếc răng giả c�
 INSERT INTO LICHHEN (MANS, SOTT, LYDOKHAM, SODT)
 VALUES ('NS0006', 1, N'Người thân tôi nói rằng tôi kêu răng khi ngủ, và tôi muốn kiểm tra xem có vấn đề gì về nha khoa gây ra điều này.', '0387654321');
 
---Thêm hồ sơ
+--Thêm hồ sơ bệnh án
 INSERT INTO HOSOBENH(SODT, SOTT, NGAYKHAM, DANDO, MANS, _DAXUATHOADON)
 VALUES
 ('0323456789', 1, '2024-01-05', N'Chải răng cẩn thận, ít nhất hai lần mỗi ngày. Sử dụng bàn chải mềm và kem đánh răng chứa fluor. Hạn chế thức ăn và đồ uống nóng hoặc lạnh.', 'NS0001', 1),
@@ -306,9 +306,7 @@ VALUES ('0345678901', 1, '2024-01-05', 'NV0010');
 
 
 
---  , LOAI THUOC
-
-
+-- NHAP LOAI THUOC
 INSERT INTO LOAITHUOC (MATHUOC, TENTHUOC, DONVITINH, CHIDINH, SLTON, SLNHAP, SLDAHUY, NGAYHETHAN, DONGIA) 
 VALUES ('MT01', N'Paracetamol', N'Viên', 'Giảm đau nhẹ', 100, 200, 5, '2024-12-31', 5000);
 INSERT INTO LOAITHUOC (MATHUOC, TENTHUOC, DONVITINH, CHIDINH, SLTON, SLNHAP, SLDAHUY, NGAYHETHAN, DONGIA) 
@@ -339,8 +337,6 @@ INSERT INTO LOAITHUOC (MATHUOC, TENTHUOC, DONVITINH, CHIDINH, SLTON, SLNHAP, SLD
 VALUES ('MT14', N'Vitamin B7', N'Chai ', N'Bổ sung vitamin B7', 80, 100, 3, '2024-08-31', 70000);
 
 -- -THEM LOAI DICH VU
- 
-
 INSERT INTO LOAIDICHVU (MADV, TENDV, MOTA, DONGIA)
 VALUES('DV01', N'Khám răng', N'Dịch vụ này bao gồm việc khám và tư vấn về tình trạng răng miệng của bệnh nhân', 200000);
 INSERT INTO LOAIDICHVU (MADV, TENDV, MOTA, DONGIA)
@@ -383,6 +379,8 @@ INSERT INTO LOAIDICHVU (MADV, TENDV, MOTA, DONGIA)
 VALUES('DV20', N'Đính đá răng' , N'Dịch vụ này bao gồm việc đính đá ngọc trên răng để tạo điểm nhấn và thẩm mỹ cho những người muốn trang trí cho nụ cười của mình', 100000);
 INSERT INTO LOAIDICHVU (MADV, TENDV, MOTA, DONGIA)
 VALUES('DV21', N'Chỉnh nha thẩm mỹ', N'Dịch vụ này đảm nhiệm việc chỉnh nha nhằm cải thiện vị trí và hình dáng của răng một cách thẩm mỹ', 1000000);
+
+--Thêm chi tiết thuốc
 
 
 
