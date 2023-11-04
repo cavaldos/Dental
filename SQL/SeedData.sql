@@ -91,6 +91,18 @@ VALUES
 ('MT01', 'Paracetamol', 'Viên', 'Giảm đau nhẹ', 100, 200, 5, '2024-12-31', 5000),
 ('MT02', 'Amoxicillin', 'Hộp 10 vỉ x 10 viên', 'Kháng sinh phổ rộng', 50, 100, 0, '2023-03-31', 20000),
 ('MT03', 'Vitamin C', 'Chai 30 viên', 'Bổ sung vitamin C', 80, 100, 3, '2024-08-31', 10000);
+('MT04', 'Vitamin B', 'Chai 30 viên', 'Bổ sung vitamin B', 80, 100, 3, '2024-08-31', 10000);
+('MT05', 'Vitamin D', 'Chai 30 viên', 'Bổ sung vitamin D', 80, 100, 3, '2024-08-31', 10000);
+('MT06', 'Vitamin E', 'Chai 30 viên', 'Bổ sung vitamin E', 80, 100, 3, '2024-08-31', 10000);
+('MT07', 'Vitamin K', 'Chai 30 viên', 'Bổ sung vitamin K', 80, 100, 3, '2024-08-31', 10000);
+('MT08', 'Vitamin A', 'Chai 30 viên', 'Bổ sung vitamin A', 80, 100, 3, '2024-08-31', 10000);
+('MT09', 'Vitamin B1', 'Chai 30 viên', 'Bổ sung vitamin B1', 80, 100, 3, '2024-08-31', 10000);
+('MT10', 'Vitamin B2', 'Chai 30 viên', 'Bổ sung vitamin B2', 80, 100, 3, '2024-08-31', 10000);
+('MT11', 'Vitamin B3', 'Chai 30 viên', 'Bổ sung vitamin B3', 80, 100, 3, '2024-08-31', 10000);
+('MT12', 'Vitamin B5', 'Chai 30 viên', 'Bổ sung vitamin B5', 80, 100, 3, '2024-08-31', 10000);
+('MT13', 'Vitamin B6', 'Chai 30 viên', 'Bổ sung vitamin B6', 80, 100, 3, '2024-08-31', 10000);
+('MT14', 'Vitamin B7', 'Chai 30 viên', 'Bổ sung vitamin B7', 80, 100, 3, '2024-08-31', 10000);
+
 
 -- Insert data into CHITIETTHUOC table
 INSERT INTO CHITIETTHUOC (MATHUOC, SOTT, SODT, SOLUONG, THOIDIEMDUNG)
@@ -101,12 +113,16 @@ VALUES
 ('MT02', 1, 'DT02', 1, 'Ngày 1 viên'),
 ('MT03', 1, 'DT03', 1, 'Ngày 1 viên');
 
+
 -- Insert data into LOAIDICHVU table  
 INSERT INTO LOAIDICHVU (MADV, TENDV, MOTA, DONGIA)
 VALUES
 ('DV01', 'Khám răng', 'Khám và tư vấn răng', 200000),
 ('DV02', 'Chụp X-quang', 'Chụp X-quang phổi hoặc các bộ phận khác', 150000),
 ('DV03', 'Xét nghiệm máu', 'Xét nghiệm các chỉ số máu', 50000);
+('DV04', 'Tẩy trắng răng', 'Tẩy trắng răng', 500000);
+('DV05', 'Bọc răng sứ' , 'Bọc răng sứ thẩm mỹ', 1000000);
+
 
 -- Insert data into CHITIETDV table
 INSERT INTO CHITIETDV (MADV, SOTT, SODT, SOLUONG)  
