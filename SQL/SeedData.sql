@@ -82,6 +82,7 @@ END;
 GO
 
 
+
 --Nhap lieu bang KHACHHANG
 INSERT INTO KHACHHANG (SODT, HOTEN, PHAI, NGAYSINH, DIACHI, MATKHAU)
 VALUES ('0371234567', N'Nguyễn Huyền Trang', N'Nữ', '1978-05-15', N'15/3 Hoàng Hoa Thám, Phường 6, Quận 3, TP.HCM', 'P@ssw0rd!');
@@ -305,51 +306,86 @@ VALUES ('0345678901', 1, '2024-01-05', 'NV0010');
 
 
 
--- THEM LOAI DICH VU
--- LOAI THUOC 
--- THEM QTV
--- Insert data into LOAITHUOC table
+--  , LOAI THUOC
+
+
 INSERT INTO LOAITHUOC (MATHUOC, TENTHUOC, DONVITINH, CHIDINH, SLTON, SLNHAP, SLDAHUY, NGAYHETHAN, DONGIA) 
-VALUES 
-('MT01', 'Paracetamol', 'Viên', 'Giảm đau nhẹ', 100, 200, 5, '2024-12-31', 5000),
-('MT02', 'Amoxicillin', 'Hộp 10 vỉ x 10 viên', 'Kháng sinh phổ rộng', 50, 100, 0, '2023-03-31', 20000),
-('MT03', 'Vitamin C', 'Chai 30 viên', 'Bổ sung vitamin C', 80, 100, 3, '2024-08-31', 10000);
-('MT04', 'Vitamin B', 'Chai 30 viên', 'Bổ sung vitamin B', 80, 100, 3, '2024-08-31', 10000);
-('MT05', 'Vitamin D', 'Chai 30 viên', 'Bổ sung vitamin D', 80, 100, 3, '2024-08-31', 10000);
-('MT06', 'Vitamin E', 'Chai 30 viên', 'Bổ sung vitamin E', 80, 100, 3, '2024-08-31', 10000);
-('MT07', 'Vitamin K', 'Chai 30 viên', 'Bổ sung vitamin K', 80, 100, 3, '2024-08-31', 10000);
-('MT08', 'Vitamin A', 'Chai 30 viên', 'Bổ sung vitamin A', 80, 100, 3, '2024-08-31', 10000);
-('MT09', 'Vitamin B1', 'Chai 30 viên', 'Bổ sung vitamin B1', 80, 100, 3, '2024-08-31', 10000);
-('MT10', 'Vitamin B2', 'Chai 30 viên', 'Bổ sung vitamin B2', 80, 100, 3, '2024-08-31', 10000);
-('MT11', 'Vitamin B3', 'Chai 30 viên', 'Bổ sung vitamin B3', 80, 100, 3, '2024-08-31', 10000);
-('MT12', 'Vitamin B5', 'Chai 30 viên', 'Bổ sung vitamin B5', 80, 100, 3, '2024-08-31', 10000);
-('MT13', 'Vitamin B6', 'Chai 30 viên', 'Bổ sung vitamin B6', 80, 100, 3, '2024-08-31', 10000);
-('MT14', 'Vitamin B7', 'Chai 30 viên', 'Bổ sung vitamin B7', 80, 100, 3, '2024-08-31', 10000);
+VALUES ('MT01', N'Paracetamol', N'Viên', 'Giảm đau nhẹ', 100, 200, 5, '2024-12-31', 5000);
+INSERT INTO LOAITHUOC (MATHUOC, TENTHUOC, DONVITINH, CHIDINH, SLTON, SLNHAP, SLDAHUY, NGAYHETHAN, DONGIA) 
+VALUES ('MT02', N'Amoxicillin', N'Hộp ', N'Kháng sinh phổ rộng', 50, 100, 0, '2023-03-31', 20000);
+INSERT INTO LOAITHUOC (MATHUOC, TENTHUOC, DONVITINH, CHIDINH, SLTON, SLNHAP, SLDAHUY, NGAYHETHAN, DONGIA) 
+VALUES ('MT03', N'Vitamin C', N'Chai ', N'Bổ sung vitamin C', 80, 100, 3, '2024-08-31', 12000);
+INSERT INTO LOAITHUOC (MATHUOC, TENTHUOC, DONVITINH, CHIDINH, SLTON, SLNHAP, SLDAHUY, NGAYHETHAN, DONGIA) 
+VALUES ('MT04', N'Vitamin B', N'Chai ', N'Bổ sung vitamin B', 80, 100, 3, '2024-08-31', 13000);
+INSERT INTO LOAITHUOC (MATHUOC, TENTHUOC, DONVITINH, CHIDINH, SLTON, SLNHAP, SLDAHUY, NGAYHETHAN, DONGIA) 
+VALUES ('MT05', N'Vitamin D', N'Chai ', N'Bổ sung vitamin D', 80, 100, 3, '2024-08-31', 14000);
+INSERT INTO LOAITHUOC (MATHUOC, TENTHUOC, DONVITINH, CHIDINH, SLTON, SLNHAP, SLDAHUY, NGAYHETHAN, DONGIA) 
+VALUES ('MT06', N'Vitamin E', N'Chai ', N'Bổ sung vitamin E', 80, 100, 3, '2024-08-31', 15000);
+INSERT INTO LOAITHUOC (MATHUOC, TENTHUOC, DONVITINH, CHIDINH, SLTON, SLNHAP, SLDAHUY, NGAYHETHAN, DONGIA) 
+VALUES ('MT07', N'Vitamin K', N'Chai ', N'Bổ sung vitamin K', 80, 100, 3, '2024-08-31', 16000);
+INSERT INTO LOAITHUOC (MATHUOC, TENTHUOC, DONVITINH, CHIDINH, SLTON, SLNHAP, SLDAHUY, NGAYHETHAN, DONGIA) 
+VALUES ('MT08', N'Vitamin A', N'Chai ', N'Bổ sung vitamin A', 80, 100, 3, '2024-08-31', 17000);
+INSERT INTO LOAITHUOC (MATHUOC, TENTHUOC, DONVITINH, CHIDINH, SLTON, SLNHAP, SLDAHUY, NGAYHETHAN, DONGIA) 
+VALUES ('MT09', N'Vitamin B1', N'Chai ', N'Bổ sung vitamin B1', 80, 100, 3, '2024-08-31', 17000);
+INSERT INTO LOAITHUOC (MATHUOC, TENTHUOC, DONVITINH, CHIDINH, SLTON, SLNHAP, SLDAHUY, NGAYHETHAN, DONGIA) 
+VALUES ('MT10', N'Vitamin B2', N'Chai ', N'Bổ sung vitamin B2', 80, 100, 3, '2024-08-31', 15000);
+INSERT INTO LOAITHUOC (MATHUOC, TENTHUOC, DONVITINH, CHIDINH, SLTON, SLNHAP, SLDAHUY, NGAYHETHAN, DONGIA) 
+VALUES ('MT11', N'Vitamin B3', N'Chai ', N'Bổ sung vitamin B3', 80, 100, 3, '2024-08-31', 20000);
+INSERT INTO LOAITHUOC (MATHUOC, TENTHUOC, DONVITINH, CHIDINH, SLTON, SLNHAP, SLDAHUY, NGAYHETHAN, DONGIA) 
+VALUES ('MT12', N'Vitamin B5', N'Chai ', N'Bổ sung vitamin B5', 80, 100, 3, '2024-08-31', 40000);
+INSERT INTO LOAITHUOC (MATHUOC, TENTHUOC, DONVITINH, CHIDINH, SLTON, SLNHAP, SLDAHUY, NGAYHETHAN, DONGIA) 
+VALUES ('MT13', N'Vitamin B6', N'Chai ', N'Bổ sung vitamin B6', 80, 100, 3, '2024-08-31', 60000);
+INSERT INTO LOAITHUOC (MATHUOC, TENTHUOC, DONVITINH, CHIDINH, SLTON, SLNHAP, SLDAHUY, NGAYHETHAN, DONGIA) 
+VALUES ('MT14', N'Vitamin B7', N'Chai ', N'Bổ sung vitamin B7', 80, 100, 3, '2024-08-31', 70000);
 
+-- -THEM LOAI DICH VU
+ 
 
--- Insert data into CHITIETTHUOC table
-INSERT INTO CHITIETTHUOC (MATHUOC, SOTT, SODT, SOLUONG, THOIDIEMDUNG)
-VALUES
-('MT01', 1, 'DT01', 10, 'Sáng'),
-('MT01', 2, 'DT01', 10, 'Trưa'),
-('MT01', 3, 'DT01', 10 ,'Tối'),
-('MT02', 1, 'DT02', 1, 'Ngày 1 viên'),
-('MT03', 1, 'DT03', 1, 'Ngày 1 viên');
-
-
--- Insert data into LOAIDICHVU table  
 INSERT INTO LOAIDICHVU (MADV, TENDV, MOTA, DONGIA)
-VALUES
-('DV01', 'Khám răng', 'Khám và tư vấn răng', 200000),
-('DV02', 'Chụp X-quang', 'Chụp X-quang phổi hoặc các bộ phận khác', 150000),
-('DV03', 'Xét nghiệm máu', 'Xét nghiệm các chỉ số máu', 50000);
-('DV04', 'Tẩy trắng răng', 'Tẩy trắng răng', 500000);
-('DV05', 'Bọc răng sứ' , 'Bọc răng sứ thẩm mỹ', 1000000);
+VALUES('DV01', N'Khám răng', N'Dịch vụ này bao gồm việc khám và tư vấn về tình trạng răng miệng của bệnh nhân', 200000);
+INSERT INTO LOAIDICHVU (MADV, TENDV, MOTA, DONGIA)
+VALUES('DV02', N'Chụp X-quang', N'Dịch vụ này cung cấp việc chụp X-quang để đánh giá và chuẩn đoán tình trạng răng miệng', 150000);
+INSERT INTO LOAIDICHVU (MADV, TENDV, MOTA, DONGIA)
+VALUES('DV03', N'Đắp răng khiểng', N'Dịch vụ này đảm nhiệm việc đắp răng khiểng để điều chỉnh vị trí của răng', 500000);
+INSERT INTO LOAIDICHVU (MADV, TENDV, MOTA, DONGIA)
+VALUES('DV04', N'Tẩy trắng răng', N'Dịch vụ này cung cấp việc tẩy trắng răng để làm sáng và làm trắng răng', 500000);
+INSERT INTO LOAIDICHVU (MADV, TENDV, MOTA, DONGIA)
+VALUES('DV05', N'Bọc răng sứ' , N'Dịch vụ này bao gồm việc bọc răng bằng vật liệu sứ để cải thiện ngoại hình và chức năng của răng', 1000000);
+INSERT INTO LOAIDICHVU (MADV, TENDV, MOTA, DONGIA)
+VALUES('DV06', N'Cấy ghép Implant', N'Dịch vụ này liên quan đến việc cấy ghép Implant nha khoa để thay thế răng hoặc hỗ trợ các công việc nha khoa khác', 2000000);
+INSERT INTO LOAIDICHVU (MADV, TENDV, MOTA, DONGIA)
+VALUES('DV07', N'Chỉnh nha', N'Dịch vụ này đảm nhiệm việc chỉnh nha để điều chỉnh vị trí của răng và cải thiện hàm răng', 5000000);
+INSERT INTO LOAIDICHVU (MADV, TENDV, MOTA, DONGIA)
+VALUES('DV08', N'Phục hình răng sứ', N'Dịch vụ này liên quan đến việc phục hình răng bằng vật liệu sứ để khôi phục ngoại hình và chức năng của răng', 1000000);
+INSERT INTO LOAIDICHVU (MADV, TENDV, MOTA, DONGIA)
+VALUES('DV09', N'Cạo vôi răng', N'Dịch vụ này bao gồm việc cạo vôi trên bề mặt răng nhằm loại bỏ mảng bám và tái tạo vệ sinh răng miệng', 500000);
+INSERT INTO LOAIDICHVU (MADV, TENDV, MOTA, DONGIA)
+VALUES('DV10', N'Nhổ răng', N'Dịch vụ này đảm nhiệm việc nhổ răng khi cần thiết, bao gồm cả nhổ răng khôn', 250000);
+INSERT INTO LOAIDICHVU (MADV, TENDV, MOTA, DONGIA)
+VALUES('DV11', N'Chữa nha chu', N'Dịch vụ này cung cấp việc chữa trị các bệnh nha chu như viêm nướu, chảy máu nướu, và hôi miệng', 300000);
+INSERT INTO LOAIDICHVU (MADV, TENDV, MOTA, DONGIA)
+VALUES('DV12', N'Phẫu thuật trong miệng', N'Dịch vụ này liên quan đến việc phẫu thuật trong miệng như tạo hình lợi, tạo hình mô mềm, hoặc phẫu thuật tuyến nước bọt', 5000000);
+INSERT INTO LOAIDICHVU (MADV, TENDV, MOTA, DONGIA)
+VALUES('DV13', N'Chữa tủy răng trẻ em', N'Dịch vụ này cung cấp việc chữa trị tủy răng trẻ em, bao gồm cả việc cấp cứu trong trường hợp cần thiết', 1000000);
+INSERT INTO LOAIDICHVU (MADV, TENDV, MOTA, DONGIA)
+VALUES('DV14', N'Trám răng sữa trẻ em', N'Dịch vụ này liên quan đến việc chữa trị các vấn đề răng nội nha như viêm tủy, nhiễm trùng, hoặc đau răng ADD', 500000);
+INSERT INTO LOAIDICHVU (MADV, TENDV, MOTA, DONGIA)
+VALUES('DV15', N'Chữa răng nội nha', N'Dịch vụ này bao gồm việc phục hình răng giả để thay thế răng mất, cung cấp chức năng hàm răng', 500000);
+INSERT INTO LOAIDICHVU (MADV, TENDV, MOTA, DONGIA)
+VALUES('DV16', N'Phục hình răng giả', N'Dịch vụ này đảm nhiệm việc làm cầu răng bằng vật liệu sứ để thay thế nhiều răng mất liên tiếp', 500000);
+INSERT INTO LOAIDICHVU (MADV, TENDV, MOTA, DONGIA)
+VALUES('DV17', N'Cầu răng sứ', N'Dịch vụ này cung cấp các dịch vụ nha khoa tổng quát như khám răng', 1100000);
+INSERT INTO LOAIDICHVU (MADV, TENDV, MOTA, DONGIA)
+VALUES('DV18', N'Nha khoa tổng quát', N'Dịch vụ này cung cấp các dịch vụ nha khoa tổng quát như khám răng, tẩy trắng, trám răng, và chữa trị các vấn đề thông thường', 350000);
+INSERT INTO LOAIDICHVU (MADV, TENDV, MOTA, DONGIA)
+VALUES('DV19', N'Nha khoa thẩm mỹ', N'Dịch vụ này liên quan đến việc cải thiện ngoại hình và thẩm mỹ răng miệng bằng các phương pháp như tẩy trắng, bọc răng sứ, chỉnh nha thẩm mỹ', 500000);
+INSERT INTO LOAIDICHVU (MADV, TENDV, MOTA, DONGIA)
+VALUES('DV20', N'Đính đá răng' , N'Dịch vụ này bao gồm việc đính đá ngọc trên răng để tạo điểm nhấn và thẩm mỹ cho những người muốn trang trí cho nụ cười của mình', 100000);
+INSERT INTO LOAIDICHVU (MADV, TENDV, MOTA, DONGIA)
+VALUES('DV21', N'Chỉnh nha thẩm mỹ', N'Dịch vụ này đảm nhiệm việc chỉnh nha nhằm cải thiện vị trí và hình dáng của răng một cách thẩm mỹ', 1000000);
 
 
--- Insert data into CHITIETDV table
-INSERT INTO CHITIETDV (MADV, SOTT, SODT, SOLUONG)  
-VALUES
-('DV01', 1, 'DT04', 1),
-('DV02', 1, 'DT04', 1),
-('DV03', 1, 'DT05', 1);
+
+
+
+
