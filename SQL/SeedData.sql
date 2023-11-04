@@ -49,36 +49,59 @@ INSERT INTO NHASI (MANS, HOTEN, PHAI, GIOITHIEU, MATKHAU)
 VALUES ('NS0010', N'Vũ Hoàng Anh', N'Nam', N'Chuyên gia: Điều trị nha chu; nha khoa tổng quát; nha khoa thẩm mỹ; chỉnh nha.\nNgôn ngữ: Tiếng Việt, Tiếng Anh.\nHọc vấn: Tốt nghiệp Bác sĩ Trường Đại học Y Dược TP. Hồ Chí Minh năm 2015.\nKinh nghiệm: Bác sĩ tại Bệnh Viện Răng Hàm Mặt TP. Hồ Chí Minh từ năm 2015.', 'H1lls&Gr33n$');
 GO
 -- Thêm LICHRANH
+-- Ngày 2024-01-01
+INSERT INTO LICHRANH (MANS, SOTT, MACA, NGAY)
+VALUES
+    ('NS0003', 1, 'CA001', '2024-01-01'),
+    ('NS0004', 1, 'CA001', '2024-01-01'),
+    ('NS0001', 1, 'CA002', '2024-01-01'),
+    ('NS0010', 1, 'CA002', '2024-01-01'),
+    ('NS0007', 1, 'CA003', '2024-01-01'),
+    ('NS0001', 2, 'CA003', '2024-01-01'),
+    ('NS0003', 2, 'CA004', '2024-01-01'),
+    ('NS0004', 2, 'CA004', '2024-01-01'),
+    ('NS0002', 1, 'CA005', '2024-01-01'),
+    ('NS0006', 1, 'CA005', '2024-01-01'),
+    ('NS0006', 2, 'CA006', '2024-01-01'),
+    ('NS0003', 3, 'CA006', '2024-01-01');
 
-DECLARE @StartDate DATE = '2024-01-01';
-DECLARE @EndDate DATE = '2024-01-07';
-DECLARE @ShiftCount INT = 1;
-DECLARE @CurrentDate DATE = @StartDate;
+-- Ngày 2024-01-02
+INSERT INTO LICHRANH (MANS, SOTT, MACA, NGAY)
+VALUES
+    ('NS0006', 3, 'CA002', '2024-01-02'),
+    ('NS0009', 1, 'CA002', '2024-01-02'),
+    ('NS0001', 3, 'CA004', '2024-01-02'),
+    ('NS0002', 2, 'CA004', '2024-01-02');
 
+-- Ngày 2024-01-03
+INSERT INTO LICHRANH (MANS, SOTT, MACA, NGAY)
+VALUES
+    ('NS0001', 4, 'CA001', '2024-01-03'),
+    ('NS0010', 2, 'CA001', '2024-01-03'),
+    ('NS0007', 2, 'CA005', '2024-01-03'),
+    ('NS0004', 3, 'CA005', '2024-01-03');
 
-WHILE @CurrentDate <= @EndDate
-BEGIN
-    DECLARE @ShiftsPerDay INT = 6; 
-    
-    WHILE @ShiftCount <= @ShiftsPerDay
-    BEGIN
-        INSERT INTO LICHRANH (MANS, SOTT, MACA, NGAY)
-        SELECT TOP 2 MANS, @ShiftCount, 'CA' + RIGHT('00' + CAST(@ShiftCount AS VARCHAR), 3), @CurrentDate
-        FROM NHASI
-        WHERE MANS NOT IN (
-            SELECT MANS
-            FROM LICHRANH
-            WHERE NGAY = @CurrentDate AND MACA = 'CA' + RIGHT('00' + CAST(@ShiftCount AS VARCHAR), 3)
-        )
-        ORDER BY NEWID();
-        SET @ShiftCount = @ShiftCount + 1;
-    END
-    
-    SET @ShiftCount = 1;
-    SET @CurrentDate = DATEADD(DAY, 1, @CurrentDate);
-END;
-GO
+-- Ngày 2024-01-04
+INSERT INTO LICHRANH (MANS, SOTT, MACA, NGAY)
+VALUES
+    ('NS0005', 1, 'CA004', '2024-01-04'),
+    ('NS0009', 2, 'CA004', '2024-01-04'),
+    ('NS0009', 3, 'CA006', '2024-01-04'),
+    ('NS0008', 1, 'CA006', '2024-01-04');
 
+-- Ngày 2024-01-05
+INSERT INTO LICHRANH (MANS, SOTT, MACA, NGAY)
+VALUES
+    ('NS0005', 2, 'CA002', '2024-01-05'),
+    ('NS0004', 4, 'CA002', '2024-01-05');
+
+-- Ngày 2024-01-06
+INSERT INTO LICHRANH (MANS, SOTT, MACA, NGAY)
+VALUES
+    ('NS0005', 5, 'CA005', '2024-01-06'),
+    ('NS0003', 5, 'CA005', '2024-01-06'),
+    ('NS0007', 6, 'CA006', '2024-01-06'),
+    ('NS0010', 6, 'CA006', '2024-01-06');
 
 
 --Nhap lieu bang KHACHHANG
@@ -220,37 +243,37 @@ VALUES ('NV0015', N'Võ Thanh Long', N'Nam', N'Quản lý phó', 'H1lls&Gr33n$')
 
 --Nhap lieu bang Lich hen
 INSERT INTO LICHHEN (MANS, SOTT, LYDOKHAM, SODT)
-VALUES ('NS0001', 4, N'Đau rát răng và nướu: Tôi đã cảm thấy đau rát và sưng nướu ở chiếc răng ở phía dưới bên trái trong vài ngày qua. Đau đớn khi chải răng và ăn.', '0323456789');
+VALUES ('NS0001', 1, N'Đau rát răng và nướu: Tôi đã cảm thấy đau rát và sưng nướu ở chiếc răng ở phía dưới bên trái trong vài ngày qua. Đau đớn khi chải răng và ăn.', '0323456789');
 
 INSERT INTO LICHHEN (MANS, SOTT, LYDOKHAM, SODT)
-VALUES ('NS0002', 2, N'Tôi nhận thấy có một vết đen trên chiếc răng cửa sau bên trái và nghi ngờ răng bị hỏng. Tôi muốn làm sạch và lấy mảng cặn.', '0712345678');
+VALUES ('NS0002', 1, N'Tôi nhận thấy có một vết đen trên chiếc răng cửa sau bên trái và nghi ngờ răng bị hỏng. Tôi muốn làm sạch và lấy mảng cặn.', '0712345678');
 
 INSERT INTO LICHHEN (MANS, SOTT, LYDOKHAM, SODT)
-VALUES ('NS0003', 2, N'Lợi của tôi thường bị sưng và chảy máu khi chải răng. Tôi lo lắng về tình trạng viêm nướu này và muốn tư vấn và điều trị.', '0987654321');
+VALUES ('NS0003', 1, N'Lợi của tôi thường bị sưng và chảy máu khi chải răng. Tôi lo lắng về tình trạng viêm nướu này và muốn tư vấn và điều trị.', '0987654321');
 
 INSERT INTO LICHHEN (MANS, SOTT, LYDOKHAM, SODT)
-VALUES ('NS0004', 5, N'Chiếc răng trước cửa đã bị nứt và tôi cảm thấy đau.', '0301234567');
+VALUES ('NS0004', 1, N'Chiếc răng trước cửa đã bị nứt và tôi cảm thấy đau.', '0301234567');
 
 INSERT INTO LICHHEN (MANS, SOTT, LYDOKHAM, SODT)
-VALUES ('NS0008', 4, N'Mặt nướu ở phía dưới răng cửa sau bên phải đã sưng lên và tôi cảm thấy đau hàm mặt khi nhai.', '0743216549');
+VALUES ('NS0008', 1, N'Mặt nướu ở phía dưới răng cửa sau bên phải đã sưng lên và tôi cảm thấy đau hàm mặt khi nhai.', '0743216549');
 
 INSERT INTO LICHHEN (MANS, SOTT, LYDOKHAM, SODT)
-VALUES ('NS0009', 3, N'Nghi ngờ có vết thương trong miệng. Tôi thấy có một vết thương nhỏ trên bên trong má lúp và lo lắng về tính trạng này.', '0912345678');
+VALUES ('NS0009', 1, N'Nghi ngờ có vết thương trong miệng. Tôi thấy có một vết thương nhỏ trên bên trong má lúp và lo lắng về tính trạng này.', '0912345678');
 
 INSERT INTO LICHHEN (MANS, SOTT, LYDOKHAM, SODT)
-VALUES ('NS0010', 2, N'Răng của tôi lệch và tôi muốn tư vấn về cách chỉnh nha.', '0378236541');
+VALUES ('NS0010', 1, N'Răng của tôi lệch và tôi muốn tư vấn về cách chỉnh nha.', '0378236541');
 
 INSERT INTO LICHHEN (MANS, SOTT, LYDOKHAM, SODT)
-VALUES ('NS0003', 5, N'Răng xấu, cần được khám và tư vấn niềng răng.', '0723456789');
+VALUES ('NS0003', 2, N'Răng xấu, cần được khám và tư vấn niềng răng.', '0723456789');
 
 INSERT INTO LICHHEN (MANS, SOTT, LYDOKHAM, SODT)
-VALUES ('NS0009', 6, N'Mất một chiếc răng mọc ở phía trên và lo lắng về việc điều này có thể ảnh hưởng đến cách nhai và nụ cười của tôi.', '0923456780');
+VALUES ('NS0009', 1, N'Mất một chiếc răng mọc ở phía trên và lo lắng về việc điều này có thể ảnh hưởng đến cách nhai và nụ cười của tôi.', '0923456780');
 
 INSERT INTO LICHHEN (MANS, SOTT, LYDOKHAM, SODT)
-VALUES ('NS0001', 4, N'Nhổ răng khôn', '0345678901');
+VALUES ('NS0001', 2, N'Nhổ răng khôn', '0345678901');
 
 INSERT INTO LICHHEN (MANS, SOTT, LYDOKHAM, SODT)
-VALUES ('NS0005', 4, N'Thay răng giả. Tôi muốn thay chiếc răng giả cũ bằng một chiếc mới để đảm bảo chúng vẫn hoạt động tốt.', '0765432109');
+VALUES ('NS0005', 1, N'Thay răng giả. Tôi muốn thay chiếc răng giả cũ bằng một chiếc mới để đảm bảo chúng vẫn hoạt động tốt.', '0765432109');
 
 INSERT INTO LICHHEN (MANS, SOTT, LYDOKHAM, SODT)
 VALUES ('NS0006', 1, N'Người thân tôi nói rằng tôi kêu răng khi ngủ, và tôi muốn kiểm tra xem có vấn đề gì về nha khoa gây ra điều này.', '0387654321');
