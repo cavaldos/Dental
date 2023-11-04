@@ -82,6 +82,213 @@ END;
 GO
 
 
+--Nhap lieu bang KHACHHANG
+INSERT INTO KHACHHANG (SODT, HOTEN, PHAI, NGAYSINH, DIACHI, MATKHAU)
+VALUES ('0371234567', N'Nguyễn Huyền Trang', N'Nữ', '1978-05-15', N'15/3 Hoàng Hoa Thám, Phường 6, Quận 3, TP.HCM', 'P@ssw0rd!');
+
+INSERT INTO KHACHHANG (SODT, HOTEN, PHAI, NGAYSINH, DIACHI, MATKHAU)
+VALUES ('0712345333', N'Võ Minh Tuấn', N'Nam', '1992-09-23', N'28/6 Phan Chu Trinh, Phường Bến Thành, Quận 1, TP.HCM', 'Qwerty123#');
+
+INSERT INTO KHACHHANG (SODT, HOTEN, PHAI, NGAYSINH, DIACHI, MATKHAU)
+VALUES ('0945678765', N'Hoàng Thị Mai Phương', N'Nữ', '1982-08-18', N'291 Đường Đại Lộ Bình Dương, TP.Thủ Dầu Một, Bình Dương', '9M!xA$4e');
+
+INSERT INTO KHACHHANG (SODT, HOTEN, PHAI, NGAYSINH, DIACHI, MATKHAU)
+VALUES ('0934567890', N'Vũ Thị Hằng', N'Nữ', '1985-11-10', N'42/9 Ngô Quyền, Phường 5, Quận 10, TP.HCM', 'Ch0c0l@t3&');
+
+INSERT INTO KHACHHANG (SODT, HOTEN, PHAI, NGAYSINH, DIACHI, MATKHAU)
+VALUES ('0309876543', N'Quách Văn Phúc', N'Nam', '1996-03-08', N'50 Võ Thị Sáu, Phường Thái Bình, TP.Biên Hòa, Đồng Nai', 'TrungThu@2022');
+
+INSERT INTO KHACHHANG (SODT, HOTEN, PHAI, NGAYSINH, DIACHI, MATKHAU)
+VALUES ('0798712432', N'Bùi Thị Mai Anh', N'Nữ', '1980-07-20', N'567 Nguyễn Đình Chính, Quận Phú Nhuận, TP.HCM', 'M0tP@$$w0rd');
+
+INSERT INTO KHACHHANG (SODT, HOTEN, PHAI, NGAYSINH, DIACHI, MATKHAU, _DAKHOA)
+VALUES ('0945678901', N'Đoàn Văn Đức', N'Nam', '2003-12-05', N'18/7 Bà Huyện Thanh Quan, Phường Tân Định, Quận 1, TP.HCM', 'B3st@nsw3r!', 1);
+
+INSERT INTO KHACHHANG (SODT, HOTEN, PHAI, NGAYSINH, DIACHI, MATKHAU)
+VALUES ('0323456789', N'Lê Thị Thu Hà', N'Nữ', '1971-04-14', N'63/5 Phạm Ngũ Lão, Phường Phạm Ngũ Lão, Quận 1, TP.HCM', 'Secur1ty*');
+
+INSERT INTO KHACHHANG (SODT, HOTEN, PHAI, NGAYSINH, DIACHI, MATKHAU)
+VALUES ('0712345678', N'Ngô Đình Quân', N'Nam', '1998-08-02', N'201 Lê Thị Riêng, Phường Bến Thành, Quận 1, TP.HCM', 'H@ppyD@ys7');
+
+INSERT INTO KHACHHANG (SODT, HOTEN, PHAI, NGAYSINH, DIACHI, MATKHAU)
+VALUES ('0987654321', N'Dương Thị Thảo', N'Nữ', '1989-06-19', N'72/3 Nguyễn Thị Minh Khai, Phường Đa Kao, Quận 1, TP.HCM', 'L0ngP@ssw0rd#');
+
+INSERT INTO KHACHHANG (SODT, HOTEN, PHAI, NGAYSINH, DIACHI, MATKHAU)
+VALUES ('0301234567', N'Hoàng Văn Tùng', N'Nam', '2002-01-30', N'52/14 Lý Thường Kiệt, Phường 10, Quận 11, TP.HCM', 'P!n3@pple$2');
+
+INSERT INTO KHACHHANG (SODT, HOTEN, PHAI, NGAYSINH, DIACHI, MATKHAU)
+VALUES ('0743216549', N'Nguyễn Thị Bích Ngọc', N'Nữ', '1975-10-03', N'90/2 Đinh Công Tráng, Phường Tân Đông Hiệp, TP.Dĩ An, Bình Dương', '5tr0ngP@ss!');
+
+INSERT INTO KHACHHANG (SODT, HOTEN, PHAI, NGAYSINH, DIACHI, MATKHAU)
+VALUES ('0912345678', N'Võ Văn Thắng', N'Nam', '1990-09-17', N'33 Lê Hồng Phong, Phường Phước Tân, TP.Biên Hòa, Đồng Nai', 'H3ll0W0r1d$');
+
+INSERT INTO KHACHHANG (SODT, HOTEN, PHAI, NGAYSINH, DIACHI, MATKHAU)
+VALUES ('0378236541', N'Vũ Thị Hồng Loan', N'Nữ', '1983-07-27', N'22/10 Võ Văn Tần, Phường Long Bình, TP.Biên Hòa, Đồng Nai', 'G00dM0rn!ng9');
+
+INSERT INTO KHACHHANG (SODT, HOTEN, PHAI, NGAYSINH, DIACHI, MATKHAU, _DAKHOA)
+VALUES ('0798765432', N'Quách Minh Tâm', N'Nam', '2000-02-12', N'31/5 Đinh Bộ Lĩnh, Phường Lái Thiêu, TP.Thuận An, Bình Dương', 'W@t3rM3l0n#', 1);
+
+INSERT INTO KHACHHANG (SODT, HOTEN, PHAI, NGAYSINH, DIACHI, MATKHAU)
+VALUES ('0723456789', N'Bùi Văn Thành', N'Nam', '1972-11-09', N'295 Lê Lai, Phường Bến Thành, Quận 1, TP.HCM', 'Sunsh!ne@21');
+
+INSERT INTO KHACHHANG (SODT, HOTEN, PHAI, NGAYSINH, DIACHI, MATKHAU)
+VALUES ('0923456780', N'Đoàn Thị Kim Ngân', N'Nữ', '1994-06-25', N'17/3 Phan Kế Bính, Phường Đa Kao, Quận 1, TP.HCM', '2F@st2Fur!ous');
+
+INSERT INTO KHACHHANG (SODT, HOTEN, PHAI, NGAYSINH, DIACHI, MATKHAU)
+VALUES ('0345678901', N'Lê Minh Hoàng', N'Nam', '1987-12-21', N'237 Phạm Ngọc Thạch, Phường 6, Quận 3, TP.HCM', 'F0r3v3rY0ung*');
+
+INSERT INTO KHACHHANG (SODT, HOTEN, PHAI, NGAYSINH, DIACHI, MATKHAU)
+VALUES ('0765432109', N'Ngô Thị Lan Anh', N'Nữ', '1999-04-07', N'55/8 Ngô Thời Nhiệm, Phường Tân Quý, Quận Tân Phú, TP.HCM', 'C@t&DogL0v3r');
+
+INSERT INTO KHACHHANG (SODT, HOTEN, PHAI, NGAYSINH, DIACHI, MATKHAU)
+VALUES ('0387654321', N'Dương Văn Quyền', N'Nam', '1977-03-28', N'172 Đường Lê Đại Hành, Phường 9, Quận 11, TP.HCM', 'B3@chP@rad1$3');
+
+INSERT INTO KHACHHANG (SODT, HOTEN, PHAI, NGAYSINH, DIACHI, MATKHAU)
+VALUES ('0356123456', N'Nguyễn Huyền Thu', N'Nữ', '1979-08-15', N'34/7B Lê Hồng Phong, Phường 4, Quận 5, TP.HCM', 'B3st@nsw3r!');
+
+INSERT INTO KHACHHANG (SODT, HOTEN, PHAI, NGAYSINH, DIACHI, MATKHAU)
+VALUES ('0789654321', N'Lê Đức Anh', N'Nam', '1993-05-02', N'14A Đinh Công Tráng, Phường Tân Đông Hiệp, TP.Dĩ An, Bình Dương', 'Secur1ty*');
+
+INSERT INTO KHACHHANG (SODT, HOTEN, PHAI, NGAYSINH, DIACHI, MATKHAU)
+VALUES ('0967123456', N'Trần Thị Mai Phương', N'Nữ', '1995-06-14', N'72 Phan Kế Bính, Phường Đa Kao, Quận 1, TP.HCM', 'H@ppyD@ys7');
+
+INSERT INTO KHACHHANG (SODT, HOTEN, PHAI, NGAYSINH, DIACHI, MATKHAU)
+VALUES ('0334123456', N'Nguyễn Minh Tuấn', N'Nam', '1970-01-25', N'27/2 Hoàng Hoa Thám, Phường 7, Quận Bình Thạnh, TP.HCM', 'L0ngP@ssw0rd#');
+
+INSERT INTO KHACHHANG (SODT, HOTEN, PHAI, NGAYSINH, DIACHI, MATKHAU)
+VALUES ('0823654321', N'Vũ Thị Thu Hằng', N'Nữ', '1984-12-03', N'8 Đường Đại Lộ Bình Dương, TP.Thủ Dầu Một, Bình Dương', 'P!n3@pple$2');
+
+INSERT INTO KHACHHANG (SODT, HOTEN, PHAI, NGAYSINH, DIACHI, MATKHAU)
+VALUES ('0978564321', N'Trần Văn Minh', N'Nam', '1996-11-09', N'56/10 Ngô Thời Nhiệm, Phường Tân Quý, Quận Tân Phú, TP.HCM', '5tr0ngP@ss!');
+
+INSERT INTO KHACHHANG (SODT, HOTEN, PHAI, NGAYSINH, DIACHI, MATKHAU)
+VALUES ('0967123664', N'Lý Thị Thảo', N'Nữ', '1973-07-28', N'42 Lê Lai, Phường Bến Thành, Quận 1, TP.HCM', 'H3ll0W0r1d$');
+
+INSERT INTO KHACHHANG (SODT, HOTEN, PHAI, NGAYSINH, DIACHI, MATKHAU)
+VALUES ('0967123877', N'Phạm Thị Thu Hà', N'Nữ', '1987-09-21', N'49B Phạm Ngọc Thạch, Phường 6, Quận 3, TP.HCM', 'G00dM0rn!ng9');
+
+INSERT INTO KHACHHANG (SODT, HOTEN, PHAI, NGAYSINH, DIACHI, MATKHAU)
+VALUES ('0321654321', N'Hoàng Văn Thành', N'Nam', '1998-02-10', N'2B Phan Chu Trinh, Phường Bến Thành, Quận 1, TP.HCM', 'P@ssw0rd!');
+
+INSERT INTO KHACHHANG (SODT, HOTEN, PHAI, NGAYSINH, DIACHI, MATKHAU)
+VALUES ('0789652221', N'Nguyễn Thị Thuý Nga', N'Nữ', '1981-03-07', N'121 Lê Thị Riêng, Phường Bến Thành, Quận 1, TP.HCM', 'Qwerty123#');
+
+--Nhap lieu bang NHANVIEN
+INSERT INTO NHANVIEN (MANV, HOTEN, PHAI, VITRICV, MATKHAU)
+VALUES ('NV0001', N'Trần Thị Bảo Trâm', N'Nữ', N'Hành chính phòng khám', 'B@n4n@&Sm1l3*');
+
+INSERT INTO NHANVIEN (MANV, HOTEN, PHAI, VITRICV, MATKHAU)
+VALUES ('NV0002', N'Lê Thị Ngọc Hà', N'Nữ', N'Y tá', 'P@rk#J0g$L0v3');
+
+INSERT INTO NHANVIEN (MANV, HOTEN, PHAI, VITRICV, MATKHAU)
+VALUES ('NV0003', N'Lý Thị Minh Tuyết', N'Nữ', N'Y tá', 'W1nt3rT!m3@Out');
+
+INSERT INTO NHANVIEN (MANV, HOTEN, PHAI, VITRICV, MATKHAU)
+VALUES ('NV0004', N'Nguyễn Thị Thanh Tâm', N'Nữ', N'Y tá', 'S4f3&H@ppy*Day');
+
+INSERT INTO NHANVIEN (MANV, HOTEN, PHAI, VITRICV, MATKHAU)
+VALUES ('NV0005', N'Phạm Thị Thu Hiền', N'Nữ', N'Hành chính phòng khám', 'M00nL!ght&St@rs');
+
+INSERT INTO NHANVIEN (MANV, HOTEN, PHAI, VITRICV, MATKHAU)
+VALUES ('NV0006', N'Nguyễn Thị Thảo Vy', N'Nữ', N'Y tá', '7H1s1sP@ssw0rd');
+
+INSERT INTO NHANVIEN (MANV, HOTEN, PHAI, VITRICV, MATKHAU)
+VALUES ('NV0007', N'Nguyễn Thị Mai An', N'Nữ', N'Y tá', 'B1cycl3&4FUn#');
+
+INSERT INTO NHANVIEN (MANV, HOTEN, PHAI, VITRICV, MATKHAU)
+VALUES ('NV0008', N'Trương Thị Kim Oanh', N'Nữ', N'Quản lý trưởng', 'H3@rt&S0ul*H@ppy');
+
+INSERT INTO NHANVIEN (MANV, HOTEN, PHAI, VITRICV, MATKHAU)
+VALUES ('NV0009', N'Bùi Đình Tùng', N'Nam', N'Hành chính phòng khám', 'J@zzY@rd&Rhythm');
+
+INSERT INTO NHANVIEN (MANV, HOTEN, PHAI, VITRICV, MATKHAU)
+VALUES ('NV0010', N'Hoàng Thị Diệu Linh', N'Nữ', N'Y tá', '8L1ghts&Cam3r@#');
+
+INSERT INTO NHANVIEN (MANV, HOTEN, PHAI, VITRICV, MATKHAU)
+VALUES ('NV0011', N'Đặng Thị Phương Loan', N'Nữ', N'Hành chính phòng khám', 'W0nd3rful*W0rld');
+
+INSERT INTO NHANVIEN (MANV, HOTEN, PHAI, VITRICV, MATKHAU)
+VALUES ('NV0012', N'Trần Thị Kim Anh', N'Nữ', N'Y tá', 'M@gn1f!c3nt@V!3w');
+
+INSERT INTO NHANVIEN (MANV, HOTEN, PHAI, VITRICV, MATKHAU)
+VALUES ('NV0013', N'Bùi Văn Đạt', N'Nam', N'Y tá', 'P@r4d!s3*3sc@p3');
+
+INSERT INTO NHANVIEN (MANV, HOTEN, PHAI, VITRICV, MATKHAU)
+VALUES ('NV0014', N'Võ Thị Quỳnh Nga', N'Nữ', N'Hành chính phòng khám', 'Ch3ck3r3d&Fl@g');
+
+INSERT INTO NHANVIEN (MANV, HOTEN, PHAI, VITRICV, MATKHAU)
+VALUES ('NV0015', N'Võ Thanh Long', N'Nam', N'Quản lý phó', 'H1lls&Gr33n$');
+
+--Nhap lieu bang Lich hen
+INSERT INTO LICHHEN (MANS, SOTT, LYDOKHAM, SODT)
+VALUES ('NS0001', 4, N'Đau rát răng và nướu: Tôi đã cảm thấy đau rát và sưng nướu ở chiếc răng ở phía dưới bên trái trong vài ngày qua. Đau đớn khi chải răng và ăn.', '0323456789');
+
+INSERT INTO LICHHEN (MANS, SOTT, LYDOKHAM, SODT)
+VALUES ('NS0002', 2, N'Tôi nhận thấy có một vết đen trên chiếc răng cửa sau bên trái và nghi ngờ răng bị hỏng. Tôi muốn làm sạch và lấy mảng cặn.', '0712345678');
+
+INSERT INTO LICHHEN (MANS, SOTT, LYDOKHAM, SODT)
+VALUES ('NS0003', 2, N'Lợi của tôi thường bị sưng và chảy máu khi chải răng. Tôi lo lắng về tình trạng viêm nướu này và muốn tư vấn và điều trị.', '0987654321');
+
+INSERT INTO LICHHEN (MANS, SOTT, LYDOKHAM, SODT)
+VALUES ('NS0004', 5, N'Chiếc răng trước cửa đã bị nứt và tôi cảm thấy đau.', '0301234567');
+
+INSERT INTO LICHHEN (MANS, SOTT, LYDOKHAM, SODT)
+VALUES ('NS0008', 4, N'Mặt nướu ở phía dưới răng cửa sau bên phải đã sưng lên và tôi cảm thấy đau hàm mặt khi nhai.', '0743216549');
+
+INSERT INTO LICHHEN (MANS, SOTT, LYDOKHAM, SODT)
+VALUES ('NS0009', 3, N'Nghi ngờ có vết thương trong miệng. Tôi thấy có một vết thương nhỏ trên bên trong má lúp và lo lắng về tính trạng này.', '0912345678');
+
+INSERT INTO LICHHEN (MANS, SOTT, LYDOKHAM, SODT)
+VALUES ('NS0010', 2, N'Răng của tôi lệch và tôi muốn tư vấn về cách chỉnh nha.', '0378236541');
+
+INSERT INTO LICHHEN (MANS, SOTT, LYDOKHAM, SODT)
+VALUES ('NS0003', 5, N'Răng xấu, cần được khám và tư vấn niềng răng.', '0723456789');
+
+INSERT INTO LICHHEN (MANS, SOTT, LYDOKHAM, SODT)
+VALUES ('NS0009', 6, N'Mất một chiếc răng mọc ở phía trên và lo lắng về việc điều này có thể ảnh hưởng đến cách nhai và nụ cười của tôi.', '0923456780');
+
+INSERT INTO LICHHEN (MANS, SOTT, LYDOKHAM, SODT)
+VALUES ('NS0001', 4, N'Nhổ răng khôn', '0345678901');
+
+INSERT INTO LICHHEN (MANS, SOTT, LYDOKHAM, SODT)
+VALUES ('NS0005', 4, N'Thay răng giả. Tôi muốn thay chiếc răng giả cũ bằng một chiếc mới để đảm bảo chúng vẫn hoạt động tốt.', '0765432109');
+
+INSERT INTO LICHHEN (MANS, SOTT, LYDOKHAM, SODT)
+VALUES ('NS0006', 1, N'Người thân tôi nói rằng tôi kêu răng khi ngủ, và tôi muốn kiểm tra xem có vấn đề gì về nha khoa gây ra điều này.', '0387654321');
+
+--Nhap lieu bang HOADON
+INSERT INTO HOADON (SODT, SOTT, NGAYXUAT, _DATHANHTOAN, MANV)
+VALUES ('0323456789', 1, '2024-01-05', 1, 'NV0001');
+
+INSERT INTO HOADON (SODT, SOTT, NGAYXUAT, _DATHANHTOAN, MANV)
+VALUES ('0712345678', 1, '2024-01-02', 1, 'NV0007');
+
+INSERT INTO HOADON (SODT, SOTT, NGAYXUAT, _DATHANHTOAN, MANV)
+VALUES ('0987654321', 1, '2024-01-07', 1, 'NV0001');
+
+INSERT INTO HOADON (SODT, SOTT, NGAYXUAT, _DATHANHTOAN, MANV)
+VALUES ('0301234567', 1, '2024-01-02', 1, 'NV0003');
+
+INSERT INTO HOADON (SODT, SOTT, NGAYXUAT, _DATHANHTOAN, MANV)
+VALUES ('0743216549', 1, '2024-01-02', 1, 'NV0003');
+
+INSERT INTO HOADON (SODT, SOTT, NGAYXUAT, _DATHANHTOAN, MANV)
+VALUES ('0912345678', 1, '2024-01-05', 1, 'NV0014');
+
+INSERT INTO HOADON (SODT, SOTT, NGAYXUAT, MANV)
+VALUES ('0378236541', 1, '2024-01-03', 'NV0012');
+
+INSERT INTO HOADON (SODT, SOTT, NGAYXUAT, _DATHANHTOAN, MANV)
+VALUES ('0723456789', 1, '2024-01-03', 1, 'NV0010');
+
+INSERT INTO HOADON (SODT, SOTT, NGAYXUAT, _DATHANHTOAN, MANV)
+VALUES ('0923456780', 1, '2024-01-05', 1, 'NV0008');
+
+INSERT INTO HOADON (SODT, SOTT, NGAYXUAT, MANV)
+VALUES ('0345678901', 1, '2024-01-05', 'NV0010');
+
+
+
 -- THEM LOAI DICH VU
 -- LOAI THUOC 
 -- THEM QTV
