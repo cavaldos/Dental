@@ -379,6 +379,35 @@ INSERT INTO LOAIDICHVU (MADV, TENDV, MOTA, DONGIA)
 VALUES('DV21', N'Chỉnh nha thẩm mỹ', N'Dịch vụ này đảm nhiệm việc chỉnh nha nhằm cải thiện vị trí và hình dáng của răng một cách thẩm mỹ', 1000000);
 
 --Thêm chi tiết thuốc
+INSERT INTO CHITIETTHUOC (MATHUOC, SODT, SOTT, THOIDIEMDUNG)
+VALUES
+('MT01', '0323456789', 1, '"Buổi sáng: 1 viên thuốc sau bữa sáng.\nBuổi trưa: 1 viên thuốc sau bữa trưa.\nBuổi tối: 1 viên thuốc sau bữa tối.\n"'),
+('MT02', '0323456789', 1, '"Buổi sáng: 1 viên thuốc sau bữa sáng.\nBuổi trưa: 1 viên thuốc sau bữa trưa.\nBuổi tối: 1 viên thuốc sau bữa tối.\n"'),
+('MT08', '0323456789', 1, '"Buổi sáng: 1 viên thuốc sau bữa sáng.\nBuổi trưa: 1 viên thuốc sau bữa trưa.\nBuổi tối: 1 viên thuốc sau bữa tối.\n"'),
+('MT03', '0712345678', 1, '"Buổi sáng: 1 viên thuốc sau bữa sáng.\nBuổi trưa: 1 viên thuốc sau bữa trưa.\nBuổi tối: 1 viên thuốc sau bữa tối.\n"'),
+('MT02', '0987654321', 1, '"Buổi sáng: 1 viên thuốc sau bữa sáng.\nBuổi trưa: 1 viên thuốc sau bữa trưa.\nBuổi tối: 1 viên thuốc sau bữa tối.\n"'),
+('MT05', '0301234567', 1, '"Buổi sáng: 1 viên thuốc sau bữa sáng.\nBuổi trưa: 1 viên thuốc sau bữa trưa.\nBuổi tối: 1 viên thuốc sau bữa tối.\n"'),
+('MT03', '0923456780', 1, '"Buổi sáng: 1 viên thuốc sau bữa sáng.\nBuổi trưa: 1 viên thuốc sau bữa trưa.\nBuổi tối: 1 viên thuốc sau bữa tối.\n"'),
+('MT09', '0923456780', 1, '"Buổi sáng: 1 viên thuốc sau bữa sáng.\nBuổi trưa: 1 viên thuốc sau bữa trưa.\nBuổi tối: 1 viên thuốc sau bữa tối.\n"'),
+('MT10', '0387654321', 1, '"Buổi sáng: 1 viên thuốc sau bữa sáng.\nBuổi trưa: 1 viên thuốc sau bữa trưa.\nBuổi tối: 1 viên thuốc sau bữa tối.\n"');
+
+--Thêm chi tiết dịch vụ
+INSERT INTO CHITIETDV (MADV, SOTT, SODT, SOLUONG)
+VALUES
+('DV01', 1, '0323456789', 1),
+('DV05', 1, '0712345678', 2),
+('DV06', 1, '0987654321', 1),
+('DV07', 1, '0301234567', 1),
+('DV09', 1, '0743216549', 1),
+('DV02', 1, '0912345678', 1),
+('DV04', 1, '0378236541', 1),
+('DV02', 1, '0723456789', 1),
+('DV17', 1, '0923456780', 1),
+('DV21', 1, '0345678901', 1),
+('DV13', 1, '0765432109', 1),
+('DV10', 1, '0387654321', 1),
+('DV20', 1, '0387654321', 1),
+('DV06', 1, '0765432109', 1);
 
 
 
