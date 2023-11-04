@@ -83,3 +83,32 @@ GO
 -- THEM LOAI DICH VU
 -- LOAI THUOC 
 -- THEM QTV
+-- Insert data into LOAITHUOC table
+INSERT INTO LOAITHUOC (MATHUOC, TENTHUOC, DONVITINH, CHIDINH, SLTON, SLNHAP, SLDAHUY, NGAYHETHAN, DONGIA) 
+VALUES 
+('MT01', 'Paracetamol', 'Viên', 'Giảm đau nhẹ', 100, 200, 5, '2024-12-31', 5000),
+('MT02', 'Amoxicillin', 'Hộp 10 vỉ x 10 viên', 'Kháng sinh phổ rộng', 50, 100, 0, '2023-03-31', 20000),
+('MT03', 'Vitamin C', 'Chai 30 viên', 'Bổ sung vitamin C', 80, 100, 3, '2024-08-31', 10000);
+
+-- Insert data into CHITIETTHUOC table
+INSERT INTO CHITIETTHUOC (MATHUOC, SOTT, SODT, SOLUONG, THOIDIEMDUNG)
+VALUES
+('MT01', 1, 'DT01', 10, 'Sáng'),
+('MT01', 2, 'DT01', 10, 'Trưa'),
+('MT01', 3, 'DT01', 10 ,'Tối'),
+('MT02', 1, 'DT02', 1, 'Ngày 1 viên'),
+('MT03', 1, 'DT03', 1, 'Ngày 1 viên');
+
+-- Insert data into LOAIDICHVU table  
+INSERT INTO LOAIDICHVU (MADV, TENDV, MOTA, DONGIA)
+VALUES
+('DV01', 'Khám răng', 'Khám và tư vấn răng', 200000),
+('DV02', 'Chụp X-quang', 'Chụp X-quang phổi hoặc các bộ phận khác', 150000),
+('DV03', 'Xét nghiệm máu', 'Xét nghiệm các chỉ số máu', 50000);
+
+-- Insert data into CHITIETDV table
+INSERT INTO CHITIETDV (MADV, SOTT, SODT, SOLUONG)  
+VALUES
+('DV01', 1, 'DT04', 1),
+('DV02', 1, 'DT04', 1),
+('DV03', 1, 'DT05', 1);
