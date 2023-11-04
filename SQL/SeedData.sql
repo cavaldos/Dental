@@ -267,7 +267,7 @@ INSERT INTO LICHHEN (MANS, SOTT, LYDOKHAM, SODT)
 VALUES ('NS0003', 2, N'Răng xấu, cần được khám và tư vấn niềng răng.', '0723456789');
 
 INSERT INTO LICHHEN (MANS, SOTT, LYDOKHAM, SODT)
-VALUES ('NS0009', 1, N'Mất một chiếc răng mọc ở phía trên và lo lắng về việc điều này có thể ảnh hưởng đến cách nhai và nụ cười của tôi.', '0923456780');
+VALUES ('NS0009', 2, N'Mất một chiếc răng mọc ở phía trên và lo lắng về việc điều này có thể ảnh hưởng đến cách nhai và nụ cười của tôi.', '0923456780');
 
 INSERT INTO LICHHEN (MANS, SOTT, LYDOKHAM, SODT)
 VALUES ('NS0001', 2, N'Nhổ răng khôn', '0345678901');

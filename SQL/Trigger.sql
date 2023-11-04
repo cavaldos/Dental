@@ -65,10 +65,14 @@ AS
 BEGIN
     IF EXISTS (
         SELECT 1
-    FROM LICHHEN n1
-        JOIN inserted i ON n1.SODT = i.SODT
-    WHERE (n1.SOTT = i.SOTT AND n1.MANS = i.MANS)
-
+        FROM inserted i
+        WHERE EXISTS (
+            SELECT 1
+            FROM LICHHEN n1
+            WHERE n1.MANS = i.MANS AND n1.SOTT = i.SOTT
+            GROUP BY n1.MANS, n1.SOTT
+            HAVING COUNT(*) > 1
+        )
     )
     BEGIN
         RAISERROR(N'Các lịch hẹn không được trùng ca nhau.', 16, 1)
