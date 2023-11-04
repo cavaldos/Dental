@@ -1,5 +1,7 @@
 use PKNHAKHOA 
 GO
+-- WARNING: CHỈ CHẠY SCRIPT NÀY 1 LẦN SAU KHI TẠO DB ------------------------------------------------
+
 -- Tạo ca, mỗi ca 2 tiếng từ 9g đến 21g
 DECLARE @StartTime TIME = '09:00';
 DECLARE @EndTime TIME = '21:00';
@@ -14,6 +16,8 @@ BEGIN
     SET @ShiftCount = @ShiftCount + 1;
 END;
 GO
+
+
 
 -- Thêm NHASI
 INSERT INTO NHASI (MANS, HOTEN, PHAI, GIOITHIEU, MATKHAU)
@@ -60,7 +64,6 @@ BEGIN
     
     WHILE @ShiftCount <= @ShiftsPerDay
     BEGIN
-        
         INSERT INTO LICHRANH (MANS, SOTT, MACA, NGAY)
         SELECT TOP 2 MANS, @ShiftCount, 'CA' + RIGHT('00' + CAST(@ShiftCount AS VARCHAR), 3), @CurrentDate
         FROM NHASI
@@ -70,7 +73,6 @@ BEGIN
             WHERE NGAY = @CurrentDate AND MACA = 'CA' + RIGHT('00' + CAST(@ShiftCount AS VARCHAR), 3)
         )
         ORDER BY NEWID();
-        
         SET @ShiftCount = @ShiftCount + 1;
     END
     
