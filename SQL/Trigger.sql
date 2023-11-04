@@ -199,6 +199,7 @@ END
 
 
 
+
 -- =====                           TRIGGER LOAI THUOC
 
 -- 1. Trigger cập nhật số lượng tồn khi thêm/sửa/xóa loại thuốc:
