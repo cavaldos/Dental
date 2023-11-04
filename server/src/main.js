@@ -21,10 +21,9 @@ poolConnect();
 // 	MATKHAU VARCHAR(20),
 // 	_DAKHOA BIT DEFAULT 0
 // );
-
 // `;
-
 // setup();
+
 app.use(express.json());
 dotenv.config();
 app.use(morgan("tiny"));
@@ -45,7 +44,7 @@ app.listen(port, host, () => {
 // ====================test function
 // load(createTablesSLQ);
 
-// load("SELECT * FROM Users u");
+load("SELECT * FROM NHASI u");
 // const entity = {
 //   id: 54,
 //   email: "khadasfdsfgsdfnh@gmail.com",
