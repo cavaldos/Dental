@@ -193,3 +193,125 @@ BEGIN
     END
 END
 
+
+
+
+
+
+
+-- =====                           TRIGGER LOAI THUOC
+
+-- 1. Trigger cập nhật số lượng tồn khi thêm/sửa/xóa loại thuốc:
+CREATE TRIGGER Trigger_Insert_Update_Delete_LT on LOAITHUOC for INSERT, UPDATE, DELETE
+AS
+BEGIN
+    IF EXISTS (SELECT * FROM inserted WHERE SLTON < 0)
+    BEGIN
+        RAISERROR(N'Số lượng tồn không được nhỏ hơn 0', 16, 1)
+        ROLLBACK TRAN
+        RETURN
+    END
+
+    IF EXISTS (SELECT * FROM inserted WHERE SLNHAP < 0)
+    BEGIN
+        RAISERROR(N'Số lượng nhập không được nhỏ hơn 0', 16, 1)
+        ROLLBACK TRAN
+        RETURN
+    END
+
+    IF EXISTS (SELECT * FROM inserted WHERE SLDAHUY < 0)
+    BEGIN
+        RAISERROR(N'Số lượng đã hủy không được nhỏ hơn 0', 16, 1)
+        ROLLBACK TRAN
+        RETURN
+    END
+
+    IF EXISTS (SELECT * FROM inserted WHERE DONGIA < 0)
+    BEGIN
+        RAISERROR(N'Đơn giá không được nhỏ hơn 0', 16, 1)
+        ROLLBACK TRAN
+        RETURN
+    END
+
+    IF EXISTS (SELECT * FROM deleted WHERE SLTON < 0)
+    BEGIN
+        RAISERROR(N'Số lượng tồn không được nhỏ hơn 0', 16, 1)
+        ROLLBACK TRAN
+        RETURN
+    END
+
+    IF EXISTS (SELECT * FROM deleted WHERE SLNHAP < 0)
+    BEGIN
+        RAISERROR(N'Số lượng nhập không được nhỏ hơn 0', 16, 1)
+        ROLLBACK TRAN
+        RETURN
+    END
+
+    IF EXISTS (SELECT * FROM deleted WHERE SLDAHUY < 0)
+    BEGIN
+        RAISERROR(N'Số lượng đã hủy không được nhỏ hơn 0', 16, 1)
+        ROLLBACK TRAN
+        RETURN
+    END
+
+    IF EXISTS (SELECT * FROM deleted WHERE DONGIA < 0)
+    BEGIN
+        RAISERROR(N'Đơn giá không được nhỏ hơn 0', 16, 1)
+        ROLLBACK TRAN
+        RETURN
+    END
+
+END
+
+
+
+-- 2. Trigger cập nhật ngày hết hạn khi thêm/sửa loại thuốc:
+CREATE TRIGGER Trigger_Insert_Update_LT_Hethan on LOAITHUOC for INSERT, UPDATE
+AS
+BEGIN
+    IF EXISTS (SELECT * FROM inserted WHERE NGAYHETHAN < GETDATE())
+    BEGIN
+        RAISERROR(N'Ngày hết hạn không được nhỏ hơn ngày hiện tại', 16, 1)
+        ROLLBACK TRAN
+        RETURN
+    END
+    -- don gia phai lon  hon 0
+    IF EXISTS (SELECT * FROM inserted WHERE DONGIA < 0)
+    BEGIN
+        RAISERROR(N'Đơn giá không được nhỏ hơn 0', 16, 1)
+        ROLLBACK TRAN
+        RETURN
+    END
+
+END
+END
+	
+
+
+--                                 TRIGGER LOAI DICH VU
+--1.Trigger gia dich vu lon hon 0:
+CREATE TRIGGER Trigger_Insert_Update_LDV on LOAIDICHVU for INSERT, UPDATE
+AS
+BEGIN
+    IF EXISTS (SELECT * FROM inserted WHERE DONGIA < 0)
+    BEGIN
+        RAISERROR(N'Giá dịch vụ không được nhỏ hơn 0', 16, 1)
+        ROLLBACK TRAN
+        RETURN
+    END
+    -- don gia phai lon  hon 0
+END
+
+
+
+
+
+	--                                       TRIGGER QUẢN  TRI VIEN
+
+--1. Trigger kiểm tra số lượng nhân sĩ trong ca:
+CREATE TRIGGER Trigger_Insert_Update_Delete_LR on LICHRANH for INSERT, UPDATE, DELETE 
+AS
+BEGIN
+
+END
+
