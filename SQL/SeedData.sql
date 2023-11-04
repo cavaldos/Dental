@@ -78,3 +78,8 @@ BEGIN
     SET @CurrentDate = DATEADD(DAY, 1, @CurrentDate);
 END;
 GO
+
+
+-- THEM LOAI DICH VU
+-- LOAI THUOC 
+-- THEM QTV
