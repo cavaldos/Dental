@@ -9,9 +9,10 @@ import IP from "./config/ip.js";
 import { poolConnect } from "./config/connectDB.js";
 import { load, add, del, patch, getTables } from "./utils/mssql.js";
 import setup from "./config/setup.js";
+
+
+
 poolConnect();
-poolConnect("loginA", "password123@");
-poolConnect("loginB", "password123@");
 
 setup();
 app.use(express.json());
@@ -26,28 +27,4 @@ app.listen(port, host, () => {
   console.log(`\n  🚀  ➜ Local:    `, colors.blue(`http://localhost:${port}`));
   console.log(`  🚀  ➜ Network:  `, colors.green(`http://${IP}:${port}\n`));
 });
-// ====================test function
-// ====================test function
-// ====================test function
-// ====================test function
-// ====================test function
 
-
-load("SELECT * FROM Users u");
-const entity = {
-  id: 54,
-  email: "khadasfdsfgsdfnh@gmail.com",
-  name: "khansdfdfgsdfh",
-  password: "12455563456",
-};
-
-const newentity = {
-  name: "New Name",
-  email: "newemail@example.com",
-};
-const tableName = "Users";
-const condition = "id = 1";
-// del(tableName, condition);
-// patch(tableName, newentity, condition);
-// add(tableName, entity);
-// getTables();
