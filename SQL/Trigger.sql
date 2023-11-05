@@ -237,7 +237,7 @@ BEGIN
         RETURN
     END
 END
-
+GO
 
 -----------------------------------------
 
@@ -294,6 +294,9 @@ BEGIN
     END
 END
 GO
+
+
+
 
 --HOADON
 --1 Mỗi hóa đơn cần đi theo một hồ sơ bệnh.
