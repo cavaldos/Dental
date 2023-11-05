@@ -194,9 +194,26 @@ BEGIN
 END
 
 
+-- R7: Mỗi một loại thuốc trong chi tiết thuốc phải tồn tại trong kho thuốc.
+-- R10: Số lượng thuốc trong chi tiết thuốc phải lớn hơn 0. 
+-- R11: MATHUOC, STT, SODT trong chi tiết thuốc phải là độc quyền. 
+-- R13: Với mọi chi tiết thuốc,tồn tại số thứ tự và số điện thoại ứng với một hồ sơ bệnh án.
+-- R16: Với mọi chi tiết dịch vụ,
+-- tồn tại mã dịch vụ ứng vọi loại dịch vụ đó.
 
 
 
+-- R3: Số lượng thuốc tồn kho mỗi loại thuốc phải từ 0 trở lên.  
+-- R4: Đơn giá mỗi loại thuốc phải từ 0 trở lên. 
+-- R5: Số lượng thuốc nhập của mỗi loại thuốc phải lớn hơn 0. 
+-- R7: Mỗi một loại thuốc trong chi tiết thuốc phải tồn tại trong kho thuốc.
+-- R6: Số lượng đã hủy của mỗi loại thuốc phải từ 0 trở lên. 
+-- R8: Ngày hết hạn của mỗi loại thuốc phải xa hơn ngày hiện tại. 
+-- R9: Tổng số lượng thuốc đã nhập phải bằng của tổng số lượng thuốc tồn kho và số lượng thuốc đã hủy và tổng số lượng thuốc trong chi tiết thuốc.
+-- R14: Mã dịch vụ trong loại dịch vụ phải là độc quyền. 
+-- R15: Đơn giá trong mỗi loại dịch vụ phải lớn hơn 0. 
+-- R15: Với mọi chi tiết dịch vụ,
+-- tồn tại mã dịch vụ ứng vọi loại dịch vụ đó.
 
 
 
@@ -206,58 +223,39 @@ END
 CREATE TRIGGER Trigger_Insert_Update_Delete_LT on LOAITHUOC for INSERT, UPDATE, DELETE
 AS
 BEGIN
-    IF EXISTS (SELECT * FROM inserted WHERE SLTON < 0)
+    -- R3: Số lượng thuốc tồn kho mỗi loại thuốc phải từ 0 trở lên. 
+    IF EXISTS (SELECT * FROM LOAITHUOC LT JOIN inserted I ON LT.MATHUOC = I.MATHUOC WHERE LT.SLTON < 0)
     BEGIN
         RAISERROR(N'Số lượng tồn không được nhỏ hơn 0', 16, 1)
         ROLLBACK TRAN
         RETURN
     END
-
-    IF EXISTS (SELECT * FROM inserted WHERE SLNHAP < 0)
+    -- R5: Số lượng thuốc nhập của mỗi loại thuốc phải lớn hơn 0. 
+    IF EXISTS (SELECT * FROM LOAITHUOC LT JOIN inserted I ON LT.MATHUOC = I.MATHUOC WHERE LT.SLNHAP < 0)
     BEGIN
         RAISERROR(N'Số lượng nhập không được nhỏ hơn 0', 16, 1)
         ROLLBACK TRAN
         RETURN
     END
-
-    IF EXISTS (SELECT * FROM inserted WHERE SLDAHUY < 0)
+    -- R6: Số lượng đã hủy của mỗi loại thuốc phải từ 0 trở lên. 
+    IF EXISTS (SELECT * FROM LOAITHUOC LT JOIN inserted I ON LT.MATHUOC = I.MATHUOC WHERE LT.SLDAHUY < 0)
     BEGIN
         RAISERROR(N'Số lượng đã hủy không được nhỏ hơn 0', 16, 1)
         ROLLBACK TRAN
         RETURN
     END
 
-    IF EXISTS (SELECT * FROM inserted WHERE DONGIA < 0)
+    -- R4: Đơn giá mỗi loại thuốc phải từ 0 trở lên.
+    IF EXISTS (SELECT * FROM LOAITHUOC LT JOIN inserted I ON LT.MATHUOC = I.MATHUOC WHERE LT.DONGIA < 0)
     BEGIN
         RAISERROR(N'Đơn giá không được nhỏ hơn 0', 16, 1)
         ROLLBACK TRAN
         RETURN
     END
-
-    IF EXISTS (SELECT * FROM deleted WHERE SLTON < 0)
+-- R9:Tổng số lượng thuốc đã nhập phải bằng của tổng số lượng thuốc tồn kho và số lượng thuốc đã hủy và tổng số lượng thuốc trong chi tiết thuốc.--
+    IF EXISTS (SELECT * FROM LOAITHUOC LT JOIN inserted I ON LT.MATHUOC = I.MATHUOC WHERE LT.SLTON + LT.SLDAHUY + LT.SLNHAP <> LT.SLTON)
     BEGIN
-        RAISERROR(N'Số lượng tồn không được nhỏ hơn 0', 16, 1)
-        ROLLBACK TRAN
-        RETURN
-    END
-
-    IF EXISTS (SELECT * FROM deleted WHERE SLNHAP < 0)
-    BEGIN
-        RAISERROR(N'Số lượng nhập không được nhỏ hơn 0', 16, 1)
-        ROLLBACK TRAN
-        RETURN
-    END
-
-    IF EXISTS (SELECT * FROM deleted WHERE SLDAHUY < 0)
-    BEGIN
-        RAISERROR(N'Số lượng đã hủy không được nhỏ hơn 0', 16, 1)
-        ROLLBACK TRAN
-        RETURN
-    END
-
-    IF EXISTS (SELECT * FROM deleted WHERE DONGIA < 0)
-    BEGIN
-        RAISERROR(N'Đơn giá không được nhỏ hơn 0', 16, 1)
+        RAISERROR(N'Tổng số lượng thuốc đã nhập phải bằng của tổng số lượng thuốc tồn kho và số lượng thuốc đã hủy và tổng số lượng thuốc trong chi tiết thuốc', 16, 1)
         ROLLBACK TRAN
         RETURN
     END
@@ -265,21 +263,14 @@ BEGIN
 END
 
 
-
 -- 2. Trigger cập nhật ngày hết hạn khi thêm/sửa loại thuốc:
 CREATE TRIGGER Trigger_Insert_Update_LT_Hethan on LOAITHUOC for INSERT, UPDATE
 AS
 BEGIN
-    IF EXISTS (SELECT * FROM inserted WHERE NGAYHETHAN < GETDATE())
+-- R8: Ngày hết hạn của mỗi loại thuốc phải xa hơn ngày hiện tại.--
+    IF EXISTS (SELECT * FROM LOAITHUOC LT JOIN inserted I ON LT.MATHUOC = I.MATHUOC WHERE LT.NGAYHETHAN < GETDATE())
     BEGIN
         RAISERROR(N'Ngày hết hạn không được nhỏ hơn ngày hiện tại', 16, 1)
-        ROLLBACK TRAN
-        RETURN
-    END
-    -- don gia phai lon  hon 0
-    IF EXISTS (SELECT * FROM inserted WHERE DONGIA < 0)
-    BEGIN
-        RAISERROR(N'Đơn giá không được nhỏ hơn 0', 16, 1)
         ROLLBACK TRAN
         RETURN
     END
@@ -289,18 +280,33 @@ END
 	
 
 
+
 --                                 TRIGGER LOAI DICH VU
 --1.Trigger gia dich vu lon hon 0:
 CREATE TRIGGER Trigger_Insert_Update_LDV on LOAIDICHVU for INSERT, UPDATE
 AS
 BEGIN
-    IF EXISTS (SELECT * FROM inserted WHERE DONGIA < 0)
+    -- don gia thuoc phau thuat phai lon hon 0
+    IF EXISTS (SELECT * FROM LOAIDICHVU LDV JOIN inserted I ON LDV.MADV = I.MADV WHERE LDV.GIA < 0)
     BEGIN
         RAISERROR(N'Giá dịch vụ không được nhỏ hơn 0', 16, 1)
         ROLLBACK TRAN
         RETURN
     END
-    -- don gia phai lon  hon 0
+    -- R14: Mã dịch vụ trong loại dịch vụ phải là độc quyền. 
+    IF EXISTS (SELECT * FROM LOAIDICHVU LDV JOIN inserted I ON LDV.MADV = I.MADV WHERE LDV.MADV IN (SELECT MADV FROM LOAIDICHVU GROUP BY MADV HAVING COUNT(*) > 1))
+    BEGIN
+        RAISERROR(N'Mã dịch vụ phải là độc quyền', 16, 1)
+        ROLLBACK TRAN
+        RETURN
+    END
+    -- R15: Với mọi chi tiết dịch vụ, tồn tại mã dịch vụ ứng vọi loại dịch vụ đó.
+    IF EXISTS (SELECT * FROM LOAIDICHVU LDV JOIN inserted I ON LDV.MADV = I.MADV WHERE LDV.GIA < 0)
+    BEGIN
+        RAISERROR(N'Giá dịch vụ không được nhỏ hơn 0', 16, 1)
+        ROLLBACK TRAN
+        RETURN
+    END
 END
 
 
@@ -309,10 +315,5 @@ END
 
 	--                                       TRIGGER QUẢN  TRI VIEN
 
---1. Trigger kiểm tra số lượng nhân sĩ trong ca:
-CREATE TRIGGER Trigger_Insert_Update_Delete_LR on LICHRANH for INSERT, UPDATE, DELETE 
-AS
-BEGIN
 
-END
 
