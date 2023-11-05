@@ -44,7 +44,7 @@ app.listen(port, host, () => {
 // ====================test function
 // load(createTablesSLQ);
 
-load("SELECT * FROM NHASI u");
+// load("SELECT * FROM NHASI u");
 // const entity = {
 //   id: 54,
 //   email: "khadasfdsfgsdfnh@gmail.com",
