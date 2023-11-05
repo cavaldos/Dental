@@ -12,13 +12,18 @@ GO
 
 
 -- 1. TẠO CƠ SỞ DỮ LIỆU----------------------------------------------------------------------------------------------------
+-- USE MASTER 
+-- GO
+-- DROP DATABASE PKNHAKHOA
 IF NOT EXISTS (SELECT name FROM master.dbo.sysdatabases WHERE name = 'PKNHAKHOA')
 BEGIN
     CREATE DATABASE PKNHAKHOA;
 END
 GO
+
 USE PKNHAKHOA;
 GO
+
 
 IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'KHACHHANG')
 BEGIN
@@ -164,7 +169,7 @@ BEGIN
 		SODT VARCHAR(10),
 		SOTT INT,
 		NGAYKHAM DATE,
-		DANDO NVARCHAR(200),
+		DANDO NVARCHAR(500),
 		MANS VARCHAR(10),
 		_DAXUATHOADON BIT DEFAULT 0
 		PRIMARY KEY(SODT, SOTT)
@@ -593,6 +598,7 @@ GO
 
 -------------------------------------------------------------------------------------------------------
 -- 3. Trigger------------------------------------------------------------------------------------------
+
 -- Với mọi ca, giờ bắt đầu phải nhỏ hơn giờ kết thúc.
 CREATE TRIGGER TRIGGER_CA_INSERT_UPDATE_1
 ON CA
@@ -1015,9 +1021,6 @@ BEGIN
     END
 
 END
-	
-
-
 GO
 
 --                                 TRIGGER LOAI DICH VU
@@ -1047,13 +1050,16 @@ BEGIN
         RETURN
     END
 END
-
+GO
 
 -------------------------------------------------------------------------------------------------------
 -- 4. NHẬP LIỆU----------------------------------------------------------------------------------------
 
 
+
 -- Thêm NHASI
+USE PKNHAKHOA 
+GO
 INSERT INTO NHASI (MANS, HOTEN, PHAI, GIOITHIEU, MATKHAU)
 VALUES ('NS0001', N'Lê Văn Hòa', N'Nam', N'Chuyên gia: Điều trị nha chu, chữa răng nội nha, tiểu phẫu răng miệng: nhổ răng khôn, nhổ răng mọc ngầm,… phục hình răng giả tháo lắp, phục hình răng sứ thẩm mỹ, cầu răng sứ.\nNgôn ngữ: Tiếng Việt, Tiếng Anh.\nHọc vấn: Tốt nghiệp Bác sỹ Trường Đại học Y Khoa Quảng Tây năm 2012. Tốt nghiệp thạc sỹ Trường Đại học Y khoa Quảng Tây năm 2016.\nKinh nghiệm: Bác sĩ Răng Hàm Mặt – Đại học Y Dược (2019).', 'S4f3&H@ppy*Day');
 
