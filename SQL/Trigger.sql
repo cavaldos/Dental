@@ -241,7 +241,6 @@ GO
 
 -----------------------------------------
 
-
 --LICHHEN
 --1 Mỗi lịch hẹn luôn đi kèm với duy nhất một lịch rảnh của nha sĩ.
 --2 Các lịch hẹn của một khách hàng không được trùng ca nhau.
@@ -251,16 +250,9 @@ GO
 
 CREATE TRIGGER Trigger_Insert_LichHen
 ON LICHHEN
-FOR insert
+INSTEAD OF INSERT
 AS
 BEGIN
-	IF (not exists (SELECT * FROM KHACHHANG KH JOIN inserted i 
-				ON (KH.SODT = i.SODT)))
-	BEGIN
-		RAISERROR(N'Lỗi: Số điện thoại chưa tồn tại trong hệ thống.',16,1)
-		ROLLBACK TRAN
-		RETURN
-	END
 
 	IF (not exists (SELECT * FROM LICHRANH LR JOIN inserted i 
 				ON (LR.MANS = i.MANS AND LR.SOTT = i.SOTT)))
@@ -270,18 +262,27 @@ BEGIN
 		RETURN
 	END
 
+	IF (exists (SELECT * FROM LICHHEN LH JOIN inserted i
+				ON (LH.MANS = i.MANS AND LH.SOTT = i.SOTT)))
+	BEGIN
+		SELECT * FROM LICHHEN LH 
+		RAISERROR(N'Lỗi: Lịch hẹn đã có người đặt.',16,1)
+		ROLLBACK TRAN
+		RETURN
+	END
+	
 	IF (exists (SELECT * FROM 
 			(
-				SELECT LR1.MANS AS MANS1, SODT AS SODT1, NGAY AS NGAY1, MACA AS MACA1
+				SELECT SODT AS SODT1, NGAY AS NGAY1, MACA AS MACA1
 				FROM LICHRANH LR1 JOIN inserted i ON (LR1.MANS = i.MANS AND LR1.SOTT = i.SOTT)
-			)   AS T1,
+			)   AS T1 INNER JOIN
 			(
-				SELECT LR2.MANS AS MANS2, SODT AS SODT2, NGAY AS NGAY2, MACA AS MACA2
+				SELECT SODT AS SODT2, NGAY AS NGAY2, MACA AS MACA2
 				FROM LICHRANH LR2 JOIN LICHHEN LH ON (LR2.MANS = LH.MANS AND LR2.SOTT = LH.SOTT)
 			)   AS T2
-			WHERE SODT1 = SODT2 AND NGAY1 = NGAY2 AND MACA1 = MACA2))
+			ON (SODT1 = SODT2 AND NGAY1 = NGAY2 AND MACA1 = MACA2)))
 	BEGIN
-		RAISERROR(N'Lỗi: Các lịch hẹn của một khách hàng không được trùng ca nhau.',16,1)
+		RAISERROR(N'Lỗi: Các lịch hẹn của cùng một khách hàng không được trùng ca nhau.',16,1)
 		ROLLBACK TRAN
 		RETURN
 	END
@@ -295,39 +296,24 @@ BEGIN
 END
 GO
 
-
-
-
 --HOADON
 --1 Mỗi hóa đơn cần đi theo một hồ sơ bệnh.
 --2 Tổng chi phí của hóa đơn = (SoLuong*DonGia(của Dịch vụ) + SoLuong*DonGia(của Thuốc))
 --3 Mỗi hóa đơn phải được phụ trách bởi một nhân viên hợp lệ
+
 IF EXISTS (SELECT * FROM sys.triggers WHERE name = 'Trigger_Insert_HoaDon')
     DROP TRIGGER Trigger_Insert_HoaDon
 GO
 
 CREATE TRIGGER Trigger_Insert_HoaDon
 ON HOADON
-FOR insert
+INSTEAD OF insert
 AS
 BEGIN
 	IF (not exists (SELECT * FROM HOSOBENH HSB JOIN inserted i 
 				ON (HSB.SODT = i.SODT AND HSB.SOTT = i.SOTT)))
 	BEGIN
 		RAISERROR(N'Lỗi: Không tồn tại hồ sơ bệnh tương ứng.',16,1)
-		ROLLBACK TRAN
-		RETURN
-	END
-
-    DECLARE @NgayXuatHD DATE, @NgayKham DATE;
-    SELECT @NgayXuatHD = i.NGAYXUAT
-    FROM inserted i;
-    SELECT @NgayKham = H.NGAYKHAM
-    FROM HOSOBENH H JOIN inserted i ON H.SODT = i.SODT AND H.SOTT = i.SOTT;
-
-    IF @NgayXuatHD >= @NgayKham
-	BEGIN
-		RAISERROR(N'Lỗi: Ngày xuất hóa đơn không hợp lệ.',16,1)
 		ROLLBACK TRAN
 		RETURN
 	END
@@ -340,34 +326,24 @@ BEGIN
 		RETURN
 	END
 
+    DECLARE @NgayXuatHD DATE, @NgayKham DATE;
+    SELECT @NgayXuatHD = i.NGAYXUAT
+    FROM inserted i;
+    SELECT @NgayKham = H.NGAYKHAM
+    FROM HOSOBENH H JOIN inserted i ON H.SODT = i.SODT AND H.SOTT = i.SOTT;
+
+    IF @NgayXuatHD < @NgayKham
+	BEGIN
+		RAISERROR(N'Lỗi: Ngày xuất hóa đơn không hợp lệ.',16,1)
+		ROLLBACK TRAN
+		RETURN
+	END
+
 	ELSE
     BEGIN
         INSERT INTO HOADON (SODT, SOTT, NGAYXUAT, MANV)
         SELECT SODT, SOTT, NGAYXUAT, MANV
         FROM inserted;
-
-		DECLARE @slDV INT 
-		SET @slDV = ISNULL((SELECT SOLUONG 
-							FROM CHITIETDV CTDV JOIN inserted i
-							ON (CTDV.SODT = i.SODT AND CTDV.SOTT = i.SOTT)), 0)
-		DECLARE @giaDV FLOAT 
-		SET @giaDV = ISNULL((SELECT LDV.DONGIA 
-							FROM CHITIETDV CTDV JOIN inserted i
-							ON (CTDV.SODT = i.SODT AND CTDV.SOTT = i.SOTT)
-							JOIN LOAIDICHVU LDV ON (CTDV.MADV = LDV.MADV)), 0)
-		DECLARE @slT INT 
-		SET @slT = ISNULL((SELECT SOLUONG 
-							FROM CHITIETTHUOC CTT JOIN inserted i
-							ON (CTT.SODT = i.SODT AND CTT.SOTT = i.SOTT)), 0)
-		DECLARE @giaT FLOAT 
-		SET @giaT = ISNULL((SELECT LT.DONGIA 
-							FROM CHITIETTHUOC CTT JOIN inserted i
-							ON (CTT.SODT = i.SODT AND CTT.SOTT = i.SOTT)
-							JOIN LOAITHUOC LT ON (CTT.MATHUOC = LT.MATHUOC)), 0)
-
-		UPDATE HOADON
-        SET TONGCHIPHI = @slDV * @giaDV + @slT * @giaT
-        FROM HOADON HD JOIN inserted i ON (HD.SODT = i.SODT AND HD.SOTT = i.SOTT)
     END
 END
 GO
