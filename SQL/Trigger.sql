@@ -35,52 +35,6 @@ BEGIN
 END;
 GO
 
--- Mỗi lịch hẹn luôn đi kèm với duy nhất một lịch rảnh của nha sĩ.
-CREATE TRIGGER TRIGGER_LICHHEN_INSERT_UPDATE_1
-ON LICHHEN
-AFTER INSERT, UPDATE
-AS
-BEGIN
-    IF EXISTS (
-        SELECT n.SOTT
-    FROM inserted AS n
-        JOIN LICHRANH AS x ON n.SOTT = x.SOTT
-    WHERE x.SOTT IS NULL
-    GROUP BY n.SOTT
-    HAVING COUNT(*) > 1
-    )
-    BEGIN
-        RAISERROR ('Mỗi lịch hẹn phải có duy nhất một lịch rảnh của nha sĩ.', 16, 1)
-        ROLLBACK TRAN
-        RETURN
-    END
-END;
-GO
-
--- Các lịch hẹn của một khách hàng không được trùng ca nhau.
-CREATE TRIGGER TRIGGER_LICHHEN_INSERT_UPDATE_2
-ON LICHHEN
-AFTER INSERT, UPDATE
-AS
-BEGIN
-    IF EXISTS (
-        SELECT 1
-        FROM inserted i
-        WHERE EXISTS (
-            SELECT 1
-            FROM LICHHEN n1
-            WHERE n1.MANS = i.MANS AND n1.SOTT = i.SOTT
-            GROUP BY n1.MANS, n1.SOTT
-            HAVING COUNT(*) > 1
-        )
-    )
-    BEGIN
-        RAISERROR(N'Các lịch hẹn không được trùng ca nhau.', 16, 1)
-        ROLLBACK TRAN
-        RETURN
-    END
-END;
-GO
 
 -- Các lịch rảnh của một nha sĩ không được trùng nhau (trùng ca và trùng ngày).
 CREATE TRIGGER TRIGGER_LICHRANH_INSERT_UPDATE_2
