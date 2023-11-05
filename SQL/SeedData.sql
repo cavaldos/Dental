@@ -2,20 +2,6 @@ use PKNHAKHOA
 GO
 -- WARNING: CHỈ CHẠY SCRIPT NÀY 1 LẦN SAU KHI TẠO DB ------------------------------------------------
 
--- Tạo ca, mỗi ca 2 tiếng từ 9g đến 21g
-DECLARE @StartTime TIME = '09:00';
-DECLARE @EndTime TIME = '21:00';
-DECLARE @ShiftCount INT = 1;
-WHILE @StartTime < @EndTime
-BEGIN
-    DECLARE @MACA VARCHAR(10) = 'CA' + RIGHT('00' + CAST(@ShiftCount AS VARCHAR), 3);
-    
-    INSERT INTO CA (MACA, GIOBATDAU, GIOKETTHUC)
-    VALUES (@MACA, @StartTime, DATEADD(HOUR, 2, @StartTime));
-    SET @StartTime = DATEADD(HOUR, 2, @StartTime);
-    SET @ShiftCount = @ShiftCount + 1;
-END;
-GO
 
 -- Thêm NHASI
 INSERT INTO NHASI (MANS, HOTEN, PHAI, GIOITHIEU, MATKHAU)
@@ -48,6 +34,22 @@ VALUES ('NS0009', N'Đinh Quang Huy', N'Nam', N'Chuyên gia: Cấy ghép Implant
 INSERT INTO NHASI (MANS, HOTEN, PHAI, GIOITHIEU, MATKHAU)
 VALUES ('NS0010', N'Vũ Hoàng Anh', N'Nam', N'Chuyên gia: Điều trị nha chu; nha khoa tổng quát; nha khoa thẩm mỹ; chỉnh nha.\nNgôn ngữ: Tiếng Việt, Tiếng Anh.\nHọc vấn: Tốt nghiệp Bác sĩ Trường Đại học Y Dược TP. Hồ Chí Minh năm 2015.\nKinh nghiệm: Bác sĩ tại Bệnh Viện Răng Hàm Mặt TP. Hồ Chí Minh từ năm 2015.', 'H1lls&Gr33n$');
 GO
+
+-- Tạo ca, mỗi ca 2 tiếng từ 9g đến 21g
+DECLARE @StartTime TIME = '09:00';
+DECLARE @EndTime TIME = '21:00';
+DECLARE @ShiftCount INT = 1;
+WHILE @StartTime < @EndTime
+BEGIN
+    DECLARE @MACA VARCHAR(10) = 'CA' + RIGHT('00' + CAST(@ShiftCount AS VARCHAR), 3);
+    
+    INSERT INTO CA (MACA, GIOBATDAU, GIOKETTHUC)
+    VALUES (@MACA, @StartTime, DATEADD(HOUR, 2, @StartTime));
+    SET @StartTime = DATEADD(HOUR, 2, @StartTime);
+    SET @ShiftCount = @ShiftCount + 1;
+END;
+GO
+
 -- Thêm LICHRANH
 -- Ngày 2024-01-01
 INSERT INTO LICHRANH (MANS, SOTT, MACA, NGAY)
