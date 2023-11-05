@@ -982,13 +982,7 @@ BEGIN
         ROLLBACK TRAN
         RETURN
     END
-    -- Ma thuoc khong duoc trung
-    IF EXISTS (SELECT * FROM LOAITHUOC LT JOIN inserted I ON LT.MATHUOC = I.MATHUOC WHERE LT.MATHUOC = I.MATHUOC)
-    BEGIN
-        RAISERROR(N'Mã thuốc không được trùng', 16, 1)
-        ROLLBACK TRAN
-        RETURN
-    END
+    
 END
 GO
 
