@@ -976,25 +976,46 @@ BEGIN
         ROLLBACK TRAN
         RETURN
     END
+    -- Ma thuoc khong duoc trung
+    IF EXISTS (SELECT * FROM LOAITHUOC LT JOIN inserted I ON LT.MATHUOC = I.MATHUOC WHERE LT.MATHUOC = I.MATHUOC)
+    BEGIN
+        RAISERROR(N'Mã thuốc không được trùng', 16, 1)
+        ROLLBACK TRAN
+        RETURN
+    END
 END
 GO
 
 
--- 2. Trigger cập nhật ngày hết hạn khi thêm/sửa loại thuốc:
-CREATE TRIGGER Trigger_Insert_Update_LT_Hethan on LOAITHUOC for INSERT, UPDATE
-AS
-BEGIN
--- R8: Ngày hết hạn của mỗi loại thuốc phải xa hơn ngày hiện tại.--
-    IF EXISTS (SELECT * FROM LOAITHUOC LT JOIN inserted I ON LT.MATHUOC = I.MATHUOC WHERE LT.NGAYHETHAN < GETDATE())
-    BEGIN
-        RAISERROR(N'Ngày hết hạn không được nhỏ hơn ngày hiện tại', 16, 1)
-        ROLLBACK TRAN
-        RETURN
-    END
 
-END
 	
 
+CREATE TRIGGER Trigger_Insert_Update_LT_Hethan 
+ON LOAITHUOC
+INSTEAD OF INSERT
+AS
+BEGIN
+
+  -- R8: Ngày hết hạn của mỗi loại thuốc phải xa hơn ngày hiện tại.
+  IF EXISTS (
+    SELECT * 
+    FROM LOAITHUOC LT JOIN inserted  I ON LT.MATHUOC = I.MATHUOC 
+    WHERE LT.NGAYHETHAN < GETDATE()
+  )
+  BEGIN
+     RAISERROR(N'Ngày hết hạn không được nhỏ hơn ngày hiện tại', 16, 1)
+     ROLLBACK TRAN
+     RETURN
+  END
+
+  -- Cho phép insert 
+  INSERT INTO LOAITHUOC (MATHUOC, TENTHUOC, DONVITINH, CHIDINH, 
+                          SLTON, SLNHAP, SLDAHUY, NGAYHETHAN, DONGIA)
+  SELECT MATHUOC, TENTHUOC, DONVITINH, CHIDINH,
+         SLTON, SLNHAP, SLDAHUY, NGAYHETHAN, DONGIA
+  FROM inserted
+
+END
 
 GO
 
@@ -1355,13 +1376,12 @@ VALUES ('0923456780', 1, '2024-01-05', 1, 'NV0008');
 INSERT INTO HOADON (SODT, SOTT, NGAYXUAT, MANV)
 VALUES ('0345678901', 1, '2024-01-05', 'NV0010');
 
-
-
+SELECT * FROM LOAITHUOC
 -- NHAP LOAI THUOC
 INSERT INTO LOAITHUOC (MATHUOC, TENTHUOC, DONVITINH, CHIDINH, SLTON, SLNHAP, SLDAHUY, NGAYHETHAN, DONGIA) 
 VALUES ('MT01', N'Paracetamol', N'Viên', 'Giảm đau nhẹ', 100, 200, 5, '2024-12-31', 5000);
 INSERT INTO LOAITHUOC (MATHUOC, TENTHUOC, DONVITINH, CHIDINH, SLTON, SLNHAP, SLDAHUY, NGAYHETHAN, DONGIA) 
-VALUES ('MT02', N'Amoxicillin', N'Hộp ', N'Kháng sinh phổ rộng', 50, 100, 0, '2023-03-31', 20000);
+VALUES ('MT02', N'Amoxicillin', N'Hộp ', N'Kháng sinh phổ rộng', 50, 100, 1, '2024-08-31', 20000);
 INSERT INTO LOAITHUOC (MATHUOC, TENTHUOC, DONVITINH, CHIDINH, SLTON, SLNHAP, SLDAHUY, NGAYHETHAN, DONGIA) 
 VALUES ('MT03', N'Vitamin C', N'Chai ', N'Bổ sung vitamin C', 80, 100, 3, '2024-08-31', 12000);
 INSERT INTO LOAITHUOC (MATHUOC, TENTHUOC, DONVITINH, CHIDINH, SLTON, SLNHAP, SLDAHUY, NGAYHETHAN, DONGIA) 
@@ -1443,7 +1463,6 @@ VALUES
 ('MT03', '0923456780', 1, '"Buổi sáng: 1 viên thuốc sau bữa sáng.\nBuổi trưa: 1 viên thuốc sau bữa trưa.\nBuổi tối: 1 viên thuốc sau bữa tối.\n"'),
 ('MT09', '0923456780', 1, '"Buổi sáng: 1 viên thuốc sau bữa sáng.\nBuổi trưa: 1 viên thuốc sau bữa trưa.\nBuổi tối: 1 viên thuốc sau bữa tối.\n"'),
 ('MT10', '0387654321', 1, '"Buổi sáng: 1 viên thuốc sau bữa sáng.\nBuổi trưa: 1 viên thuốc sau bữa trưa.\nBuổi tối: 1 viên thuốc sau bữa tối.\n"');
-
 --Thêm chi tiết dịch vụ
 INSERT INTO CHITIETDV (MADV, SOTT, SODT, SOLUONG)
 VALUES
