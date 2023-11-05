@@ -741,18 +741,6 @@ BEGIN
         ROLLBACK TRAN
         RETURN
     END
-
-    ELSE
-    BEGIN
-        UPDATE LOAITHUOC
-        SET SLTON = SLTON - (
-            SELECT SOLUONG
-        FROM inserted
-        WHERE MATHUOC = LOAITHUOC.MATHUOC
-        )
-        FROM LOAITHUOC
-            JOIN inserted ON LOAITHUOC.MATHUOC = inserted.MATHUOC
-    END
 END
 GO
 
@@ -1332,51 +1320,19 @@ VALUES ('NS0006', 1, N'Người thân tôi nói rằng tôi kêu răng khi ngủ
 --Thêm hồ sơ bệnh án
 INSERT INTO HOSOBENH(SODT, SOTT, NGAYKHAM, DANDO, MANS, _DAXUATHOADON)
 VALUES
-('0323456789', 1, '2024-01-05', N'Chải răng cẩn thận, ít nhất hai lần mỗi ngày. Sử dụng bàn chải mềm và kem đánh răng chứa fluor. Hạn chế thức ăn và đồ uống nóng hoặc lạnh.', 'NS0001', 1),
-('0712345678', 1, '2024-01-02', N'Làm sạch răng bằng cách sử dụng chỉ nha khoa và bàn chải mềm mỗi ngày để tránh tái diễn tình trạng này trong tương lai. Không cần tái khám.', 'NS0002', 1),
-('0987654321', 1, '2024-01-07', N'Hạn chế thức ăn nóng hoặc cay và hãy duy trì vệ sinh miệng đúng cách. Uống thuốc theo toa đã chỉ định và tái khám sau 2 tuần. Nếu vết viêm không giảm, cần đến khám ngay.', 'NS0003', 1),
-('0301234567', 1, '2024-01-02', N'Đề nghị tránh những thức ăn cứng hoặc nhai mạnh, và tránh lâu dài trong nhiệt độ lạnh hoặc nóng. Uống thuốc theo toa đã chỉ định và tái khám sau 2 tuần.', 'NS0004', 1),
-('0743216549', 1, '2024-01-02', N'Làm sạch kỹ miệng và nướu hàng ngày. Hạn chế thức ăn và đồ uống có nhiều đường.', 'NS0008', 1),
-('0912345678', 1, '2024-01-05', N'Cần tiếp tục chăm sóc và tự theo dõi vết thương tại nhà. Nếu vết thương không lành hoặc tình trạng trở nên nghiêm trọng hơn, hãy quay lại để kiểm tra. Uống thuốc đều đặn theo toa đã kê.', 'NS0009', 1),
-('0378236541', 1, '2024-01-03', N'Tuân thủ lịch hẹn kiểm tra định kỳ và duy trì vệ sinh miệng tốt. Tránh thức ăn cứng và cẩn thận với việc sử dụng răng để cắn các vật cứng. Nếu có triệu chứng bất thường, vui lòng đến kiểm tra ngay.', 'NS0010', 1),
-('0723456789', 1, '2024-01-03', N'Tuân thủ lịch hẹn kiểm tra định kỳ và duy trì vệ sinh miệng tốt. Tránh thức ăn cứng và cẩn thận với việc sử dụng răng để cắn các vật cứng. Nếu có triệu chứng bất thường, vui lòng đến kiểm tra ngay.', 'NS0003', 1),
-('0923456780', 1, '2024-01-05', N'Sau cấy ghép implant, hạn chế ăn thực phẩm cứng, tránh hút thuốc, và thực hiện vệ sinh kỹ lưỡng vùng cấy ghép để đảm bảo quá trình phục hồi suôn sẻ.', 'NS0009', 1),
-('0345678901', 1, '2024-01-05', N'Trong vài ngày đầu sau nhổ răng nên ăn đồ mềm và dễ tiêu hóa để xương hàm không phải làm việc nhiều. Không ăn thức ăn quá cứng, quá mặn, đồ ngọt, chua, cay, đồ uống có ga, cồn, quá nóng và các chất kích thích khác trong 2 ngày đầu tiên. Không hút thuốc trong ít nhất 3 ngày.', 'NS0001', 1),
+('0323456789', 1, '2024-01-05', N'Chải răng cẩn thận, ít nhất hai lần mỗi ngày. Sử dụng bàn chải mềm và kem đánh răng chứa fluor. Hạn chế thức ăn và đồ uống nóng hoặc lạnh.', 'NS0001', 0),
+('0712345678', 1, '2024-01-02', N'Làm sạch răng bằng cách sử dụng chỉ nha khoa và bàn chải mềm mỗi ngày để tránh tái diễn tình trạng này trong tương lai. Không cần tái khám.', 'NS0002', 0),
+('0987654321', 1, '2024-01-07', N'Hạn chế thức ăn nóng hoặc cay và hãy duy trì vệ sinh miệng đúng cách. Uống thuốc theo toa đã chỉ định và tái khám sau 2 tuần. Nếu vết viêm không giảm, cần đến khám ngay.', 'NS0003', 0),
+('0301234567', 1, '2024-01-02', N'Đề nghị tránh những thức ăn cứng hoặc nhai mạnh, và tránh lâu dài trong nhiệt độ lạnh hoặc nóng. Uống thuốc theo toa đã chỉ định và tái khám sau 2 tuần.', 'NS0004', 0),
+('0743216549', 1, '2024-01-02', N'Làm sạch kỹ miệng và nướu hàng ngày. Hạn chế thức ăn và đồ uống có nhiều đường.', 'NS0008', 0),
+('0912345678', 1, '2024-01-05', N'Cần tiếp tục chăm sóc và tự theo dõi vết thương tại nhà. Nếu vết thương không lành hoặc tình trạng trở nên nghiêm trọng hơn, hãy quay lại để kiểm tra. Uống thuốc đều đặn theo toa đã kê.', 'NS0009', 0),
+('0378236541', 1, '2024-01-03', N'Tuân thủ lịch hẹn kiểm tra định kỳ và duy trì vệ sinh miệng tốt. Tránh thức ăn cứng và cẩn thận với việc sử dụng răng để cắn các vật cứng. Nếu có triệu chứng bất thường, vui lòng đến kiểm tra ngay.', 'NS0010', 0),
+('0723456789', 1, '2024-01-03', N'Tuân thủ lịch hẹn kiểm tra định kỳ và duy trì vệ sinh miệng tốt. Tránh thức ăn cứng và cẩn thận với việc sử dụng răng để cắn các vật cứng. Nếu có triệu chứng bất thường, vui lòng đến kiểm tra ngay.', 'NS0003', 0),
+('0923456780', 1, '2024-01-05', N'Sau cấy ghép implant, hạn chế ăn thực phẩm cứng, tránh hút thuốc, và thực hiện vệ sinh kỹ lưỡng vùng cấy ghép để đảm bảo quá trình phục hồi suôn sẻ.', 'NS0009', 0),
+('0345678901', 1, '2024-01-05', N'Trong vài ngày đầu sau nhổ răng nên ăn đồ mềm và dễ tiêu hóa để xương hàm không phải làm việc nhiều. Không ăn thức ăn quá cứng, quá mặn, đồ ngọt, chua, cay, đồ uống có ga, cồn, quá nóng và các chất kích thích khác trong 2 ngày đầu tiên. Không hút thuốc trong ít nhất 3 ngày.', 'NS0001', 0),
 ('0765432109', 1, '2024-01-07', N'Hạn chế thức ăn cứng và cẩn thận không dùng răng giả để cắn vật cứng. Đảm bảo vệ sinh miệng đúng cách bằng cách đánh răng và súc miệng thường xuyên. Nếu có vấn đề hoặc triệu chứng lạ, nên liên hệ với nha sĩ ngay lập tức.', 'NS0005', 0),
 ('0387654321', 1, '2024-01-01', N'Trước khi ngủ, thư giãn bằng việc thực hiện các kỹ thuật thư giãn như thở sâu, tập yoga, hoặc lắng nghe âm nhạc. Sử dụng đồng hồ bảo vệ răng trong lúc ngủ.', 'NS0006', 0);
 
---Nhap lieu bang HOADON
-INSERT INTO HOADON (SODT, SOTT, NGAYXUAT, _DATHANHTOAN, MANV)
-VALUES ('0323456789', 1, '2024-01-05', 1, 'NV0001');
-
-INSERT INTO HOADON (SODT, SOTT, NGAYXUAT, _DATHANHTOAN, MANV)
-VALUES ('0712345678', 1, '2024-01-02', 1, 'NV0007');
-
-INSERT INTO HOADON (SODT, SOTT, NGAYXUAT, _DATHANHTOAN, MANV)
-VALUES ('0987654321', 1, '2024-01-07', 1, 'NV0001');
-
-INSERT INTO HOADON (SODT, SOTT, NGAYXUAT, _DATHANHTOAN, MANV)
-VALUES ('0301234567', 1, '2024-01-02', 1, 'NV0003');
-
-INSERT INTO HOADON (SODT, SOTT, NGAYXUAT, _DATHANHTOAN, MANV)
-VALUES ('0743216549', 1, '2024-01-02', 1, 'NV0003');
-
-INSERT INTO HOADON (SODT, SOTT, NGAYXUAT, _DATHANHTOAN, MANV)
-VALUES ('0912345678', 1, '2024-01-05', 1, 'NV0014');
-
-INSERT INTO HOADON (SODT, SOTT, NGAYXUAT, MANV)
-VALUES ('0378236541', 1, '2024-01-03', 'NV0012');
-
-INSERT INTO HOADON (SODT, SOTT, NGAYXUAT, _DATHANHTOAN, MANV)
-VALUES ('0723456789', 1, '2024-01-03', 1, 'NV0010');
-
-INSERT INTO HOADON (SODT, SOTT, NGAYXUAT, _DATHANHTOAN, MANV)
-VALUES ('0923456780', 1, '2024-01-05', 1, 'NV0008');
-
-INSERT INTO HOADON (SODT, SOTT, NGAYXUAT, MANV)
-VALUES ('0345678901', 1, '2024-01-05', 'NV0010');
-
-SELECT * FROM LOAITHUOC
 -- NHAP LOAI THUOC
 INSERT INTO LOAITHUOC (MATHUOC, TENTHUOC, DONVITINH, CHIDINH, SLTON, SLNHAP, SLDAHUY, NGAYHETHAN, DONGIA) 
 VALUES ('MT01', N'Paracetamol', N'Viên', 'Giảm đau nhẹ', 100, 200, 5, '2024-12-31', 5000);
@@ -1481,7 +1437,36 @@ VALUES
 ('DV20', 1, '0387654321', 1),
 ('DV06', 1, '0765432109', 1);
 
+--Nhap lieu bang HOADON
+INSERT INTO HOADON (SODT, SOTT, NGAYXUAT, _DATHANHTOAN, MANV)
+VALUES ('0323456789', 1, '2024-01-05', 1, 'NV0001');
 
+INSERT INTO HOADON (SODT, SOTT, NGAYXUAT, _DATHANHTOAN, MANV)
+VALUES ('0712345678', 1, '2024-01-02', 1, 'NV0007');
+
+INSERT INTO HOADON (SODT, SOTT, NGAYXUAT, _DATHANHTOAN, MANV)
+VALUES ('0987654321', 1, '2024-01-07', 1, 'NV0001');
+
+INSERT INTO HOADON (SODT, SOTT, NGAYXUAT, _DATHANHTOAN, MANV)
+VALUES ('0301234567', 1, '2024-01-02', 1, 'NV0003');
+
+INSERT INTO HOADON (SODT, SOTT, NGAYXUAT, _DATHANHTOAN, MANV)
+VALUES ('0743216549', 1, '2024-01-02', 1, 'NV0003');
+
+INSERT INTO HOADON (SODT, SOTT, NGAYXUAT, _DATHANHTOAN, MANV)
+VALUES ('0912345678', 1, '2024-01-05', 1, 'NV0014');
+
+INSERT INTO HOADON (SODT, SOTT, NGAYXUAT, MANV)
+VALUES ('0378236541', 1, '2024-01-03', 'NV0012');
+
+INSERT INTO HOADON (SODT, SOTT, NGAYXUAT, _DATHANHTOAN, MANV)
+VALUES ('0723456789', 1, '2024-01-03', 1, 'NV0010');
+
+INSERT INTO HOADON (SODT, SOTT, NGAYXUAT, _DATHANHTOAN, MANV)
+VALUES ('0923456780', 1, '2024-01-05', 1, 'NV0008');
+
+INSERT INTO HOADON (SODT, SOTT, NGAYXUAT, MANV)
+VALUES ('0345678901', 1, '2024-01-05', 'NV0010');
 
 
 
