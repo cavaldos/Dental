@@ -417,6 +417,8 @@ GO
 
 -----------------------------------------
 
+-----------------------------------------
+
 
 
 -- =====                           TRIGGER LOAI THUOC
@@ -471,15 +473,8 @@ BEGIN
         ROLLBACK TRAN
         RETURN
     END
--- R9:Tổng số lượng thuốc đã nhập phải bằng của tổng số lượng thuốc tồn kho và số lượng thuốc đã hủy và tổng số lượng thuốc trong chi tiết thuốc.--
-    IF EXISTS (SELECT * FROM LOAITHUOC LT JOIN inserted I ON LT.MATHUOC = I.MATHUOC WHERE LT.SLTON + LT.SLDAHUY + LT.SLNHAP <> LT.SLTON)
-    BEGIN
-        RAISERROR(N'Tổng số lượng thuốc đã nhập phải bằng của tổng số lượng thuốc tồn kho và số lượng thuốc đã hủy và tổng số lượng thuốc trong chi tiết thuốc', 16, 1)
-        ROLLBACK TRAN
-        RETURN
-    END
-
 END
+GO
 
 
 -- 2. Trigger cập nhật ngày hết hạn khi thêm/sửa loại thuốc:
@@ -495,10 +490,10 @@ BEGIN
     END
 
 END
-END
 	
 
 
+GO
 
 --                                 TRIGGER LOAI DICH VU
 --1.Trigger gia dich vu lon hon 0:
@@ -506,7 +501,7 @@ CREATE TRIGGER Trigger_Insert_Update_LDV on LOAIDICHVU for INSERT, UPDATE
 AS
 BEGIN
     -- don gia thuoc phau thuat phai lon hon 0
-    IF EXISTS (SELECT * FROM LOAIDICHVU LDV JOIN inserted I ON LDV.MADV = I.MADV WHERE LDV.GIA < 0)
+    IF EXISTS (SELECT * FROM LOAIDICHVU LDV JOIN inserted I ON LDV.MADV = I.MADV WHERE LDV.DONGIA < 0)
     BEGIN
         RAISERROR(N'Giá dịch vụ không được nhỏ hơn 0', 16, 1)
         ROLLBACK TRAN
@@ -520,7 +515,7 @@ BEGIN
         RETURN
     END
     -- R15: Với mọi chi tiết dịch vụ, tồn tại mã dịch vụ ứng vọi loại dịch vụ đó.
-    IF EXISTS (SELECT * FROM LOAIDICHVU LDV JOIN inserted I ON LDV.MADV = I.MADV WHERE LDV.GIA < 0)
+    IF EXISTS (SELECT * FROM LOAIDICHVU LDV JOIN inserted I ON LDV.MADV = I.MADV WHERE LDV.DONGIA < 0)
     BEGIN
         RAISERROR(N'Giá dịch vụ không được nhỏ hơn 0', 16, 1)
         ROLLBACK TRAN
@@ -530,9 +525,6 @@ END
 
 
 
-
-
-	--                                       TRIGGER QUẢN  TRI VIEN
 
 
 
