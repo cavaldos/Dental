@@ -5,16 +5,12 @@ import morgan from "morgan";
 import cors from "cors";
 import colors from "ansicolors";
 import IP from "./config/ip.js";
-
-
 import { load, add, del, patch, getTables } from "./utils/mssql.js";
+import AllRouters from "./api/routes/index.js";
 
-const role = {
-  login: "sa",
-  pass: "password123@",
-  database: "master",
-};
-load("SELECT * FROM NHANVIEN", role);
+
+
+AllRouters(app);
 app.use(express.json());
 dotenv.config();
 app.use(morgan("tiny"));
