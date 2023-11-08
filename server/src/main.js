@@ -5,24 +5,13 @@ import morgan from "morgan";
 import cors from "cors";
 import colors from "ansicolors";
 import IP from "./config/ip.js";
-
-import { poolConnect } from "./config/connectDB.js";
 import { load, add, del, patch, getTables } from "./utils/mssql.js";
-// import setup from "./config/setup.js";
-poolConnect();
-// const createTablesSLQ = `
-// CREATE TABLE KHACHHANGG
-// (
-//     SODT VARCHAR(10) PRIMARY KEY,
-//     HOTEN NVARCHAR(50),
-//     PHAI NVARCHAR(5) CHECK(PHAI IN (N'Nam', N'Nữ')),
-//     NGAYSINH DATE,
-// 	DIACHI NVARCHAR(250),
-// 	MATKHAU VARCHAR(20),
-// 	_DAKHOA BIT DEFAULT 0
-// );
-// `;
-// setup();
+
+import AllRouters from "./api/routes/index.js";
+
+
+
+AllRouters(app);
 
 app.use(express.json());
 dotenv.config();
@@ -37,28 +26,8 @@ app.listen(port, host, () => {
   console.log(`  🚀  ➜ Network:  `, colors.green(`http://${IP}:${port}\n`));
 });
 
-// ====================test function
-// ====================test function
-// ====================test function
-// ====================test function
-// ====================test function
-// load(createTablesSLQ);
 
-// load("SELECT * FROM NHASI u");
-// const entity = {
-//   id: 54,
-//   email: "khadasfdsfgsdfnh@gmail.com",
-//   name: "khansdfdfgsdfh",
-//   password: "12455563456",
-// };
 
-// const newentity = {
-//   name: "New Name",
-//   email: "newemail@example.com",
-// };
-// const tableName = "Users";
-// const condition = "id = 1";
-// del(tableName, condition);
-// patch(tableName, newentity, condition);
-// add(tableName, entity);
-getTables();
+import test from "./test.js";
+test();
+
