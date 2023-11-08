@@ -12,20 +12,20 @@ services:
       MSSQL_CONFIG_CONNECTIVITY: "LOCAL"  
     ports:
       - "1444:1433"
-    volumes:
-     - sqlserver_volume:/var/opt/mssql
-    networks:
-      my_network:
-         ipv4_address: 10.0.5.2 # Đặt địa chỉ IP tĩnh cho container
-volumes:
-  sqlserver_volume:
-    driver: local
-networks:
-  my_network:
-    driver: bridge
-    ipam:
-      config:
-        - subnet:  10.0.5.2/30 # Đặt subnet cho mạng cầu
-          gateway: 10.0.5.3 # Đặt gateway cho mạng cầu
+    # volumes:
+    #  - sqlserver_volume:/var/opt/mssql
+    # networks:
+    #   my_network:
+    #      ipv4_address: 10.0.5.2 # Đặt địa chỉ IP tĩnh cho container
+# volumes:
+#   sqlserver_volume:
+#     driver: local
+# networks:
+#   my_network:
+#     driver: bridge
+#     ipam:
+#       config:
+#         - subnet:  10.0.5.2/30 # Đặt subnet cho mạng cầu
+#           gateway: 10.0.5.3 # Đặt gateway cho mạng cầu
 
 # docker compose -f mssql.yml up -d

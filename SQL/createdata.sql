@@ -1,0 +1,8 @@
+USE master;
+GO
+
+IF NOT EXISTS (SELECT name FROM master.dbo.sysdatabases WHERE name = 'PKNHAKHOA')
+BEGIN
+    CREATE DATABASE PKNHAKHOA;
+END
+GO

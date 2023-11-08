@@ -10,11 +10,11 @@ const config = {
   password: process.env.MSSQL_PASSWORD,
   server: process.env.MSSQL_SERVER,
   port: PORT,
-  database: process.env.DATABASE,
+  database: process.env.MSSQL_DATABASE,
   options: {
     enableArithAbort: true,
-    trustServerCertificate: true, 
-    encrypt: true, 
+    trustServerCertificate: true,
+    encrypt: true,
   },
   pool: {
     max: 100,
@@ -23,18 +23,22 @@ const config = {
   },
 };
 
-const poolConnect = async (name, pass) => {
+const poolConnect = async (name, pass,database) => {
   try {
     const connectionConfig = {
       ...config,
+
       user: name || config.user,
       password: pass || config.password,
+      database: database || config.database,
     };
     let pool = new sql.ConnectionPool(connectionConfig);
     await pool.connect();
     console.log(
       `    🔥 SQL Server poolconnection successful !!! username:`,
       colors.red(`${connectionConfig.user}`),
+      "connect to database:",
+      colors.red(`${connectionConfig.database}`),
       `\n`
     );
     return pool;
