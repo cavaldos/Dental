@@ -8,9 +8,9 @@ import { load, add, del, patch, getTables } from "./utils/mssql.js";
 const role = {
   login: "sa",
   pass: "password123@",
-  database: "master",
+  database: "PKNHAKHOA",
 };
-load("SELECT * FROM NHANVIEN", role);
+load("SELECT * FROM HOSOBENH", role);
 
 ////
 export default function test () {
