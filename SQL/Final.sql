@@ -836,7 +836,7 @@ GO
 
 CREATE TRIGGER Trigger_Insert_LichHen
 ON LICHHEN
-INSTEAD OF INSERT
+AFTER INSERT
 AS
 BEGIN
 	IF (EXISTS(SELECT * FROM LICHHEN LH, inserted I WHERE I.MANS = LH.MANS AND I.SOTT = LH.SOTT AND I.SODT != LH.SODT))
@@ -869,44 +869,18 @@ GO
 
 CREATE TRIGGER Trigger_Insert_HoaDon
 ON HOADON
-INSTEAD OF insert
+AFTER INSERT
 AS
 BEGIN
-	IF (not exists (SELECT * FROM HOSOBENH HSB JOIN inserted i 
-				ON (HSB.SODT = i.SODT AND HSB.SOTT = i.SOTT)))
-	BEGIN
-		RAISERROR(N'Lỗi: Không tồn tại hồ sơ bệnh tương ứng.',16,1)
-		ROLLBACK TRAN
-		RETURN
-	END
-
-	IF (not exists (SELECT * FROM NHANVIEN NV JOIN inserted i 
-				ON (NV.MANV = i.MANV)))
-	BEGIN
-		RAISERROR(N'Lỗi: Mã nhân viên phụ trách không hợp lệ.',16,1)
-		ROLLBACK TRAN
-		RETURN
-	END
-
-    DECLARE @NgayXuatHD DATE, @NgayKham DATE;
-    SELECT @NgayXuatHD = i.NGAYXUAT
-    FROM inserted i;
-    SELECT @NgayKham = H.NGAYKHAM
-    FROM HOSOBENH H JOIN inserted i ON H.SODT = i.SODT AND H.SOTT = i.SOTT;
-
-    IF @NgayXuatHD < @NgayKham
+    IF EXISTS(SELECT *
+			  FROM HOSOBENH HSB JOIN inserted I
+			  ON HSB.SODT = I.SODT AND HSB.SOTT = I.SOTT
+			  WHERE NGAYXUAT < NGAYKHAM)
 	BEGIN
 		RAISERROR(N'Lỗi: Ngày xuất hóa đơn không hợp lệ.',16,1)
 		ROLLBACK TRAN
 		RETURN
 	END
-
-	ELSE
-    BEGIN
-        INSERT INTO HOADON (SODT, SOTT, NGAYXUAT, MANV)
-        SELECT SODT, SOTT, NGAYXUAT, MANV
-        FROM inserted;
-    END
 END
 GO
 
