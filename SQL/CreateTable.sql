@@ -206,3 +206,20 @@ ADD CONSTRAINT FK_CTT_HSB
 FOREIGN KEY(SODT, SOTT)
 REFERENCES HOSOBENH(SODT, SOTT);
 
+USE PKNHAKHOA
+GO
+--------------
+-- 1 .Xem thông tin cá nhân khách hàng
+
+-- 2. Sửa thông tin cá nhan KH
+-- 3. Xem lịch hẹn
+-- 4. Xoa lịch hẹn
+-- 5. Them lịch hẹn
+-- 6. Xem lịch rảnh của nha sĩ (xem trên CA)
+-- 7. Xem thông tin nha sĩ
+-- 8. Xem hóa đơn
+-- 9. Xem hồ sơ bệnh án 
+--10. Xem tên nhân viên trong hóa đơn
+--11. Xem loại dịch vụ
+--12. Xem chi tiết thuốc trong mỗi đơn thuốc
+--13. Xem tên các loại thuốc
