@@ -119,7 +119,7 @@ BEGIN TRAN
     BEGIN TRY
         IF EXISTS(SELECT 1 FROM KHACHHANG WHERE SODT = @SODT)
         BEGIN
-            SELECT LH.SODT, LH.MANS, LH.SOTT, LH.LYDOKHAM, LH.NGAY
+            SELECT LH.SODT, LH.MANS, LH.SOTT, LH.LYDOKHAM
             FROM LICHHEN LH
             WHERE LH.SODT = @SODT
         END
@@ -140,7 +140,7 @@ COMMIT TRAN
 
 
 -- 4. Xoa lịch hẹn
-CREATE OR ALTER PROC sp_XoaLichHen
+CREATE OR ALTER PROC SP_XOALICHHEN_KH
 @SODT VARCHAR(10),
 @MANS VARCHAR(10), 
 @SOTT INT
@@ -166,46 +166,48 @@ BEGIN TRAN
         RETURN
     END CATCH
 COMMIT TRAN
+
 -- 5. Them lịch hẹn
-CREATE OR ALTER PROC sp_ThemLichHen
+CREATE OR ALTER PROC SP_THEMLICHHEN_KH
 @SODT VARCHAR(10),
 @MANS VARCHAR(10),  
 @SOTT INT,
-@LYDOKHAM NVARCHAR(200), 
-@NGAY DATE
-AS  
+@LYDOKHAM NVARCHAR(200)
+AS
 BEGIN TRAN
     BEGIN TRY
-        IF EXISTS( )
-        BEGIN
-            IF EXISTS(SELECT 1 FROM LICHHEN WHERE MANS = @MANS AND SOTT = @SOTT)
-            BEGIN
-                RAISERROR(N'Lịch hẹn đã tồn tại trong hệ thống', 16, 1);
-                ROLLBACK TRAN
-                RETURN
-            END
-            ELSE
-            BEGIN
-                INSERT INTO LICHHEN(SODT, MANS, SOTT, LYDOKHAM, NGAY)
-                VALUES(@SODT, @MANS, @SOTT, @LYDOKHAM, @NGAY)
-            END
-        END
-        ELSE
-        BEGIN
-            RAISERROR(N'Lịch rảnh không tồn tại trong hệ thống', 16, 1);
-            ROLLBACK TRAN
-            RETURN
-        END
-    END TRY
-    BEGIN CATCH
-        ROLLBACK TRAN;
-        DECLARE @errorMessage NVARCHAR(200) = ERROR_MESSAGE();
-        THROW 51000, @errorMessage, 1;
-        RETURN
-    END CATCH
+        IF EXISTS (SELECT 1     
+               FROM LICHRANH
+               WHERE MANS = @MANS AND SOTT = @SOTT)
+    BEGIN
+      IF EXISTS(SELECT 1 
+                FROM LICHHEN 
+                WHERE MANS = @MANS AND SOTT = @SOTT)
+      BEGIN
+        RAISERROR(N'Lịch hẹn đã tồn tại', 16, 1)
+        ROLLBACK TRAN
+        RETURN  
+      END
+    END
+    ELSE
+    BEGIN
+      RAISERROR(N'Lịch rảnh không tồn tại', 16, 1)
+      ROLLBACK TRAN
+      RETURN 
+    END
+    INSERT INTO LICHHEN(SODT, MANS, SOTT, LYDOKHAM)
+    VALUES(@SODT, @MANS, @SOTT, @LYDOKHAM, @NGAY)
+  END TRY
+  BEGIN CATCH
+    ROLLBACK TRAN
+    DECLARE @errorMessage NVARCHAR(200) = ERROR_MESSAGE();
+    THROW 51000, @errorMessage, 1
+    RETURN 
+  END CATCH
 COMMIT TRAN
+
 -- 6. Xem lịch rảnh của nha sĩ (xem trên CA)
-CREATE OR ALTER PROC sp_XemLichRanhNhaSi
+CREATE OR ALTER PROC SP_XEMLICHRANH_NHASI
 @MANS VARCHAR(10)
 AS
 BEGIN TRAN
@@ -232,14 +234,14 @@ BEGIN TRAN
 COMMIT TRAN
 
 -- 7. Xem thông tin nha sĩ
-CREATE OR ALTER PROC sp_XemThongTinNhaSi
+CREATE OR ALTER PROC SP_XEMTHONGTIN_NHASI
 @MANS VARCHAR(10)
 AS  
 BEGIN TRAN 
     BEGIN TRY
         IF EXISTS(SELECT 1 FROM NHASI WHERE MANS = @MANS)
         BEGIN
-            SELECT NS.MANS, NS.HOTEN, NS.PHAI, NS.NGAYSINH, NS.DIACHI, NS.MATKHAU
+            SELECT  NS.HOTEN, NS.PHAI, NS.GIOITHIEU
             FROM NHASI NS
             WHERE NS.MANS = @MANS
         END
@@ -257,8 +259,9 @@ BEGIN TRAN
         RETURN
     END CATCH
 COMMIT TRAN
+
 -- 8. Xem hóa đơn
-CREATE OR ALTER PROC sp_XemHoaDon 
+CREATE OR ALTER PROC SP_XEMHOADON
 @SODT VARCHAR(10),
 @SOTT INT
 AS
