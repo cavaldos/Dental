@@ -159,3 +159,189 @@ BEGIN
     FROM NHASI;
 END;
 GO
+
+
+
+
+
+
+--15. Khóa tài khoản nha sĩ
+CREATE OR ALTER PROC SP_KHOA_TAI_KHOAN_NHA_SI
+    @MA_NS VARCHAR(10)
+AS
+
+BEGIN TRAN
+    BEGIN TRY
+        IF EXISTS (SELECT 1 FROM NHASI WHERE MANS = @MA_NS)
+        BEGIN
+            UPDATE NHASI
+            SET _DAKHOA = 1
+            WHERE MANS = @MA_NS
+        END
+        ELSE
+        BEGIN
+            RAISERROR('Không tồn tại mã nha sĩ này', 16, 1)
+            ROLLBACK TRAN
+            RETURN
+        END
+    END TRY
+
+    BEGIN CATCH
+        ROLLBACK TRAN
+    END CATCH
+COMMIT TRAN
+
+
+
+
+
+--16. Mở tài khoản nha sĩ
+CREATE OR ALTER PROC SP_MO_TAI_KHOAN_NHA_SI
+    @MA_NS VARCHAR(10)
+AS
+
+BEGIN TRAN
+    BEGIN TRY
+        IF EXISTS (SELECT 1 FROM NHASI WHERE MANS = @MA_NS)
+        BEGIN
+            UPDATE NHASI
+            SET _DAKHOA = 0
+            WHERE MANS = @MA_NS
+        END
+        ELSE
+        BEGIN
+            RAISERROR('Không tồn tại mã nha sĩ này', 16, 1)
+            ROLLBACK TRAN
+            RETURN
+        END
+    END TRY
+    BEGIN CATCH
+        ROLLBACK TRAN
+    END CATCH
+COMMIT TRAN
+
+--17. Xem danh sách QTV
+XEM HET TAT CA CAC THUOC TINH CUA QTV TRU MAT KHAU
+
+CREATE OR ALTER PROC SP_XEM_DANH_SACH_QTV
+AS
+BEGIN TRAN
+    BEGIN TRY
+        IF EXISTS (SELECT 1 FROM QTV)
+        BEGIN
+            SELECT QTV.MAQTV,QTV.HOTEN,QTV.PHAI FROM QTV
+        END
+        ELSE
+        BEGIN
+            RAISERROR('Không tồn tại quản trị viên nào', 16, 1)
+            ROLLBACK TRAN
+            RETURN
+        END
+    END TRY
+
+    BEGIN CATCH
+        ROLLBACK TRAN
+    END CATCH
+COMMIT TRAN
+
+
+--18. Tạo Quản trị viên mới
+CREATE OR ALTER PROC SP_TAO_QTV_MOI
+
+    @HOTEN VARCHAR(50),
+    @PHAI NVARCHAR(5)
+   
+AS
+BEGIN TRAN
+    BEGIN TRY
+        IF EXISTS (SELECT 1 FROM QTV)
+        BEGIN
+            INSERT INTO QTV(HOTEN,PHAI)
+            VALUES(@HOTEN,@PHAI)
+        END
+        ELSE
+        BEGIN
+            RAISERROR('Không thể tạo quản trị viên mới', 16, 1)
+            ROLLBACK TRAN
+            RETURN
+        END
+    END TRY
+
+    BEGIN CATCH
+        ROLLBACK TRAN
+    END CATCH
+COMMIT TRAN
+--19. Xem danh sách khách hàng 
+CREATE OR ALTER PROC SP_XEM_DANH_SACH_KHACH_HANG
+
+AS
+BEGIN TRAN
+    BEGIN TRY
+        IF EXISTS (SELECT 1 FROM KHACHHANG)
+        BEGIN
+            SELECT KH.SODT,KH.HOTEN,KH.PHAI,KH.NGAYSINH,KH.DIACHI,KH._DAKHOA
+            FROM KHACHHANG KH
+        END
+        ELSE
+        BEGIN
+            RAISERROR('Không tìm thấy danh sách khách hàng nào', 16, 1)
+            ROLLBACK TRAN
+            RETURN
+        END
+    END TRY
+
+    BEGIN CATCH
+        ROLLBACK TRAN
+    END CATCH
+COMMIT TRAN
+
+--20. Khóa Tài khoản khách hàng
+CREATE OR ALTER PROC SP_XEM_DANH_SACH_KHACH_HANG
+    @SODT VARCHAR(20)
+AS
+BEGIN TRAN
+    BEGIN TRY
+        IF EXISTS (SELECT 1 FROM KHACHHANG WHERE SODT = @SODT)
+        BEGIN
+            UPDATE KHACHHANG
+            SET _DAKHOA = 1
+            WHERE SODT = @SODT
+        END
+        ELSE
+        BEGIN
+            RAISERROR('Không tìm thấy khách hàng nào', 16, 1)
+            ROLLBACK TRAN
+            RETURN
+        END
+    END TRY
+
+    BEGIN CATCH
+        ROLLBACK TRAN
+    END CATCH
+COMMIT TRAN
+
+
+--21. Mở tài khoản khách hàng
+CREATE OR ALTER PROC SP_MO_TAI_KHOAN_KHACH_HANG
+    @SODT VARCHAR(20)
+AS
+BEGIN TRAN
+    BEGIN TRY
+        IF EXISTS (SELECT 1 FROM KHACHHANG WHERE SODT = @SODT)
+        BEGIN
+            UPDATE KHACHHANG
+            SET _DAKHOA = 0
+            WHERE SODT = @SODT
+        END
+        ELSE
+        BEGIN
+            RAISERROR('Không thẻ mở tài khoản khách hàng này', 16, 1)
+            ROLLBACK TRAN
+            RETURN
+        END
+    END TRY
+
+    BEGIN CATCH
+        ROLLBACK TRAN
+    END CATCH
+COMMIT TRAN
