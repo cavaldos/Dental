@@ -25,5 +25,5 @@ app.listen(port, host, () => {
 });
 
 
-import test from "./test.js";
+import test from "./test.mjs";
 test();

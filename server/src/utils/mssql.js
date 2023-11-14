@@ -4,9 +4,11 @@ const load = async (sql, Connect) => {
   try {
     let pool = await poolConnect(Connect.user, Connect.pass, Connect.database);
     const result = await pool.query(sql);
-    console.log("result load:", result.recordset);
+    // console.log("result load:", result.recordset);
     const close = pool.close.bind(pool);
     await close();
+    return result.recordset;
+  
   } catch (error) {
     console.log("SQL Error Code:", error.code);
 
