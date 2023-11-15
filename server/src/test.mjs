@@ -1,4 +1,5 @@
 import { poolConnect } from "./config/connectDB.js";
+import  groupAndTable  from "./utils/lodash.js";
 import _ from "lodash";
 poolConnect();
 
@@ -82,77 +83,11 @@ LEFT JOIN LOAITHUOC LT ON LT.MATHUOC = CTT.MATHUOC
   role
 );
 
-const groupedData = _.groupBy(data2, (item) => `${item.SOTT}-${item.SODT}`);
-console.log("groupedData", groupedData);
+// console.log("data2", data2);
+const result =  groupAndTable(data2, ["SOTT","SODT"], ["MATHUOC", "MADV", "TENDV", "TENTHUOC"]);
 
+console.log("result", result);
 
-
-// const result = [];
-// // Duyệt từng phần tử kết quả truy vấn
-// data2.forEach((item) => {
-//   // Tìm vị trí hồ sơ bệnh nhân trong mảng kết quả
-//   const index = result.findIndex((r) => r.SOTT === item.SOTT);
-
-//   // Nếu chưa có, khởi tạo mới
-//   if (index === -1) {
-//     result.push({
-//       SOTT: item.SOTT,
-//       SODT: item.SODT,
-//       // các trường khác của hồ sơ bệnh nhân
-//       dichVu: [],
-//       thuoc: [],
-//     });
-//   }
-
-//   // Lấy ra hồ sơ bệnh nhân
-//   const benhNhan = result[index];
-//   if (result && result.length > 0) {
-//     // Kiểm tra index hợp lệ
-//     if (index >= 0 && index < result.length) {
-//       const benhNhan = result[index];
-
-//       // Kiểm tra benhNhan khác undefined
-//       if (
-//         benhNhan !== undefined
-//         //  &&
-//         // item.MADV &&
-//         // item.SOTT === benhNhan.SOTT &&
-//         // item.SODT === benhNhan.SODT
-//       ) {
-//         benhNhan.dichVu.push({
-//           MADV: item.MADV,
-//           TENDV: item.TENDV,
-//           SOLUONG: item.SOLUONG,
-//         });
-//       }
-//       if (
-//         benhNhan !== undefined 
-//         // &&
-//         // item.MATHUOC &&
-//         // item.SOTT === benhNhan.SOTT &&
-//         // item.SODT === benhNhan.SODT
-//       ) {
-//         benhNhan.thuoc.push({
-//           MATHUOC: item.MATHUOC,
-//           TENTHUOC: item.TENTHUOC,
-//           DONVITINH: item.DONVITINH,
-//           THOIDIEMDUNG: item.THOIDIEMDUNG,
-//         });
-//       }
-//     }
-//   }
-// });
-
-// // Kết quả
-// console.log("result ho so benh", result);
-// console.log(
-//   "result dichVu",
-//   result.map((item) => item.dichVu)
-// );
-// console.log(
-//   "result thuoc",
-//   result.map((item) => item.thuoc)
-// );
 
 export default function test() {
   console.log("test function");
