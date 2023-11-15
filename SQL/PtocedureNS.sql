@@ -212,7 +212,6 @@ BEGIN
         ELSE
         BEGIN
             RAISERROR ('Số lượng thuốc lớn hơn só lượng tồn.', 16, 1);
-            ROLLBACK TRANSACTION
         END;
     END;
 END;
