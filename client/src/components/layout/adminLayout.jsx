@@ -12,26 +12,25 @@ const Menu = ({ name, icon, path, toggle }) => {
   return (
     <button
       onClick={handleClick}
-      className={`flex items-center justify-start align-middle h-14 cursor-pointer rounded-md bg-slate-100 mx-2 transition-all duration-300 ${
-        toggle ? "pl-2 pr-8" : "pl-8 pr-2"
-      }`}
+      className={`flex items-center justify-start align-middle h-14 cursor-pointer rounded-md bg-slate-100 mx-2 transition-all duration-300 `}
     >
       <div
-        className={`flex justify-center items-center w-14 h-14 rounded-md transition-all duration-300 ${
-          toggle ? "mr-2" : "ml-1"
+        className={`flex items-center justify-center align-middle h-14 w-14 transition-all duration-300 ${
+          toggle ? "ml-5" : ""
         }`}
       >
         {icon}
       </div>
-      {!toggle && (
-        <p
-          className={`text-black text-lg font-semibold transition-all duration-300 ${
-            toggle ? "opacity-0" : "opacity-100"
-          }`}
-        >
+      <div
+        className={`flex items-center justify-start align-middle h-14 w-52 relative overflow-hidden	 ${
+          toggle ? "invisible" : ""
+        }`}
+        style={{ transition: "opacity 1s ease" }}
+      >
+        <h1 className="whitespace-nowrap  text-ellipsis">
           {name}
-        </p>
-      )}
+        </h1>
+      </div>
     </button>
   );
 };
@@ -116,7 +115,7 @@ const AdminLayout = ({ children }) => {
             </div>
             <div className="">account</div>
           </div>
-          <div className="bg-slate-400 min-h-[89vh] m-5 rounded-lg p-4 overflow-y-auto">
+          <div className="bg-[rgb(251,254,251)] shadow-lg shadow-gray-400/400  min-h-[89vh] m-5 rounded-lg p-4 overflow-y-auto">
             {children}
           </div>
         </div>
