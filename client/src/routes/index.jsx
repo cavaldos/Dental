@@ -1,5 +1,5 @@
 import DefaultLayout from "~/components/layout/defaultLayout";
-
+import AdminLayout from "~/components/layout/adminLayout";
 import SignInPage from "~/pages/online/signin";
 import SignUpPage from "~/pages/online/signup";
 import HomePage from "~/pages/online/home";
@@ -9,6 +9,13 @@ import GuestPage from "~/pages/guest";
 import StaffPage from "~/pages/staff";
 import DentistPage from "~/pages/dentist";
 
+
+
+import QuanLiKH from "../pages/admin/QuanLiKH";
+import QuanLiNS from "../pages/admin/QuanLiNS";
+import QuanLiDV from "../pages/admin/QuanLiDV";
+import QuanLiThuoc from "../pages/admin/QuanLiThuoc";
+import QuanLiTV from "../pages/admin/QuanLiThanhVien";
 
 import AddPage from "~/pages/online/add";
 const OnlineRouter = [
@@ -38,9 +45,33 @@ const AdminRouter = [
   {
     path: "/",
     component: AdminPage,
-    Layout: DefaultLayout,
+    Layout: AdminLayout,
   },
- 
+  {
+    path: "/quan-li-khach-hang",
+    component: QuanLiKH,
+    Layout: AdminLayout,
+  },
+  {
+    path: "/quan-li-nha-si",
+    component: QuanLiNS,
+    Layout: AdminLayout,
+  },
+  {
+    path: "/quan-li-dich-vu",
+    component: QuanLiDV,
+    Layout: AdminLayout,
+  },
+  {
+    path: "/quan-li-thuoc",
+    component: QuanLiThuoc,
+    Layout: AdminLayout,
+  },
+  {
+    path: "/quan-li-thanh-vien",
+    component: QuanLiTV,
+    Layout: AdminLayout,
+  }
 ];
 
 const GuestRouter = [
