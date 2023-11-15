@@ -196,8 +196,24 @@ BEGIN
     -- Thêm chi tiết thuốc
     IF @MaThuoc IS NOT NULL AND @SoLuongThuoc IS NOT NULL AND @SoLuongThuoc > 0
     BEGIN
-        INSERT INTO CHITIETTHUOC (MATHUOC, SODT, SOTT, SOLUONG, THOIDIEMDUNG)
-        VALUES (@MaThuoc, @SoDienThoai, @Sott, @SoLuongThuoc, @ThoiDiemDung);
+        DECLARE @SLTHUOCTON INT
+        SELECT @SLTHUOCTON = SLTON
+        FROM LOAITHUOC
+        WHERE MATHUOC = @MaThuoc;
+
+        IF @SoLuongThuoc <= @SLTHUOCTON
+        BEGIN
+            UPDATE LOAITHUOC
+            SET SLTON = SLTON - @SoLuongThuoc
+            WHERE MATHUOC = @MaThuoc;
+            INSERT INTO CHITIETTHUOC (MATHUOC, SODT, SOTT, SOLUONG, THOIDIEMDUNG)
+            VALUES (@MaThuoc, @SoDienThoai, @Sott, @SoLuongThuoc, @ThoiDiemDung);
+        END
+        ELSE
+        BEGIN
+            RAISERROR ('Số lượng thuốc lớn hơn só lượng tồn.', 16, 1);
+            ROLLBACK TRANSACTION
+        END;
     END;
 END;
 GO
