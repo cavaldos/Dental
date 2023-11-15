@@ -142,45 +142,32 @@ BEGIN
 END
 
 
-
-
--- 4. Xem lịch rảnh của nha sĩ (xem trên CA)
+--4. xem lich ranh cua tat ca cac nha si tu hien tai dn 30 ngay sau
 GO
-CREATE OR ALTER PROC SP_XEMLICHRANH_NHASI
-@MANS VARCHAR(10)
+CREATE OR ALTER PROC SP_LRCHUADATTATCANS_KH
 AS
 BEGIN TRAN
-    BEGIN TRY
-        IF EXISTS(SELECT 1 FROM NHASI WHERE MANS = @MANS)
-        BEGIN
-            SELECT LR.MANS, LR.SOTT, LR.NGAY ,C.MACA, C.GIOBATDAU, C.GIOKETTHUC
-            FROM LICHRANH LR JOIN CA C ON LR.MACA = C.MACA
-            WHERE LR.MANS = @MANS
-        END
-        ELSE
-        BEGIN
-            RAISERROR(N'Tài khoản không tồn tại trong hệ thống', 16, 1);
-            ROLLBACK TRAN
-            RETURN
-        END
-    END TRY
-    BEGIN CATCH
-        ROLLBACK TRAN;
-        DECLARE @errorMessage NVARCHAR(200) = ERROR_MESSAGE();
-        THROW 51000, @errorMessage, 1;
-        RETURN
-    END CATCH
+	BEGIN TRY
+		SELECT LR.*
+		FROM LICHRANH LR LEFT JOIN LICHHEN LH 
+		ON (LR.MANS = LH.MANS AND LR.SOTT = LH.SOTT)
+		WHERE LH.MANS IS NULL AND LH.SOTT IS NULL
+		AND DATEDIFF(DAY, GETDATE(), LR.NGAY) <= 30
+		ORDER BY NGAY 
+	END TRY
+	BEGIN CATCH
+		ROLLBACK TRAN;
+		DECLARE @errorMessage NVARCHAR(200) = ERROR_MESSAGE();
+		THROW 51000, @errorMessage, 1;
+		RETURN
+	END CATCH
 COMMIT TRAN
 
 
---5. xem lich ranh cua tat ca cac nha si tu hien tai dn 30 ngay sau
--- khong biet lam
-
-
---6. truy van loai thuoc
+--5. truy van loai thuoc
 GO
-CREATE OR ALTER PROC SP_TRUYVANLOAITHUOC
-@MA_THUOC VARCHAR(10)
+CREATE OR ALTER PROC SP_TRUYVANLOAITHUOC_KH
+    @MA_THUOC VARCHAR(10)
 AS
 BEGIN TRAN
     BEGIN TRY
@@ -206,10 +193,10 @@ BEGIN TRAN
 COMMIT TRAN
 
 
--- 7. truy van loai dich vu
+-- 6. truy van loai dich vu
 GO
-CREATE OR ALTER PROC SP_TRUYDICHVU
-@MA_MADV VARCHAR(10)
+CREATE OR ALTER PROC SP_TRUYDICHVU_KH
+    @MA_MADV VARCHAR(10)
 AS
 BEGIN TRAN
     BEGIN TRY
@@ -232,9 +219,12 @@ BEGIN TRAN
         THROW 51000, @errorMessage, 1;
         RETURN
     END CATCH
--- 8. Truy van lich hen
+COMMIT TRAN
+
+
+-- 7. Truy van lich hen
 GO
-CREATE OR ALTER PROC SP_TRUYVANLICHHEN
+CREATE OR ALTER PROC SP_TRUYVANLICHHEN_KH
     @SDT VARCHAR(10)
 AS
 BEGIN TRAN
