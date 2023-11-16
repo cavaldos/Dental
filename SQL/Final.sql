@@ -12,9 +12,9 @@ GO
 
 
 -- 1. TẠO CƠ SỞ DỮ LIỆU----------------------------------------------------------------------------------------------------
--- USE MASTER 
--- GO
--- DROP DATABASE PKNHAKHOA
+--USE MASTER 
+--GO
+--DROP DATABASE PKNHAKHOA
 IF NOT EXISTS (SELECT name FROM master.dbo.sysdatabases WHERE name = 'PKNHAKHOA')
 BEGIN
     CREATE DATABASE PKNHAKHOA;
