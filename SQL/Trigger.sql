@@ -1,3 +1,100 @@
+-- Với mọi ca, giờ bắt đầu phải nhỏ hơn giờ kết thúc.
+CREATE TRIGGER TRIGGER_CA_INSERT_UPDATE_1
+ON CA
+AFTER INSERT, UPDATE
+AS
+BEGIN
+    IF EXISTS (SELECT *
+    FROM inserted
+    WHERE GIOBATDAU >= GIOKETTHUC)
+    BEGIN
+        RAISERROR (N'Giờ bắt đầu phải nhỏ hơn giờ kết thúc.', 16, 1)
+        ROLLBACK TRAN
+        RETURN
+    END
+END;
+GO
+
+-- Với mọi ca, giờ kết thúc - giờ bắt đầu = 2 tiếng
+CREATE TRIGGER TRIGGER_CA_INSERT_UPDATE_2
+ON CA
+AFTER INSERT, UPDATE
+AS
+BEGIN
+    IF EXISTS (SELECT 1
+    FROM inserted
+    WHERE DATEDIFF(HOUR, inserted.GIOBATDAU, inserted.GIOKETTHUC) <> 2)
+    BEGIN
+        RAISERROR ('Độ dài ca phải là 2 tiếng.', 16, 1)
+        ROLLBACK TRAN
+        RETURN
+    END
+END;
+GO
+
+
+-- Các lịch rảnh của một nha sĩ không được trùng nhau (trùng ca và trùng ngày).
+CREATE TRIGGER TRIGGER_LICHRANH_INSERT_UPDATE_2
+ON LICHRANH
+AFTER INSERT, UPDATE
+AS
+BEGIN
+    IF EXISTS (
+        SELECT MANS, NGAY, MACA
+        FROM (SELECT MANS, NGAY, MACA FROM inserted) AS I
+        GROUP BY MANS, NGAY, MACA
+        HAVING COUNT(*) > 1
+    )
+    BEGIN
+        RAISERROR(N'Không thể cập nhật dòng thành một giá trị đã tồn tại.', 16, 1)
+        ROLLBACK TRAN
+        RETURN
+    END
+END;
+GO
+
+-- Mỗi ca trong ngày chỉ được tối đa 2 nha sĩ được đăng ký. 
+CREATE TRIGGER TRIGGER_LICHRANH_INSERT_UPDATE_3
+ON LICHRANH
+AFTER INSERT, UPDATE
+AS
+BEGIN
+    IF EXISTS (
+        SELECT MACA, NGAY, COUNT(*) AS SLNS
+        FROM LICHRANH
+        GROUP BY MACA, NGAY
+        HAVING COUNT(*) > 2
+    )
+    BEGIN
+        RAISERROR(N'Không thể đăng ký nhiều hơn 2 Nha sĩ cho mỗi ca trong một ngày.', 16, 1)
+        ROLLBACK TRAN
+        RETURN
+    END
+END;
+GO
+
+-- Mỗi lịch rảnh, ca và ngày cần not null.
+CREATE TRIGGER TRIGGER_LICHRANH_INSERT_UPDATE_4
+ON LICHRANH
+AFTER INSERT, UPDATE
+AS
+BEGIN
+    
+    IF EXISTS (
+        SELECT 1
+        FROM inserted AS i
+        LEFT JOIN CA AS c ON i.MACA = c.MACA
+        WHERE c.MACA IS NULL OR i.NGAY IS NULL
+    )
+    BEGIN
+        RAISERROR(N'Mỗi lịch rảnh cần được liên kết với một thông tin ca và ngày không được NULL.', 16, 1)
+        ROLLBACK TRAN
+        RETURN
+    END
+END;
+GO
+
+
 -------------------------------------------------------------------------------------------
 -- USE PKNHAKHOA
 -- GO
