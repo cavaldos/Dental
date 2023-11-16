@@ -776,27 +776,6 @@ BEGIN
         ROLLBACK TRAN
         RETURN
     END
-    
-    ELSE 
-    BEGIN
-        UPDATE LOAITHUOC
-        SET SLTON = SLTON + (
-            SELECT SOLUONG
-        FROM deleted
-        WHERE MATHUOC = LOAITHUOC.MATHUOC
-        )
-        FROM LOAITHUOC
-            JOIN deleted ON LOAITHUOC.MATHUOC = deleted.MATHUOC
-
-        UPDATE LOAITHUOC
-        SET SLTON = SLTON - (
-            SELECT SOLUONG
-        FROM inserted
-        WHERE MATHUOC = LOAITHUOC.MATHUOC
-        )
-        FROM LOAITHUOC
-            JOIN inserted ON LOAITHUOC.MATHUOC = inserted.MATHUOC
-    END
 END
 GO
 
