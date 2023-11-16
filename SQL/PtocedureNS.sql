@@ -10,8 +10,8 @@ BEGIN
 
     SELECT L1.MACA, L1.NGAY, C.GIOBATDAU, C.GIOKETTHUC
     FROM LICHRANH L1
-    JOIN LICHRANH L2 ON L1.MACA = L2.MACA AND L1.NGAY = L2.NGAY AND L1.SOTT <> L2.SOTT
-    JOIN CA C ON L1.MACA = C.MACA
+        JOIN LICHRANH L2 ON L1.MACA = L2.MACA AND L1.NGAY = L2.NGAY AND L1.SOTT <> L2.SOTT
+        JOIN CA C ON L1.MACA = C.MACA
     WHERE L1.MANS = @MANS
         AND L1.NGAY BETWEEN GETDATE() AND DATEADD(DAY, 30, GETDATE())
     GROUP BY L1.MACA, L1.NGAY, C.GIOBATDAU, C.GIOKETTHUC
@@ -25,7 +25,7 @@ AS
 BEGIN
     SET NOCOUNT ON;
 
-    SELECT 
+    SELECT
         LH.SOTT,
         LR.MACA,
         LR.NGAY,
@@ -34,13 +34,13 @@ BEGIN
         KH.SODT AS SDT_KHACH,
         KH.HOTEN AS TEN_KHACH,
         LH.LYDOKHAM
-    FROM 
+    FROM
         LICHHEN LH
-    JOIN 
+        JOIN
         LICHRANH LR ON LH.MANS = LR.MANS AND LH.SOTT = LR.SOTT
-    JOIN 
+        JOIN
         CA C ON LR.MACA = C.MACA
-    JOIN 
+        JOIN
         KHACHHANG KH ON LH.SODT = KH.SODT
     WHERE 
         LH.MANS = @MANS
@@ -55,23 +55,23 @@ AS
 BEGIN
     SET NOCOUNT ON;
 
-    SELECT 
+    SELECT
         LR.MANS,
         LR.SOTT,
         LR.MACA,
         LR.NGAY,
         C.GIOBATDAU,
         C.GIOKETTHUC
-    FROM 
+    FROM
         LICHRANH LR
-    JOIN 
+        JOIN
         CA C ON LR.MACA = C.MACA
     WHERE 
         LR.MANS = @MANS
         AND NOT EXISTS (
             SELECT 1
-            FROM LICHHEN LHEN
-            WHERE LHEN.MANS = LR.MANS AND LHEN.SOTT = LR.SOTT
+        FROM LICHHEN LHEN
+        WHERE LHEN.MANS = LR.MANS AND LHEN.SOTT = LR.SOTT
         )
         AND LR.NGAY BETWEEN GETDATE() AND DATEADD(DAY, 30, GETDATE());
 END;
@@ -87,14 +87,16 @@ BEGIN
 
     DECLARE @NextSOTT INT;
 
-    
+
     SELECT @NextSOTT = ISNULL(MAX(SOTT), 0) + 1
     FROM LICHRANH
     WHERE MANS = @MANS;
 
-    
-    INSERT INTO LICHRANH (MANS, MACA, NGAY, SOTT)
-    VALUES (@MANS, @MACA, @NGAY, @NextSOTT);
+
+    INSERT INTO LICHRANH
+        (MANS, MACA, NGAY, SOTT)
+    VALUES
+        (@MANS, @MACA, @NGAY, @NextSOTT);
 END;
 GO
 
@@ -107,14 +109,14 @@ BEGIN
     SET NOCOUNT ON;
     IF NOT EXISTS (
         SELECT 1
-        FROM LICHHEN
-        WHERE MANS = @MANS
+    FROM LICHHEN
+    WHERE MANS = @MANS
         AND SOTT = @SOTT
     )
     BEGIN
         DELETE FROM LICHRANH
         WHERE MANS = @MANS
-        AND SOTT = @SOTT;
+            AND SOTT = @SOTT;
     END
     ELSE
     BEGIN
@@ -145,75 +147,81 @@ BEGIN
         CTT.THOIDIEMDUNG
     FROM
         HOSOBENH H
-    JOIN
+        JOIN
         KHACHHANG KH ON H.SODT = KH.SODT
-    JOIN
+        JOIN
         NHASI NS ON H.MANS = NS.MANS
-    LEFT JOIN
+        LEFT JOIN
         CHITIETDV CTDV ON H.SODT = CTDV.SODT AND H.SOTT = CTDV.SOTT
-    LEFT JOIN
+        LEFT JOIN
         LOAIDICHVU DV ON CTDV.MADV = DV.MADV
-    LEFT JOIN
+        LEFT JOIN
         CHITIETTHUOC CTT ON H.SODT = CTT.SODT AND H.SOTT = CTT.SOTT
-    LEFT JOIN
+        LEFT JOIN
         LOAITHUOC T ON CTT.MATHUOC = T.MATHUOC
     WHERE
         H.SODT = @SoDienThoai;
 END;
 GO
 
+-- @MaDV VARCHAR(10),
+--     @SoLuongDV INT,
+--     @MaThuoc VARCHAR(10),
+--     @SoLuongThuoc INT,
+--     @ThoiDiemDung NVARCHAR(200)
+
+
 -- TẠO BỆNH ÁN MỚI
 CREATE PROCEDURE SP_TAOBENHAN_NS
     @SoDienThoai VARCHAR(10),
     @NgayKham DATE,
     @MaNS VARCHAR(10),
-    @DanDo NVARCHAR(500),
-    @MaDV VARCHAR(10),
-    @SoLuongDV INT,
-    @MaThuoc VARCHAR(10),
-    @SoLuongThuoc INT,
-    @ThoiDiemDung NVARCHAR(200)
+    @DanDo NVARCHAR(500)
 AS
 BEGIN
     DECLARE @Sott INT;
-
-    -- Lấy SOTT mới cho bệnh án
     SELECT @Sott = ISNULL(MAX(SOTT), 0) + 1
     FROM HOSOBENH
     WHERE SODT = @SoDienThoai;
+    INSERT INTO HOSOBENH
+        (SODT, SOTT, NGAYKHAM, MANS, DANDO)
+    VALUES
+        (@SoDienThoai, @Sott, @NgayKham, @MaNS, @DanDo);
 
-    -- Thêm bệnh án mới
-    INSERT INTO HOSOBENH (SODT, SOTT, NGAYKHAM, MANS, DANDO)
-    VALUES (@SoDienThoai, @Sott, @NgayKham, @MaNS, @DanDo);
+END;
+GO
 
-    -- Thêm chi tiết dịch vụ
-    IF @MaDV IS NOT NULL AND @SoLuongDV IS NOT NULL AND @SoLuongDV > 0
-    BEGIN
-        INSERT INTO CHITIETDV (MADV, SODT, SOTT, SOLUONG)
-        VALUES (@MaDV, @SoDienThoai, @Sott, @SoLuongDV);
-    END;
+-- THÊM CTDV VÀO BỆNH ÁN
+CREATE PROCEDURE SP_THEMCTDV_NS
+    @MaDV VARCHAR(10),
+    @SOTT INT,
+    @SoDienThoai VARCHAR(10),
+    @SoLuongDV INT
 
-    -- Thêm chi tiết thuốc
-    IF @MaThuoc IS NOT NULL AND @SoLuongThuoc IS NOT NULL AND @SoLuongThuoc > 0
-    BEGIN
-        DECLARE @SLTHUOCTON INT
-        SELECT @SLTHUOCTON = SLTON
-        FROM LOAITHUOC
-        WHERE MATHUOC = @MaThuoc;
+AS
+BEGIN
+    INSERT INTO CHITIETDV 
+       (MADV, SOTT, SODT,SOLUONG)
+    VALUES
+        (@MaDV, @SOTT,@SoDienThoai, @SoLuongDV);
 
-        IF @SoLuongThuoc <= @SLTHUOCTON
-        BEGIN
-            UPDATE LOAITHUOC
-            SET SLTON = SLTON - @SoLuongThuoc
-            WHERE MATHUOC = @MaThuoc;
-            INSERT INTO CHITIETTHUOC (MATHUOC, SODT, SOTT, SOLUONG, THOIDIEMDUNG)
-            VALUES (@MaThuoc, @SoDienThoai, @Sott, @SoLuongThuoc, @ThoiDiemDung);
-        END
-        ELSE
-        BEGIN
-            RAISERROR ('Số lượng thuốc lớn hơn só lượng tồn.', 16, 1);
-        END;
-    END;
+END;
+GO
+-- THÊM CTTHUOC VÀO BỆNH ÁN
+CREATE PROCEDURE SP_THEMCTTHUOC_NS
+    @MATHUOC VARCHAR(10),
+	@SOTT INT,
+	@SODT VARCHAR(10),
+	@SOLUONG INT,
+	@THOIDIEMDUNG NVARCHAR(200)
+
+AS
+BEGIN
+    INSERT INTO CHITIETTHUOC
+       (MATHUOC,SOTT,SODT,SOLUONG,THOIDIEMDUNG)
+    VALUES
+        (@MATHUOC,@SOTT,@SODT,@SOLUONG,@THOIDIEMDUNG);
+
 END;
 GO
 
