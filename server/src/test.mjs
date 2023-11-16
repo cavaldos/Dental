@@ -35,8 +35,34 @@ SELECT CA.MACA, GIOBATDAU, GIOKETTHUC, LH.SOTT SOTTLH, LH.MANS, NS.HOTEN HOTENNS
 `,
   role
 );
+/// import file json
+// import fs from "fs";
 
-console.log( JSON.stringify(data2[0]));
+
+import fs from "fs";
+const data3 = await load(`SELECT * FROM LOAIDICHVU`, role);
+
+// console.log(data3);
+const jsonData = JSON.stringify(data3, null, 2);
+//Lưu vào file data.json
+fs.writeFile("dv.json", jsonData, (err) => {
+  if (err) {
+    console.log(err);
+  } else {
+    console.log("Data written to file");
+  }
+});
+
+
+
+
+
+
+
+
+
+
+
 
 
 

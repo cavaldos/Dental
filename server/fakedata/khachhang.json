@@ -1,0 +1,272 @@
+[
+  {
+    "SODT": "0301234567",
+    "HOTEN": "Hoàng Văn Tùng",
+    "PHAI": "Nam",
+    "NGAYSINH": "2002-01-30T00:00:00.000Z",
+    "DIACHI": "52/14 Lý Thường Kiệt, Phường 10, Quận 11, TP.HCM",
+    "MATKHAU": "P!n3@pple$2",
+    "_DAKHOA": false
+  },
+  {
+    "SODT": "0309876543",
+    "HOTEN": "Quách Văn Phúc",
+    "PHAI": "Nam",
+    "NGAYSINH": "1996-03-08T00:00:00.000Z",
+    "DIACHI": "50 Võ Thị Sáu, Phường Thái Bình, TP.Biên Hòa, Đồng Nai",
+    "MATKHAU": "TrungThu@2022",
+    "_DAKHOA": false
+  },
+  {
+    "SODT": "0321654321",
+    "HOTEN": "Hoàng Văn Thành",
+    "PHAI": "Nam",
+    "NGAYSINH": "1998-02-10T00:00:00.000Z",
+    "DIACHI": "2B Phan Chu Trinh, Phường Bến Thành, Quận 1, TP.HCM",
+    "MATKHAU": "P@ssw0rd!",
+    "_DAKHOA": false
+  },
+  {
+    "SODT": "0323456789",
+    "HOTEN": "Lê Thị Thu Hà",
+    "PHAI": "Nữ",
+    "NGAYSINH": "1971-04-14T00:00:00.000Z",
+    "DIACHI": "63/5 Phạm Ngũ Lão, Phường Phạm Ngũ Lão, Quận 1, TP.HCM",
+    "MATKHAU": "Secur1ty*",
+    "_DAKHOA": false
+  },
+  {
+    "SODT": "0334123456",
+    "HOTEN": "Nguyễn Minh Tuấn",
+    "PHAI": "Nam",
+    "NGAYSINH": "1970-01-25T00:00:00.000Z",
+    "DIACHI": "27/2 Hoàng Hoa Thám, Phường 7, Quận Bình Thạnh, TP.HCM",
+    "MATKHAU": "L0ngP@ssw0rd#",
+    "_DAKHOA": false
+  },
+  {
+    "SODT": "0345678901",
+    "HOTEN": "Lê Minh Hoàng",
+    "PHAI": "Nam",
+    "NGAYSINH": "1987-12-21T00:00:00.000Z",
+    "DIACHI": "237 Phạm Ngọc Thạch, Phường 6, Quận 3, TP.HCM",
+    "MATKHAU": "F0r3v3rY0ung*",
+    "_DAKHOA": false
+  },
+  {
+    "SODT": "0356123456",
+    "HOTEN": "Nguyễn Huyền Thu",
+    "PHAI": "Nữ",
+    "NGAYSINH": "1979-08-15T00:00:00.000Z",
+    "DIACHI": "34/7B Lê Hồng Phong, Phường 4, Quận 5, TP.HCM",
+    "MATKHAU": "B3st@nsw3r!",
+    "_DAKHOA": false
+  },
+  {
+    "SODT": "0371234567",
+    "HOTEN": "Nguyễn Huyền Trang",
+    "PHAI": "Nữ",
+    "NGAYSINH": "1978-05-15T00:00:00.000Z",
+    "DIACHI": "15/3 Hoàng Hoa Thám, Phường 6, Quận 3, TP.HCM",
+    "MATKHAU": "P@ssw0rd!",
+    "_DAKHOA": false
+  },
+  {
+    "SODT": "0378236541",
+    "HOTEN": "Vũ Thị Hồng Loan",
+    "PHAI": "Nữ",
+    "NGAYSINH": "1983-07-27T00:00:00.000Z",
+    "DIACHI": "22/10 Võ Văn Tần, Phường Long Bình, TP.Biên Hòa, Đồng Nai",
+    "MATKHAU": "G00dM0rn!ng9",
+    "_DAKHOA": false
+  },
+  {
+    "SODT": "0387654321",
+    "HOTEN": "Dương Văn Quyền",
+    "PHAI": "Nam",
+    "NGAYSINH": "1977-03-28T00:00:00.000Z",
+    "DIACHI": "172 Đường Lê Đại Hành, Phường 9, Quận 11, TP.HCM",
+    "MATKHAU": "B3@chP@rad1$3",
+    "_DAKHOA": false
+  },
+  {
+    "SODT": "0712345333",
+    "HOTEN": "Võ Minh Tuấn",
+    "PHAI": "Nam",
+    "NGAYSINH": "1992-09-23T00:00:00.000Z",
+    "DIACHI": "28/6 Phan Chu Trinh, Phường Bến Thành, Quận 1, TP.HCM",
+    "MATKHAU": "Qwerty123#",
+    "_DAKHOA": false
+  },
+  {
+    "SODT": "0712345678",
+    "HOTEN": "Ngô Đình Quân",
+    "PHAI": "Nam",
+    "NGAYSINH": "1998-08-02T00:00:00.000Z",
+    "DIACHI": "201 Lê Thị Riêng, Phường Bến Thành, Quận 1, TP.HCM",
+    "MATKHAU": "H@ppyD@ys7",
+    "_DAKHOA": false
+  },
+  {
+    "SODT": "0723456789",
+    "HOTEN": "Bùi Văn Thành",
+    "PHAI": "Nam",
+    "NGAYSINH": "1972-11-09T00:00:00.000Z",
+    "DIACHI": "295 Lê Lai, Phường Bến Thành, Quận 1, TP.HCM",
+    "MATKHAU": "Sunsh!ne@21",
+    "_DAKHOA": false
+  },
+  {
+    "SODT": "0743216549",
+    "HOTEN": "Nguyễn Thị Bích Ngọc",
+    "PHAI": "Nữ",
+    "NGAYSINH": "1975-10-03T00:00:00.000Z",
+    "DIACHI": "90/2 Đinh Công Tráng, Phường Tân Đông Hiệp, TP.Dĩ An, Bình Dương",
+    "MATKHAU": "5tr0ngP@ss!",
+    "_DAKHOA": false
+  },
+  {
+    "SODT": "0765432109",
+    "HOTEN": "Ngô Thị Lan Anh",
+    "PHAI": "Nữ",
+    "NGAYSINH": "1999-04-07T00:00:00.000Z",
+    "DIACHI": "55/8 Ngô Thời Nhiệm, Phường Tân Quý, Quận Tân Phú, TP.HCM",
+    "MATKHAU": "C@t&DogL0v3r",
+    "_DAKHOA": false
+  },
+  {
+    "SODT": "0789652221",
+    "HOTEN": "Nguyễn Thị Thuý Nga",
+    "PHAI": "Nữ",
+    "NGAYSINH": "1981-03-07T00:00:00.000Z",
+    "DIACHI": "121 Lê Thị Riêng, Phường Bến Thành, Quận 1, TP.HCM",
+    "MATKHAU": "Qwerty123#",
+    "_DAKHOA": false
+  },
+  {
+    "SODT": "0789654321",
+    "HOTEN": "Lê Đức Anh",
+    "PHAI": "Nam",
+    "NGAYSINH": "1993-05-02T00:00:00.000Z",
+    "DIACHI": "14A Đinh Công Tráng, Phường Tân Đông Hiệp, TP.Dĩ An, Bình Dương",
+    "MATKHAU": "Secur1ty*",
+    "_DAKHOA": false
+  },
+  {
+    "SODT": "0798712432",
+    "HOTEN": "Bùi Thị Mai Anh",
+    "PHAI": "Nữ",
+    "NGAYSINH": "1980-07-20T00:00:00.000Z",
+    "DIACHI": "567 Nguyễn Đình Chính, Quận Phú Nhuận, TP.HCM",
+    "MATKHAU": "M0tP@$$w0rd",
+    "_DAKHOA": false
+  },
+  {
+    "SODT": "0798765432",
+    "HOTEN": "Quách Minh Tâm",
+    "PHAI": "Nam",
+    "NGAYSINH": "2000-02-12T00:00:00.000Z",
+    "DIACHI": "31/5 Đinh Bộ Lĩnh, Phường Lái Thiêu, TP.Thuận An, Bình Dương",
+    "MATKHAU": "W@t3rM3l0n#",
+    "_DAKHOA": true
+  },
+  {
+    "SODT": "0823654321",
+    "HOTEN": "Vũ Thị Thu Hằng",
+    "PHAI": "Nữ",
+    "NGAYSINH": "1984-12-03T00:00:00.000Z",
+    "DIACHI": "8 Đường Đại Lộ Bình Dương, TP.Thủ Dầu Một, Bình Dương",
+    "MATKHAU": "P!n3@pple$2",
+    "_DAKHOA": false
+  },
+  {
+    "SODT": "0912345678",
+    "HOTEN": "Võ Văn Thắng",
+    "PHAI": "Nam",
+    "NGAYSINH": "1990-09-17T00:00:00.000Z",
+    "DIACHI": "33 Lê Hồng Phong, Phường Phước Tân, TP.Biên Hòa, Đồng Nai",
+    "MATKHAU": "H3ll0W0r1d$",
+    "_DAKHOA": false
+  },
+  {
+    "SODT": "0923456780",
+    "HOTEN": "Đoàn Thị Kim Ngân",
+    "PHAI": "Nữ",
+    "NGAYSINH": "1994-06-25T00:00:00.000Z",
+    "DIACHI": "17/3 Phan Kế Bính, Phường Đa Kao, Quận 1, TP.HCM",
+    "MATKHAU": "2F@st2Fur!ous",
+    "_DAKHOA": false
+  },
+  {
+    "SODT": "0934567890",
+    "HOTEN": "Vũ Thị Hằng",
+    "PHAI": "Nữ",
+    "NGAYSINH": "1985-11-10T00:00:00.000Z",
+    "DIACHI": "42/9 Ngô Quyền, Phường 5, Quận 10, TP.HCM",
+    "MATKHAU": "Ch0c0l@t3&",
+    "_DAKHOA": false
+  },
+  {
+    "SODT": "0945678765",
+    "HOTEN": "Hoàng Thị Mai Phương",
+    "PHAI": "Nữ",
+    "NGAYSINH": "1982-08-18T00:00:00.000Z",
+    "DIACHI": "291 Đường Đại Lộ Bình Dương, TP.Thủ Dầu Một, Bình Dương",
+    "MATKHAU": "9M!xA$4e",
+    "_DAKHOA": false
+  },
+  {
+    "SODT": "0945678901",
+    "HOTEN": "Đoàn Văn Đức",
+    "PHAI": "Nam",
+    "NGAYSINH": "2003-12-05T00:00:00.000Z",
+    "DIACHI": "18/7 Bà Huyện Thanh Quan, Phường Tân Định, Quận 1, TP.HCM",
+    "MATKHAU": "B3st@nsw3r!",
+    "_DAKHOA": true
+  },
+  {
+    "SODT": "0967123456",
+    "HOTEN": "Trần Thị Mai Phương",
+    "PHAI": "Nữ",
+    "NGAYSINH": "1995-06-14T00:00:00.000Z",
+    "DIACHI": "72 Phan Kế Bính, Phường Đa Kao, Quận 1, TP.HCM",
+    "MATKHAU": "H@ppyD@ys7",
+    "_DAKHOA": false
+  },
+  {
+    "SODT": "0967123664",
+    "HOTEN": "Lý Thị Thảo",
+    "PHAI": "Nữ",
+    "NGAYSINH": "1973-07-28T00:00:00.000Z",
+    "DIACHI": "42 Lê Lai, Phường Bến Thành, Quận 1, TP.HCM",
+    "MATKHAU": "H3ll0W0r1d$",
+    "_DAKHOA": false
+  },
+  {
+    "SODT": "0967123877",
+    "HOTEN": "Phạm Thị Thu Hà",
+    "PHAI": "Nữ",
+    "NGAYSINH": "1987-09-21T00:00:00.000Z",
+    "DIACHI": "49B Phạm Ngọc Thạch, Phường 6, Quận 3, TP.HCM",
+    "MATKHAU": "G00dM0rn!ng9",
+    "_DAKHOA": false
+  },
+  {
+    "SODT": "0978564321",
+    "HOTEN": "Trần Văn Minh",
+    "PHAI": "Nam",
+    "NGAYSINH": "1996-11-09T00:00:00.000Z",
+    "DIACHI": "56/10 Ngô Thời Nhiệm, Phường Tân Quý, Quận Tân Phú, TP.HCM",
+    "MATKHAU": "5tr0ngP@ss!",
+    "_DAKHOA": false
+  },
+  {
+    "SODT": "0987654321",
+    "HOTEN": "Dương Thị Thảo",
+    "PHAI": "Nữ",
+    "NGAYSINH": "1989-06-19T00:00:00.000Z",
+    "DIACHI": "72/3 Nguyễn Thị Minh Khai, Phường Đa Kao, Quận 1, TP.HCM",
+    "MATKHAU": "L0ngP@ssw0rd#",
+    "_DAKHOA": false
+  }
+]
