@@ -3,17 +3,23 @@ import React, { useRef } from "react";
 import { Table, Input, Button, Tag, message } from "antd";
 import { SearchOutlined, EditOutlined } from "@ant-design/icons";
 
+import useColumnSearch from "~/hooks/useSortTable";
+
 const TableNhanVien = ({ staff }) => {
+  const columsearch = useColumnSearch();
+
   const columns = [
     {
       title: "Mã nhân viên",
       dataIndex: "MANV",
       key: "MANV",
+   
     },
     {
       title: "Họ tên",
       dataIndex: "HOTEN",
       key: "HOTEN",
+
     },
     {
       title: "Giới tính",
