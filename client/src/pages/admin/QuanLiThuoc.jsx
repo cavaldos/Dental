@@ -1,6 +1,6 @@
 import thuoc from "../../fakedata/thuoc";
-import React, { useRef } from "react";
-import { Table, Input, Button, Space, message } from "antd";
+import React, { useState,useRef } from "react";
+import { Table, Input, Button, Space, message, Modal } from "antd";
 import { SearchOutlined, EditOutlined } from "@ant-design/icons";
 
 const MedicineInfo = ({ medicine }) => {
@@ -40,7 +40,6 @@ const MedicineInfo = ({ medicine }) => {
               backgroundColor: "#1890ff",
               borderColor: "#1890ff",
             }}
-  
           >
             Search
           </Button>
@@ -145,7 +144,6 @@ const MedicineInfo = ({ medicine }) => {
       ),
     },
   ];
-
   return (
     <Table
       columns={columns}
@@ -157,10 +155,38 @@ const MedicineInfo = ({ medicine }) => {
   );
 };
 
+const TaoThuocMoi = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
+  const handleOk = () => {
+    setIsModalOpen(false);
+  };
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
+  return (
+    <>
+      <Button className="bg-green-600 mb-4" type="primary" onClick={showModal}>
+        Tạo Thuốc Mới
+      </Button>
+      <Modal
+        title="Tạo Thuốc Mới"
+        open={isModalOpen}
+        onOk={handleOk}
+        onCancel={handleCancel}
+      >
+        <p> viet form tao thuoc moi  voi logic trong day</p>
+      </Modal>
+    </>
+  );
+};
+
 const QuanLiThuoc = () => {
   return (
     <>
-      <h1>QuanLiThuoc</h1>
+      <TaoThuocMoi />
       <MedicineInfo medicine={thuoc} />
     </>
   );
