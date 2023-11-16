@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { AiOutlineMenuFold, AiOutlineMenuUnfold } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
-
+import { useDispatch, useSelector } from "react-redux";
+import { deleteRole } from "~/redux/features/userSlice";
 const Menu = ({ name, icon, path, toggle }) => {
   const navigate = useNavigate();
 
@@ -36,7 +37,7 @@ const Menu = ({ name, icon, path, toggle }) => {
 };
 
 const Sidebar = (props) => {
-  const navigate = useNavigate();
+
   const toggle = props.toggle;
 
   const menuItem = [
@@ -44,16 +45,20 @@ const Sidebar = (props) => {
       name: "Quản lí thuốc",
       icon: <AiOutlineMenuFold size={30} />,
       path: "/quan-li-thuoc",
+
+      
     },
     {
       name: "Quản lí dịch vụ",
       icon: <AiOutlineMenuFold size={30} />,
       path: "/quan-li-dich-vu",
+
+
     },
     {
-      name: "Quản lí thành viên",
+      name: "Quản lí nhân viên",
       icon: <AiOutlineMenuFold size={30} />,
-      path: "/quan-li-thanh-vien",
+      path: "/quan-li-nhan-vien",
     },
     {
       name: "Quản lí nha sĩ",
@@ -87,7 +92,8 @@ const Sidebar = (props) => {
 
 const AdminLayout = ({ children }) => {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
-
+  const dispath = useDispatch();
+  const navigate = useNavigate();
   const toggleSidebar = () => {
     setSidebarCollapsed(!sidebarCollapsed);
   };
@@ -113,7 +119,17 @@ const AdminLayout = ({ children }) => {
                 )}
               </button>
             </div>
-            <div className="">account</div>
+            <div className="">
+              account
+              <button
+                className="bg-blue-500 px-5 py-2 my-3 rounded-md"
+                onClick={() => {
+                  dispath(deleteRole());
+                }}
+              >
+                Sign Out
+              </button>
+            </div>
           </div>
           <div className="bg-[rgb(251,254,251)] shadow-lg shadow-gray-400/400  min-h-[89vh] m-5 rounded-lg p-4 overflow-y-auto">
             {children}
@@ -123,5 +139,5 @@ const AdminLayout = ({ children }) => {
     </>
   );
 };
-
+// clound not  auto-determine entry point from rollupOptions or html file and there are no explicit optimizeDeps.include patterns. Skipping dependency pre-bunding.
 export default AdminLayout;

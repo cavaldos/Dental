@@ -1,8 +1,7 @@
-
 import thuoc from "../../fakedata/thuoc";
 import React, { useRef } from "react";
-import { Table, Input, Button, Space } from "antd";
-import { SearchOutlined } from "@ant-design/icons";
+import { Table, Input, Button, Space, message } from "antd";
+import { SearchOutlined, EditOutlined } from "@ant-design/icons";
 
 const MedicineInfo = ({ medicine }) => {
   const searchInputRef = useRef(null);
@@ -36,7 +35,12 @@ const MedicineInfo = ({ medicine }) => {
             onClick={() => confirm()}
             icon={<SearchOutlined />}
             size="small"
-            style={{ width: 90 , backgroundColor: "#1890ff", borderColor: "#1890ff" }}
+            style={{
+              width: 90,
+              backgroundColor: "#1890ff",
+              borderColor: "#1890ff",
+            }}
+  
           >
             Search
           </Button>
@@ -64,7 +68,7 @@ const MedicineInfo = ({ medicine }) => {
             .toLowerCase()
             .includes(value.toLowerCase())
         : "",
-    onFilterDropdownVisibleChange: (visible) => {
+    onFilterDropdownOpenChange: (visible) => {
       if (visible) {
         setTimeout(() => searchInputRef.current.select(), 100);
       }
@@ -123,12 +127,29 @@ const MedicineInfo = ({ medicine }) => {
       key: "DONGIA",
       sorter: (a, b) => a.DONGIA - b.DONGIA,
     },
+    {
+      title: "Quản lí",
+      key: "action",
+      render: (text, record) => (
+        <Button
+          onClick={() => message.info(`Edit ${record.TENTHUOC}`)}
+          className="bg-blue-600"
+          type="primary"
+          shape="round"
+          icon={<EditOutlined />}
+          size="small"
+          key={`edit-${record.MATHUOC}`}
+        >
+          Edit
+        </Button>
+      ),
+    },
   ];
 
   return (
     <Table
       columns={columns}
-      dataSource={medicine}
+      dataSource={medicine.map((item) => ({ ...item, key: item.MATHUOC }))}
       pagination={true}
       bordered
       size="middle"
@@ -137,8 +158,6 @@ const MedicineInfo = ({ medicine }) => {
 };
 
 const QuanLiThuoc = () => {
-  
-
   return (
     <>
       <h1>QuanLiThuoc</h1>

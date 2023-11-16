@@ -15,7 +15,7 @@ import QuanLiKH from "../pages/admin/QuanLiKH";
 import QuanLiNS from "../pages/admin/QuanLiNS";
 import QuanLiDV from "../pages/admin/QuanLiDV";
 import QuanLiThuoc from "../pages/admin/QuanLiThuoc";
-import QuanLiTV from "../pages/admin/QuanLiThanhVien";
+import QuanLiNV from "../pages/admin/QuanLiNhanVien";
 
 import AddPage from "~/pages/online/add";
 const OnlineRouter = [
@@ -68,8 +68,8 @@ const AdminRouter = [
     Layout: AdminLayout,
   },
   {
-    path: "/quan-li-thanh-vien",
-    component: QuanLiTV,
+    path: "/quan-li-nhan-vien",
+    component: QuanLiNV,
     Layout: AdminLayout,
   }
 ];
