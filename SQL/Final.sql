@@ -865,97 +865,123 @@ GO
 
 -----------------------------------------
 
+IF EXISTS (SELECT * FROM sys.triggers WHERE name = 'Trigger_Insert_Update_Delete_LT')
+    DROP TRIGGER Trigger_Insert_Update_Delete_LT
+GO
+
+IF EXISTS (SELECT * FROM sys.triggers WHERE name = 'Trigger_Insert_Update_LT_Hethan')
+    DROP TRIGGER Trigger_Insert_Update_LT_Hethan
+GO
+
+IF EXISTS (SELECT * FROM sys.triggers WHERE name = 'Trigger_Insert_Update_LDV')
+    DROP TRIGGER Trigger_Insert_Update_LDV
+GO
+
+IF EXISTS (SELECT * FROM sys.triggers WHERE name = 'Trigger_Insert_LT')
+    DROP TRIGGER Trigger_Insert_LT
+GO
+
+IF EXISTS (SELECT * FROM sys.triggers WHERE name = 'Trigger_Update_LT')
+    DROP TRIGGER Trigger_Update_LT
+GO
+
 -- TRIGGER LOAI THUOC
--- 1. Trigger cập nhật số lượng tồn khi thêm sửa/xóa loại thuốc:
-CREATE TRIGGER Trigger_Insert_Update_Delete_LT on LOAITHUOC for INSERT, UPDATE, DELETE
+CREATE TRIGGER Trigger_Insert_LT 
+ON LOAITHUOC 
+FOR INSERT
 AS
 BEGIN
-    -- R3: Số lượng thuốc tồn kho mỗi loại thuốc phải từ 0 trở lên. 
-    IF EXISTS (SELECT * FROM LOAITHUOC LT JOIN inserted I ON LT.MATHUOC = I.MATHUOC WHERE LT.SLTON < 0)
+	-- R3: Số lượng tồn cần lớn hơn 0
+	IF EXISTS (SELECT * 
+				FROM LOAITHUOC LT JOIN inserted I ON (LT.MATHUOC = I.MATHUOC) 
+				WHERE LT.SLTON < 1)
     BEGIN
-        RAISERROR(N'Số lượng tồn không được nhỏ hơn 0', 16, 1)
-        ROLLBACK TRAN
-        RETURN
-    END
-    -- R5: Số lượng thuốc nhập của mỗi loại thuốc phải lớn hơn 0. 
-    IF EXISTS (SELECT * FROM LOAITHUOC LT JOIN inserted I ON LT.MATHUOC = I.MATHUOC WHERE LT.SLNHAP < 0)
-    BEGIN
-        RAISERROR(N'Số lượng nhập không được nhỏ hơn 0', 16, 1)
-        ROLLBACK TRAN
-        RETURN
-    END
-    -- R6: Số lượng đã hủy của mỗi loại thuốc phải từ 0 trở lên. 
-    IF EXISTS (SELECT * FROM LOAITHUOC LT JOIN inserted I ON LT.MATHUOC = I.MATHUOC WHERE LT.SLDAHUY < 0)
-    BEGIN
-        RAISERROR(N'Số lượng đã hủy không được nhỏ hơn 0', 16, 1)
+        RAISERROR(N'Số lượng tồn không được nhỏ hơn hoặc bằng 0', 16, 1)
         ROLLBACK TRAN
         RETURN
     END
 
-    -- R4: Đơn giá mỗi loại thuốc phải từ 0 trở lên.
-    IF EXISTS (SELECT * FROM LOAITHUOC LT JOIN inserted I ON LT.MATHUOC = I.MATHUOC WHERE LT.DONGIA < 0)
+	-- R4: Đơn giá mỗi loại thuốc phải lớn hơn 0.
+    IF EXISTS (SELECT * 
+				FROM LOAITHUOC LT JOIN inserted I ON (LT.MATHUOC = I.MATHUOC) 
+				WHERE LT.DONGIA <= 0)
     BEGIN
-        RAISERROR(N'Đơn giá không được nhỏ hơn 0', 16, 1)
+        RAISERROR(N'Đơn giá không được nhỏ hơn hoặc bằng 0', 16, 1)
         ROLLBACK TRAN
         RETURN
     END
-    
+
+	-- R5: Số lượng thuốc nhập của mỗi loại thuốc phải lớn hơn 0. 
+    IF EXISTS (SELECT * 
+				FROM LOAITHUOC LT JOIN inserted I ON (LT.MATHUOC = I.MATHUOC) 
+				WHERE LT.SLNHAP < 1)
+    BEGIN
+        RAISERROR(N'Số lượng nhập không được nhỏ hơn hoặc bằng 0', 16, 1)
+        ROLLBACK TRAN
+        RETURN
+    END
+
+	-- Số lượng đã hủy bằng 0 (khi loại thuốc mới được insert vào). 
+    IF EXISTS (SELECT * 
+				FROM LOAITHUOC LT JOIN inserted I ON (LT.MATHUOC = I.MATHUOC) 
+				WHERE LT.SLDAHUY <> 0)
+    BEGIN
+        RAISERROR(N'Số lượng đã hủy phải bằng 0', 16, 1)
+        ROLLBACK TRAN
+        RETURN
+    END
+
+	-- R8: Ngày hết hạn của mỗi loại thuốc phải xa hơn ngày hiện tại
+	IF EXISTS (SELECT *
+				FROM LOAITHUOC LT JOIN inserted I ON (LT.MATHUOC = I.MATHUOC)
+				WHERE DATEDIFF(DAY, GETDATE(), LT.NGAYHETHAN) <= 0)
+	BEGIN
+		RAISERROR(N'Thuốc đã hết hạn.', 16, 1)
+        ROLLBACK TRAN
+        RETURN
+	END
 END
 GO
 
-----
-CREATE TRIGGER Trigger_Insert_Update_LT_Hethan 
-ON LOAITHUOC
-INSTEAD OF INSERT
+CREATE TRIGGER Trigger_Update_LT 
+ON LOAITHUOC 
+FOR UPDATE
 AS
 BEGIN
+	-- R4: Đơn giá mỗi loại thuốc phải lớn hơn 0.
+    IF EXISTS (SELECT * 
+				FROM LOAITHUOC LT JOIN inserted I ON (LT.MATHUOC = I.MATHUOC) 
+				WHERE LT.DONGIA <= 0)
+    BEGIN
+        RAISERROR(N'Đơn giá không được nhỏ hơn hoặc bằng 0', 16, 1)
+        ROLLBACK TRAN
+        RETURN
+    END
 
-  -- R8: Ngày hết hạn của mỗi loại thuốc phải xa hơn ngày hiện tại.
-  IF EXISTS (
-    SELECT * 
-    FROM LOAITHUOC LT JOIN inserted  I ON LT.MATHUOC = I.MATHUOC 
-    WHERE LT.NGAYHETHAN < GETDATE()
-  )
-  BEGIN
-     RAISERROR(N'Ngày hết hạn không được nhỏ hơn ngày hiện tại', 16, 1)
-     ROLLBACK TRAN
-     RETURN
-  END
-
-  -- Cho phép insert 
-  INSERT INTO LOAITHUOC (MATHUOC, TENTHUOC, DONVITINH, CHIDINH, 
-                          SLTON, SLNHAP, SLDAHUY, NGAYHETHAN, DONGIA)
-  SELECT MATHUOC, TENTHUOC, DONVITINH, CHIDINH,
-         SLTON, SLNHAP, SLDAHUY, NGAYHETHAN, DONGIA
-  FROM inserted
-
+	-- R5: Số lượng thuốc nhập của mỗi loại thuốc phải lớn hơn 0. 
+    IF EXISTS (SELECT * 
+				FROM LOAITHUOC LT JOIN inserted I ON (LT.MATHUOC = I.MATHUOC) 
+				WHERE LT.SLNHAP < 1)
+    BEGIN
+        RAISERROR(N'Số lượng nhập không được nhỏ hơn hoặc bằng 0', 16, 1)
+        ROLLBACK TRAN
+        RETURN
+    END
 END
-
 GO
 
---TRIGGER LOAI DICH VU
---1.Trigger gia dich vu lon hon 0:
-CREATE TRIGGER Trigger_Insert_Update_LDV on LOAIDICHVU for INSERT, UPDATE
+-- TRIGGER LOAI DICH VU
+CREATE TRIGGER Trigger_Insert_Update_LDV
+ON LOAIDICHVU
+FOR INSERT, UPDATE
 AS
 BEGIN
-    -- don gia thuoc phau thuat phai lon hon 0
-    IF EXISTS (SELECT * FROM LOAIDICHVU LDV JOIN inserted I ON LDV.MADV = I.MADV WHERE LDV.DONGIA < 0)
+	-- Đơn giá mỗi loại dịch vụ phải lớn hơn 0.
+    IF EXISTS (SELECT * 
+				FROM LOAIDICHVU LDV JOIN inserted I ON (LDV.MADV = I.MADV) 
+				WHERE LDV.MADV <= 0)
     BEGIN
-        RAISERROR(N'Giá dịch vụ không được nhỏ hơn 0', 16, 1)
-        ROLLBACK TRAN
-        RETURN
-    END
-    -- R14: Mã dịch vụ trong loại dịch vụ phải là độc quyền. 
-    IF EXISTS (SELECT * FROM LOAIDICHVU LDV JOIN inserted I ON LDV.MADV = I.MADV WHERE LDV.MADV IN (SELECT MADV FROM LOAIDICHVU GROUP BY MADV HAVING COUNT(*) > 1))
-    BEGIN
-        RAISERROR(N'Mã dịch vụ phải là độc quyền', 16, 1)
-        ROLLBACK TRAN
-        RETURN
-    END
-    -- R15: Với mọi chi tiết dịch vụ, tồn tại mã dịch vụ ứng vọi loại dịch vụ đó.
-    IF EXISTS (SELECT * FROM LOAIDICHVU LDV JOIN inserted I ON LDV.MADV = I.MADV WHERE LDV.DONGIA < 0)
-    BEGIN
-        RAISERROR(N'Giá dịch vụ không được nhỏ hơn 0', 16, 1)
+        RAISERROR(N'Đơn giá không được nhỏ hơn hoặc bằng 0', 16, 1)
         ROLLBACK TRAN
         RETURN
     END
