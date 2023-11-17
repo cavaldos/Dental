@@ -18,7 +18,7 @@ import QuanLiThuoc from "../pages/admin/QuanLiThuoc";
 import QuanLiNV from "../pages/admin/QuanLiNhanVien";
 
 
-import DangKiLichRanh from "../pages/dentist/DKLichRanh";
+import DangKiLichRanh from "../pages/dentist/DkLichRanh";
 
 
 import AddPage from "~/pages/online/add";
