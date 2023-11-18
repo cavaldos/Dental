@@ -57,7 +57,7 @@ BEGIN
     END
     ELSE
     BEGIN
-        RAISERROR('Không thể hủy thuốc vì chưa hết hạn.',16,1);
+        RAISERROR(N'Không thể hủy thuốc vì chưa hết hạn.',16,1);
         ROLLBACK TRAN 
         RETURN 
     END
@@ -92,7 +92,7 @@ BEGIN
     END
     ELSE
     BEGIN
-        RAISERROR('Không có thông tin mới để cập nhật.',16,1);
+        RAISERROR(N'Không có thông tin mới để cập nhật.',16,1);
     END
 END;
 END TRY 
@@ -136,7 +136,7 @@ BEGIN
     END
     ELSE
     BEGIN
-        RAISERROR('Ngày hết hạn không hợp lệ hoặc thuốc đã hết hạn.',16,1);
+        RAISERROR(N'Ngày hết hạn không hợp lệ hoặc thuốc đã hết hạn.',16,1);
         ROLLBACK TRAN 
         RETURN
     END
@@ -201,7 +201,7 @@ BEGIN
     END
     ELSE
     BEGIN
-        RAISERROR('Không có thông tin nào được cập nhật.',16,1);
+        RAISERROR(N'Không có thông tin nào được cập nhật.',16,1);
     END
 END;
 END TRY 
@@ -446,7 +446,7 @@ BEGIN TRAN
         END
         ELSE
         BEGIN
-            RAISERROR('Không tồn tại mã nha sĩ này', 16, 1)
+            RAISERROR(N'Không tồn tại mã nha sĩ này', 16, 1)
             ROLLBACK TRAN
             RETURN
         END
@@ -480,7 +480,7 @@ BEGIN TRAN
         END
         ELSE
         BEGIN
-            RAISERROR('Không tồn tại mã nha sĩ này', 16, 1)
+            RAISERROR(N'Không tồn tại mã nha sĩ này', 16, 1)
             ROLLBACK TRAN
             RETURN
         END
@@ -507,7 +507,7 @@ BEGIN TRAN
         END
         ELSE
         BEGIN
-            RAISERROR('Không tồn tại quản trị viên nào', 16, 1)
+            RAISERROR(N'Không tồn tại quản trị viên nào', 16, 1)
             ROLLBACK TRAN
             RETURN
         END
@@ -539,7 +539,7 @@ BEGIN TRAN
         END
         ELSE
         BEGIN
-            RAISERROR('Không thể tạo quản trị viên mới', 16, 1)
+            RAISERROR(N'Không thể tạo quản trị viên mới', 16, 1)
             ROLLBACK TRAN
             RETURN
         END
@@ -566,7 +566,7 @@ BEGIN TRAN
         END
         ELSE
         BEGIN
-            RAISERROR('Không tìm thấy danh sách khách hàng nào', 16, 1)
+            RAISERROR(N'Không tìm thấy danh sách khách hàng nào', 16, 1)
             ROLLBACK TRAN
             RETURN
         END
@@ -595,7 +595,7 @@ BEGIN TRAN
         END
         ELSE
         BEGIN
-            RAISERROR('Không tìm thấy khách hàng nào', 16, 1)
+            RAISERROR(N'Không tìm thấy khách hàng nào', 16, 1)
             ROLLBACK TRAN
             RETURN
         END
@@ -625,7 +625,7 @@ BEGIN TRAN
         END
         ELSE
         BEGIN
-            RAISERROR('Không thẻ mở tài khoản khách hàng này', 16, 1)
+            RAISERROR(N'Không thẻ mở tài khoản khách hàng này', 16, 1)
             ROLLBACK TRAN
             RETURN
         END

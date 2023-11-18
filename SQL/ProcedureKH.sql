@@ -252,34 +252,3 @@ BEGIN TRAN
         RETURN
     END CATCH
 COMMIT TRAN
-
-
-
--- 9. Xoa lịch hẹn
-GO
-CREATE OR ALTER PROC SP_XOALICHHEN_KH
-@SODT VARCHAR(10),
-@MANS VARCHAR(10), 
-@SOTT INT
-AS
-BEGIN TRAN 
-    BEGIN TRY
-        IF EXISTS(SELECT 1 FROM LICHHEN WHERE SODT = @SODT AND MANS = @MANS AND SOTT = @SOTT)
-        BEGIN
-            DELETE FROM LICHHEN
-            WHERE SODT = @SODT AND MANS = @MANS AND SOTT = @SOTT
-        END
-        ELSE
-        BEGIN
-            RAISERROR(N'Lịch hẹn không tồn tại trong hệ thống', 16, 1);
-            ROLLBACK TRAN
-            RETURN
-        END
-    END TRY
-    BEGIN CATCH
-        ROLLBACK TRAN;
-        DECLARE @errorMessage NVARCHAR(200) = ERROR_MESSAGE();
-        THROW 51000, @errorMessage, 1;
-        RETURN
-    END CATCH
-COMMIT TRAN
