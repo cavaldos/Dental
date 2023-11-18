@@ -140,12 +140,19 @@ COMMIT TRAN
 ----------------------------------
 --ALL04/ ĐĂNG NHẬP
 GO
-CREATE OR ALTER PROC SP_DANGNHAP_CHUNG
+CREATE OR ALTER PROC SP_DANGNHAP_ALL
 	@MATK VARCHAR(100),
 	@MATKHAU VARCHAR(20)
 AS
 BEGIN TRAN
 	BEGIN TRY
+		IF LEN(@MATK) > 10
+		BEGIN
+			RAISERROR(N'Tải khoản đăng nhập không hợp lệ.')
+			ROLLBACK TRAN
+			RETURN
+		END 
+
 		DECLARE @ROLE VARCHAR(10);
 		SET @ROLE = NULL;
 
@@ -168,7 +175,7 @@ BEGIN TRAN
 		END
 		ELSE
 		BEGIN
-			PRINT N'Tải khoản ' + @MATK + N' hoặc mật khẩu không đúng.'
+			RAISERROR(N'Tải khoản hoặc mật khẩu không đúng.')
 			ROLLBACK TRAN
 			RETURN
 		END
@@ -183,7 +190,6 @@ BEGIN TRAN
 		RETURN
 	END CATCH
 COMMIT TRAN
-GO
 
 ----------------------------------
 --ALL02/ XEM DANH SÁCH DỊCH VỤ
