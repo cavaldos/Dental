@@ -148,7 +148,7 @@ BEGIN TRAN
 	BEGIN TRY
 		IF LEN(@MATK) > 10
 		BEGIN
-			RAISERROR(N'Tải khoản đăng nhập không hợp lệ.')
+			RAISERROR(N'Tải khoản đăng nhập không hợp lệ.', 16, 1);
 			ROLLBACK TRAN
 			RETURN
 		END 
@@ -175,7 +175,7 @@ BEGIN TRAN
 		END
 		ELSE
 		BEGIN
-			RAISERROR(N'Tải khoản hoặc mật khẩu không đúng.')
+			RAISERROR(N'Tải khoản hoặc mật khẩu không đúng.', 16, 1);
 			ROLLBACK TRAN
 			RETURN
 		END
