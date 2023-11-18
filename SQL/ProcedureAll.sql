@@ -76,7 +76,7 @@ BEGIN TRAN
 			 	  			   FROM LICHRANH LR2
 			 				   WHERE LR2.MANS != LH.MANS AND LR.NGAY = LR2.NGAY AND LR.MACA = LR2.MACA
 			 				   AND LH.SODT = @SODT
-			 				   AND LR2.SOTT = @SOTTHD
+			 				   AND LR2.SOTT = @SOTT
 			 				   AND LR2.MANS = @MANS)))
 		BEGIN
 			RAISERROR(N'Lỗi: Các lịch hẹn của cùng một khách hàng không được trùng ca nhau.',16,1)
