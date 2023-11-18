@@ -78,69 +78,49 @@ GO
 CREATE OR ALTER PROC SP_CAPNHATTHONGTIN_KH
 @SODT VARCHAR(10),  
 @HOTEN NVARCHAR(50),
-@PHAI NVARCHAR(5),  
+@PHAI NVARCHAR(5),
 @NGAYSINH DATE,
-@DIACHI NVARCHAR(250),
-@MAT_KHAU_CU VARCHAR(20),
+@DIACHI NVARCHAR(250), 
 @MAT_KHAU_MOI VARCHAR(20)
 AS
 BEGIN
-    SET NOCOUNT ON;
-    DECLARE @IS_VALID_PASSWORD BIT = 1;
-    BEGIN TRAN
+  SET NOCOUNT ON;
+
+  BEGIN TRAN
     BEGIN TRY
-        -- Kiểm tra tồn tại tài khoản
-        IF EXISTS(SELECT 1 FROM KHACHHANG WHERE SODT = @SODT)
-        BEGIN
-            -- Kiểm tra mật khẩu cũ
-            IF EXISTS(SELECT 1 FROM KHACHHANG WHERE SODT = @SODT AND MATKHAU = @MAT_KHAU_CU)
-            BEGIN
-                -- Cập nhật thông tin khách hàng
-                UPDATE KHACHHANG
-                SET 
-                    HOTEN = CASE WHEN @HOTEN IS NOT NULL THEN @HOTEN ELSE HOTEN END,
-                    PHAI = CASE WHEN @PHAI IS NOT NULL THEN @PHAI ELSE PHAI END,
-                    NGAYSINH = CASE WHEN @NGAYSINH IS NOT NULL THEN @NGAYSINH ELSE NGAYSINH END,
-                    DIACHI = CASE WHEN @DIACHI IS NOT NULL THEN @DIACHI ELSE DIACHI END,
-                    MATKHAU = CASE WHEN @MAT_KHAU_MOI IS NOT NULL THEN @MAT_KHAU_MOI ELSE MATKHAU END
-                WHERE SODT = @SODT;
-                
-                -- Kiểm tra mật khẩu đã được thay đổi hay chưa
-                IF @MAT_KHAU_MOI IS NULL
-                    SET @IS_VALID_PASSWORD = 0;
-            END
-            ELSE
-            BEGIN
-                -- Nếu mật khẩu cũ không đúng, in ra thông báo lỗi
-                RAISERROR(N'Sai mật khẩu cũ', 16, 1);
-                ROLLBACK TRAN;
-                RETURN;
-            END
-        END
-        ELSE
-        BEGIN
-            -- Nếu tài khoản không tồn tại, in ra thông báo lỗi
-            RAISERROR(N'Tài khoản không tồn tại trong hệ thống', 16, 1);
-            ROLLBACK TRAN;
-            RETURN;
-        END
-        
+      -- Kiểm tra tồn tại tài khoản
+      IF EXISTS(SELECT 1 FROM KHACHHANG WHERE SODT = @SODT)
+      BEGIN
+        -- Cập nhật thông tin khách hàng
+        UPDATE KHACHHANG
+        SET
+          HOTEN = CASE WHEN @HOTEN IS NOT NULL THEN @HOTEN ELSE HOTEN END,
+          PHAI = CASE WHEN @PHAI IS NOT NULL THEN @PHAI ELSE PHAI END,
+          NGAYSINH = CASE WHEN @NGAYSINH IS NOT NULL THEN @NGAYSINH ELSE NGAYSINH END,  
+          DIACHI = CASE WHEN @DIACHI IS NOT NULL THEN @DIACHI ELSE DIACHI END,
+          MATKHAU = CASE WHEN @MAT_KHAU_MOI IS NOT NULL THEN @MAT_KHAU_MOI ELSE MATKHAU END
+        WHERE SODT = @SODT;
+
         -- In ra thông báo thành công
-        IF @IS_VALID_PASSWORD = 1
-            PRINT 'Cập nhật thông tin thành công';
-        ELSE
-            PRINT 'Cập nhật thông tin thành công, mật khẩu không thay đổi';
-        
-        COMMIT TRAN;
+        PRINT 'Cập nhật thông tin thành công';
+      END
+      ELSE
+      BEGIN
+        -- Nếu tài khoản không tồn tại, in ra thông báo lỗi
+        RAISERROR(N'Tài khoản không tồn tại trong hệ thống', 16, 1);
+        ROLLBACK TRAN;
+        RETURN;  
+      END
+
+      COMMIT TRAN;
     END TRY
     BEGIN CATCH
-        ROLLBACK TRAN;
-        DECLARE @errorMessage NVARCHAR(200) = ERROR_MESSAGE();
-        THROW 51000, @errorMessage, 1;
-        RETURN;
+      ROLLBACK TRAN;
+      DECLARE @errorMessage NVARCHAR(200) = ERROR_MESSAGE(); 
+      THROW 51000, @errorMessage, 1;
+      RETURN; 
     END CATCH
 END
-
 
 --4. xem lich ranh cua tat ca cac nha si tu hien tai dn 30 ngay sau
 GO
