@@ -1,7 +1,6 @@
 use PKNHAKHOA 
 GO
 -- XEM CÁC CA ĐỦ 2 NG TRỰC TRỪ CA MÌNH ĐÃ ĐẶT (TỪ NGÀY HIỆN TẠI ĐẾN 30 NGÀY SAU)
-
 CREATE PROCEDURE SP_XEMCADU2NGTRUC_NS
     @MANS VARCHAR(10)
 AS
@@ -116,14 +115,16 @@ BEGIN TRAN
 BEGIN TRY 
 BEGIN
     SET NOCOUNT ON;
-
+    IF @NGAY IS NULL
+    BEGIN
+        ROLLBACK TRAN
+        RAISERROR(N'Ngày đăng ký không thể null.',16,1);
+        RETURN
+    END
     DECLARE @NextSOTT INT;
-
-
     SELECT @NextSOTT = ISNULL(MAX(SOTT), 0) + 1
     FROM LICHRANH
     WHERE MANS = @MANS;
-
 
     INSERT INTO LICHRANH
         (MANS, MACA, NGAY, SOTT)
@@ -187,6 +188,12 @@ AS
 BEGIN TRAN      
 BEGIN TRY
 BEGIN
+    IF @NGAY IS NULL
+    BEGIN
+        ROLLBACK TRAN
+        RAISERROR(N'Ngày không thể null.',16,1);
+        RETURN
+    END
     DECLARE @Sott INT;
     SELECT @Sott = ISNULL(MAX(SOTT), 0) + 1
     FROM HOSOBENH
@@ -217,8 +224,14 @@ AS
 BEGIN TRAN 
 BEGIN TRY
 BEGIN
+     IF @SoLuongDV IS NULL
+    BEGIN
+        ROLLBACK TRAN
+        RAISERROR(N'Số lượng dịch vụ không thể null.',16,1);
+        RETURN
+    END
     INSERT INTO CHITIETDV
-        (MADV, SOTT, SODT,SOLUONG)
+        (MADV, SOTT, SODT, SOLUONG)
     VALUES
         (@MaDV, @SOTT, @SoDienThoai, @SoLuongDV);
 
@@ -243,6 +256,12 @@ AS
 BEGIN TRAN
 BEGIN TRY
 BEGIN
+     IF @sSOLUONG  IS NULL OR @THOIDIEMDUNG IS NULL
+    BEGIN
+        ROLLBACK TRAN
+        RAISERROR(N'Số lượng và thời điểm dùng không thể null.',16,1);
+        RETURN
+    END
 	IF (NOT EXISTS(SELECT * 
 				   FROM HOSOBENH 
 				   WHERE SOTT = @SOTT AND SODT = @SODT))

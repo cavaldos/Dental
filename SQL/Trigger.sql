@@ -73,6 +73,8 @@ BEGIN
 END;
 GO
 
+
+-- Đã fix vào proc SP_DANGKYLR_NS
 -- Mỗi lịch rảnh, ca và ngày cần not null.
 CREATE TRIGGER TRIGGER_LICHRANH_INSERT_UPDATE_4
 ON LICHRANH
