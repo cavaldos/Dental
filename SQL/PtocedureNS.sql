@@ -279,22 +279,22 @@ BEGIN
         RAISERROR(N'Số lượng và thời điểm dùng không thể null.',16,1);
         RETURN
     END
-    -- FOREIGN KEY?
-	-- IF (NOT EXISTS(SELECT * 
-	-- 			   FROM HOSOBENH 
-	-- 			   WHERE SOTT = @SOTT AND SODT = @SODT))
-	-- BEGIN
-    --     ROLLBACK TRAN
-    --     RAISERROR(N'Không tồn tại hồ sơ bệnh.',16,1);
-    --     RETURN
-    -- END
 
-	-- IF(NOT EXISTS(SELECT * FROM LOAITHUOC WHERE MATHUOC = @MATHUOC))
-    -- BEGIN
-    --     RAISERROR(N'Thuốc này không tồn tại trong kho',16,1)
-    --     ROLLBACK TRAN
-    --     RETURN
-    -- END
+	IF (NOT EXISTS(SELECT * 
+				   FROM HOSOBENH 
+				   WHERE SOTT = @SOTT AND SODT = @SODT))
+	BEGIN
+        ROLLBACK TRAN
+        RAISERROR(N'Không tồn tại hồ sơ bệnh.',16,1);
+        RETURN
+    END
+
+	IF(NOT EXISTS(SELECT * FROM LOAITHUOC WHERE MATHUOC = @MATHUOC))
+    BEGIN
+        RAISERROR(N'Thuốc này không tồn tại trong kho',16,1)
+        ROLLBACK TRAN
+        RETURN
+    END
 
 	IF(EXISTS(SELECT SODT, SOTT, _DAXUATHOADON FROM HOSOBENH WHERE SODT = @SODT AND SOTT = @SOTT AND _DAXUATHOADON = 1))
     BEGIN
