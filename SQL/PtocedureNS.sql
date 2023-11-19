@@ -127,7 +127,7 @@ BEGIN TRY
         RETURN
 	END
 	-- Mỗi ca trong ngày chỉ được tối đa 2 nha sĩ được đăng ký. 
-	IF(EXISTS(SELECT *
+	IF(EXISTS(SELECT MACA, NGAY
 			  FROM LICHRANH
 		      WHERE NGAY = @NGAY AND MACA = @MACA
 			  GROUP BY MACA, NGAY
@@ -168,7 +168,7 @@ BEGIN TRY
 BEGIN
     SET NOCOUNT ON;
     IF NOT EXISTS (
-        SELECT 1
+        SELECT MANS, SOTT
     FROM LICHHEN
     WHERE MANS = @MANS
         AND SOTT = @SOTT
@@ -279,23 +279,24 @@ BEGIN
         RAISERROR(N'Số lượng và thời điểm dùng không thể null.',16,1);
         RETURN
     END
-	IF (NOT EXISTS(SELECT * 
-				   FROM HOSOBENH 
-				   WHERE SOTT = @SOTT AND SODT = @SODT))
-	BEGIN
-        ROLLBACK TRAN
-        RAISERROR(N'Không tồn tại hồ sơ bệnh.',16,1);
-        RETURN
-    END
+    -- FOREIGN KEY?
+	-- IF (NOT EXISTS(SELECT * 
+	-- 			   FROM HOSOBENH 
+	-- 			   WHERE SOTT = @SOTT AND SODT = @SODT))
+	-- BEGIN
+    --     ROLLBACK TRAN
+    --     RAISERROR(N'Không tồn tại hồ sơ bệnh.',16,1);
+    --     RETURN
+    -- END
 
-	IF(NOT EXISTS(SELECT * FROM LOAITHUOC WHERE MATHUOC = @MATHUOC))
-    BEGIN
-        RAISERROR(N'Thuốc này không tồn tại trong kho',16,1)
-        ROLLBACK TRAN
-        RETURN
-    END
-    
-	IF(EXISTS(SELECT * FROM HOSOBENH WHERE SODT = @SODT AND SOTT = @SOTT AND _DAXUATHOADON = 1))
+	-- IF(NOT EXISTS(SELECT * FROM LOAITHUOC WHERE MATHUOC = @MATHUOC))
+    -- BEGIN
+    --     RAISERROR(N'Thuốc này không tồn tại trong kho',16,1)
+    --     ROLLBACK TRAN
+    --     RETURN
+    -- END
+
+	IF(EXISTS(SELECT SODT, SOTT, _DAXUATHOADON FROM HOSOBENH WHERE SODT = @SODT AND SOTT = @SOTT AND _DAXUATHOADON = 1))
     BEGIN
         RAISERROR(N'Lỗi đã xuất hóa đơn, không thể thêm đơn thuốc được',16,1)
         ROLLBACK TRAN
