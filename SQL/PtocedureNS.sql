@@ -106,14 +106,13 @@ COMMIT TRAN
 GO
 GO
 -- ĐĂNG KÝ LỊCH RẢNH
-CREATE PROCEDURE SP_DANGKYLR_NS
+CREATE OR ALTER PROCEDURE SP_DANGKYLR_NS
     @MANS VARCHAR(10),
     @MACA VARCHAR(10),
     @NGAY DATE
 AS
 BEGIN TRAN
 BEGIN TRY 
-BEGIN
     SET NOCOUNT ON;
     IF @NGAY IS NULL
     BEGIN
@@ -121,16 +120,34 @@ BEGIN
         RAISERROR(N'Ngày đăng ký không thể null.',16,1);
         RETURN
     END
-    DECLARE @NextSOTT INT;
-    SELECT @NextSOTT = ISNULL(MAX(SOTT), 0) + 1
-    FROM LICHRANH
-    WHERE MANS = @MANS;
+	IF (@NGAY < GETDATE())
+	BEGIN
+		ROLLBACK TRAN
+        RAISERROR(N'Ngày đăng ký không thể nhỏ hơn ngày hiện tại.',16,1);
+        RETURN
+	END
+	-- Mỗi ca trong ngày chỉ được tối đa 2 nha sĩ được đăng ký. 
+	IF(EXISTS(SELECT *
+			  FROM LICHRANH
+		      WHERE NGAY = @NGAY AND MACA = @MACA
+			  GROUP BY MACA, NGAY
+			  HAVING COUNT(MANS) > 1))
+	BEGIN
+        ROLLBACK TRAN
+        RAISERROR(N'Lỗi ca đã đủ 2 người đăng ký.',16,1);
+        RETURN
+    END
 
-    INSERT INTO LICHRANH
-        (MANS, MACA, NGAY, SOTT)
-    VALUES
-        (@MANS, @MACA, @NGAY, @NextSOTT);
-END;
+	ELSE
+	BEGIN
+		DECLARE @NextSOTT INT;
+		SELECT @NextSOTT = ISNULL(MAX(SOTT), 0) + 1
+		FROM LICHRANH
+		WHERE MANS = @MANS;
+
+		INSERT INTO LICHRANH(MANS, MACA, NGAY, SOTT)
+		VALUES(@MANS, @MACA, @NGAY, @NextSOTT);
+	END
 END TRY 
 BEGIN CATCH 
         ROLLBACK TRAN;
