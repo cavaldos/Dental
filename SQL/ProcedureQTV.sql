@@ -316,21 +316,21 @@ CREATE OR ALTER PROC SP_UPDATENV_QTV
     @VITRICV NVARCHAR(200)
 AS
 BEGIN TRAN
-BEGIN TRY
+    BEGIN TRY
 		IF (NOT EXISTS(SELECT *
-FROM NHANVIEN
-WHERE MANV = @MANV))
+            FROM NHANVIEN
+            WHERE MANV = @MANV))
 		BEGIN
-    RAISERROR(N'Không tồn tại nhân viên trên', 16, 1);
-    ROLLBACK TRAN
-    RETURN
-END
+            RAISERROR(N'Không tồn tại nhân viên trên', 16, 1);
+            ROLLBACK TRAN
+            RETURN
+        END
 		ELSE
 		BEGIN
-    UPDATE NHANVIEN
+            UPDATE NHANVIEN
 			SET VITRICV = @VITRICV
 			WHERE MANV = @MANV
-END
+        END
 	END TRY
 	BEGIN CATCH
 		ROLLBACK TRAN;
@@ -346,21 +346,21 @@ CREATE OR ALTER PROC SP_BLOCKNV_QTV
     @MANV VARCHAR(100)
 AS
 BEGIN TRAN
-BEGIN TRY
+    BEGIN TRY
 		IF (NOT EXISTS(SELECT *
-FROM NHANVIEN
-WHERE MANV = @MANV))
+            FROM NHANVIEN
+            WHERE MANV = @MANV))
 		BEGIN
-    RAISERROR(N'Không tồn tại nhân viên trên', 16, 1);
-    ROLLBACK TRAN
-    RETURN
-END
+            RAISERROR(N'Không tồn tại nhân viên trên', 16, 1);
+            ROLLBACK TRAN
+            RETURN
+        END
 		ELSE
 		BEGIN
-    UPDATE NHANVIEN
+            UPDATE NHANVIEN
 			SET _DAKHOA = 1
 			WHERE MANV = @MANV
-END
+        END
 	END TRY
 	BEGIN CATCH
 		ROLLBACK TRAN;
@@ -378,19 +378,19 @@ AS
 BEGIN TRAN
 BEGIN TRY
 		IF (NOT EXISTS(SELECT *
-FROM NHANVIEN
-WHERE MANV = @MANV))
+            FROM NHANVIEN
+            WHERE MANV = @MANV))
 		BEGIN
-    RAISERROR(N'Không tồn tại nhân viên trên', 16, 1);
-    ROLLBACK TRAN
-    RETURN
-END
+            RAISERROR(N'Không tồn tại nhân viên trên', 16, 1);
+            ROLLBACK TRAN
+            RETURN
+        END
 		ELSE
 		BEGIN
-    UPDATE NHANVIEN
+            UPDATE NHANVIEN
 			SET _DAKHOA = 0
 			WHERE MANV = @MANV
-END
+        END
 	END TRY
 	BEGIN CATCH
 		ROLLBACK TRAN;
@@ -405,9 +405,9 @@ GO
 CREATE OR ALTER PROC SP_GETALLNS_QTV
 AS
 BEGIN TRAN
-BEGIN TRY
+    BEGIN TRY
 		SELECT MANS, HOTEN, PHAI, GIOITHIEU, _DAKHOA
-FROM NHASI
+        FROM NHASI
 	END TRY
 	BEGIN CATCH
 		ROLLBACK TRAN;
@@ -426,21 +426,19 @@ CREATE OR ALTER PROC SP_CREATENS_QTV
     @GIOITHIEU NVARCHAR(500)
 AS
 BEGIN TRAN
-BEGIN TRY
-		BEGIN
-    SELECT *
-    FROM NHASI
-    DECLARE @MANS NVARCHAR(10);
-    -- Lấy giá trị MANS lớn nhất hiện tại
-    SELECT TOP 1
-        @MANS = 'NS' + RIGHT('0000' + CAST(CAST(SUBSTRING(MANS, 3, LEN(MANS) - 2) AS INT) + 1 AS NVARCHAR(5)), 4)
-    FROM NHASI
-    ORDER BY CAST(SUBSTRING(MANS, 3, LEN(MANS) - 2) AS INT) DESC;
+    BEGIN TRY
+        DECLARE @MANS NVARCHAR(10);
 
-    INSERT INTO NHASI
-        (MANS, HOTEN, PHAI, GIOITHIEU, MATKHAU, _DAKHOA)
-    VALUES(@MANS, @HOTEN, @PHAI, @GIOITHIEU, @MANS, 0)
-END
+        -- Lấy giá trị MANS lớn nhất hiện tại
+        SELECT TOP 1
+            @MANS = 'NS' + RIGHT('0000' + CAST(CAST(SUBSTRING(MANS, 3, LEN(MANS) - 2) AS INT) + 1 AS NVARCHAR(5)), 4)
+        FROM NHASI
+        ORDER BY CAST(SUBSTRING(MANS, 3, LEN(MANS) - 2) AS INT) DESC;
+
+        INSERT INTO NHASI
+            (MANS, HOTEN, PHAI, GIOITHIEU, MATKHAU, _DAKHOA)
+        VALUES(@MANS, @HOTEN, @PHAI, @GIOITHIEU, @MANS, 0)
+
 	END TRY
 	BEGIN CATCH
 		ROLLBACK TRAN;
@@ -449,6 +447,8 @@ END
 		RETURN
 	END CATCH
 COMMIT TRAN
+
+
 --QTV14/ CẬP NHẬT THÔNG TIN NHA SĨ
 GO
 CREATE OR ALTER PROC SP_UPDATENV_QTV
@@ -456,21 +456,21 @@ CREATE OR ALTER PROC SP_UPDATENV_QTV
     @GIOITHIEU NVARCHAR(200)
 AS
 BEGIN TRAN
-BEGIN TRY
+    BEGIN TRY
 		IF (NOT EXISTS(SELECT *
-FROM NHASI
-WHERE MANS = @MANS))
+            FROM NHASI
+            WHERE MANS = @MANS))
 		BEGIN
-    RAISERROR(N'Không tồn tại nha sĩ trên', 16, 1);
-    ROLLBACK TRAN
-    RETURN
-END
+            RAISERROR(N'Không tồn tại nha sĩ trên', 16, 1);
+            ROLLBACK TRAN
+            RETURN
+        END
 		ELSE
 		BEGIN
-    UPDATE NHASI
+            UPDATE NHASI
 			SET GIOITHIEU = @GIOITHIEU
 			WHERE MANS = @MANS
-END
+        END
 	END TRY
 	BEGIN CATCH
 		ROLLBACK TRAN;
@@ -479,9 +479,6 @@ END
 		RETURN
 	END CATCH
 COMMIT TRAN
-
-
-
 
 
 --15. Khóa tài khoản nha sĩ
@@ -493,19 +490,19 @@ AS
 BEGIN TRAN
 BEGIN TRY
         IF EXISTS (SELECT 1
-FROM NHASI
-WHERE MANS = @MA_NS)
+                    FROM NHASI
+                    WHERE MANS = @MA_NS)
         BEGIN
-    UPDATE NHASI
+            UPDATE NHASI
             SET _DAKHOA = 1
             WHERE MANS = @MA_NS
-END
+        END
         ELSE
         BEGIN
-    RAISERROR(N'Không tồn tại mã nha sĩ này', 16, 1)
-    ROLLBACK TRAN
-    RETURN
-END
+            RAISERROR(N'Không tồn tại mã nha sĩ này', 16, 1)
+            ROLLBACK TRAN
+            RETURN
+        END
     END TRY
 
     BEGIN CATCH
@@ -527,21 +524,21 @@ CREATE OR ALTER PROC SP_MO_TAI_KHOAN_NHA_SI
 AS
 
 BEGIN TRAN
-BEGIN TRY
+    BEGIN TRY
         IF EXISTS (SELECT 1
-FROM NHASI
-WHERE MANS = @MA_NS)
+                    FROM NHASI
+                    WHERE MANS = @MA_NS)
         BEGIN
-    UPDATE NHASI
+            UPDATE NHASI
             SET _DAKHOA = 0
             WHERE MANS = @MA_NS
-END
+        END
         ELSE
         BEGIN
-    RAISERROR(N'Không tồn tại mã nha sĩ này', 16, 1)
-    ROLLBACK TRAN
-    RETURN
-END
+            RAISERROR(N'Không tồn tại mã nha sĩ này', 16, 1)
+            ROLLBACK TRAN
+            RETURN
+        END
     END TRY
     BEGIN CATCH
         ROLLBACK TRAN
@@ -558,19 +555,19 @@ GO
 CREATE OR ALTER PROC SP_XEM_DANH_SACH_QTV
 AS
 BEGIN TRAN
-BEGIN TRY
+    BEGIN TRY
         IF EXISTS (SELECT 1
-FROM QTV)
+                    FROM QTV)
         BEGIN
-    SELECT QTV.MAQTV, QTV.HOTEN, QTV.PHAI
-    FROM QTV
-END
+            SELECT QTV.MAQTV, QTV.HOTEN, QTV.PHAI
+            FROM QTV
+        END
         ELSE
         BEGIN
-    RAISERROR(N'Không tồn tại quản trị viên nào', 16, 1)
-    ROLLBACK TRAN
-    RETURN
-END
+            RAISERROR(N'Không tồn tại quản trị viên nào', 16, 1)
+            ROLLBACK TRAN
+            RETURN
+        END
     END TRY
 
     BEGIN CATCH
@@ -591,20 +588,19 @@ CREATE OR ALTER PROC SP_TAO_QTV_MOI
 
 AS
 BEGIN TRAN
-BEGIN TRY
+    BEGIN TRY
         IF EXISTS (SELECT 1
-FROM QTV)
+                    FROM QTV)
         BEGIN
-    INSERT INTO QTV
-        (HOTEN,PHAI)
-    VALUES(@HOTEN, @PHAI)
-END
+            INSERT INTO QTV (HOTEN,PHAI)
+            VALUES(@HOTEN, @PHAI)
+        END
         ELSE
         BEGIN
-    RAISERROR(N'Không thể tạo quản trị viên mới', 16, 1)
-    ROLLBACK TRAN
-    RETURN
-END
+            RAISERROR(N'Không thể tạo quản trị viên mới', 16, 1)
+            ROLLBACK TRAN
+            RETURN
+        END
     END TRY
 
     BEGIN CATCH
@@ -620,19 +616,19 @@ CREATE OR ALTER PROC SP_XEM_DANH_SACH_KHACH_HANG
 
 AS
 BEGIN TRAN
-BEGIN TRY
+    BEGIN TRY
         IF EXISTS (SELECT 1
-FROM KHACHHANG)
+                    FROM KHACHHANG)
         BEGIN
-    SELECT KH.SODT, KH.HOTEN, KH.PHAI, KH.NGAYSINH, KH.DIACHI, KH._DAKHOA
-    FROM KHACHHANG KH
-END
+            SELECT KH.SODT, KH.HOTEN, KH.PHAI, KH.NGAYSINH, KH.DIACHI, KH._DAKHOA
+            FROM KHACHHANG KH
+        END
         ELSE
         BEGIN
-    RAISERROR(N'Không tìm thấy danh sách khách hàng nào', 16, 1)
-    ROLLBACK TRAN
-    RETURN
-END
+            RAISERROR(N'Không tìm thấy danh sách khách hàng nào', 16, 1)
+            ROLLBACK TRAN
+            RETURN
+        END
     END TRY
 
     BEGIN CATCH
@@ -649,21 +645,21 @@ CREATE OR ALTER PROC SP_KHOA_TAI_KHOAN_KHACH_HANG
     @SODT VARCHAR(20)
 AS
 BEGIN TRAN
-BEGIN TRY
+    BEGIN TRY
         IF EXISTS (SELECT 1
-FROM KHACHHANG
-WHERE SODT = @SODT)
+                    FROM KHACHHANG
+                    WHERE SODT = @SODT)
         BEGIN
-    UPDATE KHACHHANG
+            UPDATE KHACHHANG
             SET _DAKHOA = 1
             WHERE SODT = @SODT
-END
+        END
         ELSE
         BEGIN
-    RAISERROR(N'Không tìm thấy khách hàng nào', 16, 1)
-    ROLLBACK TRAN
-    RETURN
-END
+            RAISERROR(N'Không tìm thấy khách hàng nào', 16, 1)
+            ROLLBACK TRAN
+            RETURN
+        END
     END TRY
 
     BEGIN CATCH
@@ -681,21 +677,21 @@ CREATE OR ALTER PROC SP_MO_TAI_KHOAN_KHACH_HANG
     @SODT VARCHAR(20)
 AS
 BEGIN TRAN
-BEGIN TRY
+    BEGIN TRY
         IF EXISTS (SELECT 1
-FROM KHACHHANG
-WHERE SODT = @SODT)
+                    FROM KHACHHANG
+                    WHERE SODT = @SODT)
         BEGIN
-    UPDATE KHACHHANG
+            UPDATE KHACHHANG
             SET _DAKHOA = 0
             WHERE SODT = @SODT
-END
+        END
         ELSE
         BEGIN
-    RAISERROR(N'Không thẻ mở tài khoản khách hàng này', 16, 1)
-    ROLLBACK TRAN
-    RETURN
-END
+            RAISERROR(N'Không thẻ mở tài khoản khách hàng này', 16, 1)
+            ROLLBACK TRAN
+            RETURN
+        END
     END TRY
 
     BEGIN CATCH
