@@ -273,7 +273,7 @@ AS
 BEGIN TRAN
 BEGIN TRY
 BEGIN
-     IF @sSOLUONG  IS NULL OR @THOIDIEMDUNG IS NULL
+     IF @SOLUONG IS NULL OR @THOIDIEMDUNG IS NULL
     BEGIN
         ROLLBACK TRAN
         RAISERROR(N'Số lượng và thời điểm dùng không thể null.',16,1);
@@ -294,7 +294,7 @@ BEGIN
         ROLLBACK TRAN
         RETURN
     END
-
+    
 	IF(EXISTS(SELECT * FROM HOSOBENH WHERE SODT = @SODT AND SOTT = @SOTT AND _DAXUATHOADON = 1))
     BEGIN
         RAISERROR(N'Lỗi đã xuất hóa đơn, không thể thêm đơn thuốc được',16,1)
