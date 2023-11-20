@@ -148,13 +148,13 @@ BEGIN TRAN
 	BEGIN TRY
 		IF LEN(@MATK) > 10
 		BEGIN
-			RAISERROR(N'Tải khoản đăng nhập không hợp lệ.', 16, 1);
+			RAISERROR(N'Tài khoản đăng nhập không hợp lệ.', 16, 1);
 			ROLLBACK TRAN
 			RETURN
 		END 
 
 		DECLARE @ROLE VARCHAR(10);
-		DECLARE @_ISLOCK BIT;;
+		DECLARE @_ISLOCK BIT;
 		SET @ROLE = NULL;
 		SET @_ISLOCK = NULL;
 

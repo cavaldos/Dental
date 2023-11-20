@@ -134,7 +134,7 @@ BEGIN TRY
 			  HAVING COUNT(MANS) > 1))
 	BEGIN
         ROLLBACK TRAN
-        RAISERROR(N'Lỗi ca đã đủ 2 người đăng ký.',16,1);
+        RAISERROR(N'Lỗi: ca đã đủ 2 người đăng ký.',16,1);
         RETURN
     END
 
@@ -298,7 +298,7 @@ BEGIN
 
 	IF(EXISTS(SELECT SODT, SOTT, _DAXUATHOADON FROM HOSOBENH WHERE SODT = @SODT AND SOTT = @SOTT AND _DAXUATHOADON = 1))
     BEGIN
-        RAISERROR(N'Lỗi đã xuất hóa đơn, không thể thêm đơn thuốc được',16,1)
+        RAISERROR(N'Lỗi: đã xuất hóa đơn, không thể thêm đơn thuốc được',16,1)
         ROLLBACK TRAN
         RETURN
     END
@@ -317,7 +317,7 @@ BEGIN
         END
         ELSE
         BEGIN
-            RAISERROR(N'Lỗi không đủ số lượng thuốc tồn kho để bán',16,1)
+            RAISERROR(N'Lỗi: không đủ số lượng thuốc tồn kho để bán',16,1)
             ROLLBACK TRAN
             RETURN
         END
