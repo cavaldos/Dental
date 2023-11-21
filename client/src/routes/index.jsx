@@ -15,7 +15,11 @@ import QuanLiKH from "../pages/admin/QuanLiKH";
 import QuanLiNS from "../pages/admin/QuanLiNS";
 import QuanLiDV from "../pages/admin/QuanLiDV";
 import QuanLiThuoc from "../pages/admin/QuanLiThuoc";
-import QuanLiTV from "../pages/admin/QuanLiThanhVien";
+import QuanLiNV from "../pages/admin/QuanLiNhanVien";
+
+
+import DangKiLichRanh from "../pages/dentist/DkLichRanh";
+
 
 import AddPage from "~/pages/online/add";
 const OnlineRouter = [
@@ -68,8 +72,8 @@ const AdminRouter = [
     Layout: AdminLayout,
   },
   {
-    path: "/quan-li-thanh-vien",
-    component: QuanLiTV,
+    path: "/quan-li-nhan-vien",
+    component: QuanLiNV,
     Layout: AdminLayout,
   }
 ];
@@ -89,7 +93,7 @@ const StaffRouter = [
     component: StaffPage,
     Layout: DefaultLayout,
   },
- 
+  
 ];
 
 const DentistRouter = [
@@ -98,7 +102,31 @@ const DentistRouter = [
     component: DentistPage,
     Layout: DefaultLayout,
   },
-  
+  {
+    path: "/dang-ki-lich-ranh",
+    component: DangKiLichRanh,
+    Layout: DefaultLayout,
+  },
+  {
+    path: "/xem-lich-truc",
+    component: DentistPage,
+    Layout: DefaultLayout,
+  },
+  {
+    path: "/xem-lich-hen",
+    component: DentistPage,
+    Layout: DefaultLayout,
+  },
+  {
+    path: "/xem-benh-an",
+    component: DentistPage,
+    Layout: DefaultLayout,
+  },
+  {
+    path: "/tao-benh-an",
+    component: DentistPage,
+    Layout: DefaultLayout,
+  },
 ];
 
 export { OnlineRouter, AdminRouter, GuestRouter, StaffRouter, DentistRouter };

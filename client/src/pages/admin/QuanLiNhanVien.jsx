@@ -1,16 +1,10 @@
-import thuoc from "../../fakedata/thuoc";
-import React, { useState,useRef } from "react";
-import { Table, Input, Button, Space, message, Modal } from "antd";
+import nhanvien from "../../fakedata/nhanvien";
+import React, { useRef,useState } from "react";
+import { Table, Input, Button, Tag, Space, message,Modal } from "antd";
 import { SearchOutlined, EditOutlined } from "@ant-design/icons";
 
-const MedicineInfo = ({ medicine }) => {
-  const searchInputRef = useRef(null);
-
-  const formatDateString = (dateString) => {
-    const date = new Date(dateString);
-    return date.toLocaleDateString();
-  };
-
+const TableNhanVien = ({ staff }) => {
+  const searchInputRefs = useRef(null);
   const getColumnSearchProps = (dataIndex, placeholder) => ({
     filterDropdown: ({
       setSelectedKeys,
@@ -27,7 +21,7 @@ const MedicineInfo = ({ medicine }) => {
           }
           onPressEnter={() => confirm()}
           style={{ width: 188, marginBottom: 8, display: "block" }}
-          ref={searchInputRef}
+          ref={searchInputRefs}
         />
         <Space>
           <Button
@@ -73,71 +67,59 @@ const MedicineInfo = ({ medicine }) => {
       }
     },
   });
-
   const columns = [
     {
-      title: "Mã thuốc",
-      dataIndex: "MATHUOC",
-      key: "MATHUOC",
-      ...getColumnSearchProps("MATHUOC", "Mã thuốc"),
+      title: "Mã nhân viên",
+      dataIndex: "MANV",
+      key: "MANV",
+      ...getColumnSearchProps("MANV", "Mã nhân viên"),
     },
     {
-      title: "Tên thuốc",
-      dataIndex: "TENTHUOC",
-      key: "TENTHUOC",
-      ...getColumnSearchProps("TENTHUOC", "Tên thuốc"),
+      title: "Họ tên",
+      dataIndex: "HOTEN",
+      key: "HOTEN",
+      ...getColumnSearchProps("HOTEN", "Họ tên"),
     },
     {
-      title: "Đơn vị tính",
-      dataIndex: "DONVITINH",
-      key: "DONVITINH",
+      title: "Giới tính",
+      dataIndex: "PHAI",
+      key: "PHAI",
     },
     {
-      title: "Chỉ định",
-      dataIndex: "CHIDINH",
-      key: "CHIDINH",
+      title: "Vị trí công việc",
+      dataIndex: "VITRICV",
+      key: "VITRICV",
+      ...getColumnSearchProps("VITRICV", "Vị trí công việc"),
     },
     {
-      title: "Số lượng tồn",
-      dataIndex: "SLTON",
-      key: "SLTON",
-      sorter: (a, b) => a.SLTON - b.SLTON,
-    },
-    {
-      title: "Số lượng nhập",
-      dataIndex: "SLNHAP",
-      key: "SLNHAP",
-      sorter: (a, b) => a.SLNHAP - b.SLNHAP,
-    },
-    {
-      title: "Số lượng đã hủy",
-      dataIndex: "SLDAHUY",
-      key: "SLDAHUY",
-    },
-    {
-      title: "Ngày hết hạn",
-      dataIndex: "NGAYHETHAN",
-      key: "NGAYHETHAN",
-      render: (text) => formatDateString(text),
-    },
-    {
-      title: "Đơn giá",
-      dataIndex: "DONGIA",
-      key: "DONGIA",
-      sorter: (a, b) => a.DONGIA - b.DONGIA,
+      title: "Trạng thái",
+      key: "status",
+      render: (_, record) => {
+        const tags = record._DAKHOA ? ["Locked"] : ["Open"]; // Update with your custom status values
+        return (
+          <>
+            {tags.map((tag) => {
+              let color = tag === "Locked" ? "volcano" : "green"; // Customize colors based on status
+              return (
+                <Tag color={color} key={tag}>
+                  {tag.toUpperCase()}
+                </Tag>
+              );
+            })}
+          </>
+        );
+      },
     },
     {
       title: "Quản lí",
       key: "action",
       render: (text, record) => (
         <Button
-          onClick={() => message.info(`Edit ${record.TENTHUOC}`)}
           className="bg-blue-600"
           type="primary"
           shape="round"
           icon={<EditOutlined />}
           size="small"
-          key={`edit-${record.MATHUOC}`}
         >
           Edit
         </Button>
@@ -145,17 +127,19 @@ const MedicineInfo = ({ medicine }) => {
     },
   ];
   return (
-    <Table
-      columns={columns}
-      dataSource={medicine.map((item) => ({ ...item, key: item.MATHUOC }))}
-      pagination={true}
-      bordered
-      size="middle"
-    />
+    <>
+      <Table
+        columns={columns}
+        dataSource={staff.map((item) => ({ ...item, key: item.MANV }))}
+        pagination={true}
+        bordered
+        size="middle"
+      />
+    </>
   );
 };
 
-const TaoThuocMoi = () => {
+const TaoNhanVienMoi = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const showModal = () => {
     setIsModalOpen(true);
@@ -169,27 +153,25 @@ const TaoThuocMoi = () => {
   return (
     <>
       <Button className="bg-green-600 mb-4" type="primary" onClick={showModal}>
-        Tạo Thuốc Mới
+        Tạo Nhân Viên Mới
       </Button>
       <Modal
-        title="Tạo Thuốc Mới"
+        title="Tạo Nhân Viên Mới"
         open={isModalOpen}
         onOk={handleOk}
         onCancel={handleCancel}
       >
-        <p> viet form tao thuoc moi  voi logic trong day</p>
+        <p> Viet form tao nhan vien moi trong day </p>
       </Modal>
     </>
   );
 };
-
-const QuanLiThuoc = () => {
+const QuanLiNV = () => {
   return (
     <>
-      <TaoThuocMoi />
-      <MedicineInfo medicine={thuoc} />
+      <TaoNhanVienMoi />
+      <TableNhanVien staff={nhanvien} />
     </>
   );
 };
-
-export default QuanLiThuoc;
+export default QuanLiNV;
