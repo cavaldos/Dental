@@ -161,6 +161,7 @@ BEGIN TRAN
 		--Kiểm tra tài khoản đăng nhập có hợp lệ (tk mà mk đều đúng)
 		IF EXISTS (SELECT * FROM KHACHHANG WHERE SODT = @MATK AND MATKHAU = @MATKHAU)
 		BEGIN
+			
 			SELECT @ROLE = 'KH', @_ISLOCK = _DAKHOA
 			FROM KHACHHANG 
 			WHERE SODT = @MATK AND MATKHAU = @MATKHAU;

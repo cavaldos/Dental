@@ -102,7 +102,7 @@ BEGIN
         WHERE SODT = @SODT;
 
         -- In ra thông báo thành công
-        PRINT 'Cập nhật thông tin thành công';
+        PRINT N'Cập nhật thông tin thành công';
       END
       ELSE
       BEGIN
@@ -188,7 +188,7 @@ BEGIN TRAN
         END
         ELSE
         BEGIN
-            RAISERROR(' Khong ton tai ma dich vu nay', 16, 1);
+            RAISERROR(N'Không tồn tại mã dịch vụ này.', 16, 1);
             ROLLBACK TRAN
             RETURN
         END
@@ -220,7 +220,7 @@ BEGIN TRAN
         END
         ELSE
         BEGIN
-            RAISERROR(' Khong ton tai khach hang nay', 16, 1);
+            RAISERROR(N'Không tồn tại mã khách hàng này.', 16, 1);
             ROLLBACK TRAN
             RETURN
         END
