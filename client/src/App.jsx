@@ -51,6 +51,14 @@ function App() {
               />
             );
           })}
+          <Route
+            path="*"
+            element={
+              <h1 className="text-3xl text-center mt-10">
+                404 - Not Found
+              </h1>
+            }
+          />
         </Routes>
       </Router>
     </>

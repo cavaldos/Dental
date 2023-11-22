@@ -10,17 +10,18 @@ import StaffPage from "~/pages/staff";
 import DentistPage from "~/pages/dentist";
 
 
-
+//  QTV
 import QuanLiKH from "../pages/admin/QuanLiKH";
 import QuanLiNS from "../pages/admin/QuanLiNS";
 import QuanLiDV from "../pages/admin/QuanLiDV";
 import QuanLiThuoc from "../pages/admin/QuanLiThuoc";
 import QuanLiNV from "../pages/admin/QuanLiNhanVien";
 
-
+// Nha si
 import DangKiLichRanh from "../pages/dentist/DkLichRanh";
 
-
+// Nhan vien
+import DangKiTaiKhoanKhachHang from "../pages/staff/DangKiTaiKhoanKhachHang";
 import AddPage from "~/pages/online/add";
 const OnlineRouter = [
   {
@@ -93,7 +94,41 @@ const StaffRouter = [
     component: StaffPage,
     Layout: DefaultLayout,
   },
-  
+  {
+    path: "/dang-ki-tk-kh",
+    component: DangKiTaiKhoanKhachHang,
+    Layout: DefaultLayout,
+  },
+  {
+    path: "/dat-lich-hen",
+    component: StaffPage,
+    Layout: DefaultLayout,
+  },
+  {
+    path: "/xem-lich-hen",
+    component: StaffPage,
+    Layout: DefaultLayout,
+  },
+  {
+    path: "/xem-thuoc",
+    component: StaffPage,
+    Layout: DefaultLayout,
+  },
+  {
+    path: "/xem-dich-vu",
+    component: StaffPage,
+    Layout: DefaultLayout,
+  },
+  {
+    path: "/ho-so-benh-an",
+    component: StaffPage,
+    Layout: DefaultLayout,
+  },
+  {
+    path: "/hoa-don",
+    component: StaffPage,
+    Layout: DefaultLayout,
+  },
 ];
 
 const DentistRouter = [
