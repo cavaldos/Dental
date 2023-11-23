@@ -204,7 +204,7 @@ AS
 BEGIN TRAN      
 BEGIN TRY
 BEGIN
-    IF @NGAY IS NULL
+    IF @NgayKham IS NULL
     BEGIN
         ROLLBACK TRAN
         RAISERROR(N'Ngày không thể null.',16,1);
