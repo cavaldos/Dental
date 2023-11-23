@@ -1,18 +1,18 @@
 
 import { poolConnect } from "./config/connectDB.js";
+import sql from "mssql-plus";
 
-
-poolConnect();
 
 import { load, add, del, patch, getTables } from "./utils/mssql.js";
 const role = {
-  login: "sa",
-  pass: "password123@",
-  database: "master",
+  login: "cong",
+  pass: "111",
+  database: "PKNHAKHOA",
 };
-load("SELECT * FROM NHANVIEN", role);
+let pool = await poolConnect();
+const result = await pool.query("select * from NHANVIEN");
+console.log(result.recordset);
 
-////
 export default function test () {
   console.log("test function");
 };
