@@ -11,7 +11,6 @@ const load = async (sql, Connect) => {
   
   } catch (error) {
     console.log("SQL Error Code:", error.code);
-
     console.log("SQL Error Message:", error.message);
   }
 };

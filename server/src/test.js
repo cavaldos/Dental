@@ -179,3 +179,31 @@ console.log("result3", result3);
 //   };
 // });
 // console.log("sau khi gom :\n", result);
+
+
+
+
+
+
+const result = _.chain(data3)
+  .groupBy("NGAY")
+  .map((values, key) => {
+    return {
+      NGAY: key,
+      CA: _.map(values, (item) => {
+        return {
+          GIOBATDAU: item.GIOBATDAU,
+          GIOKETTHUC: item.GIOKETTHUC,
+        };
+      }),
+      MANS: "NS0001", // giả sử đều NS0001
+      SOTT: values.length, // đếm số lượng phần tử trong ngày
+    };
+  })
+  .value();
+console.log(result);
+
+console.log(result.map((item) => item.CA));
+
+
+
