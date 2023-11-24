@@ -5,8 +5,6 @@ import morgan from "morgan";
 import cors from "cors";
 import colors from "ansicolors";
 import IP from "./config/ip.js";
-import { load, add, del, patch, getTables } from "./utils/mssql.js";
-
 import AllRouters from "./api/routes/index.js";
 
 
