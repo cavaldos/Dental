@@ -37,7 +37,7 @@ const Header = () => {
       <div className="bg-[#1576FE] w-full h-16 flex gap-1  justify-end  px-5 drop-shadow-lg z-50">
         <div className=" h-full text-center  flex mr-auto ml-4">
           <h1 className="my-auto mr-3 text-white text-2xl font-serif">
-            Phong Kham cua Dogtor Phi Vu
+            Phòng Khám Của Bác Sĩ Vũ
           </h1>
         </div>
       
