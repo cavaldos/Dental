@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Button, Result } from "antd";
 const NotfoundError = () => {
   const navigate = useNavigate();
-  const [countdown, setCountdown] = useState(30);
+  const [countdown, setCountdown] = useState(5);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -15,7 +15,7 @@ const NotfoundError = () => {
 
   useEffect(() => {
     if (countdown === 0) {
-      navigate("/");
+      navigate(-1);
     }
   }, [countdown, navigate]);
 
@@ -27,7 +27,7 @@ const NotfoundError = () => {
     <div className="error flex justify-center flex-col ">
       <Result
         status="404"
-        title=<h1 className=" text-6xl">404</h1>
+        title={<h1 className=" text-6xl">404</h1>}
         subTitle=<p className="mx-auto">
           Redirecting to home in{" "}
           <p className="text-red-700 text-lg"> {countdown} </p>

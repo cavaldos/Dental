@@ -1,4 +1,4 @@
-import lichhen from "../../fakedata/lhnv";
+import {lichhen} from "../../fakedata/lhnv";
 
 import thuoc from "../../fakedata/thuoc";
 import React from "react";

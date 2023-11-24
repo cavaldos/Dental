@@ -1,14 +1,18 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: ["./src/pages/**/*.{html,js,jsx}", "./src/components/**/*.{html,js,jsx}"],
+  content: [
+    "./src/pages/**/*.{html,js,jsx}",
+    "./src/components/**/*.{html,js,jsx}",
+  ],
   darkMode: "class",
   mode: "jit",
   theme: {
     extend: {
       fontFamily: {
         nunito: ["Nunito", "sans-serif", "ui-sans-serif", "system-ui"],
+        montserrat:  ["Monserrat", "sans-serif", "ui-sans-serif", "system-ui"],
       },
-      colors: {},
+      // colors: {},
       screens: {
         sm: "640px",
         // => @media (min-width: 640px) { ... }

@@ -1,7 +1,6 @@
 import DefaultLayout from "~/components/layout/defaultLayout";
 import AdminLayout from "~/components/layout/adminLayout";
-import SignInPage from "~/pages/online/signin";
-import SignUpPage from "~/pages/online/signup";
+
 import HomePage from "~/pages/online/home";
 
 import AdminPage from "~/pages/admin";
@@ -18,15 +17,23 @@ import QuanLiNV from "../pages/admin/QuanLiNhanVien";
 
 // Nha si
 import DangKiLichRanh from "../pages/dentist/DkLichRanh";
-
+import XemBenhAnCu from "../pages/dentist/XemBenhAnCu";
+import XemBenhAnMoi from "../pages/dentist/XemBenhAnMoi";
+import XemLichHenNS from "../pages/dentist/XemLichHen";
+import XemLichTruc from "../pages/dentist/XemLichTruc";
 // Nhan vien
-import DangKiTaiKhoanKhachHang from "../pages/staff/DangKiTaiKhoanKhachHang";
+import DangKiTaiKhoanKhachHang from "../pages/staff/DangKiTaiKhoanKH";
 import XemLichHen from "../pages/staff/xemLichHen";
 import XemThuoc from "../pages/staff/Xemthuoc";
 import XemDichVu from "../pages/staff/XemDichVu";
 import HoSoBenh from "../pages/staff/HoSoBenh";
-//
-import AddPage from "~/pages/online/add";
+import HoaDon from "../pages/staff/HoaDon";
+import DatLich from "../pages/staff/DatLich";
+//online
+import DanhSachNhaSi from "~/pages/online/ListNhaSi";
+import DanhSachDichVu from "~/pages/online/ListDV";
+import SignInPage from "~/pages/online/signin";
+import SignUpPage from "~/pages/online/signup";
 const OnlineRouter = [
   {
     path: "/",
@@ -34,8 +41,13 @@ const OnlineRouter = [
     Layout: DefaultLayout,
   },
   {
-    path: "/add",
-    component: AddPage,
+    path: "/xem-danh-sach-nha-si",
+    component: DanhSachNhaSi,
+    Layout: DefaultLayout,
+  },
+  {
+    path: "/xem-danh-sach-dich-vu",
+    component: DanhSachDichVu,
     Layout: DefaultLayout,
   },
   {
@@ -47,6 +59,33 @@ const OnlineRouter = [
     path: "/signup",
     component: SignUpPage,
     Layout: null,
+  },
+];
+const GuestRouter = [
+  {
+    path: "/",
+    component: GuestPage,
+    Layout: DefaultLayout,
+  },
+  {
+    path: "/dat-lich-hen",
+    component: GuestPage,
+    Layout: DefaultLayout,
+  },
+  {
+    path: "/xem-ho-so-benh",
+    component: GuestPage,
+    Layout: DefaultLayout,
+  },
+  {
+    path: "/cap-nhat-tai-khoan",
+    component: GuestPage,
+    Layout: DefaultLayout,
+  },
+  {
+    path: "/xem-lich-hen",
+    component: GuestPage,
+    Layout: DefaultLayout,
   },
 ];
 
@@ -83,87 +122,82 @@ const AdminRouter = [
   },
 ];
 
-const GuestRouter = [
-  {
-    path: "/",
-    component: GuestPage,
-    Layout: DefaultLayout,
-  },
-];
+
 
 const StaffRouter = [
   {
     path: "/",
     component: StaffPage,
-    Layout: DefaultLayout,
+    Layout: AdminLayout,
   },
   {
     path: "/dang-ki-tk-kh",
     component: DangKiTaiKhoanKhachHang,
-    Layout: DefaultLayout,
+    Layout: AdminLayout,
   },
   {
     path: "/dat-lich-hen",
-    component: StaffPage,
-    Layout: DefaultLayout,
+    component: DatLich,
+    Layout: AdminLayout,
   },
   {
     path: "/xem-lich-hen",
     component: XemLichHen,
-    Layout: DefaultLayout,
+    Layout: AdminLayout,
   },
   {
     path: "/xem-thuoc",
     component: XemThuoc,
-    Layout: DefaultLayout,
+    Layout: AdminLayout,
   },
   {
     path: "/xem-dich-vu",
     component: XemDichVu,
-    Layout: DefaultLayout,
+    Layout: AdminLayout,
   },
   {
     path: "/ho-so-benh-an",
     component: HoSoBenh,
-    Layout: DefaultLayout,
+    Layout: AdminLayout,
   },
   {
     path: "/hoa-don",
-    component: StaffPage,
-    Layout: DefaultLayout,
+    component: HoaDon,
+    Layout: AdminLayout,
   },
 ];
+
 
 const DentistRouter = [
   {
     path: "/",
     component: DentistPage,
-    Layout: DefaultLayout,
+    Layout: AdminLayout,
   },
   {
     path: "/dang-ki-lich-ranh",
     component: DangKiLichRanh,
-    Layout: DefaultLayout,
+    Layout: AdminLayout,
   },
   {
     path: "/xem-lich-truc",
-    component: DentistPage,
-    Layout: DefaultLayout,
+    component: XemLichTruc,
+    Layout: AdminLayout,
   },
   {
     path: "/xem-lich-hen",
-    component: DentistPage,
-    Layout: DefaultLayout,
+    component: XemLichHenNS,
+    Layout: AdminLayout,
   },
   {
-    path: "/xem-benh-an",
-    component: DentistPage,
-    Layout: DefaultLayout,
+    path: "/xem-benh-an-cu",
+    component: XemBenhAnCu,
+    Layout: AdminLayout,
   },
   {
-    path: "/tao-benh-an",
-    component: DentistPage,
-    Layout: DefaultLayout,
+    path: "/tao-benh-an-moi",
+    component: XemBenhAnMoi,
+    Layout: AdminLayout,
   },
 ];
 

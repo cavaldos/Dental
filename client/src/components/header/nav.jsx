@@ -1,4 +1,3 @@
-import { AiOutlineMenuFold, AiOutlineMenuUnfold } from "react-icons/ai";
 import { useNavigate, useLocation } from "react-router-dom";
 
 const menuItem = [
@@ -7,7 +6,7 @@ const menuItem = [
     path: "/",
   },
   {
-    name: "Đăng kí tài khoản khách hàng",
+    name: `Đăng kí tài khoản KH`,
     path: "/dang-ki-tk-kh",
   },
   {
@@ -49,7 +48,7 @@ const Menu = ({ name, path }) => {
   return (
     <button
       onClick={handleClick}
-      className={`flex items-center justify-center align-middle h-14 w-40 cursor-pointer rounded-md ${
+      className={`flex items-center justify-center align-middle h-14 min-w-40 cursor-pointer rounded-md ${
         isActive ? "bg-gray-400" : "bg-gray-300"
       } mx-2 transition-all duration-300 hover:bg-gray-400`}
     >

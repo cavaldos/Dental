@@ -1,7 +1,7 @@
 const DentistPage = () => {
   return (
-    <div>
-      <h1 className="text-red-800">Dentist Page</h1>
+    <div className="  flex justify-center bg-slate-50 h-60 align-middle items-center ">
+      <h1 className="text-3xl">Trang dành cho Nha Sĩ</h1>
     </div>
   );
 };
