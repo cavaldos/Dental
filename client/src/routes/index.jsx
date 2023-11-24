@@ -9,7 +9,6 @@ import GuestPage from "~/pages/guest";
 import StaffPage from "~/pages/staff";
 import DentistPage from "~/pages/dentist";
 
-
 //  QTV
 import QuanLiKH from "../pages/admin/QuanLiKH";
 import QuanLiNS from "../pages/admin/QuanLiNS";
@@ -22,12 +21,17 @@ import DangKiLichRanh from "../pages/dentist/DkLichRanh";
 
 // Nhan vien
 import DangKiTaiKhoanKhachHang from "../pages/staff/DangKiTaiKhoanKhachHang";
+import XemLichHen from "../pages/staff/xemLichHen";
+import XemThuoc from "../pages/staff/Xemthuoc";
+import XemDichVu from "../pages/staff/XemDichVu";
+import HoSoBenh from "../pages/staff/HoSoBenh";
+//
 import AddPage from "~/pages/online/add";
 const OnlineRouter = [
   {
     path: "/",
     component: HomePage,
-    Layout: DefaultLayout ,
+    Layout: DefaultLayout,
   },
   {
     path: "/add",
@@ -76,7 +80,7 @@ const AdminRouter = [
     path: "/quan-li-nhan-vien",
     component: QuanLiNV,
     Layout: AdminLayout,
-  }
+  },
 ];
 
 const GuestRouter = [
@@ -85,7 +89,6 @@ const GuestRouter = [
     component: GuestPage,
     Layout: DefaultLayout,
   },
-  
 ];
 
 const StaffRouter = [
@@ -106,22 +109,22 @@ const StaffRouter = [
   },
   {
     path: "/xem-lich-hen",
-    component: StaffPage,
+    component: XemLichHen,
     Layout: DefaultLayout,
   },
   {
     path: "/xem-thuoc",
-    component: StaffPage,
+    component: XemThuoc,
     Layout: DefaultLayout,
   },
   {
     path: "/xem-dich-vu",
-    component: StaffPage,
+    component: XemDichVu,
     Layout: DefaultLayout,
   },
   {
     path: "/ho-so-benh-an",
-    component: StaffPage,
+    component: HoSoBenh,
     Layout: DefaultLayout,
   },
   {

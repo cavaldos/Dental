@@ -62,26 +62,11 @@ const MedicineInfo = ({ medicine }) => {
       key: "DONGIA",
       sorter: (a, b) => a.DONGIA - b.DONGIA,
     },
-    {
-      title: "Quản lí",
-      key: "action",
-      render: (text, record) => (
-        <Button
-          onClick={() => message.info(`Edit ${record.TENTHUOC}`)}
-          className="bg-blue-600"
-          type="primary"
-          shape="round"
-          icon={<EditOutlined />}
-          size="small"
-          key={`edit-${record.MATHUOC}`}
-        >
-          Edit
-        </Button>
-      ),
-    },
+    
   ];
   return (
     <Table
+      className="table-striped"
       columns={columns}
       dataSource={medicine.map((item, index) => ({ ...item, key: index }))}
       pagination={true}
@@ -91,41 +76,14 @@ const MedicineInfo = ({ medicine }) => {
   );
 };
 
-const TaoThuocMoi = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const showModal = () => {
-    setIsModalOpen(true);
-  };
-  const handleOk = () => {
-    setIsModalOpen(false);
-  };
-  const handleCancel = () => {
-    setIsModalOpen(false);
-  };
+const XemThuoc = () => {
   return (
     <>
-      <Button className="bg-green-600 mb-4" type="primary" onClick={showModal}>
-        Tạo Thuốc Mới
-      </Button>
-      <Modal
-        title="Tạo Thuốc Mới"
-        open={isModalOpen}
-        onOk={handleOk}
-        onCancel={handleCancel}
-      >
-        <p> viet form tao thuoc moi voi logic trong day</p>
-      </Modal>
+      <div className="">
+        <MedicineInfo medicine={thuoc} />
+      </div>
     </>
   );
 };
 
-const QuanLiThuoc = () => {
-  return (
-    <>
-      <TaoThuocMoi />
-      <MedicineInfo medicine={thuoc} />
-    </>
-  );
-};
-
-export default QuanLiThuoc;
+export default XemThuoc;

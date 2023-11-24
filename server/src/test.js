@@ -29,20 +29,20 @@ const data = [
     madv: "004",
     mathuoc: "mt001",
   },
-  {
-    sdt: "012345656789",
-    sott: "2",
-    hoten: "nguyen van b",
-    madv: "004",
-    mathuoc: "mt006",
-  },
-  {
-    sdt: "012345656789",
-    sott: "2",
-    hoten: "nguyen van b",
-    madv: "004",
-    mathuoc: "mt08",
-  },
+  // {
+  //   sdt: "012345656789",
+  //   sott: "2",
+  //   hoten: "nguyen van b",
+  //   madv: "004",
+  //   mathuoc: "mt006",
+  // },
+  // {
+  //   sdt: "012345656789",
+  //   sott: "2",
+  //   hoten: "nguyen van b",
+  //   madv: "004",
+  //   mathuoc: "mt08",
+  // },
   {
     sdt: "012345656789",
     sott: "4",
@@ -185,25 +185,25 @@ console.log("result3", result3);
 
 
 
-const result = _.chain(data3)
-  .groupBy("NGAY")
-  .map((values, key) => {
-    return {
-      NGAY: key,
-      CA: _.map(values, (item) => {
-        return {
-          GIOBATDAU: item.GIOBATDAU,
-          GIOKETTHUC: item.GIOKETTHUC,
-        };
-      }),
-      MANS: "NS0001", // giả sử đều NS0001
-      SOTT: values.length, // đếm số lượng phần tử trong ngày
-    };
-  })
-  .value();
-console.log(result);
+// const result = _.chain(data3)
+//   .groupBy("NGAY")
+//   .map((values, key) => {
+//     return {
+//       NGAY: key,
+//       CA: _.map(values, (item) => {
+//         return {
+//           GIOBATDAU: item.GIOBATDAU,
+//           GIOKETTHUC: item.GIOKETTHUC,
+//         };
+//       }),
+//       MANS: "NS0001", // giả sử đều NS0001
+//       SOTT: values.length, // đếm số lượng phần tử trong ngày
+//     };
+//   })
+//   .value();
+// console.log(result);
 
-console.log(result.map((item) => item.CA));
+// console.log(result.map((item) => item.CA));
 
 
 

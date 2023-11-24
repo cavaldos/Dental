@@ -5,7 +5,7 @@ import {
   StaffRouter,
   DentistRouter,
 } from "~/routes";
-
+import NotfoundError from "~/components/err";
 import { Fragment } from "react";
 import { useSelector } from "react-redux";
 import {
@@ -54,9 +54,9 @@ function App() {
           <Route
             path="*"
             element={
-              <h1 className="text-3xl text-center mt-10">
-                404 - Not Found
-              </h1>
+              <Fragment>
+                <NotfoundError />
+              </Fragment>
             }
           />
         </Routes>
