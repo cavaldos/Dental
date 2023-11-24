@@ -51,51 +51,23 @@ const data3 = await load(
 );
 
 const data5 = await load(
-  `SELECT KH.SODT,KH.HOTEN AS HOTEN_KH, KH.NGAYSINH, HSB.MANS, NS.HOTEN AS HOTEN_NS, HSB.DANDO ,CTDV.SOTT, LDV.TENDV, CTDV.SOLUONG, CTT.SOTT,LT.TENTHUOC,LT.DONVITINH, CTT.THOIDIEMDUNG  FROM HOSOBENH HSB 
-JOIN CHITIETTHUOC CTT ON  HSB.SOTT = CTT.SOTT 
-JOIN LOAITHUOC LT ON LT.MATHUOC = CTT.MATHUOC
-JOIN CHITIETDV CTDV ON CTDV.SOTT =HSB.SOTT
-JOIN LOAIDICHVU LDV ON LDV.MADV = CTDV.MADV
-JOIN KHACHHANG KH ON KH.SODT = HSB.SODT
-JOIN NHASI NS ON NS.MANS = HSB.MANS
-
+  `
+SELECT NS.HOTEN, LR.MACA, LR.NGAY, CA.GIOBATDAU, CA.GIOKETTHUC, 
+    CASE WHEN LH.SODT IS NULL THEN 1 ELSE 0 END AS KiemTraSODT
+FROM LICHRANH LR
+    JOIN CA ON LR.MACA = CA.MACA
+    JOIN NHASI NS ON LR.MANS = NS.MANS
+    LEFT JOIN LICHHEN LH ON (LH.MANS = LR.MANS AND LH.SOTT = LR.SOTT)
+ORDER BY LR.NGAY
 `,
   role
 );
-const result = groupAndTable(data5, ["SODT"], ["TENDV","TENTHUOC"]);
+const result = groupAndTable(data5, ["MACA","HOTEN"], []);
+
 
 console.log(result);
 
-const result2 = _.groupBy(result, "SODT");
-
-_.forEach(result2, (group, key) => {
-  const services = _.map(group, "TENDV");
-  const mergedServices = _.flattenDepth(services, 1);
-
-  const medicines = _.map(group, "TENTHUOC");
-  const mergedMedicines = _.flattenDepth(medicines, 1);
-
-  group[0].TENDV = mergedServices;
-  group[0].TENTHUOC = mergedMedicines;
-});
-
-_.forEach(result2, (item) => {
-  // Gom nhóm và đếm số lượng các giá trị trùng lặp
-  const serviceCount = _.countBy(item.TENDV);
-
-  // Biến đổi thành mảng các object {key: value}
-  const services = _.map(serviceCount, (value, key) => {
-    return {
-      [key]: value,
-    };
-  });
-
-  // Gán lại mảng đã xử lý
-  item.TENDV = services;
-});
-
-// console.log(result2);
-
+// console.log("sadfsd",result);
 const save = (data, name) => {
   const jsonData = JSON.stringify(data, null, 2);
   // //Lưu vào file data.json
@@ -108,7 +80,7 @@ const save = (data, name) => {
   });
 };
 
-// save(result2, "hsb.json");
+save(result, "lh_nv1.json");
 
 export default function test() {
   console.log("test function");

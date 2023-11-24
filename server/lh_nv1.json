@@ -1,0 +1,250 @@
+[
+  {
+    "MACA": "CA002",
+    "NS": [
+      {
+        "HOTEN":"Lê Văn Hòa",
+        "TRANGTHAI":1
+      },
+       {
+         "HOTEN": "Lê Văn Hòa",
+         "TRANGTHAI": 0
+       }
+    ],
+    "NGAY": "2024-01-01T00:00:00.000Z",
+    "GIOBATDAU": "1970-01-01T11:00:00.000Z",
+    "GIOKETTHUC": "1970-01-01T13:00:00.000Z"
+  },
+  {
+    "MACA": "CA003",
+    "HOTEN": "Lê Văn Hòa",
+    "NGAY": "2024-01-01T00:00:00.000Z",
+    "GIOBATDAU": "1970-01-01T13:00:00.000Z",
+    "GIOKETTHUC": "1970-01-01T15:00:00.000Z",
+    "KiemTraSODT": 0
+  },
+  {
+    "MACA": "CA001",
+    "HOTEN": "Trần Thị Mai Loan",
+    "NGAY": "2024-01-01T00:00:00.000Z",
+    "GIOBATDAU": "1970-01-01T09:00:00.000Z",
+    "GIOKETTHUC": "1970-01-01T11:00:00.000Z",
+    "KiemTraSODT": 0
+  },
+  {
+    "MACA": "CA004",
+    "HOTEN": "Trần Thị Mai Loan",
+    "NGAY": "2024-01-01T00:00:00.000Z",
+    "GIOBATDAU": "1970-01-01T15:00:00.000Z",
+    "GIOKETTHUC": "1970-01-01T17:00:00.000Z",
+    "KiemTraSODT": 0
+  },
+  {
+    "MACA": "CA006",
+    "HOTEN": "Trần Thị Mai Loan",
+    "NGAY": "2024-01-01T00:00:00.000Z",
+    "GIOBATDAU": "1970-01-01T19:00:00.000Z",
+    "GIOKETTHUC": "1970-01-01T21:00:00.000Z",
+    "KiemTraSODT": 1
+  },
+  {
+    "MACA": "CA001",
+    "HOTEN": "Trần Minh Tuấn",
+    "NGAY": "2024-01-01T00:00:00.000Z",
+    "GIOBATDAU": "1970-01-01T09:00:00.000Z",
+    "GIOKETTHUC": "1970-01-01T11:00:00.000Z",
+    "KiemTraSODT": 0
+  },
+  {
+    "MACA": "CA004",
+    "HOTEN": "Trần Minh Tuấn",
+    "NGAY": "2024-01-01T00:00:00.000Z",
+    "GIOBATDAU": "1970-01-01T15:00:00.000Z",
+    "GIOKETTHUC": "1970-01-01T17:00:00.000Z",
+    "KiemTraSODT": 1
+  },
+  {
+    "MACA": "CA005",
+    "HOTEN": "Phạm Xuân Thanh",
+    "NGAY": "2024-01-01T00:00:00.000Z",
+    "GIOBATDAU": "1970-01-01T17:00:00.000Z",
+    "GIOKETTHUC": "1970-01-01T19:00:00.000Z",
+    "KiemTraSODT": 0
+  },
+  {
+    "MACA": "CA005",
+    "HOTEN": "Hoàng Thị Ngọc Anh",
+    "NGAY": "2024-01-01T00:00:00.000Z",
+    "GIOBATDAU": "1970-01-01T17:00:00.000Z",
+    "GIOKETTHUC": "1970-01-01T19:00:00.000Z",
+    "KiemTraSODT": 0
+  },
+  {
+    "MACA": "CA006",
+    "HOTEN": "Hoàng Thị Ngọc Anh",
+    "NGAY": "2024-01-01T00:00:00.000Z",
+    "GIOBATDAU": "1970-01-01T19:00:00.000Z",
+    "GIOKETTHUC": "1970-01-01T21:00:00.000Z",
+    "KiemTraSODT": 1
+  },
+  {
+    "MACA": "CA003",
+    "HOTEN": "Phạm Thị Minh Trang",
+    "NGAY": "2024-01-01T00:00:00.000Z",
+    "GIOBATDAU": "1970-01-01T13:00:00.000Z",
+    "GIOKETTHUC": "1970-01-01T15:00:00.000Z",
+    "KiemTraSODT": 1
+  },
+  {
+    "MACA": "CA002",
+    "HOTEN": "Vũ Hoàng Anh",
+    "NGAY": "2024-01-01T00:00:00.000Z",
+    "GIOBATDAU": "1970-01-01T11:00:00.000Z",
+    "GIOKETTHUC": "1970-01-01T13:00:00.000Z",
+    "KiemTraSODT": 0
+  },
+  {
+    "MACA": "CA002",
+    "HOTEN": "Đinh Quang Huy",
+    "NGAY": "2024-01-02T00:00:00.000Z",
+    "GIOBATDAU": "1970-01-01T11:00:00.000Z",
+    "GIOKETTHUC": "1970-01-01T13:00:00.000Z",
+    "KiemTraSODT": 0
+  },
+  {
+    "MACA": "CA002",
+    "HOTEN": "Hoàng Thị Ngọc Anh",
+    "NGAY": "2024-01-02T00:00:00.000Z",
+    "GIOBATDAU": "1970-01-01T11:00:00.000Z",
+    "GIOKETTHUC": "1970-01-01T13:00:00.000Z",
+    "KiemTraSODT": 1
+  },
+  {
+    "MACA": "CA004",
+    "HOTEN": "Phạm Xuân Thanh",
+    "NGAY": "2024-01-02T00:00:00.000Z",
+    "GIOBATDAU": "1970-01-01T15:00:00.000Z",
+    "GIOKETTHUC": "1970-01-01T17:00:00.000Z",
+    "KiemTraSODT": 1
+  },
+  {
+    "MACA": "CA004",
+    "HOTEN": "Lê Văn Hòa",
+    "NGAY": "2024-01-02T00:00:00.000Z",
+    "GIOBATDAU": "1970-01-01T15:00:00.000Z",
+    "GIOKETTHUC": "1970-01-01T17:00:00.000Z",
+    "KiemTraSODT": 1
+  },
+  {
+    "MACA": "CA001",
+    "HOTEN": "Lê Văn Hòa",
+    "NGAY": "2024-01-03T00:00:00.000Z",
+    "GIOBATDAU": "1970-01-01T09:00:00.000Z",
+    "GIOKETTHUC": "1970-01-01T11:00:00.000Z",
+    "KiemTraSODT": 1
+  },
+  {
+    "MACA": "CA005",
+    "HOTEN": "Trần Minh Tuấn",
+    "NGAY": "2024-01-03T00:00:00.000Z",
+    "GIOBATDAU": "1970-01-01T17:00:00.000Z",
+    "GIOKETTHUC": "1970-01-01T19:00:00.000Z",
+    "KiemTraSODT": 1
+  },
+  {
+    "MACA": "CA005",
+    "HOTEN": "Phạm Thị Minh Trang",
+    "NGAY": "2024-01-03T00:00:00.000Z",
+    "GIOBATDAU": "1970-01-01T17:00:00.000Z",
+    "GIOKETTHUC": "1970-01-01T19:00:00.000Z",
+    "KiemTraSODT": 1
+  },
+  {
+    "MACA": "CA001",
+    "HOTEN": "Vũ Hoàng Anh",
+    "NGAY": "2024-01-03T00:00:00.000Z",
+    "GIOBATDAU": "1970-01-01T09:00:00.000Z",
+    "GIOKETTHUC": "1970-01-01T11:00:00.000Z",
+    "KiemTraSODT": 1
+  },
+  {
+    "MACA": "CA004",
+    "HOTEN": "Đinh Quang Huy",
+    "NGAY": "2024-01-04T00:00:00.000Z",
+    "GIOBATDAU": "1970-01-01T15:00:00.000Z",
+    "GIOKETTHUC": "1970-01-01T17:00:00.000Z",
+    "KiemTraSODT": 0
+  },
+  {
+    "MACA": "CA006",
+    "HOTEN": "Đinh Quang Huy",
+    "NGAY": "2024-01-04T00:00:00.000Z",
+    "GIOBATDAU": "1970-01-01T19:00:00.000Z",
+    "GIOKETTHUC": "1970-01-01T21:00:00.000Z",
+    "KiemTraSODT": 1
+  },
+  {
+    "MACA": "CA006",
+    "HOTEN": "Nguyễn Thị Kim Liên",
+    "NGAY": "2024-01-04T00:00:00.000Z",
+    "GIOBATDAU": "1970-01-01T19:00:00.000Z",
+    "GIOKETTHUC": "1970-01-01T21:00:00.000Z",
+    "KiemTraSODT": 0
+  },
+  {
+    "MACA": "CA004",
+    "HOTEN": "Nguyễn Văn Đông",
+    "NGAY": "2024-01-04T00:00:00.000Z",
+    "GIOBATDAU": "1970-01-01T15:00:00.000Z",
+    "GIOKETTHUC": "1970-01-01T17:00:00.000Z",
+    "KiemTraSODT": 0
+  },
+  {
+    "MACA": "CA002",
+    "HOTEN": "Nguyễn Văn Đông",
+    "NGAY": "2024-01-05T00:00:00.000Z",
+    "GIOBATDAU": "1970-01-01T11:00:00.000Z",
+    "GIOKETTHUC": "1970-01-01T13:00:00.000Z",
+    "KiemTraSODT": 1
+  },
+  {
+    "MACA": "CA002",
+    "HOTEN": "Trần Minh Tuấn",
+    "NGAY": "2024-01-05T00:00:00.000Z",
+    "GIOBATDAU": "1970-01-01T11:00:00.000Z",
+    "GIOKETTHUC": "1970-01-01T13:00:00.000Z",
+    "KiemTraSODT": 1
+  },
+  {
+    "MACA": "CA005",
+    "HOTEN": "Nguyễn Văn Đông",
+    "NGAY": "2024-01-06T00:00:00.000Z",
+    "GIOBATDAU": "1970-01-01T17:00:00.000Z",
+    "GIOKETTHUC": "1970-01-01T19:00:00.000Z",
+    "KiemTraSODT": 1
+  },
+  {
+    "MACA": "CA005",
+    "HOTEN": "Trần Thị Mai Loan",
+    "NGAY": "2024-01-06T00:00:00.000Z",
+    "GIOBATDAU": "1970-01-01T17:00:00.000Z",
+    "GIOKETTHUC": "1970-01-01T19:00:00.000Z",
+    "KiemTraSODT": 1
+  },
+  {
+    "MACA": "CA006",
+    "HOTEN": "Vũ Hoàng Anh",
+    "NGAY": "2024-01-06T00:00:00.000Z",
+    "GIOBATDAU": "1970-01-01T19:00:00.000Z",
+    "GIOKETTHUC": "1970-01-01T21:00:00.000Z",
+    "KiemTraSODT": 1
+  },
+  {
+    "MACA": "CA006",
+    "HOTEN": "Phạm Thị Minh Trang",
+    "NGAY": "2024-01-06T00:00:00.000Z",
+    "GIOBATDAU": "1970-01-01T19:00:00.000Z",
+    "GIOKETTHUC": "1970-01-01T21:00:00.000Z",
+    "KiemTraSODT": 1
+  }
+]
