@@ -1,19 +1,17 @@
 import { poolConnect } from "./config/connectDB.js";
 import groupAndTable from "./utils/lodash.js";
 import _ from "lodash";
+
+
 poolConnect();
-
-import { load, add, del, patch, getTables } from "./utils/mssql.js";
-const role = {
-  login: "sa",
-  pass: "password123@",
-  database: "PKNHAKHOA",
-};
+poolConnect("admin");
+poolConnect("staff");
+poolConnect("dentist");
+poolConnect("guest");
+poolConnect("online");
 
 
-
-
-
+import { load, add, del, patch, getTables } from "./models/index.js";
 
 // console.log("sadfsd",result);
 const save = (data, name) => {
@@ -27,7 +25,7 @@ const save = (data, name) => {
     }
   });
 };
-save(result, "lh_nv1.json");
+// save(result, "lh_nv1.json");
 
 export default function test() {
   console.log("test function");

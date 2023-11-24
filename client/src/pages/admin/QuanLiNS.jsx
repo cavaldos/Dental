@@ -10,11 +10,13 @@ const NhaSiTable = ({ data }) => {
       title: "Mã NS",
       dataIndex: "MANS",
       key: "MANS",
+      ...ColumnSearch("MANS", "Mã NS"),
     },
     {
       title: "Họ và tên",
       dataIndex: "HOTEN",
       key: "HOTEN",
+      ...ColumnSearch("HOTEN", "Họ và tên"),
     },
     {
       title: "Giới tính",

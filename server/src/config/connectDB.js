@@ -3,13 +3,12 @@ import sql from "mssql-plus";
 import dotenv from "dotenv";
 import colors from "ansicolors";
 dotenv.config();
-const PORT = Number(process.env.MSSQL_PORT);
 
 const config = {
   user: process.env.MSSQL_USERNAME,
   password: process.env.MSSQL_PASSWORD,
   server: process.env.MSSQL_SERVER,
-  port: PORT,
+  port: parseInt(process.env.MSSQL_PORT),
   database: process.env.MSSQL_DATABASE,
   options: {
     enableArithAbort: true,
@@ -23,15 +22,33 @@ const config = {
   },
 };
 
-const poolConnect = async (name, pass,database) => {
-  try {
-    const connectionConfig = {
-      ...config,
+const dbs = {
+  online: {
+    ...config,
+    user: process.env.MSSQL_USERNAME_KHTN, // khach hang tiem nang, chua dang nhap
+  },
+  guest: {
+    ...config,
+    user: process.env.MSSQL_USERNAME_KH,
+  },
+  admin: {
+    ...config,
+    user: process.env.MSSQL_USERNAME_SERVER,
+  },
+  staff: {
+    ...config,
+    user: process.env.MSSQL_USERNAME_NV,
+  },
+  dentist: {
+    ...config,
+    user: process.env.MSSQL_USERNAME_NS,
+  },
+};
 
-      user: name || config.user,
-      password: pass || config.password,
-      database: database || config.database,
-    };
+const poolConnect = async (role) => {
+  try {
+    const poolConfig = dbs[role];
+    let connectionConfig = poolConfig ? poolConfig : config;
     let pool = new sql.ConnectionPool(connectionConfig);
     await pool.connect();
     console.log(

@@ -1,7 +1,9 @@
 const DatLichHen = () => {
   return (
     <>
-      <h1>Đặt lịch hẹn</h1>
+     <div className="bg-red-200 ">
+       <h1 className="mx-auto">Đặt lịch hẹn</h1>
+     </div>
     </>
   );
 };

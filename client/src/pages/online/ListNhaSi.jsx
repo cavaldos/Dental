@@ -1,39 +1,87 @@
-import { useNavigate } from "react-router-dom";
-import { Carousel } from "antd";
-const contentStyle = {
-  margin: 0,
-  height: "160px",
-  color: "#fff",
-  lineHeight: "160px",
-  textAlign: "center",
-  background: "#364d79",
-};
+import nhasi from "../../fakedata/nhasi";
+import React from "react";
+import { Table, Modal, Button, message, Tag } from "antd";
+import ColumnSearch from "~/hooks/useSortTable";
+import { useState } from "react";
 
-const App = () => {
-  const onChange = (currentSlide) => {
-    console.log(currentSlide);
+const NhaSiTable = ({ data }) => {
+  const columns = [
+    {
+      title: "Mã NS",
+      dataIndex: "MANS",
+      key: "MANS",
+      className: "text-center  min-w-[100px] ",
+      ...ColumnSearch("MANS", "Mã NS"),
+    },
+    {
+      title: "Họ và tên",
+      dataIndex: "HOTEN",
+      key: "HOTEN",
+      className: "text-center  min-w-[100px] ",
+
+      ...ColumnSearch("HOTEN", "Họ và tên"),
+    },
+    {
+      title: "Giới tính",
+      dataIndex: "PHAI",
+      className: "text-center  min-w-[100px] ",
+      key: "PHAI",
+    },
+    {
+      title: "Giới thiệu",
+      dataIndex: "GIOITHIEU",
+      key: "GIOITHIEU",
+    },
+
+    {
+      title: "Đã khóa",
+      dataIndex: "_DAKHOA",
+      key: "_DAKHOA",
+      render: (_, record) => {
+        const tags = record._DAKHOA ? ["Locked"] : ["Open"]; // Update with your custom status values
+        return (
+          <>
+            {tags.map((tag) => {
+              let color = tag === "Locked" ? "volcano" : "green"; // Customize colors based on status
+              return (
+                <Tag color={color} key={tag}>
+                  {tag.toUpperCase()}
+                </Tag>
+              );
+            })}
+          </>
+        );
+      },
+    },
+  ];
+
+  const paginationOptions = {
+    pageSize: 6,
+    total: data.length,
+    showSizeChanger: true,
+    showQuickJumper: true,
   };
+
   return (
-    <Carousel afterChange={onChange}>
-      <div>
-        <h3 style={contentStyle}>1</h3>
-      </div>
-      <div>
-        <h3 style={contentStyle}>2</h3>
-      </div>
-      <div>
-        <h3 style={contentStyle}>3</h3>
-      </div>
-      <div>
-        <h3 style={contentStyle}>4</h3>
-      </div>
-    </Carousel>
+    <Table
+      className="table-striped w-full"
+      columns={columns}
+      dataSource={data.map((item, index) => ({ ...item, key: index }))}
+      pagination={paginationOptions}
+      bordered
+      size="middle"
+    />
   );
 };
 
-const DanhSachNhaSi = () => {
-  const navigate = useNavigate();
-
-  return <>sdfsadf</>;
+const DanhSachNS = () => {
+  return (
+    <>
+      <div className=" w-full z-0">
+        <NhaSiTable data={nhasi} />
+      </div>
+    </>
+  );
 };
-export default DanhSachNhaSi;
+
+export default DanhSachNS;
