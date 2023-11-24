@@ -79,7 +79,7 @@ const MedicineInfo = ({ medicine }) => {
 const XemThuoc = () => {
   return (
     <>
-      <div className="">
+      <div className=" w-full">
         <MedicineInfo medicine={thuoc} />
       </div>
     </>

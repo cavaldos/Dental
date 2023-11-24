@@ -70,7 +70,6 @@ const MedicineInfo = ({ medicine }) => {
           onClick={() => message.info(`Edit ${record.TENTHUOC}`)}
           className="bg-blue-600"
           type="primary"
-          shape="round"
           icon={<EditOutlined />}
           size="small"
           key={`edit-${record.MATHUOC}`}
@@ -112,6 +111,19 @@ const TaoThuocMoi = () => {
         open={isModalOpen}
         onOk={handleOk}
         onCancel={handleCancel}
+        footer={[
+          <Button key="cancel" onClick={handleCancel}>
+            Hủy
+          </Button>,
+          <Button
+            key="ok"
+            type="primary"
+            onClick={handleOk}
+            className=" bg-blue-500"
+          >
+            OK
+          </Button>,
+        ]}
       >
         <p> viet form tao thuoc moi voi logic trong day</p>
       </Modal>
@@ -122,8 +134,10 @@ const TaoThuocMoi = () => {
 const QuanLiThuoc = () => {
   return (
     <>
-      <TaoThuocMoi />
-      <MedicineInfo medicine={thuoc} />
+      <div className="w-full">
+        <TaoThuocMoi />
+        <MedicineInfo medicine={thuoc} />
+      </div>
     </>
   );
 };

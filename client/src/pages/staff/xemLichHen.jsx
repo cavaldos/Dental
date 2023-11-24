@@ -60,12 +60,11 @@ const LichhenTabble = ({ data }) => {
           onClick={() => message.info(`Edit ${record.NS_HOTEN}`)}
           className="bg-blue-600"
           type="primary"
-          shape="round"
           icon={<EditOutlined />}
           size="small"
           key={`edit-${record.MANS}`}
         >
-          Edit
+          Hủy
         </Button>
       ),
     },
@@ -85,7 +84,7 @@ const LichhenTabble = ({ data }) => {
 const XemLichHen = () => {
   return (
     <>
-      <div className="bg-white rounded-lg">
+      <div className="bg-white rounded-lg w-full">
         <LichhenTabble data={lichhen} />
       </div>
     </>

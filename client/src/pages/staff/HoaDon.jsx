@@ -26,7 +26,7 @@ const HoaDon = () => {
     setSearchResults(mockAPIResults);
   };
   return (
-    <div className=" bg-white rounded-lg p-5 flex flex-col justify-center  ">
+    <div className=" bg-white rounded-lg p-5 flex flex-col w-full ">
       <div className=" mx-2">
         <Search
           className="w-[600px]"

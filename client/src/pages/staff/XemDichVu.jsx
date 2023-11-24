@@ -50,7 +50,7 @@ const DichVuTable = ({ data }) => {
 const XemDichVu = () => {
   return (
     <>
-      <div className="">
+      <div className=" w-full">
         <DichVuTable data={dv} />
       </div>
     </>

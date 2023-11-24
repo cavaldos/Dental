@@ -1,11 +1,10 @@
 import nhanvien from "../../fakedata/nhanvien";
 import React, { useState } from "react";
-import { Table,  Button, Tag,Modal } from "antd";
+import { Table, Button, Tag, Modal } from "antd";
 import { SearchOutlined, EditOutlined } from "@ant-design/icons";
 import ColumnSearch from "~/hooks/useSortTable";
 
 const TableNhanVien = ({ staff }) => {
-
   const columns = [
     {
       title: "Mã nhân viên",
@@ -56,7 +55,7 @@ const TableNhanVien = ({ staff }) => {
         <Button
           className="bg-blue-600"
           type="primary"
-          shape="round"
+        
           icon={<EditOutlined />}
           size="small"
         >
@@ -99,6 +98,19 @@ const TaoNhanVienMoi = () => {
         open={isModalOpen}
         onOk={handleOk}
         onCancel={handleCancel}
+        footer={[
+          <Button key="cancel" onClick={handleCancel}>
+            Hủy
+          </Button>,
+          <Button
+            key="ok"
+            type="primary"
+            onClick={handleOk}
+            className=" bg-blue-500"
+          >
+            OK
+          </Button>,
+        ]}
       >
         <p> Viet form tao nhan vien moi trong day </p>
       </Modal>
@@ -108,8 +120,10 @@ const TaoNhanVienMoi = () => {
 const QuanLiNV = () => {
   return (
     <>
-      <TaoNhanVienMoi />
-      <TableNhanVien staff={nhanvien} />
+      <div className=" w-full">
+        <TaoNhanVienMoi />
+        <TableNhanVien staff={nhanvien} />
+      </div>
     </>
   );
 };

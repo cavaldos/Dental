@@ -1,40 +1,42 @@
 import { useNavigate, useLocation } from "react-router-dom";
-
-const menuItem = [
+import { useSelector } from "react-redux";
+const KhachHangItem = [
   {
     name: "Home",
     path: "/",
   },
   {
-    name: `Đăng kí tài khoản KH`,
-    path: "/dang-ki-tk-kh",
-  },
-  {
-    name: "Đặt lịch hẹn",
+    name: `Đặt lịch hẹn`,
     path: "/dat-lich-hen",
   },
   {
-    name: "Xem lịch hẹn",
+    name: "Xem lich hen",
     path: "/xem-lich-hen",
   },
   {
-    name: "Xem thuốc",
-    path: "/xem-thuoc",
+    name: "Xem hồ sơ bệnh",
+    path: "/xem-ho-so-benh",
   },
   {
-    name: "Xem dịch vụ",
-    path: "/xem-dich-vu",
-  },
-  {
-    name: "Hồ sơ bệnh án",
-    path: "/ho-so-benh-an",
-  },
-  {
-    name: "Hóa đơn",
-    path: "/hoa-don",
+    name: "Cập nhật tài khoản",
+    path: "/cap-nhat-tai-khoan",
   },
 ];
 
+const OnlineItem = [
+  {
+    name: "Home",
+    path: "/",
+  },
+  {
+    name: `Xem danh sách nha sĩ`,
+    path: "/xem-danh-sach-nha-si",
+  },
+  {
+    name: "Xem danh sách dịch vụ",
+    path: "/xem-danh-sach-dich-vu",
+  },
+];
 const Menu = ({ name, path }) => {
   const navigate = useNavigate();
   const location = useLocation();
@@ -68,6 +70,8 @@ const Menu = ({ name, path }) => {
 };
 
 const Nav = () => {
+  const user = useSelector((state) => state.user);
+  const menuItem = user.role === "guest" ? KhachHangItem : OnlineItem;
   return (
     <>
       <div className="bg-[#eee] w-full min-h-14 flex gap-1 justify-center align-middle items-center px-5 drop-shadow-lg py-2 z-50">
