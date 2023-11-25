@@ -63,7 +63,8 @@ const nhanVienController = {
       if (!pool) {
         return res.status(500).json({ error: 'Khong the ket noi db' });
       }
-      const params = req.params;
+      const params = {};
+      params.SDT = req.params.sdt;
       const sp = 'SP_GETHOADON_NV';
       const result = await pool.executeSP(sp, params);
       return res.status(200).json(result);

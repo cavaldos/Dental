@@ -1,12 +1,12 @@
 import express from "express";
-import NhanVienController from "../controllers/nhanvien.controller.js";
+import nhanVienController from "../controllers/nhanvien.controller.js";
 
 const router = express.Router();
 
-router.get("/lichRanhNS", NhanVienController.getLichRanhNS);
-router.post("/khachHang", NhanVienController.taoTaiKhoanKH);
-router.post("/hoaDon", NhanVienController.taoHoaDon);
-router.put("/xacNhanHoaDon", NhanVienController.xacNhanThanhToan);
-router.puf("/matKhau", NhanVienController.doiMatKhau);
-router.get("/hoaDon/:sdt", NhanVienController.getHoaDon);
+router.get("/lichRanhNS", nhanVienController.getLichRanhNS);
+router.post("/khachHang", nhanVienController.taoTaiKhoanKH);
+router.post("/hoaDon", nhanVienController.taoHoaDon);
+router.put("/xacNhanHoaDon", nhanVienController.xacNhanThanhToan);
+router.puf("/matKhau", nhanVienController.doiMatKhau);
+router.get("/hoaDon/:sdt", nhanVienController.getHoaDon);
 export default router;
