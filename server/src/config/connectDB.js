@@ -1,5 +1,6 @@
-import sql from "mssql-plus";
 
+
+import sql from "mssql-plus";
 import dotenv from "dotenv";
 import colors from "ansicolors";
 dotenv.config();
@@ -45,23 +46,53 @@ const dbs = {
   },
 };
 
-const poolConnect = async (role) => {
-  try {
+class Database {
+  constructor(role) {
     const poolConfig = dbs[role];
     let connectionConfig = poolConfig ? poolConfig : config;
-    let pool = new sql.ConnectionPool(connectionConfig);
-    await pool.connect();
-    console.log(
-      `    🔥 SQL Server poolconnection successful !!! username:`,
-      colors.red(`${connectionConfig.user}`),
-      "connect to database:",
-      colors.red(`${connectionConfig.database}`),
-      `\n`
-    );
-    return pool;
-  } catch (error) {
-    console.error(`    🔥 poolconnect connection error !!!!!   \n`);
+    this.pool = new sql.ConnectionPool(connectionConfig);
   }
-};
 
-export { poolConnect };
+  async connect() {
+    try {
+      if (this.pool) {
+        await this.pool.connect();
+      }
+      console.log(
+        `    💯 SQL Server poolconnection successful !!! username:`,
+        colors.blue(`${this.pool.config.user}`),
+        "connect to database:",
+        colors.blue(`${this.pool.config.database}`),
+        `\n`
+      );
+      return this.pool;
+    } catch (error) {
+      console.error(
+        colors.red(`    🔥 poolconnect  connection error !!! `),
+        `${error.message} \n`
+      );
+      return null;
+    }
+  }
+
+  async close() {
+    try {
+      if (this.pool) {
+        await this.pool.close();
+      }
+      console.log(
+        `    👍 SQL Server CLOSED !!! username:`,
+        colors.blue(`${this.pool.config.user} \n`)
+      );
+      return this.pool;
+    } catch (error) {
+      console.error(
+        colors.red(`    🔥 poolconnect  connection error !!! `),
+        `${error.message} \n`
+      );
+      return null;
+    }
+  }
+}
+
+export default Database;
