@@ -272,7 +272,7 @@ COMMIT TRAN
 ---------------------------------
 ---NV06/ Đổi mật khẩu tài khoản nhân viên
 GO
-CREATE OR ALTER PROC SP_DOIMK_NV
+CREATE PROC SP_DOIMK_NV
 	@MANV VARCHAR(100),
 	@MATKHAUCU VARCHAR(100),
 	@MATKHAUMOI VARCHAR(100)

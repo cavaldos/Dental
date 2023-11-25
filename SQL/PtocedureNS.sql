@@ -340,7 +340,7 @@ GO
 ---------------------------------
 --NS11/ Đổi mật khẩu tài khoản nha sĩ
 GO
-CREATE OR ALTER PROC SP_DOIMK_NS
+CREATE PROC SP_DOIMK_NS
 	@MANS VARCHAR(100),
 	@MATKHAUCU VARCHAR(100),
 	@MATKHAUMOI VARCHAR(100)
