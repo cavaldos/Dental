@@ -1,6 +1,8 @@
 import { poolConnect } from "../../config/db.mjs";
 const pool = await poolConnect('KH');
 
+
+
 const khachHangController = {
   xemThongTin: async (req, res) => {
     try {
