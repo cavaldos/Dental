@@ -30,8 +30,8 @@ const poolConnect = async (loginType) => {
         logMessage = 'Login as KH';
         break;
       case 'NV':
-        user = process.env.MSSQL_USERNAME_NV;
-        password = process.env.MSSQL_PASSWORD_NV;
+        user = process.env.MSSQL_USERNAME_SYSADMIN;
+        password = process.env.MSSQL_PASSWORD_SYSADMIN;
         database = process.env.MSSQL_DBNAME;
         logMessage = 'Login as NV';
         break;
