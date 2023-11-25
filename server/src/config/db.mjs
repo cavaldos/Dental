@@ -65,6 +65,20 @@ const poolConnect = async (loginType) => {
       const result = await pool.query(queryString);
       return result.recordset;
     };
+    pool.executeSP = async (procedureName, params) => {
+      const request = pool.request();
+      for (const paramName in params) {
+        if (params.hasOwnProperty(paramName)) {
+          request.input(paramName, params[paramName]);
+        }
+      }
+      try {
+        const result = await request.execute(procedureName);
+        return result.recordset;
+      } catch (error) {
+        throw error;
+      }
+    };
 
     console.log(`🔥 SQL Server pool connection successful!!! ${logMessage}\n`);
 

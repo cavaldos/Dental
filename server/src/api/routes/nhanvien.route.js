@@ -3,5 +3,5 @@ import NhanVienController from "../controllers/nhanvien.controller.js";
 
 const router = express.Router();
 
-router.get("/getall", NhanVienController.getnhanvien);
+router.get("/lichRanh", NhanVienController.getLichRanhNS);
 export default router;
