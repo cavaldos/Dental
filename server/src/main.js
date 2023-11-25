@@ -8,12 +8,12 @@ import IP from "./config/ip.js";
 import AllRouters from "./api/routes/index.js";
 
 
-
 AllRouters(app);
 
 app.use(express.json());
 dotenv.config();
 app.use(morgan("tiny"));
+
 app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 // ==========================================
@@ -23,9 +23,4 @@ app.listen(port, host, () => {
   console.log(`\n  🚀  ➜ Local:    `, colors.blue(`http://localhost:${port}`));
   console.log(`  🚀  ➜ Network:  `, colors.green(`http://${IP}:${port}\n`));
 });
-
-
-
-import test from "./test.js";
-test();
 

@@ -30,8 +30,8 @@ const poolConnect = async (loginType) => {
         logMessage = 'Login as KH';
         break;
       case 'NV':
-        user = process.env.MSSQL_USERNAME_NV;
-        password = process.env.MSSQL_PASSWORD_NV;
+        user = process.env.MSSQL_USERNAME_SYSADMIN;
+        password = process.env.MSSQL_PASSWORD_SYSADMIN;
         database = process.env.MSSQL_DBNAME;
         logMessage = 'Login as NV';
         break;
@@ -41,11 +41,11 @@ const poolConnect = async (loginType) => {
         database = process.env.MSSQL_DBNAME;
         logMessage = 'Login as NS';
         break;
-      case 'SERVER':
+      case 'QTV':
         user = process.env.MSSQL_USERNAME_SERVER;
         password = process.env.MSSQL_PASSWORD_SERVER;
         database = process.env.MSSQL_DBNAME;
-        logMessage = 'Login as SERVER';
+        logMessage = 'Login as QTV';
         break;
       default:
         console.error(`Unsupported login type: ${loginType}`);
@@ -64,6 +64,20 @@ const poolConnect = async (loginType) => {
     pool.queryRecordset = async (queryString) => {
       const result = await pool.query(queryString);
       return result.recordset;
+    };
+    pool.executeSP = async (procedureName, params) => {
+      const request = pool.request();
+      for (const paramName in params) {
+        if (params.hasOwnProperty(paramName)) {
+          request.input(paramName, params[paramName]);
+        }
+      }
+      try {
+        const result = await request.execute(procedureName);
+        return result.recordset;
+      } catch (error) {
+        throw error;
+      }
     };
 
     console.log(`🔥 SQL Server pool connection successful!!! ${logMessage}\n`);
