@@ -41,11 +41,11 @@ const poolConnect = async (loginType) => {
         database = process.env.MSSQL_DBNAME;
         logMessage = 'Login as NS';
         break;
-      case 'SERVER':
+      case 'QTV':
         user = process.env.MSSQL_USERNAME_SERVER;
         password = process.env.MSSQL_PASSWORD_SERVER;
         database = process.env.MSSQL_DBNAME;
-        logMessage = 'Login as SERVER';
+        logMessage = 'Login as QTV';
         break;
       default:
         console.error(`Unsupported login type: ${loginType}`);

@@ -7,6 +7,6 @@ router.get("/lichRanhNS", nhanVienController.getLichRanhNS);
 router.post("/khachHang", nhanVienController.taoTaiKhoanKH);
 router.post("/hoaDon", nhanVienController.taoHoaDon);
 router.put("/xacNhanHoaDon", nhanVienController.xacNhanThanhToan);
-router.puf("/matKhau", nhanVienController.doiMatKhau);
+router.put("/matKhau", nhanVienController.doiMatKhau);
 router.get("/hoaDon/:sdt", nhanVienController.getHoaDon);
 export default router;
