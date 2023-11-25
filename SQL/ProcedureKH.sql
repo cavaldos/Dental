@@ -11,7 +11,7 @@
 USE PKNHAKHOA
 GO
 --------------
---1/ Tạo tài khoản Khách Hàng (KH)
+--KH01/ Tạo tài khoản Khách Hàng (KH)
 CREATE OR ALTER PROC SP_TAOTKKH_KH
 	@SODT VARCHAR(100),
 	@HOTEN NVARCHAR(50),
@@ -45,8 +45,8 @@ BEGIN TRAN
 	END CATCH
 COMMIT TRAN
 
-
--- 2 .Xem thông tin cá nhân khách hàng
+--------------
+--KH02/ Xem thông tin cá nhân khách hàng
 GO
 CREATE OR ALTER PROC SP_XEMTHONGTIN_KH
     @SODT VARCHAR(100)
@@ -72,8 +72,8 @@ BEGIN TRAN
     END CATCH
 COMMIT TRAN
 
-
--- 3. Cập nhật thông tin cá nhân KH
+------------------------
+-- KH03. Cập nhật thông tin cá nhân KH
 GO
 CREATE OR ALTER PROC SP_CAPNHATTHONGTIN_KH
 @SODT VARCHAR(10),  
@@ -127,7 +127,7 @@ BEGIN TRAN
     END CATCH
 COMMIT TRAN
 
---4. xem lich ranh cua tat ca cac nha si tu hien tai dn 30 ngay sau
+--KH04. Xem lịch rảnh của nha sĩ từ hiện tại đến hết 30 ngày sau
 GO
 CREATE OR ALTER PROC SP_LRCHUADATTATCANS_KH
 AS
@@ -149,7 +149,7 @@ BEGIN TRAN
 COMMIT TRAN
 
 
---5. truy van loai thuoc
+--KH05. Truy vấn loại thuốc
 GO
 CREATE OR ALTER PROC SP_TRUYVANLOAITHUOC_KH
     @MA_THUOC VARCHAR(10)
@@ -178,7 +178,7 @@ BEGIN TRAN
 COMMIT TRAN
 
 
--- 6. truy van loai dich vu
+-- KH06. Truy vấn loại dịch vụ
 GO
 CREATE OR ALTER PROC SP_TRUYDICHVU_KH
     @MA_MADV VARCHAR(10)
@@ -207,7 +207,7 @@ BEGIN TRAN
 COMMIT TRAN
 
 
--- 7. Truy van lich hen
+-- KH07. Truy vấn lịch hẹn
 GO
 CREATE OR ALTER PROC SP_TRUYVANLICHHEN_KH
     @SDT VARCHAR(10)
