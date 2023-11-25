@@ -4,6 +4,10 @@ import { Table, Modal, Button, message, Tag } from "antd";
 import ColumnSearch from "~/hooks/useSortTable";
 import { useState } from "react";
 
+const body={
+  username:"admin",
+  password:"admin"
+}
 const NhaSiTable = ({ data }) => {
   const columns = [
     {
