@@ -1,3 +1,4 @@
+
 USE PKNHAKHOA
 GO 
 
@@ -13,7 +14,7 @@ GO
 
 ----------------------------------
 --ALL01/ XEM DANH MỤC THUỐC
-GO
+
 CREATE OR ALTER PROC SP_GETALLTHUOC_NV_QTV_NS
 AS
 BEGIN TRAN
