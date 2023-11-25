@@ -58,16 +58,7 @@ const data = [
     mathuoc: "mt0037",
   },
 ];
-console.log("truoc khi gom",data);
-
-
-
-
-
-
-
-
-
+// console.log("truoc khi gom",data);
 
 function groupAndTable(data, groupKeys, tableKeys) {
   const groupedData = _.groupBy(data, (item) => {
@@ -94,9 +85,7 @@ function groupAndTable(data, groupKeys, tableKeys) {
 }
 const result3 = groupAndTable(data, ["hoten"], ["madv", "mathuoc"]);
 
-console.log("result3", result3);
-
-
+// console.log("result3", result3);
 
 // function groupAndPivots(data, groupKeys, pivotKeys) {
 //   // Nhóm dữ liệu
@@ -134,11 +123,8 @@ console.log("result3", result3);
 //   return result;
 // }
 
-
 // const result4 = groupAndPivots(data, ["hoten","sdt","sott"], ["madv", "mathuoc"]);
 // console.log("result4", result4);
-
-
 
 // function groupAndPivot(data, groupKeys, pivotKeys) {
 //   const groupedData = _.groupBy(data, (item) =>
@@ -164,8 +150,6 @@ console.log("result3", result3);
 // const result2 = groupAndPivot(data, ["hoten"], ["madv", "mathuoc"]);
 // console.log("result2", result2);
 
-
-
 // const groupedData = _.groupBy(data, (item) => `${item.hoten}-${item.sdt}`);
 // const result = _.map(groupedData, (items) => {
 //   const madvArray = _.map(items, "madv");
@@ -179,11 +163,6 @@ console.log("result3", result3);
 //   };
 // });
 // console.log("sau khi gom :\n", result);
-
-
-
-
-
 
 // const result = _.chain(data3)
 //   .groupBy("NGAY")
@@ -205,5 +184,27 @@ console.log("result3", result3);
 
 // console.log(result.map((item) => item.CA));
 
+class Student {
+  constructor(name, age) {
+    this.name = name;
+    this.age = age;
+  }
+  get info() {
+    return `name: ${this.name}, age: ${this.age}`;
+  }
+  // functionc rename
+  set rename(name) {
+    this.name = name;
+  }
+  connetc() {
+    console.log("connect");
+  }
+
+}
+
+const student = new Student("Nguyen Van A", 20);
+student.rename = "Nguyen Van B";
+console.log(student.info);
+student.connetc();
 
 
