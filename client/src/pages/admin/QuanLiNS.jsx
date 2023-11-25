@@ -10,18 +10,22 @@ const NhaSiTable = ({ data }) => {
       title: "Mã NS",
       dataIndex: "MANS",
       key: "MANS",
+      className: "text-center px-[60px] min-w-[100px] ",
       ...ColumnSearch("MANS", "Mã NS"),
     },
     {
       title: "Họ và tên",
       dataIndex: "HOTEN",
       key: "HOTEN",
+      className: "text-center px-[60px] min-w-[100px] ",
+
       ...ColumnSearch("HOTEN", "Họ và tên"),
     },
     {
       title: "Giới tính",
       dataIndex: "PHAI",
       key: "PHAI",
+      className: "text-center px-[60px] min-w-[100px] ",
     },
     {
       title: "Giới thiệu",
