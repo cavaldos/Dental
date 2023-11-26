@@ -22,6 +22,7 @@ export default {
         blu: "blue",
         ret: "red",
         grin: "green",
+        'grey': "#ACACAC"
       },
       screens: {
         sm: "640px",
