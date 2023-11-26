@@ -5,6 +5,7 @@ import morgan from "morgan";
 import cors from "cors";
 import colors from "ansicolors";
 import IP from "./config/ip.js";
+
 import AllRouters from "./api/routes/index.js";
 
 
@@ -23,4 +24,3 @@ app.listen(port, host, () => {
   console.log(`\n  🚀  ➜ Local:    `, colors.blue(`http://localhost:${port}`));
   console.log(`  🚀  ➜ Network:  `, colors.green(`http://${IP}:${port}\n`));
 });
-

@@ -5,7 +5,7 @@ import {
   StaffRouter,
   DentistRouter,
 } from "~/routes";
-
+import NotfoundError from "~/components/err";
 import { Fragment } from "react";
 import { useSelector } from "react-redux";
 import {
@@ -15,6 +15,7 @@ import {
   Outlet,
 } from "react-router-dom";
 
+import Test from "./test";
 function App() {
   const user = useSelector((state) => state.user);
   const VerifyRoure = () => {
@@ -34,6 +35,7 @@ function App() {
 
   return (
     <>
+      <Test />
       <Router>
         <Routes>
           {VerifyRoure().map((route, index) => {
@@ -51,6 +53,14 @@ function App() {
               />
             );
           })}
+          <Route
+            path="*"
+            element={
+              <Fragment>
+                <NotfoundError />
+              </Fragment>
+            }
+          />
         </Routes>
       </Router>
     </>

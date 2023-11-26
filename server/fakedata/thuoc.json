@@ -1,0 +1,156 @@
+[
+  {
+    "MATHUOC": "MT01",
+    "TENTHUOC": "Paracetamol",
+    "DONVITINH": "Viên",
+    "CHIDINH": "Gi?m dau nh?",
+    "SLTON": 100,
+    "SLNHAP": 200,
+    "SLDAHUY": 5,
+    "NGAYHETHAN": "2024-12-31T00:00:00.000Z",
+    "DONGIA": 5000
+  },
+  {
+    "MATHUOC": "MT02",
+    "TENTHUOC": "Amoxicillin",
+    "DONVITINH": "Hộp ",
+    "CHIDINH": "Kháng sinh phổ rộng",
+    "SLTON": 50,
+    "SLNHAP": 100,
+    "SLDAHUY": 1,
+    "NGAYHETHAN": "2024-08-31T00:00:00.000Z",
+    "DONGIA": 20000
+  },
+  {
+    "MATHUOC": "MT03",
+    "TENTHUOC": "Vitamin C",
+    "DONVITINH": "Chai ",
+    "CHIDINH": "Bổ sung vitamin C",
+    "SLTON": 80,
+    "SLNHAP": 100,
+    "SLDAHUY": 3,
+    "NGAYHETHAN": "2024-08-31T00:00:00.000Z",
+    "DONGIA": 12000
+  },
+  {
+    "MATHUOC": "MT04",
+    "TENTHUOC": "Vitamin B",
+    "DONVITINH": "Chai ",
+    "CHIDINH": "Bổ sung vitamin B",
+    "SLTON": 80,
+    "SLNHAP": 100,
+    "SLDAHUY": 3,
+    "NGAYHETHAN": "2024-08-31T00:00:00.000Z",
+    "DONGIA": 13000
+  },
+  {
+    "MATHUOC": "MT05",
+    "TENTHUOC": "Vitamin D",
+    "DONVITINH": "Chai ",
+    "CHIDINH": "Bổ sung vitamin D",
+    "SLTON": 80,
+    "SLNHAP": 100,
+    "SLDAHUY": 3,
+    "NGAYHETHAN": "2024-08-31T00:00:00.000Z",
+    "DONGIA": 14000
+  },
+  {
+    "MATHUOC": "MT06",
+    "TENTHUOC": "Vitamin E",
+    "DONVITINH": "Chai ",
+    "CHIDINH": "Bổ sung vitamin E",
+    "SLTON": 80,
+    "SLNHAP": 100,
+    "SLDAHUY": 3,
+    "NGAYHETHAN": "2024-08-31T00:00:00.000Z",
+    "DONGIA": 15000
+  },
+  {
+    "MATHUOC": "MT07",
+    "TENTHUOC": "Vitamin K",
+    "DONVITINH": "Chai ",
+    "CHIDINH": "Bổ sung vitamin K",
+    "SLTON": 80,
+    "SLNHAP": 100,
+    "SLDAHUY": 3,
+    "NGAYHETHAN": "2024-08-31T00:00:00.000Z",
+    "DONGIA": 16000
+  },
+  {
+    "MATHUOC": "MT08",
+    "TENTHUOC": "Vitamin A",
+    "DONVITINH": "Chai ",
+    "CHIDINH": "Bổ sung vitamin A",
+    "SLTON": 80,
+    "SLNHAP": 100,
+    "SLDAHUY": 3,
+    "NGAYHETHAN": "2024-08-31T00:00:00.000Z",
+    "DONGIA": 17000
+  },
+  {
+    "MATHUOC": "MT09",
+    "TENTHUOC": "Vitamin B1",
+    "DONVITINH": "Chai ",
+    "CHIDINH": "Bổ sung vitamin B1",
+    "SLTON": 80,
+    "SLNHAP": 100,
+    "SLDAHUY": 3,
+    "NGAYHETHAN": "2024-08-31T00:00:00.000Z",
+    "DONGIA": 17000
+  },
+  {
+    "MATHUOC": "MT10",
+    "TENTHUOC": "Vitamin B2",
+    "DONVITINH": "Chai ",
+    "CHIDINH": "Bổ sung vitamin B2",
+    "SLTON": 80,
+    "SLNHAP": 100,
+    "SLDAHUY": 3,
+    "NGAYHETHAN": "2024-08-31T00:00:00.000Z",
+    "DONGIA": 15000
+  },
+  {
+    "MATHUOC": "MT11",
+    "TENTHUOC": "Vitamin B3",
+    "DONVITINH": "Chai ",
+    "CHIDINH": "Bổ sung vitamin B3",
+    "SLTON": 80,
+    "SLNHAP": 100,
+    "SLDAHUY": 3,
+    "NGAYHETHAN": "2024-08-31T00:00:00.000Z",
+    "DONGIA": 20000
+  },
+  {
+    "MATHUOC": "MT12",
+    "TENTHUOC": "Vitamin B5",
+    "DONVITINH": "Chai ",
+    "CHIDINH": "Bổ sung vitamin B5",
+    "SLTON": 80,
+    "SLNHAP": 100,
+    "SLDAHUY": 3,
+    "NGAYHETHAN": "2024-08-31T00:00:00.000Z",
+    "DONGIA": 40000
+  },
+  {
+    "MATHUOC": "MT13",
+    "TENTHUOC": "Vitamin B6",
+    "DONVITINH": "Chai ",
+    "CHIDINH": "Bổ sung vitamin B6",
+    "SLTON": 80,
+    "SLNHAP": 100,
+    "SLDAHUY": 3,
+    "NGAYHETHAN": "2024-08-31T00:00:00.000Z",
+    "DONGIA": 60000
+  },
+  {
+    "MATHUOC": "MT14",
+    "TENTHUOC": "Vitamin B7",
+    "DONVITINH": "Chai ",
+    "CHIDINH": "Bổ sung vitamin B7",
+    "SLTON": 80,
+    "SLNHAP": 100,
+    "SLDAHUY": 3,
+    "NGAYHETHAN": "2024-08-31T00:00:00.000Z",
+    "DONGIA": 70000
+  }
+]
