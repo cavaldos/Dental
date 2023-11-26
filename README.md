@@ -25,10 +25,6 @@
 1. Install packages
 
 ```shell
-cd server
-```
-
-```shell
 npm install # yarn
 ```
 
@@ -36,28 +32,62 @@ npm install # yarn
 npm run dev  # yarn dev
 ```
 
-2. Create docker compose with mysql
+2. Create docker compose with mssql
 
 ```shell
-docker compose -f mysql.yml -p dentists up -d
+docker compose -f mssql.yml up -d
 ```
 
-**_Config file .yml_**
+**_UserName :sa_**
 
-```yml
-version: "3.8"
-services:
-  mysql:
-    image: mysql:5.7.40
-    restart: always
-    ports:
-      - "3308:3306"    # 3306:3306
-    environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: dentists
-      MYSQL_USER: test
-      MYSQL_PASSWORD: test
+```shell
+password123@
 ```
+### ` Rename` `.env.example` to `.env`
+## Documentation
+
+### Requests
+
+#### Direct `./utils/mssql.js`
+
+1. Load
+
+```js
+load("SELECT * FROM Users u");
+```
+
+2. add
+
+```js
+const entity = {
+  id: 54,
+  email: "21126090@gmail.com",
+  name: "vu vo",
+  password: "12455563456",
+};
+const tableName = "Users";
+add(tableName, entity);
+```
+
+3. del
+
+```js
+const tableName = "Users";
+const condition = "id = 1";
+del(tableName, condition);
+```
+
+4.  patch
+
+```js
+const newentity = {
+  name: "New Name",
+  email: "newemail@example.com",
+};
+const condition = "id = 1";
+patch(tableName, newentity, condition);
+```
+
 
 ### Build docker
 

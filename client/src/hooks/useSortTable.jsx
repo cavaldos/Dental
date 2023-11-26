@@ -1,18 +1,21 @@
-import { useState, useRef } from "react";
-import { Input, Button, Space } from "antd";
+import React from "react";
+import {  Input, Button, Space } from "antd";
 import { SearchOutlined } from "@ant-design/icons";
+const ColumnSearch = (dataIndex, placeholder) => {
+  const searchInputRef = React.useRef(null);
 
-function useColumnSearch({ dataIndex, placeholder }) {
-  const [selectedKeys, setSelectedKeys] = useState([]);
-  const searchInputRef = useRef(null);
-
-  const handleSearch = (selectedKeys, confirm) => {
-    confirm();
-    setSelectedKeys(selectedKeys);
+  const handleFilterDropdownOpenChange = (visible) => {
+    if (visible) {
+      setTimeout(() => searchInputRef.current.select(), 100);
+    }
   };
-
   return {
-    filterDropdown: ({ setSelectedKeys, confirm, clearFilters }) => (
+    filterDropdown: ({
+      setSelectedKeys,
+      selectedKeys,
+      confirm,
+      clearFilters,
+    }) => (
       <div style={{ padding: 8 }}>
         <Input
           placeholder={`Search ${placeholder}`}
@@ -62,12 +65,8 @@ function useColumnSearch({ dataIndex, placeholder }) {
             .toLowerCase()
             .includes(value.toLowerCase())
         : "",
-    onFilterDropdownOpenChange: (visible) => {
-      if (visible) {
-        setTimeout(() => searchInputRef.current.select(), 100);
-      }
-    },
+    onFilterDropdownOpenChange: handleFilterDropdownOpenChange,
   };
-}
+};
 
-export default useColumnSearch;
+export default ColumnSearch;

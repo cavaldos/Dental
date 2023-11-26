@@ -1,19 +1,24 @@
 import React, { useState } from "react";
 import { AiOutlineMenuFold, AiOutlineMenuUnfold } from "react-icons/ai";
-import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { deleteRole } from "~/redux/features/userSlice";
+import { useNavigate, useLocation } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { Breadcrumb } from "antd";
+import { menuDentist, menuAdmin, menuStaff } from "./menuItem";
+import Account from "./Account";
+
 const Menu = ({ name, icon, path, toggle }) => {
   const navigate = useNavigate();
-
+  const location = useLocation();
+  const isActive = location.pathname === path;
   const handleClick = () => {
     navigate(path);
   };
-
   return (
     <button
       onClick={handleClick}
-      className={`flex items-center justify-start align-middle h-14 cursor-pointer rounded-md bg-slate-100 mx-2 transition-all duration-300 `}
+      className={`flex items-center justify-start align-middle h-14 cursor-pointer rounded-md bg-slate-100 mx-2 transition-all duration-300 hover:bg-slate-500 
+      ${isActive ? "bg-slate-500" : "bg-slate-100"}
+       `}
     >
       <div
         className={`flex items-center justify-center align-middle h-14 w-14 transition-all duration-300 ${
@@ -28,55 +33,34 @@ const Menu = ({ name, icon, path, toggle }) => {
         }`}
         style={{ transition: "opacity 1s ease" }}
       >
-        <h1 className="whitespace-nowrap  text-ellipsis">
-          {name}
-        </h1>
+        <h1 className="whitespace-nowrap  text-ellipsis">{name}</h1>
       </div>
     </button>
   );
 };
 
 const Sidebar = (props) => {
-
   const toggle = props.toggle;
-
-  const menuItem = [
-    {
-      name: "Quản lí thuốc",
-      icon: <AiOutlineMenuFold size={30} />,
-      path: "/quan-li-thuoc",
-
-      
-    },
-    {
-      name: "Quản lí dịch vụ",
-      icon: <AiOutlineMenuFold size={30} />,
-      path: "/quan-li-dich-vu",
-
-
-    },
-    {
-      name: "Quản lí nhân viên",
-      icon: <AiOutlineMenuFold size={30} />,
-      path: "/quan-li-nhan-vien",
-    },
-    {
-      name: "Quản lí nha sĩ",
-      icon: <AiOutlineMenuFold size={30} />,
-      path: "/quan-li-nha-si",
-    },
-    {
-      name: "Quản lí khách hàng",
-      icon: <AiOutlineMenuFold size={30} />,
-      path: "/quan-li-khach-hang",
-    },
-  ];
+  const user = useSelector((state) => state.user);
+  const Veryrole = () => {
+    const role = user.role;
+    switch (role) {
+      case "admin":
+        return menuAdmin;
+      case "dentist":
+        return menuDentist;
+      case "staff":
+        return menuStaff;
+      default:
+        return menuStaff;
+    }
+  };
 
   return (
     <>
       <div className="h-[70px]">LOGO</div>
       <div className="flex flex-col gap-2">
-        {menuItem.map((item, index) => (
+        {Veryrole().map((item, index) => (
           <Menu
             key={index}
             name={item.name}
@@ -92,17 +76,19 @@ const Sidebar = (props) => {
 
 const AdminLayout = ({ children }) => {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
-  const dispath = useDispatch();
-  const navigate = useNavigate();
+
   const toggleSidebar = () => {
     setSidebarCollapsed(!sidebarCollapsed);
   };
+  const user = useSelector((state) => state.user);
+  const location = useLocation();
 
   return (
     <>
-      <div className="flex min-h-screen">
+      <div className="flex min-h-screen ">
+        {/* chinh mau o day */}
         <div
-          className={`w-[18vw] bg-slate-500 h-screen overflow-y-auto sticky top-0 transition-all duration-300 ${
+          className={`w-[18vw] bg-slate-400 h-screen overflow-y-auto sticky top-0 transition-all duration-300 ${
             sidebarCollapsed ? "w-[5vw]" : ""
           }`}
         >
@@ -118,20 +104,18 @@ const AdminLayout = ({ children }) => {
                   <AiOutlineMenuFold size={30} />
                 )}
               </button>
+              <Breadcrumb className="ml-5">
+                <Breadcrumb.Item className=" capitalize">
+                  {user.role}
+                </Breadcrumb.Item>
+                <Breadcrumb.Item>{location.pathname}</Breadcrumb.Item>
+              </Breadcrumb>
             </div>
-            <div className="">
-              account
-              <button
-                className="bg-blue-500 px-5 py-2 my-3 rounded-md"
-                onClick={() => {
-                  dispath(deleteRole());
-                }}
-              >
-                Sign Out
-              </button>
-            </div>
+            <Account />
           </div>
-          <div className="bg-[rgb(251,254,251)] shadow-lg shadow-gray-400/400  min-h-[89vh] m-5 rounded-lg p-4 overflow-y-auto">
+          {/* bg-[rgb(251,254,251)] */}
+          {/* chinh mau o day */}
+          <div className=" bg-[rgb(251,254,251)] shadow-lg shadow-gray-400/400 flex justify-center  min-h-[89vh] m-5 rounded-lg p-4 overflow-y-auto">
             {children}
           </div>
         </div>
@@ -139,5 +123,4 @@ const AdminLayout = ({ children }) => {
     </>
   );
 };
-// clound not  auto-determine entry point from rollupOptions or html file and there are no explicit optimizeDeps.include patterns. Skipping dependency pre-bunding.
 export default AdminLayout;

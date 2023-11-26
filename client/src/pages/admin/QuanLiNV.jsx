@@ -1,84 +1,22 @@
 import nhanvien from "../../fakedata/nhanvien";
-import React, { useRef,useState } from "react";
-import { Table, Input, Button, Tag, Space, message,Modal } from "antd";
+import React, { useState } from "react";
+import { Table, Button, Tag, Modal } from "antd";
 import { SearchOutlined, EditOutlined } from "@ant-design/icons";
+import ColumnSearch from "~/hooks/useSortTable";
 
 const TableNhanVien = ({ staff }) => {
-  const searchInputRefs = useRef(null);
-  const getColumnSearchProps = (dataIndex, placeholder) => ({
-    filterDropdown: ({
-      setSelectedKeys,
-      selectedKeys,
-      confirm,
-      clearFilters,
-    }) => (
-      <div style={{ padding: 8 }}>
-        <Input
-          placeholder={`Search ${placeholder}`}
-          value={selectedKeys[0]}
-          onChange={(e) =>
-            setSelectedKeys(e.target.value ? [e.target.value] : [])
-          }
-          onPressEnter={() => confirm()}
-          style={{ width: 188, marginBottom: 8, display: "block" }}
-          ref={searchInputRefs}
-        />
-        <Space>
-          <Button
-            type="primary"
-            onClick={() => confirm()}
-            icon={<SearchOutlined />}
-            size="small"
-            style={{
-              width: 90,
-              backgroundColor: "#1890ff",
-              borderColor: "#1890ff",
-            }}
-          >
-            Search
-          </Button>
-          <Button
-            onClick={() => {
-              clearFilters();
-              setSelectedKeys([]);
-              confirm();
-            }}
-            size="small"
-            style={{ width: 90 }}
-          >
-            Reset
-          </Button>
-        </Space>
-      </div>
-    ),
-    filterIcon: (filtered) => (
-      <SearchOutlined style={{ color: filtered ? "#1890ff" : undefined }} />
-    ),
-    onFilter: (value, record) =>
-      record[dataIndex]
-        ? record[dataIndex]
-            .toString()
-            .toLowerCase()
-            .includes(value.toLowerCase())
-        : "",
-    onFilterDropdownOpenChange: (visible) => {
-      if (visible) {
-        setTimeout(() => searchInputRef.current.select(), 100);
-      }
-    },
-  });
   const columns = [
     {
       title: "Mã nhân viên",
       dataIndex: "MANV",
       key: "MANV",
-      ...getColumnSearchProps("MANV", "Mã nhân viên"),
+      ...ColumnSearch("MANV", "Mã nhân viên"),
     },
     {
       title: "Họ tên",
       dataIndex: "HOTEN",
       key: "HOTEN",
-      ...getColumnSearchProps("HOTEN", "Họ tên"),
+      ...ColumnSearch("HOTEN", "Họ tên"),
     },
     {
       title: "Giới tính",
@@ -89,7 +27,7 @@ const TableNhanVien = ({ staff }) => {
       title: "Vị trí công việc",
       dataIndex: "VITRICV",
       key: "VITRICV",
-      ...getColumnSearchProps("VITRICV", "Vị trí công việc"),
+      ...ColumnSearch("VITRICV", "Vị trí công việc"),
     },
     {
       title: "Trạng thái",
@@ -117,7 +55,7 @@ const TableNhanVien = ({ staff }) => {
         <Button
           className="bg-blue-600"
           type="primary"
-          shape="round"
+        
           icon={<EditOutlined />}
           size="small"
         >
@@ -130,7 +68,7 @@ const TableNhanVien = ({ staff }) => {
     <>
       <Table
         columns={columns}
-        dataSource={staff.map((item) => ({ ...item, key: item.MANV }))}
+        dataSource={staff.map((item, index) => ({ ...item, key: index }))}
         pagination={true}
         bordered
         size="middle"
@@ -160,6 +98,19 @@ const TaoNhanVienMoi = () => {
         open={isModalOpen}
         onOk={handleOk}
         onCancel={handleCancel}
+        footer={[
+          <Button key="cancel" onClick={handleCancel}>
+            Hủy
+          </Button>,
+          <Button
+            key="ok"
+            type="primary"
+            onClick={handleOk}
+            className=" bg-blue-500"
+          >
+            OK
+          </Button>,
+        ]}
       >
         <p> Viet form tao nhan vien moi trong day </p>
       </Modal>
@@ -169,8 +120,10 @@ const TaoNhanVienMoi = () => {
 const QuanLiNV = () => {
   return (
     <>
-      <TaoNhanVienMoi />
-      <TableNhanVien staff={nhanvien} />
+      <div className=" w-full">
+        <TaoNhanVienMoi />
+        <TableNhanVien staff={nhanvien} />
+      </div>
     </>
   );
 };

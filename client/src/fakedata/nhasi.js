@@ -60,7 +60,7 @@ const nhasi = [
     GIOITHIEU:
       "Chuyên gia: Nha khoa thẩm mỹ; điều trị nha chu; cấy ghép Implant nha khoa; phục hình răng sứ.\\nNgôn ngữ: Tiếng Việt, Tiếng Anh.\\nHọc vấn: Tốt nghiệp Bác sĩ Trường Đại học Y Khoa Sài Gòn năm 2009 Thạc sĩ chuyên ngành Nha khoa thẩm mỹ năm 2013.\\nKinh nghiệm: Bác sĩ tại Phòng Khám Nha Khoa Tươi Đẹp từ năm 2009.",
     MATKHAU: "8L1ghts&Cam3r@#",
-    _DAKHOA: false,
+    _DAKHOA: true,
   },
   {
     MANS: "NS0008",
