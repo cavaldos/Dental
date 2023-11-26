@@ -1,8 +1,8 @@
 // Nhan vien
 import StaffPage from "~/pages/staff";
 import DangKiTaiKhoanKhachHang from "../pages/staff/DangKiTaiKhoanKH";
-import XemLichHen from "../pages/staff/xemLichHen";
-import XemThuoc from "../pages/staff/Xemthuoc";
+import XemLichHen from "../pages/staff/XemLichHen";
+import XemThuoc from "../pages/staff/XemThuoc";
 import XemDichVu from "../pages/staff/XemDichVu";
 import HoSoBenh from "../pages/staff/HoSoBenh";
 import HoaDon from "../pages/staff/HoaDon";

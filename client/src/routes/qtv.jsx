@@ -7,7 +7,7 @@ import QuanLiKH from "../pages/admin/QuanLiKH";
 import QuanLiNS from "../pages/admin/QuanLiNS";
 import QuanLiDV from "../pages/admin/QuanLiDV";
 import QuanLiThuoc from "../pages/admin/QuanLiThuoc";
-import QuanLiNV from "../pages/admin/QuanLiNhanVien";
+import QuanLiNV from "../pages/admin/QuanLiNV";
 
 const AdminRouter = [
   {

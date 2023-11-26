@@ -5,6 +5,16 @@ import ColumnSearch from "~/hooks/useSortTable";
 import { useState } from "react";
 
 const NhaSiTable = ({ data }) => {
+  const format = (text) => {
+    const replacedText = text.replace(/\\n/g, "\n");
+    const lines = replacedText.split("\n");
+    return lines.map((line, index) => (
+      <React.Fragment key={index}>
+        {line}
+        <br />
+      </React.Fragment>
+    ));
+  };
   const columns = [
     {
       title: "Mã NS",
@@ -31,6 +41,7 @@ const NhaSiTable = ({ data }) => {
       title: "Giới thiệu",
       dataIndex: "GIOITHIEU",
       key: "GIOITHIEU",
+      render: (text) => format(text),
     },
 
     {
@@ -71,9 +82,8 @@ const NhaSiTable = ({ data }) => {
   ];
 
    const paginationOptions = {
-     pageSize: 6, 
+     pageSize: 5, 
      total: data.length,
-     showSizeChanger: true, 
      showQuickJumper: true, 
    };
 
@@ -102,7 +112,7 @@ const ThemNhaSiMoi = () => {
   };
   return (
     <>
-      <Button className="bg-green-600 mb-4" type="primary" onClick={showModal}>
+      <Button className="bg-green-600 mb-4 " type="primary" onClick={showModal}>
         Thêm Nha Sĩ Mới
       </Button>
       <Modal

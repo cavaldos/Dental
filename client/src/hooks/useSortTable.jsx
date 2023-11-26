@@ -65,7 +65,7 @@ const ColumnSearch = (dataIndex, placeholder) => {
             .toLowerCase()
             .includes(value.toLowerCase())
         : "",
-    onFilterDropdownVisibleChange: handleFilterDropdownOpenChange,
+    onFilterDropdownOpenChange: handleFilterDropdownOpenChange,
   };
 };
 

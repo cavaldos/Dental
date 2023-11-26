@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { AiOutlineMenuFold, AiOutlineMenuUnfold } from "react-icons/ai";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { Breadcrumb } from "antd";
 
 import { menuDentist, menuAdmin, menuStaff } from "./menuItem";
 import Account from "./Account";
@@ -80,6 +81,8 @@ const AdminLayout = ({ children }) => {
   const toggleSidebar = () => {
     setSidebarCollapsed(!sidebarCollapsed);
   };
+  const user = useSelector((state) => state.user);
+  const location = useLocation();
 
   return (
     <>
@@ -102,13 +105,18 @@ const AdminLayout = ({ children }) => {
                   <AiOutlineMenuFold size={30} />
                 )}
               </button>
+              <Breadcrumb className="ml-5">
+                <Breadcrumb.Item className=" capitalize">
+                  {user.role}
+                </Breadcrumb.Item>
+                <Breadcrumb.Item>{location.pathname}</Breadcrumb.Item>
+              </Breadcrumb>
             </div>
             <Account />
           </div>
           {/* bg-[rgb(251,254,251)] */}
           {/* chinh mau o day */}
           <div className=" bg-[rgb(251,254,251)] shadow-lg shadow-gray-400/400 flex justify-center  min-h-[89vh] m-5 rounded-lg p-4 overflow-y-auto">
-            
             {children}
           </div>
         </div>

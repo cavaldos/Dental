@@ -6,6 +6,11 @@ import ColumnSearch from "~/hooks/useSortTable";
 import { useState } from "react";
 
 const DichVuTable = ({ data }) => {
+    const formatCurrency = (amount) => {
+      const formattedAmount = amount.toLocaleString("vi-VN");
+      return `${formattedAmount} VND`;
+    };
+
   const columns = [
     {
       title: "Mã Dich vụ",
@@ -32,6 +37,7 @@ const DichVuTable = ({ data }) => {
       key: "DONGIA",
       className: "text-center px-[60px] min-w-[120px] ",
       sorter: (a, b) => a.DONGIA - b.DONGIA,
+      render: (text) => formatCurrency(text),
     },
     {
       title: "Quản lí",

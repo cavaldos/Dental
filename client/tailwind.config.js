@@ -10,9 +10,19 @@ export default {
     extend: {
       fontFamily: {
         nunito: ["Nunito", "sans-serif", "ui-sans-serif", "system-ui"],
-        montserrat:  ["Monserrat", "sans-serif", "ui-sans-serif", "system-ui"],
+        montserrat: ["Monserrat", "sans-serif", "ui-sans-serif", "system-ui"],
       },
-      // colors: {},
+      colors: {
+        primary: "#0D6EFD",
+        secondary: "#6C757D",
+        success: "#198754",
+        danger: "#DC3545",
+        warning: "#FFC107",
+        info: "#0DCAF0",
+        blu: "blue",
+        ret: "red",
+        grin: "green",
+      },
       screens: {
         sm: "640px",
         // => @media (min-width: 640px) { ... }

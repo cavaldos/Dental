@@ -9,17 +9,17 @@ const DangKiTaiKhoanKhachHang = () => {
     console.log("Success:", values);
     message.success("Đăng kí thành công!");
     form.resetFields();
-    setFormValues({}); 
+    setFormValues({});
   };
 
   const handleReset = () => {
     form.resetFields();
-    setFormValues({}); 
+    setFormValues({});
     message.success("Đã xóa trường!");
   };
 
   return (
-    <div className="h-[450px] w-[55vw] bg-slate-50 mx-auto rounded-lg flex flex-col justify-center">
+    <div className="h-[450px] w-[55vw] bg-slate-50 mx-auto rounded-lg flex flex-col justify-center  ">
       <div className=" w-full  ">
         <h1 className="text-2xl  mb-4 ml-20 ">Tạo tài khoản khách hàng</h1>
       </div>

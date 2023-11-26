@@ -26,9 +26,15 @@ const Account = () => {
   return (
     <>
       <div className="flex h-[90%] min-w-[200px] items-center">
-        <Tag className="mr-10" color="magenta">
-          <h1 className="mx-auto text-2xl uppercase">{user.role}</h1>
+        <Tag className="mr-10 hover:cursor-pointer" color="magenta">
+          <button
+            className="mx-auto text-2xl uppercase"
+            onClick={() => navigate("/")}
+          >
+            {user.role}
+          </button>
         </Tag>
+
         <Space className="ml-auto" wrap size={16}>
           <Dropdown
             menu={{
