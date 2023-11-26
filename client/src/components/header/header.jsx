@@ -49,7 +49,7 @@ const Header = () => {
                 navigate("/signin");
               }}
             >
-              Sign In
+              Đăng nhập
             </button>
             <button
               className="bg-blue-500 px-5 py-2 my-3 rounded-md"
@@ -57,7 +57,7 @@ const Header = () => {
                 navigate("/signup");
               }}
             >
-              Sign Up
+              Đăng ký
             </button>
           </div>
         ) : (
