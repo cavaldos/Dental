@@ -1,10 +1,15 @@
-// khach hang
-import GuestPage from "~/pages/guest";
-import CapNhatTaiKhoan from "../pages/guest/CapNhatTk";
-import DatLichHen from "../pages/guest/DatLichHen";
-import HoSoBenhKH from "../pages/guest/HoSoBenh";
-import XemLichHenKH from "../pages/guest/XemLichHen";
 import DefaultLayout from "~/components/layout/defaultLayout";
+// khach hang
+
+import { lazy } from "react";
+
+
+
+import GuestPage from "~/pages/guest";
+const CapNhatTaiKhoan = lazy(() => import("../pages/guest/CapNhatTk"));
+const DatLichHen = lazy(() => import("../pages/guest/DatLichHen"));
+const HoSoBenhKH = lazy(() => import("../pages/guest/HoSoBenh"));
+const XemLichHenKH = lazy(() => import("../pages/guest/XemLichHen"));
 
 const GuestRouter = [
   {

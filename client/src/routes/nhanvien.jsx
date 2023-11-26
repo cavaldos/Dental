@@ -1,14 +1,17 @@
-// Nhan vien
-import StaffPage from "~/pages/staff";
-import DangKiTaiKhoanKhachHang from "../pages/staff/DangKiTaiKhoanKH";
-import XemLichHen from "../pages/staff/XemLichHen";
-import XemThuoc from "../pages/staff/XemThuoc";
-import XemDichVu from "../pages/staff/XemDichVu";
-import HoSoBenh from "../pages/staff/HoSoBenh";
-import HoaDon from "../pages/staff/HoaDon";
-import DatLich from "../pages/staff/DatLich";
-
 import AdminLayout from "~/components/layout/adminLayout";
+
+import { lazy } from "react";
+
+
+import StaffPage from "~/pages/staff";
+const DangKiTaiKhoanKhachHang = lazy(() => import("../pages/staff/DangKiTaiKhoanKH"));
+const XemLichHen = lazy(() => import("../pages/staff/XemLichHen"));
+const XemThuoc = lazy(() => import("../pages/staff/XemThuoc"));
+const XemDichVu = lazy(() => import("../pages/staff/XemDichVu"));
+const HoSoBenh = lazy(() => import("../pages/staff/HoSoBenh"));
+const HoaDon = lazy(() => import("../pages/staff/HoaDon"));
+const DatLich = lazy(() => import("../pages/staff/DatLich"));
+
 
 const StaffRouter = [
   {

@@ -6,7 +6,7 @@ import {
   DentistRouter,
 } from "~/routes";
 import NotfoundError from "~/components/err";
-import { Fragment } from "react";
+import { Fragment, Suspense } from "react";
 import { useSelector } from "react-redux";
 import {
   BrowserRouter as Router,
@@ -37,31 +37,33 @@ function App() {
     <>
       <Test />
       <Router>
-        <Routes>
-          {VerifyRoure().map((route, index) => {
-            const Layout = route.Layout === null ? Fragment : route.Layout;
-            const Page = route.component;
-            return (
-              <Route
-                key={index}
-                path={route.path}
-                element={
-                  <Layout>
-                    <Page />
-                  </Layout>
-                }
-              />
-            );
-          })}
-          <Route
-            path="*"
-            element={
-              <Fragment>
-                <NotfoundError />
-              </Fragment>
-            }
-          />
-        </Routes>
+        <Suspense fallback={<div>Loading...</div>}>
+          <Routes>
+            {VerifyRoure().map((route, index) => {
+              const Layout = route.Layout === null ? Fragment : route.Layout;
+              const Page = route.component;
+              return (
+                <Route
+                  key={index}
+                  path={route.path}
+                  element={
+                    <Layout>
+                      <Page />
+                    </Layout>
+                  }
+                />
+              );
+            })}
+            <Route
+              path="*"
+              element={
+                <Fragment>
+                  <NotfoundError />
+                </Fragment>
+              }
+            />
+          </Routes>
+        </Suspense>
       </Router>
     </>
   );

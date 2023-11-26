@@ -1,13 +1,13 @@
 //  QTV
 import AdminLayout from "~/components/layout/adminLayout";
-
+import { lazy } from "react";
 
 import AdminPage from "~/pages/admin";
-import QuanLiKH from "../pages/admin/QuanLiKH";
-import QuanLiNS from "../pages/admin/QuanLiNS";
-import QuanLiDV from "../pages/admin/QuanLiDV";
-import QuanLiThuoc from "../pages/admin/QuanLiThuoc";
-import QuanLiNV from "../pages/admin/QuanLiNV";
+const QuanLiKH = lazy(() => import("~/pages/admin/QuanLiKH"));
+const QuanLiNS = lazy(() => import("~/pages/admin/QuanLiNS"));
+const QuanLiDV = lazy(() => import("~/pages/admin/QuanLiDV"));
+const QuanLiThuoc = lazy(() => import("~/pages/admin/QuanLiThuoc"));
+const QuanLiNV = lazy(() => import("~/pages/admin/QuanLiNV"));
 
 const AdminRouter = [
   {
@@ -41,4 +41,5 @@ const AdminRouter = [
     Layout: AdminLayout,
   },
 ];
+
 export default AdminRouter;

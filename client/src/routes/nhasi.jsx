@@ -1,14 +1,15 @@
 
 // Nha si
 import AdminLayout from "~/components/layout/adminLayout";
+import { lazy } from "react";
 
-import DangKiLichRanh from "../pages/dentist/DkLichRanh";
-import XemBenhAnCu from "../pages/dentist/XemBenhAnCu";
-import XemBenhAnMoi from "../pages/dentist/XemBenhAnMoi";
-import XemLichHenNS from "../pages/dentist/XemLichHen";
-import XemLichTruc from "../pages/dentist/XemLichTruc";
+
 import DentistPage from "~/pages/dentist";
-
+const DangKiLichRanh = lazy(() => import("~/pages/dentist/DkLichRanh"));
+const XemBenhAnCu = lazy(() => import("~/pages/dentist/XemBenhAnCu"));
+const XemBenhAnMoi = lazy(() => import("~/pages/dentist/XemBenhAnMoi"));
+const XemLichHenNS = lazy(() => import("~/pages/dentist/XemLichHen"));
+const XemLichTruc = lazy(() => import("~/pages/dentist/XemLichTruc"));
 
 const DentistRouter = [
   {
