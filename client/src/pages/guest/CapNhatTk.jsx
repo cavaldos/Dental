@@ -1,7 +1,7 @@
 const CapNhatTaiKhoan = () => {
   return (
     <>
-      <h1>Đặt lịch hẹn</h1>
+      <h1>Đặt lịch </h1>
     </>
   );
 };
