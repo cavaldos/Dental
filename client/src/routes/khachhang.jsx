@@ -3,8 +3,6 @@ import DefaultLayout from "~/components/layout/defaultLayout";
 
 import { lazy } from "react";
 
-
-
 import GuestPage from "~/pages/guest";
 const CapNhatTaiKhoan = lazy(() => import("../pages/guest/CapNhatTk"));
 const DatLichHen = lazy(() => import("../pages/guest/DatLichHen"));

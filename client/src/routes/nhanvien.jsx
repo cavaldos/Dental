@@ -1,8 +1,6 @@
 import AdminLayout from "~/components/layout/adminLayout";
 
 import { lazy } from "react";
-
-
 import StaffPage from "~/pages/staff";
 const DangKiTaiKhoanKhachHang = lazy(() => import("../pages/staff/DangKiTaiKhoanKH"));
 const XemLichHen = lazy(() => import("../pages/staff/XemLichHen"));

@@ -5,8 +5,8 @@ import {
   StaffRouter,
   DentistRouter,
 } from "~/routes";
-import NotfoundError from "~/components/err";
-import { Fragment, Suspense } from "react";
+import { Fragment, Suspense, lazy } from "react";
+
 import { useSelector } from "react-redux";
 import {
   BrowserRouter as Router,
@@ -14,6 +14,8 @@ import {
   Routes,
   Outlet,
 } from "react-router-dom";
+import Loading from "./components/err/loading";
+const NotfoundError = lazy(() => import("~/components/err"));
 
 import Test from "./test";
 function App() {
@@ -37,7 +39,7 @@ function App() {
     <>
       <Test />
       <Router>
-        <Suspense fallback={<div>Loading...</div>}>
+        <Suspense fallback={<Loading />}>
           <Routes>
             {VerifyRoure().map((route, index) => {
               const Layout = route.Layout === null ? Fragment : route.Layout;

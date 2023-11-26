@@ -5,18 +5,27 @@ import { useState } from "react";
 const { Search } = Input;
 
 const ChitietHoSoBenh = ({ searchResults }) => {
+  const hoSoBenh = {
+    Hoten: "Nguyen Van A",
+    sdt: "0123456789",
+    stt: "1",
+    Nhasi: "Nguyen Van B",
+    dando: "Dang dieu tri",
+  };
   return (
-    <div className=" mt-3 rounded-md border border-gray-300 mx-2 p-3">
-      <h1>ChitietHoSoBenh</h1>
-      <ul>
-        {searchResults.map((result, index) => (
-          <li key={index}>{result}</li>
-        ))}
-      </ul>
+    <div className=" mt-3 rounded-md border border-gray-300 mx-2 p-3 w-[50vw]">
+      <div className="flex justify-between">
+        <div className="flex flex-col">
+          <div className="text-lg font-bold">Ho Ten: {hoSoBenh.Hoten}</div>
+          <div className="text-lg font-bold">SDT: {hoSoBenh.sdt}</div>
+          <div className="text-lg font-bold">STT: {hoSoBenh.stt}</div>
+          <div className="text-lg font-bold">Nha Si: {hoSoBenh.Nhasi}</div>
+          <div className="text-lg font-bold">Tinh Trang: {hoSoBenh.dando}</div>
+        </div>
+      </div>
     </div>
   );
 };
-
 
 const HoSoBenh = () => {
   const [searchResults, setSearchResults] = useState([]);
