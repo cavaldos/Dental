@@ -55,7 +55,7 @@ const khachHangController = {
         return res.status(500).json({ error: 'Khong the ket noi db' });
       }
       const params = {};
-      params.MATHUOC = req.params.mathuoc;
+      params.MA_THUOC = req.params.mathuoc;
       const sp = 'SP_TRUYVANLOAITHUOC_KH';
       const result = await pool.executeSP(sp, params);
       return res.status(200).json(result);
