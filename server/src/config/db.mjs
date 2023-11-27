@@ -74,7 +74,7 @@ const poolConnect = async (loginType) => {
       }
       try {
         const result = await request.execute(procedureName);
-        return result.recordset;
+        return result.recordsets;
       } catch (error) {
         throw error;
       }
