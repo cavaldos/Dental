@@ -5,6 +5,9 @@ import { Table, Modal, Button, message } from "antd";
 import ColumnSearch from "~/hooks/useSortTable";
 import { useState } from "react";
 
+import '../../assets/styles/admin.css'
+import ButtonGreen from "../../components/button";
+
 const DichVuTable = ({ data }) => {
     const formatCurrency = (amount) => {
       const formattedAmount = amount.toLocaleString("vi-VN");
@@ -82,9 +85,8 @@ const ThemDichVuMoi = () => {
   };
   return (
     <>
-      <Button className="bg-green-600 mb-4" type="primary" onClick={showModal}>
-        Thêm Dịch Vụ Mới
-      </Button>
+      <ButtonGreen text="THÊM DỊCH VỤ MỚI" modal={showModal}></ButtonGreen>
+
       <Modal
         title="Tạo Nhân Viên Mới"
         open={isModalOpen}

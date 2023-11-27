@@ -29,12 +29,12 @@ const OnlineItem = [
     path: "/",
   },
   {
-    name: `Xem danh sách nha sĩ`,
-    path: "/xem-danh-sach-nha-si",
+    name: `Đội ngũ nha khoa`,
+    path: "/doi-ngu-nha-khoa",
   },
   {
-    name: "Xem danh sách dịch vụ",
-    path: "/xem-danh-sach-dich-vu",
+    name: "Bảng giá dịch vụ",
+    path: "/bang-gia-dich-vu",
   },
 ];
 const Menu = ({ name, path }) => {

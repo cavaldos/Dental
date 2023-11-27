@@ -10,7 +10,7 @@ export default {
     extend: {
       fontFamily: {
         nunito: ["Nunito", "sans-serif", "ui-sans-serif", "system-ui"],
-        montserrat: ["Monserrat", "sans-serif", "ui-sans-serif", "system-ui"],
+        montserrat: ["Montserrat", "sans-serif", "ui-sans-serif", "system-ui"],
       },
       colors: {
         primary: "#0D6EFD",
@@ -21,7 +21,8 @@ export default {
         info: "#0DCAF0",
         blu: "blue",
         ret: "red",
-        grin: "green",
+        grin: "#24A65F",
+        darkgrin: "#14703e",
         'grey': "#ACACAC"
       },
       screens: {
@@ -39,6 +40,12 @@ export default {
 
         "2xl": "1536px",
         // => @media (min-width: 1536px) { ... }
+      },
+      borderRadius: {
+        xl: "0.7rem", /* 12px */
+      },
+      padding: {
+        '2': '0.5rem',
       },
     },
   },

@@ -15,12 +15,12 @@ const OnlineRouter = [
     Layout: DefaultLayout,
   },
   {
-    path: "/xem-danh-sach-nha-si",
+    path: "/doi-ngu-nha-khoa",
     component: DanhSachNhaSi,
     Layout: DefaultLayout,
   },
   {
-    path: "/xem-danh-sach-dich-vu",
+    path: "/bang-gia-dich-vu",
     component: DanhSachDichVu,
     Layout: DefaultLayout,
   },

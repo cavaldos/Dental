@@ -4,6 +4,9 @@ import { Table, Modal, Button, message, Tag } from "antd";
 import ColumnSearch from "~/hooks/useSortTable";
 import { useState } from "react";
 
+import '../../assets/styles/admin.css'
+import ButtonGreen from "../../components/button";
+
 const NhaSiTable = ({ data }) => {
   const format = (text) => {
     const replacedText = text.replace(/\\n/g, "\n");
@@ -112,9 +115,8 @@ const ThemNhaSiMoi = () => {
   };
   return (
     <>
-      <Button className="bg-green-600 mb-4 " type="primary" onClick={showModal}>
-        Thêm Nha Sĩ Mới
-      </Button>
+      <ButtonGreen text="THÊM TÀI KHOẢN MỚI" modal={showModal}></ButtonGreen>
+
       <Modal
         title="Tạo Nha Sĩ Mới"
         open={isModalOpen}

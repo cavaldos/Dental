@@ -1,4 +1,4 @@
-import nhanvien from "../../fakedata/nhanvien";
+import qtv from "../../fakedata/qtv";
 import React, { useState } from "react";
 import { Table, Button, Tag, Modal } from "antd";
 import { SearchOutlined, EditOutlined } from "@ant-design/icons";
@@ -7,13 +7,13 @@ import ColumnSearch from "~/hooks/useSortTable";
 import '../../assets/styles/admin.css'
 import ButtonGreen from "../../components/button";
 
-const TableNhanVien = ({ staff }) => {
+const TableQTV = ({ admin }) => {
   const columns = [
     {
-      title: "Mã nhân viên",
-      dataIndex: "MANV",
-      key: "MANV",
-      ...ColumnSearch("MANV", "Mã nhân viên"),
+      title: "Mã QTV",
+      dataIndex: "MAQTV",
+      key: "MAQTV",
+      ...ColumnSearch("MAQTV", "Mã nhân viên"),
     },
     {
       title: "Họ tên",
@@ -25,31 +25,6 @@ const TableNhanVien = ({ staff }) => {
       title: "Giới tính",
       dataIndex: "PHAI",
       key: "PHAI",
-    },
-    {
-      title: "Vị trí công việc",
-      dataIndex: "VITRICV",
-      key: "VITRICV",
-      ...ColumnSearch("VITRICV", "Vị trí công việc"),
-    },
-    {
-      title: "Trạng thái",
-      key: "status",
-      render: (_, record) => {
-        const tags = record._DAKHOA ? ["Locked"] : ["Open"]; // Update with your custom status values
-        return (
-          <>
-            {tags.map((tag) => {
-              let color = tag === "Locked" ? "volcano" : "green"; // Customize colors based on status
-              return (
-                <Tag color={color} key={tag}>
-                  {tag.toUpperCase()}
-                </Tag>
-              );
-            })}
-          </>
-        );
-      },
     },
     {
       title: "Quản lí",
@@ -71,7 +46,7 @@ const TableNhanVien = ({ staff }) => {
     <>
       <Table
         columns={columns}
-        dataSource={staff.map((item, index) => ({ ...item, key: index }))}
+        dataSource={admin.map((item, index) => ({ ...item, key: index }))}
         pagination={true}
         bordered
         size="middle"
@@ -80,7 +55,7 @@ const TableNhanVien = ({ staff }) => {
   );
 };
 
-const TaoNhanVienMoi = () => {
+const TaoQTVMoi = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const showModal = () => {
     setIsModalOpen(true);
@@ -123,8 +98,8 @@ const QuanLiNV = () => {
   return (
     <>
       <div className=" w-full">
-        <TaoNhanVienMoi />
-        <TableNhanVien staff={nhanvien} />
+        <TaoQTVMoi />
+        <TableQTV admin={qtv} />
       </div>
     </>
   );

@@ -4,6 +4,8 @@ import { Table, Modal, Button, message, Tag } from "antd";
 import ColumnSearch from "~/hooks/useSortTable";
 import { useState } from "react";
 
+import '../../assets/styles/admin.css'
+
 const KhahHangTable = ({ data }) => {
   const formatDateString = (dateString) => {
     const date = new Date(dateString);
@@ -94,52 +96,10 @@ const KhahHangTable = ({ data }) => {
   );
 };
 
-const ThemKhachHangMoi = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const showModal = () => {
-    setIsModalOpen(true);
-  };
-  const handleOk = () => {
-    setIsModalOpen(false);
-  };
-  const handleCancel = () => {
-    setIsModalOpen(false);
-  };
-  return (
-    <>
-      <Button className="bg-green-600 mb-4" type="primary" onClick={showModal}>
-        Thêm Khách Hàng Mới
-      </Button>
-      <Modal
-        title="Tạo Khách Hàng Mới"
-        open={isModalOpen}
-        onOk={handleOk}
-        onCancel={handleCancel}
-        footer={[
-          <Button key="cancel" onClick={handleCancel}>
-            Hủy
-          </Button>,
-          <Button
-            key="ok"
-            type="primary"
-            onClick={handleOk}
-            className=" bg-blue-500"
-          >
-            OK
-          </Button>,
-        ]}
-      >
-        <p> Viet form tao khach hang moi trong day </p>
-      </Modal>
-    </>
-  );
-};
-
 const QuanliKH = () => {
   return (
     <>
       <div className=" w-full ">
-        <ThemKhachHangMoi />
         <KhahHangTable data={khachhang} />
       </div>
     </>

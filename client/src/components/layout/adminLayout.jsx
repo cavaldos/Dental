@@ -95,7 +95,7 @@ const AdminLayout = ({ children }) => {
           <Sidebar toggle={sidebarCollapsed} />
         </div>
         <div className="w-full  flex flex-col">
-          <div className="bg-gray-50 h-[70px] sticky top-0 flex justify-between items-center px-5 shadow-lg shadow-gray-500/50">
+          <div className="bg-gray-50 h-[70px] sticky top-0 flex justify-between items-center px-5 shadow-lg shadow-gray-500/50 z-50">
             <div className="flex items-center">
               <button className="" onClick={toggleSidebar}>
                 {sidebarCollapsed ? (
@@ -115,7 +115,7 @@ const AdminLayout = ({ children }) => {
           </div>
           {/* bg-[rgb(251,254,251)] */}
           {/* chinh mau o day */}
-          <div className=" bg-[rgb(251,254,251)] shadow-lg shadow-gray-400/400 flex justify-center  min-h-[89vh] m-5 rounded-lg p-4 overflow-y-auto with-z-index">
+          <div className=" bg-[rgb(251,254,251)] shadow-lg shadow-gray-400/400 flex justify-center  min-h-[89vh] m-5 rounded-lg p-4 overflow-y-auto z-0">
             {children}
           </div>
         </div>

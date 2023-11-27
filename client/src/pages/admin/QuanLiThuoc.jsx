@@ -14,6 +14,10 @@ import {
 import { SearchOutlined, EditOutlined } from "@ant-design/icons";
 import ColumnSearch from "~/hooks/useSortTable";
 import TextArea from "antd/es/input/TextArea";
+
+import '../../assets/styles/admin.css'
+import ButtonGreen from "../../components/button";
+
 const MedicineInfo = ({ medicine }) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
 
@@ -124,9 +128,11 @@ const MedicineInfo = ({ medicine }) => {
         open={isModalVisible}
         onCancel={handleCancel}
         footer={[
+
           <Button key="cancel" onClick={handleCancel}>
             Hủy
           </Button>,
+
           <Button
             className="bg-blue-500"
             key="submit"
@@ -310,9 +316,8 @@ const TaoThuocMoiButton = () => {
   };
   return (
     <>
-      <Button className="bg-green-600 mb-4" type="primary" onClick={showModal}>
-        Tạo Thuốc Mới
-      </Button>
+      <ButtonGreen text="THÊM THUỐC MỚI" modal={showModal}></ButtonGreen>
+
       <Modal
         title={<h1 className="text-2xl mb-3">Tạo Thuốc Mới</h1>}
         open={isModalOpen}

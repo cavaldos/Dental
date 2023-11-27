@@ -56,6 +56,11 @@ const menuAdmin = [
     icon: <AiOutlineMenuFold size={30} />,
     path: "/quan-li-khach-hang",
   },
+  {
+    name: "Quản lí quản trị viên",
+    icon: <AiOutlineMenuFold size={30} />,
+    path: "/quan-li-quan-tri-vien",
+  },
 ];
 
 const menuStaff = [

@@ -1,0 +1,9 @@
+.ant-table-thead .ant-table-cell {
+    background-color: #CAE1FF !important;
+    color: #1577FF !important;
+}
+
+.ant-table-cell {
+    font-size: x-small;
+    font-family: Montserrat;
+}
