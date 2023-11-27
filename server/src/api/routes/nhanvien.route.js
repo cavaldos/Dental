@@ -9,4 +9,7 @@ router.post("/hoaDon", nhanVienController.taoHoaDon);
 router.put("/xacNhanHoaDon", nhanVienController.xacNhanThanhToan);
 router.put("/matKhau", nhanVienController.doiMatKhau);
 router.get("/hoaDon/:sdt", nhanVienController.getHoaDon);
+router.get("/getAllThuoc", nhanVienController.getAllThuoc);
+router.get("/getAllDV", nhanVienController.getAllDV);
+
 export default router;

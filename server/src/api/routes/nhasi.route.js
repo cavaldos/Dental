@@ -11,5 +11,8 @@ router.put("/matKhau", nhaSiController.doiMatKhau);
 router.get("/caDu2NguoiTruc/:mans", nhaSiController.xemCaDu2NguoiTruc);
 router.get("/lichHen/:mans", nhaSiController.xemLichHen);
 router.get("/lichRanhChuaDuocDat/:mans", nhaSiController.xemLichRanhChuaDuocDat);
+router.get("/getAllThuoc", nhaSiController.getAllThuoc);
+router.get("/getAllDV", nhaSiController.getAllDV);
+
 
 export default router;
