@@ -9,6 +9,9 @@ router.get("/getAllQTV", qtvController.getQTV);
 router.get("/getAllKhachHang", qtvController.getKH);
 router.get("/getAllThuoc", qtvController.getAllThuoc);
 router.get("/getAllDV", qtvController.getAllDV);
+router.get("/getAllCa", qtvController.getAllCa);
+router.get("/getAllDSNhaSi", qtvController.getAllDSNS);
+
 
 
 export default router;
