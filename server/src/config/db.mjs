@@ -42,8 +42,8 @@ const poolConnect = async (loginType) => {
         logMessage = 'Login as NS';
         break;
       case 'QTV':
-        user = process.env.MSSQL_USERNAME_SERVER;
-        password = process.env.MSSQL_PASSWORD_SERVER;
+        user = process.env.MSSQL_USERNAME_QTV;
+        password = process.env.MSSQL_PASSWORD_QTV
         database = process.env.MSSQL_DATABASE;
         logMessage = 'Login as QTV';
         break;

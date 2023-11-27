@@ -39,9 +39,9 @@ const nhaSiController = {
       }
       const params = {};
       params.MANS = req.params.mans;
-      const sp = 'SP_XEMLICHRANHCHUADUOCDAT_NS';
+      const sp = 'SP_LICHRANHCHUADUOCDAT_NS';
       const result = await pool.executeSP(sp, params);
-      return res.status(200).json(result);
+      return res.status(200).json(result[0]);
     } catch (error) {
       console.error('An error occurred:', error.message);
       return res.status(500).json({ error: 'An error occurred while processing the request' });
