@@ -14,3 +14,8 @@ th.ant-table-cell::before{
 .ant-table-wrapper .ant-table-container table>thead>tr:first-child >*:first-child {
   border-start-start-radius: 0 !important;
 }
+
+.ant-table  
+{ 
+  font-family: 'Montserrat' !important; 
+}
