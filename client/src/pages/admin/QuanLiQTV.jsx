@@ -50,6 +50,7 @@ const TableQTV = ({ admin }) => {
         pagination={true}
         bordered
         size="middle"
+        scroll={{x: 1000,}}
       />
     </>
   );

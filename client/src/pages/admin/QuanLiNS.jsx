@@ -92,12 +92,12 @@ const NhaSiTable = ({ data }) => {
 
   return (
     <Table
-      className="table-striped w-full"
       columns={columns}
       dataSource={data.map((item, index) => ({ ...item, key: index }))}
       pagination={paginationOptions}
       bordered
       size="middle"
+      scroll={{x: 1000,}}
     />
   );
 };

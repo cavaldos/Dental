@@ -62,7 +62,6 @@ const DichVuTable = ({ data }) => {
   ];
   return (
     <Table
-      className="table-striped w-full"
       columns={columns}
       dataSource={data.map((item, index) => ({ ...item, key: index }))}
       pagination={true}

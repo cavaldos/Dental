@@ -19,11 +19,12 @@ export default {
         danger: "#DC3545",
         warning: "#FFC107",
         info: "#0DCAF0",
-        blu: "blue",
+        blue: "#1577FF",
         ret: "red",
         grin: "#24A65F",
         'grey': "#ACACAC",
-        '#4B4B4B':'#4B4B4B'
+        '#4B4B4B':"#4B4B4B",
+        'darkblue': "#204c8a",
       },
       screens: {
         sm: "640px",
