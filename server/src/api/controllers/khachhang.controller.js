@@ -1,4 +1,5 @@
 import { poolConnect } from "../../config/db.mjs";
+import lodash from 'lodash';
 const pool = await poolConnect('KH');
 
 
@@ -41,7 +42,7 @@ const khachHangController = {
       }
       const params = {};
       console.log();
-      const sp = 'SP_XEMLRCHUADATTATCANS_KH';
+      const sp = 'SP_LRCHUADATTATCANS_KH';
       const result = await pool.executeSP(sp, params);
       return res.status(200).json(result);
     } catch (error) {
@@ -70,7 +71,7 @@ const khachHangController = {
         return res.status(500).json({ error: 'Khong the ket noi db' });
       }
       const params = {};
-      params.MADV = req.params.madv;
+      params.MA_MADV = req.params.madv;
       const sp = 'SP_TRUYDICHVU_KH';
       const result = await pool.executeSP(sp, params);
       return res.status(200).json(result);
@@ -85,9 +86,8 @@ const khachHangController = {
         return res.status(500).json({ error: 'Khong the ket noi db' });
       }
       const params = {};
-      console.log(params);
-      params.SODT = req.params.sodt;
-      const sp = 'SP_TAOBENHAN_NS';
+      params.SDT = req.params.sdt;
+      const sp = 'SP_TRUYVANLICHHEN_KH';
       const result = await pool.executeSP(sp, params);
       return res.status(200).json(result);
     } catch (error) {

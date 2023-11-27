@@ -1,6 +1,7 @@
 import express from "express";
 import khachHangController from "../controllers/khachhang.controller.js";
 
+
 const router = express.Router();
 router.get("/lichRanh", khachHangController.xemLRChuaDatTatCaNS);
 router.get("/loaiThuoc/:mathuoc", khachHangController.xemThuoc);
