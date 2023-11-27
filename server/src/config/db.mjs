@@ -26,25 +26,25 @@ const poolConnect = async (loginType) => {
       case 'KH':
         user = process.env.MSSQL_USERNAME_KH;
         password = process.env.MSSQL_PASSWORD_KH;
-        database = process.env.MSSQL_DBNAME;
+        database = process.env.MSSQL_DATABASE;
         logMessage = 'Login as KH';
         break;
       case 'NV':
-        user = process.env.MSSQL_USERNAME_SYSADMIN;
-        password = process.env.MSSQL_PASSWORD_SYSADMIN;
-        database = process.env.MSSQL_DBNAME;
+        user = process.env.MSSQL_USERNAME_NV;
+        password = process.env.MSSQL_PASSWORD_NV;
+        database = process.env.MSSQL_DATABASE;
         logMessage = 'Login as NV';
         break;
       case 'NS':
         user = process.env.MSSQL_USERNAME_NS;
         password = process.env.MSSQL_PASSWORD_NS;
-        database = process.env.MSSQL_DBNAME;
+        database = process.env.MSSQL_DATABASE;
         logMessage = 'Login as NS';
         break;
       case 'QTV':
         user = process.env.MSSQL_USERNAME_SERVER;
         password = process.env.MSSQL_PASSWORD_SERVER;
-        database = process.env.MSSQL_DBNAME;
+        database = process.env.MSSQL_DATABASE;
         logMessage = 'Login as QTV';
         break;
       default:
