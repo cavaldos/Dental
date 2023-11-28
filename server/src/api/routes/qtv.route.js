@@ -3,7 +3,15 @@ import qtvController from "../controllers/qtv.controller.js";
 
 const router = express.Router();
 
-router.get("/getall", qtvController.getqtv);
+router.get("/getAllNhanVien", qtvController.getNV);
+router.get("/getAllNhaSi", qtvController.getNS);
+router.get("/getAllQTV", qtvController.getQTV);
+router.get("/getAllKhachHang", qtvController.getKH);
+router.get("/getAllThuoc", qtvController.getAllThuoc);
+router.get("/getAllDV", qtvController.getAllDV);
+router.get("/getAllCa", qtvController.getAllCa);
+router.get("/getAllDSNhaSi", qtvController.getAllDSNS);
+
 
 
 export default router;

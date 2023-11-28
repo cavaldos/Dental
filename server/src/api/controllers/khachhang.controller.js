@@ -14,7 +14,7 @@ const khachHangController = {
       params.SODT = req.params.sdt;
       const sp = 'SP_XEMTHONGTIN_KH';
       const result = await pool.executeSP(sp, params);
-      return res.status(200).json(result);
+      return res.status(200).json(result[0]);
     } catch (error) {
       console.error('An error occurred:', error.message);
       return res.status(500).json({ error: 'An error occurred while processing the request' });
@@ -41,10 +41,9 @@ const khachHangController = {
         return res.status(500).json({ error: 'Khong the ket noi db' });
       }
       const params = {};
-      console.log();
       const sp = 'SP_LRCHUADATTATCANS_KH';
       const result = await pool.executeSP(sp, params);
-      return res.status(200).json(result);
+      return res.status(200).json(result[0]);
     } catch (error) {
       console.error('An error occurred:', error.message);
       return res.status(500).json({ error: 'An error occurred while processing the request' });
@@ -59,7 +58,7 @@ const khachHangController = {
       params.MA_THUOC = req.params.mathuoc;
       const sp = 'SP_TRUYVANLOAITHUOC_KH';
       const result = await pool.executeSP(sp, params);
-      return res.status(200).json(result);
+      return res.status(200).json(result[0]);
     } catch (error) {
       console.error('An error occurred:', error.message);
       return res.status(500).json({ error: 'An error occurred while processing the request' });
@@ -74,7 +73,7 @@ const khachHangController = {
       params.MA_MADV = req.params.madv;
       const sp = 'SP_TRUYDICHVU_KH';
       const result = await pool.executeSP(sp, params);
-      return res.status(200).json(result);
+      return res.status(200).json(result[0]);
     } catch (error) {
       console.error('An error occurred:', error.message);
       return res.status(500).json({ error: 'An error occurred while processing the request' });
@@ -89,12 +88,53 @@ const khachHangController = {
       params.SDT = req.params.sdt;
       const sp = 'SP_TRUYVANLICHHEN_KH';
       const result = await pool.executeSP(sp, params);
-      return res.status(200).json(result);
+      return res.status(200).json(result[0]);
     } catch (error) {
       console.error('An error occurred:', error.message);
       return res.status(500).json({ error: 'An error occurred while processing the request' });
     }
   },
-
+  getAllDV: async (req, res) => {
+    try {
+      if (!pool) {
+        return res.status(500).json({ error: 'Khong the ket noi db' });
+      }
+      const params = null;
+      const sp = 'SP_XEMDANHSACHDICHVU_ALL';
+      const result = await pool.executeSP(sp, params);
+      return res.status(200).json(result[0]);
+    } catch (error) {
+      console.error('An error occurred:', error.message);
+      return res.status(500).json({ error: 'An error occurred while processing the request' });
+    }
+  },
+  getAllCa: async (req, res) => {
+    try {
+      if (!pool) {
+        return res.status(500).json({ error: 'Khong the ket noi db' });
+      }
+      const params = null;
+      const sp = 'SP_XEMCA_ALL';
+      const result = await pool.executeSP(sp, params);
+      return res.status(200).json(result[0]);
+    } catch (error) {
+      console.error('An error occurred:', error.message);
+      return res.status(500).json({ error: 'An error occurred while processing the request' });
+    }
+  },
+  getAllDSNS: async (req, res) => {
+    try {
+      if (!pool) {
+        return res.status(500).json({ error: 'Khong the ket noi db' });
+      }
+      const params = null;
+      const sp = 'SP_XEMDANHSACHNHASI_ALL';
+      const result = await pool.executeSP(sp, params);
+      return res.status(200).json(result[0]);
+    } catch (error) {
+      console.error('An error occurred:', error.message);
+      return res.status(500).json({ error: 'An error occurred while processing the request' });
+    }
+  },
 };
 export default khachHangController;
