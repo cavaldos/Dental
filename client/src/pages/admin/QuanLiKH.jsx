@@ -67,7 +67,7 @@ const KhahHangTable = ({ data }) => {
       title: "Quản lí",
       key: "action",
       fixed: 'right',
-      width: 90,
+      width: "10%",
       className: "px-[60px] min-w-[120px] ",
       render: (_, record) => {
         const handleAction = record._DAKHOA == 0 ? handleLock : handleUnlock;

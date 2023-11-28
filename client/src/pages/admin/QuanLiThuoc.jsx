@@ -10,8 +10,10 @@ import {
   Select,
   Checkbox,
   DatePicker,
+  Tag,
+  Space,
 } from "antd";
-import { SearchOutlined, EditOutlined } from "@ant-design/icons";
+import { SearchOutlined, EditOutlined, PlusCircleTwoTone, CloseCircleTwoTone } from "@ant-design/icons";
 import ColumnSearch from "~/hooks/useSortTable";
 import TextArea from "antd/es/input/TextArea";
 
@@ -49,12 +51,14 @@ const MedicineInfo = ({ medicine }) => {
       title: "Mã thuốc",
       dataIndex: "MATHUOC",
       key: "MATHUOC",
+      fixed: 'left',
       ...ColumnSearch("MATHUOC", "Mã thuốc"),
     },
     {
       title: "Tên thuốc",
       dataIndex: "TENTHUOC",
       key: "TENTHUOC",
+      fixed: 'left',
       ...ColumnSearch("TENTHUOC", "Tên thuốc"),
     },
     {
@@ -100,17 +104,26 @@ const MedicineInfo = ({ medicine }) => {
     {
       title: "Quản lí",
       key: "action",
+      fixed: 'right',
+      // width: "20%",
       render: (text, record) => (
-        <Button
-          onClick={() => handleEdit(record)}
-          className="bg-blue-600"
-          type="primary"
-          icon={<EditOutlined />}
-          size="small"
-          key={`edit-${record.MATHUOC}`}
-        >
-          Edit
-        </Button>
+        <Space size="middle">
+          <a 
+              className="text-blue font-montserrat hover:text-darkblue"
+              onClick={() => handleDelete(record.key)}> 
+              Hủy 
+          </a>
+          <a 
+              className="text-blue font-montserrat hover:text-darkblue"
+              onClick={() => handleAddMedicine(record.key)}>
+              Nhập kho
+          </a>
+          <a 
+              className="text-blue font-montserrat hover:text-darkblue"
+              onClick={() => handleUpdate(record.key)}>
+              Cập nhật
+          </a>
+        </Space>
       ),
     },
   ];
@@ -122,6 +135,8 @@ const MedicineInfo = ({ medicine }) => {
         pagination={true}
         bordered
         size="middle"
+        tableLayout="auto"
+        scroll={{x: "calc(900px + 50%)",}}
       />
       <Modal
         title="Chỉnh sửa thông tin thuốc"

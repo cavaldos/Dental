@@ -24,7 +24,8 @@ export default {
         grin: "#24A65F",
         'grey': "#ACACAC",
         '#4B4B4B':"#4B4B4B",
-        'darkblue': "#204c8a",
+        'darkblue': "#296dcd",
+        'lightblue': "#f0f7ff" // màu nền 
       },
       screens: {
         sm: "640px",

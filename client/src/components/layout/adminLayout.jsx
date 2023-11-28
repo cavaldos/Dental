@@ -115,7 +115,7 @@ const AdminLayout = ({ children }) => {
           </div>
           {/* bg-[rgb(251,254,251)] */}
           {/* chinh mau o day */}
-          <div className=" bg-[rgb(251,254,251)] shadow-lg shadow-gray-400/400 flex justify-center  min-h-[89vh] m-5 rounded-lg p-4 overflow-y-auto z-0">
+          <div className=" bg-lightblue flex justify-center  min-h-[89vh] p-8 overflow-y-auto z-0">
             {children}
           </div>
         </div>

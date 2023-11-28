@@ -1,6 +1,6 @@
 import nhanvien from "../../fakedata/nhanvien";
 import React, { useState } from "react";
-import { Table, Button, Tag, Modal } from "antd";
+import { Table, Button, Tag, Modal, Popconfirm} from "antd";
 import { SearchOutlined, EditOutlined } from "@ant-design/icons";
 import ColumnSearch from "~/hooks/useSortTable";
 
@@ -33,14 +33,15 @@ const TableNhanVien = ({ staff }) => {
       ...ColumnSearch("VITRICV", "Vị trí công việc"),
     },
     {
-      title: "Trạng thái",
-      key: "status",
+      title: "Tình trạng",
+      dataIndex: "_DAKHOA",
+      key: "_DAKHOA",
       render: (_, record) => {
-        const tags = record._DAKHOA ? ["Locked"] : ["Open"]; // Update with your custom status values
+        const tags = record._DAKHOA ? ["Đã khóa"] : ["Hoạt động"]; // Cập nhật với các giá trị trạng thái tùy chỉnh của bạn
         return (
           <>
             {tags.map((tag) => {
-              let color = tag === "Locked" ? "volcano" : "green"; // Customize colors based on status
+              let color = tag === "Đã khóa" ? "volcano" : "green"; // Tùy chỉnh màu sắc dựa trên trạng thái
               return (
                 <Tag color={color} key={tag}>
                   {tag.toUpperCase()}
@@ -54,19 +55,32 @@ const TableNhanVien = ({ staff }) => {
     {
       title: "Quản lí",
       key: "action",
-      render: (text, record) => (
-        <Button
-          className="bg-blue-600"
-          type="primary"
-        
-          icon={<EditOutlined />}
-          size="small"
-        >
-          Edit
-        </Button>
-      ),
+      fixed: 'right',
+      width: "10%",
+      className: "px-[60px] min-w-[120px] ",
+      render: (_, record) => {
+        const handleAction = record._DAKHOA == 0 ? handleLock : handleUnlock;
+        const buttonText = record._DAKHOA == 0 ? "Khóa" : "Mở khóa";
+    
+        return (
+          <Popconfirm title={`${buttonText} tài khoản này?`} onConfirm={() => handleAction(record.SODT)}>
+            <a className="text-blue hover:text-darkblue">{buttonText}</a>
+          </Popconfirm>
+        );
+      },
     },
   ];
+
+  const handleLock = (key) => {
+    const newData = dataSource.filter((item) => item.key !== key);
+    setDataSource(newData);
+  };
+
+  const handleUnlock = (key) => {
+    const newData = dataSource.filter((item) => item.key !== key);
+    setDataSource(newData);
+  };
+
   return (
     <>
       <Table
@@ -75,7 +89,7 @@ const TableNhanVien = ({ staff }) => {
         pagination={true}
         bordered
         size="middle"
-        scroll={{x: 1000,}}
+        scroll={{x: "max-content",}}
       />
     </>
   );
