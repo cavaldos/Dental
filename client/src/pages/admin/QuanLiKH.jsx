@@ -6,6 +6,7 @@ import { useState } from "react";
 
 import '../../assets/styles/admin.css'
 import { 
+  SearchOutlined,
   LockOutlined,
   UnlockOutlined,
 } from "@ant-design/icons";

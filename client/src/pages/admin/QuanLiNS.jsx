@@ -7,6 +7,7 @@ import { useState } from "react";
 import "../../assets/styles/admin.css";
 import ButtonGreen from "../../components/button";
 import { 
+    SearchOutlined,
     EditOutlined, 
     LockOutlined,
     UnlockOutlined,
@@ -75,8 +76,8 @@ const NhaSiTable = ({ data }) => {
             title: "Quản lí",
             key: "action",
             fixed: "right",
-            width: "9%",
-            className: "px-[60px] min-w-[120px] ",
+            width: "10%",
+            className: "px-[60px] min-w-[100px] ",
             render: (_, record) => {
                 const handleAction = record._DAKHOA == 0 ? handleLock : handleUnlock;
                 const buttonText = record._DAKHOA == 0 ? "Khóa" : "Mở khóa";

@@ -12,8 +12,10 @@ import {
   DatePicker,
   Tag,
   Space,
+  InputNumber,
 } from "antd";
 import { 
+  SearchOutlined,
   StopOutlined,
   PlusCircleOutlined,
   EditOutlined, 
@@ -255,68 +257,78 @@ const TaoThuocMoi = () => {
     setFormValues({});
     message.success("Đã xóa thông tin!");
   };
+
   return (
     <>
       <Form
         onSubmit={handleSubmit}
-        labelCol={{ span: 6 }}
-        wrapperCol={{ span: 18 }}
         form={form}
         name="registration-form"
+        layout="vertical"
         onFinish={handleSubmit}
         initialValues={formValues}
       >
         <Form.Item
           label="Tên thuốc"
           name="tenthuoc"
+          style={{ width: "100%" }}
           rules={[{ required: true, message: "Vui lòng nhập tên thuốc!" }]}
         >
-          <Input />
+          <Input placeholder="Tên thuốc."/>
         </Form.Item>
         <Form.Item
           label="Đơn vị tính"
           name="donvitinh"
-          rules={[{ required: true, message: "Vui lòng nhập đơn vị tính!" }]}
+          style={{ width: "100%" }}
+          rules={[{ required: true, message: "Vui lòng chọn đơn vị tính!" }]}
         >
-          <Input />
+          <Select placeholder="Chọn đơn vị tính.">
+            <Select.Option value="vien">Viên</Select.Option>
+            <Select.Option value="ong">Ống</Select.Option>
+            <Select.Option value="goi">Gói</Select.Option>
+            <Select.Option value="chai">Chai</Select.Option>
+          </Select>
         </Form.Item>
         <Form.Item
           label="Chỉ định"
           name="chidinh"
-          minLength={6}
-          rules={[{ required: true, message: "Vui lòng nhập chỉ định!" }]}
+          style={{ width: "100%" }}
+          rules={[{required: true, message: "Vui lòng nhập chỉ định!" }]}
         >
-          <TextArea />
+          <TextArea showCount minLength={10} maxLength={500} style={{ height: 120, }}
+              placeholder="Chỉ định sử dụng thuốc của nhà sản xuất."/>
         </Form.Item>
         <Form.Item
           label="Số lượng nhập"
           name="soluongnhap"
+          style={{ width: "100%" }}
           rules={[{ required: true, message: "Vui lòng nhập số lượng nhập!" }]}
         >
-          <Input />
+          <InputNumber min={10} placeholder="Số lượng thuốc dựa trên đơn vị tính."/>
         </Form.Item>
         <Form.Item
           label="Ngày hết hạn"
           name="ngayhethan"
+          style={{ width: "100%" }}
           rules={[{ required: true, message: "Vui lòng nhập ngày hết hạn!" }]}
         >
-          <DatePicker />
+          <DatePicker placeholder="Ngày hết hạn của thuốc." />
         </Form.Item>
         <Form.Item
           label="Đơn giá"
           name="dongia"
           placeholder="VND"
-          rules={[{ required: true, message: "Vui lòng nhập đơn giá!" }]}
+          style={{ width: "100%" }}
+          rules={[
+            { required: true, message: "Vui lòng nhập đơn giá!" }]}
         >
-          <Input />
+          <InputNumber min={500} placeholder="Đơn giá dựa trên đơn vị tính"/>
         </Form.Item>
-        <Form.Item>
-          <Button className="bg-blue-600 " type="primary" htmlType="submit">
-            Tạo
+        <Form.Item style={{ display: 'flex', justifyContent: 'flex-end' }}>
+          <Button onClick={handleReset} style={{ marginRight: 10 }} type="danger">
+            ĐẶT LẠI
           </Button>
-          <Button onClick={handleReset} style={{ marginLeft: 8 }} type="danger">
-            Hủy
-          </Button>
+          <ButtonGreen text="THÊM THUỐC" modal={""}></ButtonGreen>
         </Form.Item>
       </Form>
     </>
@@ -336,10 +348,10 @@ const TaoThuocMoiButton = () => {
   };
   return (
     <>
-      <ButtonGreen text="THÊM THUỐC MỚI" modal={showModal}></ButtonGreen>
+      <ButtonGreen text="THÊM LOẠI THUỐC MỚI" modal={showModal}></ButtonGreen>
 
       <Modal
-        title={<h1 className="text-2xl mb-3">Tạo Thuốc Mới</h1>}
+        title={<h1 className="font-montserrat text-lg mb-3 mt-2 font-extrabold">THÊM LOẠI THUỐC MỚI</h1>}
         open={isModalOpen}
         onCancel={handleCancel}
         footer={[]}

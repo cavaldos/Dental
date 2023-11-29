@@ -13,7 +13,7 @@ const TableQTV = ({ admin }) => {
             title: "Mã QTV",
             dataIndex: "MAQTV",
             key: "MAQTV",
-            ...ColumnSearch("MAQTV", "Mã nhân viên"),
+            ...ColumnSearch("MAQTV", "Mã QTV"),
         },
         {
             title: "Họ tên",

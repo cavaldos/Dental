@@ -1,11 +1,25 @@
 import nhanvien from "../../fakedata/nhanvien";
 import React, { useState } from "react";
-import { Table, Button, Tag, Modal, Popconfirm, Space} from "antd";
+import { 
+  Table, 
+  Button, 
+  Tag, 
+  Modal, 
+  Popconfirm, 
+  Form,
+  Input,
+  Select,
+  DatePicker,
+  Space,
+  InputNumber,
+} from "antd";
 import ColumnSearch from "~/hooks/useSortTable";
+import TextArea from "antd/es/input/TextArea";
 
 import '../../assets/styles/admin.css'
 import ButtonGreen from "../../components/button";
 import { 
+  SearchOutlined,
   EditOutlined, 
   LockOutlined,
   UnlockOutlined,
@@ -60,8 +74,8 @@ const TableNhanVien = ({ staff }) => {
       title: "Quản lí",
       key: "action",
       fixed: "right",
-      width: "9%",
-      className: "px-[60px] min-w-[120px] ",
+      width: "10%",
+      className: "px-[60px] min-w-[100px] ",
       render: (_, record) => {
           const handleAction = record._DAKHOA == 0 ? handleLock : handleUnlock;
           const buttonText = record._DAKHOA == 0 ? "Khóa" : "Mở khóa";
@@ -108,6 +122,70 @@ const TableNhanVien = ({ staff }) => {
 };
 
 const TaoNhanVienMoi = () => {
+  const [formValues, setFormValues] = useState({});
+  const [form] = Form.useForm();
+  const handleSubmit = (values) => {
+    console.log("Success:", values);
+    message.success("Đăng kí thành công!");
+    form.resetFields();
+    setFormValues({});
+  };
+
+  const handleReset = () => {
+    form.resetFields();
+    setFormValues({});
+    message.success("Đã xóa thông tin!");
+  };
+
+  return (
+    <>
+      { <Form
+        onSubmit={handleSubmit}
+        form={form}
+        name="registration-form"
+        layout="vertical"
+        onFinish={handleSubmit}
+        initialValues={formValues}
+      >
+        <Form.Item
+          label="Họ tên"
+          name="hoten"
+          style={{ width: "100%" }}
+          rules={[{ required: true, message: "Vui lòng nhập họ tên nhân viên!" }]}
+        >
+          <Input placeholder="Họ và tên nhân viên."/>
+        </Form.Item>
+        <Form.Item
+          label="Phái"
+          name="phai"
+          style={{ width: "100%" }}
+          rules={[{ required: true, message: "Vui lòng chọn giới tính!" }]}
+        >
+          <Select placeholder="Chọn giới tính.">
+            <Select.Option value="nam">Nam</Select.Option>
+            <Select.Option value="nu">Nữ</Select.Option>
+          </Select>
+        </Form.Item>
+        <Form.Item
+          label="Vị trí công việc"
+          name="vitricongviec"
+          style={{ width: "100%" }}
+          rules={[{ required: true, message: "Vui lòng nhập vị trí công việc!" }]}
+        >
+          <Input placeholder="Vị trí công việc phụ trách."/>
+        </Form.Item>
+        <Form.Item style={{ display: 'flex', justifyContent: 'flex-end' }}>
+          <Button onClick={handleReset} style={{ marginRight: 10 }} type="danger">
+            ĐẶT LẠI
+          </Button>
+          <ButtonGreen text="TẠO" modal={""}></ButtonGreen>
+        </Form.Item>
+      </Form> }
+    </>
+  );
+};
+
+const TaoNhanVienMoiButton = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const showModal = () => {
     setIsModalOpen(true);
@@ -120,28 +198,15 @@ const TaoNhanVienMoi = () => {
   };
   return (
     <>
-      <ButtonGreen text="THÊM TÀI KHOẢN MỚI" modal={showModal}></ButtonGreen>
+      <ButtonGreen text="THÊM NHÂN VIÊN MỚI" modal={showModal}></ButtonGreen>
 
       <Modal
-        title="Tạo Nhân Viên Mới"
+        title={<h1 className="font-montserrat text-lg mb-3 mt-2 font-extrabold">THÊM NHÂN VIÊN MỚI</h1>}
         open={isModalOpen}
-        onOk={handleOk}
         onCancel={handleCancel}
-        footer={[
-          <Button key="cancel" onClick={handleCancel}>
-            Hủy
-          </Button>,
-          <Button
-            key="ok"
-            type="primary"
-            onClick={handleOk}
-            className=" bg-blue-500"
-          >
-            OK
-          </Button>,
-        ]}
+        footer={[]}
       >
-        <p> Viet form tao nhan vien moi trong day </p>
+        <TaoNhanVienMoi />
       </Modal>
     </>
   );
@@ -150,7 +215,7 @@ const QuanLiNV = () => {
   return (
     <>
       <div className=" w-full">
-        <TaoNhanVienMoi />
+        <TaoNhanVienMoiButton />
         <TableNhanVien staff={nhanvien} />
       </div>
     </>
