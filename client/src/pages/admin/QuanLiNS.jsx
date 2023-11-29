@@ -1,11 +1,16 @@
 import nhasi from "../../fakedata/nhasi";
 import React from "react";
-import { Table, Modal, Button, message, Tag, Popconfirm} from "antd";
+import { Table, Modal, Button, message, Tag, Popconfirm, Space} from "antd";
 import ColumnSearch from "~/hooks/useSortTable";
 import { useState } from "react";
 
 import "../../assets/styles/admin.css";
 import ButtonGreen from "../../components/button";
+import { 
+    EditOutlined, 
+    LockOutlined,
+    UnlockOutlined,
+} from "@ant-design/icons";
 
 const NhaSiTable = ({ data }) => {
     const format = (text) => {
@@ -23,22 +28,21 @@ const NhaSiTable = ({ data }) => {
             title: "Mã NS",
             dataIndex: "MANS",
             key: "MANS",
-            className: "text-center px-[60px] min-w-[100px] ",
+            className: "px-[60px] min-w-[100px] ",
             ...ColumnSearch("MANS", "Mã NS"),
         },
         {
             title: "Họ và tên",
             dataIndex: "HOTEN",
             key: "HOTEN",
-            className: "text-center px-[60px] min-w-[100px] ",
-
+            className: "px-[60px] min-w-[100px] ",
             ...ColumnSearch("HOTEN", "Họ và tên"),
         },
         {
             title: "Giới tính",
             dataIndex: "PHAI",
             key: "PHAI",
-            className: "text-center px-[60px] min-w-[100px] ",
+            className: "px-[60px] min-w-[100px] ",
         },
         {
             title: "Giới thiệu",
@@ -71,16 +75,24 @@ const NhaSiTable = ({ data }) => {
             title: "Quản lí",
             key: "action",
             fixed: "right",
-            width: "10%",
+            width: "9%",
             className: "px-[60px] min-w-[120px] ",
             render: (_, record) => {
                 const handleAction = record._DAKHOA == 0 ? handleLock : handleUnlock;
                 const buttonText = record._DAKHOA == 0 ? "Khóa" : "Mở khóa";
+                const buttonIcon = record._DAKHOA == 0 ? <LockOutlined /> : <UnlockOutlined />;
 
                 return (
+                    <Space size="middle">
+                    <a 
+                        className="text-blue font-montserrat text-sm hover:text-darkblue"
+                        onClick={() => handleUpdate(record.key)}>
+                        <EditOutlined/>
+                    </a>
                     <Popconfirm title={`${buttonText} tài khoản này?`} onConfirm={() => handleAction(record.SODT)}>
-                        <a className="text-blue hover:text-darkblue">{buttonText}</a>
+                        <a className="text-blue font-montserrat text-sm hover:text-darkblue">{buttonIcon}</a>
                     </Popconfirm>
+                    </Space>
                 );
             },
         },

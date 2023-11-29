@@ -7,6 +7,9 @@ import { useState } from "react";
 
 import '../../assets/styles/admin.css'
 import ButtonGreen from "../../components/button";
+import { 
+  EditOutlined, 
+} from "@ant-design/icons";
 
 const DichVuTable = ({ data }) => {
     const formatCurrency = (amount) => {
@@ -20,7 +23,7 @@ const DichVuTable = ({ data }) => {
       dataIndex: "MADV",
       key: "MADV",
       fixed: "left",
-      className: "text-center px-[60px] min-w-[120px] ",
+      className: "px-[60px] min-w-[120px] ",
       ...ColumnSearch("MADV", "Mã Dich vụ"),
     },
     {
@@ -48,13 +51,13 @@ const DichVuTable = ({ data }) => {
       title: "Quản lí",
       key: "action",
       fixed: 'right',
-      // width: "20%",
+      width: "6%",
       render: (text, record) => (
         <Space size="middle">
           <a 
-              className="text-blue font-montserrat hover:text-darkblue"
+              className="text-blue font-montserrat text-sm hover:text-darkblue"
               onClick={() => handleUpdate(record.key)}>
-              Cập nhật
+              <EditOutlined/>
           </a>
         </Space>
       ),

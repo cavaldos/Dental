@@ -25,7 +25,10 @@ export default {
         'grey': "#ACACAC",
         '#4B4B4B':"#4B4B4B",
         'darkblue': "#296dcd",
-        'lightblue': "#f0f7ff" // màu nền 
+        'lightblue': "#f0f7ff", // màu nền 
+        'orange': "#ff7f16",
+        'darkgrin': "#15663a",
+        'darkorange': "#d1660e",
       },
       screens: {
         sm: "640px",

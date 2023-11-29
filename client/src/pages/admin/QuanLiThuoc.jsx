@@ -13,7 +13,12 @@ import {
   Tag,
   Space,
 } from "antd";
-import { SearchOutlined, EditOutlined, PlusCircleTwoTone, CloseCircleTwoTone } from "@ant-design/icons";
+import { 
+  StopOutlined,
+  PlusCircleOutlined,
+  EditOutlined, 
+} from "@ant-design/icons";
+
 import ColumnSearch from "~/hooks/useSortTable";
 import TextArea from "antd/es/input/TextArea";
 
@@ -109,19 +114,19 @@ const MedicineInfo = ({ medicine }) => {
       render: (text, record) => (
         <Space size="middle">
           <a 
-              className="text-blue font-montserrat hover:text-darkblue"
+              className="text-orange font-montserrat hover:text-darkorange hover:underline"
               onClick={() => handleDelete(record.key)}> 
-              Hủy 
+              <StopOutlined/> Hủy
           </a>
           <a 
-              className="text-blue font-montserrat hover:text-darkblue"
+              className="text-grin font-montserrat hover:text-darkgrin hover:underline"
               onClick={() => handleAddMedicine(record.key)}>
-              Nhập kho
+              <PlusCircleOutlined /> Nhập kho
           </a>
           <a 
               className="text-blue font-montserrat hover:text-darkblue"
               onClick={() => handleUpdate(record.key)}>
-              Cập nhật
+              <EditOutlined/>
           </a>
         </Space>
       ),
