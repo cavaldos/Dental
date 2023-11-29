@@ -2,6 +2,31 @@ import { Button, Calendar, Select } from "antd";
 import { lichhen4 } from "~/fakedata/lhnv";
 import React, { useState } from "react";
 
+
+const Time = ({ time, status }) => {
+  switch (status) {
+    case "full":
+      return <Button disabled>{time}</Button>;
+    case "empty":
+      return (
+        <Button className="border border-blue-600" type="dashed">
+          {time}
+        </Button>
+      );
+    case "waiting":
+      return <Button className="bg-blue-500 hover:text-black">{time}</Button>;
+    case "ordered":
+      return (
+        <Button className="" type="primary" danger>
+          {time}
+        </Button>
+      );
+    default:
+      return <Button className="bg-blue-500">{time}</Button>;
+  }
+};
+
+
 const defaultTime = {
   MACA: [
     {
@@ -30,30 +55,9 @@ const defaultTime = {
     },
   ],
 };
-
-const Time = ({ time, status }) => {
-  switch (status) {
-    case "full":
-      return <Button disabled>{time}</Button>;
-    case "empty":
-      return (
-        <Button className="border border-blue-600" type="dashed">
-          {time}
-        </Button>
-      );
-    case "waiting":
-      return <Button className="bg-blue-500 hover:text-black">{time}</Button>;
-    case "ordered":
-      return (
-        <Button className="" type="primary" danger>
-          {time}
-        </Button>
-      );
-    default:
-      return <Button className="bg-blue-500">{time}</Button>;
-  }
-};
 const Days = ({ ngay, lichhen }) => {
+
+
   return (
     <>
       <div className=" flex flex-col gap-1 mx-1 ">
@@ -88,13 +92,14 @@ const LichHenComponent = () => {
   const currentMonth = now.getMonth() + 1; // Tháng bắt đầu từ 0
   const currentDay = now.getDate();
   console.log(`${currentDay}-${currentMonth}-${currentYear}`);
+  const lichHenToDisplay = lichhen4.slice(0, 3); // Chỉ lấy tối đa 7 lịch hẹn
 
   return (
     <>
       <div className=" bg-gray-200 rounded-md h-[500px]">
         <h1 className="text-2xl my-4 ml-4">Dang Ki Lich Truc </h1>
         <div className="  min-w-[800px] p-2 flex   ">
-          {lichhen4.map((day, index) => (
+          {lichHenToDisplay.map((day, index) => (
             <Days key={index} ngay={day.NGAY} lichhen={day.MACA} />
           ))}
         </div>

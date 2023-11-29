@@ -630,7 +630,7 @@ const lichhen3 = [
 
 const lichhen4 = [
   {
-    NGAY: "28 tháng 11, 2023",
+    NGAY: "29-11-2023",
     MACA: [
       {
         MACA: "CA002",
@@ -659,7 +659,7 @@ const lichhen4 = [
     ],
   },
   {
-    NGAY: "29 tháng 11, 2023",
+    NGAY: "30-11-2023",
     MACA: [
       {
         MACA: "CA002",
@@ -688,7 +688,7 @@ const lichhen4 = [
     ],
   },
   {
-    NGAY: "3 tháng 1, 2024",
+    NGAY: "3-12-2023",
     MACA: [
       {
         MACA: "CA001",
@@ -717,7 +717,7 @@ const lichhen4 = [
     ],
   },
   {
-    NGAY: "4 tháng 1, 2024",
+    NGAY: "4-12-2023",
     MACA: [
       {
         MACA: "CA004",
@@ -746,7 +746,7 @@ const lichhen4 = [
     ],
   },
   {
-    NGAY: "5 tháng 1, 2024",
+    NGAY: "5-12-2023",
     MACA: [
       {
         MACA: "CA002",
@@ -775,7 +775,7 @@ const lichhen4 = [
     ],
   },
   {
-    NGAY: "6 tháng 1, 2024",
+    NGAY: "6-12-2023",
     MACA: [
       {
         MACA: "CA005",
@@ -804,7 +804,7 @@ const lichhen4 = [
     ],
   },
   {
-    NGAY: "6 tháng 1, 2024",
+    NGAY: "7-12-2023",
     MACA: [
       {
         MACA: "CA005",
