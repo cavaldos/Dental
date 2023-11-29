@@ -25,8 +25,15 @@ const khachHangController = {
       if (!pool) {
         return res.status(500).json({ error: 'Khong the ket noi db' });
       }
-      const params = req.body;
+      const params ={}
       params.SODT = req.params.sdt;
+      params.HOTEN = req.body.hoten;
+      params.PHAI = req.body.phai;
+      params.NGAYSINH = req.body.ngaysinh;
+      params.DIACHI = req.body.diachi;
+      params.MAT_KHAU_CU = req.body.matkhaucu;
+      params.MAT_KHAU_MOI = req.body.matkhaumoi;
+
       const sp = 'SP_CAPNHATTHONGTIN_KH';
       const result = await pool.executeSP(sp, params);
       return res.status(200).json({success: true});
@@ -131,6 +138,27 @@ const khachHangController = {
       const sp = 'SP_XEMDANHSACHNHASI_ALL';
       const result = await pool.executeSP(sp, params);
       return res.status(200).json(result[0]);
+    } catch (error) {
+      console.error('An error occurred:', error.message);
+      return res.status(500).json({ error: 'An error occurred while processing the request' });
+    }
+  },
+  taoTKKH: async (req, res) => {
+    try {
+      if (!pool) {
+        return res.status(500).json({ error: 'Khong the ket noi db' });
+      }
+      const params = {};
+      params.SODT = req.body.sdt;
+      params.HOTEN = req.body.hoten;
+      params.PHAI = req.body.phai;
+      params.NGAYSINH = req.body.ngaysinh;
+      params.DIACHI = req.body.diachi;
+      params.MATKHAU = req.body.matkhau;
+
+      const sp = 'SP_TAOTKKH_KH';
+      const result = await pool.executeSP(sp, params);
+      return res.status(200).json({ success: true });
     } catch (error) {
       console.error('An error occurred:', error.message);
       return res.status(500).json({ error: 'An error occurred while processing the request' });

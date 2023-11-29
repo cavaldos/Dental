@@ -8,15 +8,12 @@ import IP from "./config/ip.js";
 
 import AllRouters from "./api/routes/index.js";
 
-
-AllRouters(app);
+dotenv.config();
 
 app.use(express.json());
-dotenv.config();
 app.use(morgan("tiny"));
-
 app.use(cors());
-app.use(express.urlencoded({ extended: true }));
+AllRouters(app);
 // ==========================================
 const port = process.env.PORT || 4000;
 const host = "0.0.0.0";
