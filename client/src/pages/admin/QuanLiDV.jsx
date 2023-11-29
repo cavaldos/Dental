@@ -1,7 +1,7 @@
 
 import dv from "../../fakedata/dv";
 import React from "react";
-import { Table, Modal, Button, message } from "antd";
+import { Table, Modal, Button, message, Space } from "antd";
 import ColumnSearch from "~/hooks/useSortTable";
 import { useState } from "react";
 
@@ -19,6 +19,7 @@ const DichVuTable = ({ data }) => {
       title: "Mã Dich vụ",
       dataIndex: "MADV",
       key: "MADV",
+      fixed: "left",
       className: "text-center px-[60px] min-w-[120px] ",
       ...ColumnSearch("MADV", "Mã Dich vụ"),
     },
@@ -26,6 +27,7 @@ const DichVuTable = ({ data }) => {
       title: "Tên dich vụ",
       dataIndex: "TENDV",
       key: "TENDV",
+      fixed: "left",
       ...ColumnSearch("TENDV", "Tên dich vụ"),
     },
     {
@@ -45,29 +47,28 @@ const DichVuTable = ({ data }) => {
     {
       title: "Quản lí",
       key: "action",
-      className: "text-center px-[60px] min-w-[120px] ",
+      fixed: 'right',
+      // width: "20%",
       render: (text, record) => (
-        <Button
-          className="bg-blue-600"
-          type="primary"
-          size="small"
-          onClick={
-            () => message.info(`Edit ${record.TENDV}`)
-          }
-        >
-          Sửa
-        </Button>
+        <Space size="middle">
+          <a 
+              className="text-blue font-montserrat hover:text-darkblue"
+              onClick={() => handleUpdate(record.key)}>
+              Cập nhật
+          </a>
+        </Space>
       ),
-    }
+    },
   ];
   return (
     <Table
-      className="table-striped w-full"
       columns={columns}
       dataSource={data.map((item, index) => ({ ...item, key: index }))}
       pagination={true}
       bordered
       size="middle"
+      tableLayout="auto"
+      scroll={{x: "calc(900px + 50%)",}}
     />
   );
 };

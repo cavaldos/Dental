@@ -7,3 +7,23 @@
     font-size: x-small;
     font-family: Montserrat;
 }
+
+.ant-popover-content {
+    font-family: Montserrat;
+}
+.ant-popover-inner {
+    padding: 1em !important;
+}
+.ant-popconfirm-title {
+    font-weight: 600 !important;
+}
+.ant-btn {
+    font-weight: 600 !important;
+}
+.ant-btn-primary {
+    color: white;
+    background-color: #1577FF;
+}
+.ant-btn-primary:hover {
+    background-color: #296dcd !important;
+}
