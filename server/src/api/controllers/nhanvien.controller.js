@@ -68,7 +68,10 @@ const nhanVienController = {
       if (!pool) {
         return res.status(500).json({ error: 'Khong the ket noi db' });
       }
-      const params = req.body;
+      const params = {};
+      params.SODT = req.body.sdt;
+      params.SOTT = req.body.stt;
+
       const sp = 'SP_THANHTOANHOADON_NV';
       const result = await pool.executeSP(sp, params);
       return res.status(200).json({ success: true });
@@ -86,7 +89,8 @@ const nhanVienController = {
       params.SODT = req.params.sdt;
       const sp = 'SP_GETHOADON1KH_NV';
       const result = await pool.executeSP(sp, params);
-      return res.status(200).json(result[0]);
+      const groupedResult = groupHD(result[0]);
+      return res.status(200).json(groupedResult);
     } catch (error) {
       console.error('An error occurred:', error.message);
       return res.status(500).json({ error: 'An error occurred while processing the request' });
@@ -97,8 +101,12 @@ const nhanVienController = {
       if (!pool) {
         return res.status(500).json({ error: 'Khong the ket noi db' });
       }
-      const params = req.body;
-      const sp = 'SP_DOIMATKHAU_NV';
+      const params = {};
+      params.MANV = req.body.manv;
+      params.MATKHAUCU = req.body.matkhaucu;
+      params.MATKHAUMOI = req.body.matkhaumoi;
+
+      const sp = 'SP_DOIMK_NV';
       const result = await pool.executeSP(sp, params);
       return res.status(201).json({ success: true });
     } catch (error) {
