@@ -626,4 +626,211 @@ const lichhen3 = [
     SODT: null,
   },
 ];
-export { lichhen, lichhen2, lichhen3 };
+
+
+const lichhen4 = [
+  {
+    NGAY: "28 tháng 11, 2023",
+    MACA: [
+      {
+        MACA: "CA002",
+        STATUS: "full",
+      },
+      {
+        MACA: "CA003",
+        STATUS: "full",
+      },
+      {
+        MACA: "CA001",
+        STATUS: "full",
+      },
+      {
+        MACA: "CA004",
+        STATUS: "waiting",
+      },
+      {
+        MACA: "CA006",
+        STATUS: "full",
+      },
+      {
+        MACA: "CA005",
+        STATUS: "ordered",
+      },
+    ],
+  },
+  {
+    NGAY: "29 tháng 11, 2023",
+    MACA: [
+      {
+        MACA: "CA002",
+        STATUS: "full",
+      },
+      {
+        MACA: "CA004",
+        STATUS: "full",
+      },
+      {
+        MACA: "CA001",
+        STATUS: "empty",
+      },
+      {
+        MACA: "CA003",
+        STATUS: "empty",
+      },
+      {
+        MACA: "CA005",
+        STATUS: "empty",
+      },
+      {
+        MACA: "CA006",
+        STATUS: "empty",
+      },
+    ],
+  },
+  {
+    NGAY: "3 tháng 1, 2024",
+    MACA: [
+      {
+        MACA: "CA001",
+        STATUS: "full",
+      },
+      {
+        MACA: "CA005",
+        STATUS: "full",
+      },
+      {
+        MACA: "CA002",
+        STATUS: "empty",
+      },
+      {
+        MACA: "CA003",
+        STATUS: "empty",
+      },
+      {
+        MACA: "CA004",
+        STATUS: "empty",
+      },
+      {
+        MACA: "CA006",
+        STATUS: "empty",
+      },
+    ],
+  },
+  {
+    NGAY: "4 tháng 1, 2024",
+    MACA: [
+      {
+        MACA: "CA004",
+        STATUS: "full",
+      },
+      {
+        MACA: "CA006",
+        STATUS: "full",
+      },
+      {
+        MACA: "CA001",
+        STATUS: "empty",
+      },
+      {
+        MACA: "CA002",
+        STATUS: "empty",
+      },
+      {
+        MACA: "CA003",
+        STATUS: "empty",
+      },
+      {
+        MACA: "CA005",
+        STATUS: "empty",
+      },
+    ],
+  },
+  {
+    NGAY: "5 tháng 1, 2024",
+    MACA: [
+      {
+        MACA: "CA002",
+        STATUS: "full",
+      },
+      {
+        MACA: "CA001",
+        STATUS: "empty",
+      },
+      {
+        MACA: "CA003",
+        STATUS: "empty",
+      },
+      {
+        MACA: "CA004",
+        STATUS: "empty",
+      },
+      {
+        MACA: "CA005",
+        STATUS: "empty",
+      },
+      {
+        MACA: "CA006",
+        STATUS: "empty",
+      },
+    ],
+  },
+  {
+    NGAY: "6 tháng 1, 2024",
+    MACA: [
+      {
+        MACA: "CA005",
+        STATUS: "full",
+      },
+      {
+        MACA: "CA006",
+        STATUS: "full",
+      },
+      {
+        MACA: "CA001",
+        STATUS: "empty",
+      },
+      {
+        MACA: "CA002",
+        STATUS: "empty",
+      },
+      {
+        MACA: "CA003",
+        STATUS: "empty",
+      },
+      {
+        MACA: "CA004",
+        STATUS: "empty",
+      },
+    ],
+  },
+  {
+    NGAY: "6 tháng 1, 2024",
+    MACA: [
+      {
+        MACA: "CA005",
+        STATUS: "full",
+      },
+      {
+        MACA: "CA006",
+        STATUS: "full",
+      },
+      {
+        MACA: "CA001",
+        STATUS: "empty",
+      },
+      {
+        MACA: "CA002",
+        STATUS: "empty",
+      },
+      {
+        MACA: "CA003",
+        STATUS: "empty",
+      },
+      {
+        MACA: "CA004",
+        STATUS: "empty",
+      },
+    ],
+  },
+];
+export { lichhen, lichhen2, lichhen3, lichhen4 };
