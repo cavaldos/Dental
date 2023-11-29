@@ -198,10 +198,10 @@ const TaoNhanVienMoiButton = () => {
   };
   return (
     <>
-      <ButtonGreen text="THÊM NHÂN VIÊN MỚI" modal={showModal}></ButtonGreen>
+      <ButtonGreen text="TẠO TÀI KHOẢN MỚI" modal={showModal}></ButtonGreen>
 
       <Modal
-        title={<h1 className="font-montserrat text-lg mb-3 mt-2 font-extrabold">THÊM NHÂN VIÊN MỚI</h1>}
+        title={<h1 className="font-montserrat text-lg mb-3 mt-2 font-extrabold">TẠO TÀI KHOẢN NHÂN VIÊN</h1>}
         open={isModalOpen}
         onCancel={handleCancel}
         footer={[]}

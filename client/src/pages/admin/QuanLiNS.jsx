@@ -1,9 +1,24 @@
 import nhasi from "../../fakedata/nhasi";
 import React from "react";
-import { Table, Modal, Button, message, Tag, Popconfirm, Space} from "antd";
+import { 
+    Table, 
+    Modal, 
+    Button, 
+    message, 
+    Tag, 
+    Popconfirm, 
+    Space,
+    Form,
+    Input,
+    Select,
+    Checkbox,
+    DatePicker,
+    InputNumber,
+} from "antd";
 import ColumnSearch from "~/hooks/useSortTable";
 import { useState } from "react";
 
+import TextArea from "antd/es/input/TextArea";
 import "../../assets/styles/admin.css";
 import ButtonGreen from "../../components/button";
 import { 
@@ -125,7 +140,74 @@ const NhaSiTable = ({ data }) => {
     />;
 };
 
+
 const ThemNhaSiMoi = () => {
+    const [formValues, setFormValues] = useState({});
+    const [form] = Form.useForm();
+    const handleSubmit = (values) => {
+      console.log("Success:", values);
+      message.success("Đăng kí thành công!");
+      form.resetFields();
+      setFormValues({});
+    };
+  
+    const handleReset = () => {
+      form.resetFields();
+      setFormValues({});
+      message.success("Đã xóa thông tin!");
+    };
+  
+    return (
+      <>
+        <Form
+          onSubmit={handleSubmit}
+          form={form}
+          name="registration-form"
+          layout="vertical"
+          onFinish={handleSubmit}
+          initialValues={formValues}
+        >
+          <Form.Item
+          label="Họ tên"
+          name="hoten"
+          style={{ width: "100%" }}
+          rules={[{ required: true, message: "Vui lòng nhập họ tên nha sĩ!" }]}
+        >
+          <Input placeholder="Họ và tên nha sĩ."/>
+        </Form.Item>
+        <Form.Item
+          label="Phái"
+          name="phai"
+          style={{ width: "100%" }}
+          rules={[{ required: true, message: "Vui lòng chọn giới tính!" }]}
+        >
+          <Select placeholder="Chọn giới tính.">
+            <Select.Option value="nam">Nam</Select.Option>
+            <Select.Option value="nu">Nữ</Select.Option>
+          </Select>
+        </Form.Item>
+          <Form.Item
+            label="Giới thiệu"
+            name="gioithieu"
+            style={{ width: "100%" }}
+            rules={[{required: true, message: "Vui lòng nhập giới thiệu!" }]}
+          >
+            <TextArea showCount minLength={10} maxLength={500} style={{ height: 120, }}
+                placeholder="Giới thiệu về học vấn, kinh nghiệm của nha sĩ."/>
+          </Form.Item>
+          <Form.Item style={{ display: 'flex', justifyContent: 'flex-end'  }}>
+            <Button onClick={handleReset} style={{ marginRight: 10 }} type="danger">
+              ĐẶT LẠI
+            </Button>
+            <ButtonGreen text="TẠO" modal={""}></ButtonGreen>
+          </Form.Item>
+        </Form>
+      </>
+    );
+};
+
+
+const ThemNhaSiMoiButton = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const showModal = () => {
         setIsModalOpen(true);
@@ -138,23 +220,15 @@ const ThemNhaSiMoi = () => {
     };
     return (
         <>
-            <ButtonGreen text="THÊM TÀI KHOẢN MỚI" modal={showModal}></ButtonGreen>
+            <ButtonGreen text="TẠO TÀI KHOẢN MỚI" modal={showModal}></ButtonGreen>
 
             <Modal
-                title="Tạo Nha Sĩ Mới"
+                title={<h1 className="font-montserrat text-lg mb-3 mt-2 font-extrabold">TẠO TÀI KHOẢN NHA SĨ</h1>}
                 open={isModalOpen}
-                onOk={handleOk}
                 onCancel={handleCancel}
-                footer={[
-                    <Button key="cancel" onClick={handleCancel}>
-                        Hủy
-                    </Button>,
-                    <Button key="ok" type="primary" onClick={handleOk} className=" bg-blue-500">
-                        OK
-                    </Button>,
-                ]}
+                footer={[]}
             >
-                <p> Viet form tao nha si moi trong day </p>
+                <ThemNhaSiMoi />
             </Modal>
         </>
     );
@@ -164,7 +238,7 @@ const QuanliNS = () => {
     return (
         <>
             <div className=" w-full z-0">
-                <ThemNhaSiMoi />
+                <ThemNhaSiMoiButton />
                 <NhaSiTable data={nhasi} />
             </div>
         </>
