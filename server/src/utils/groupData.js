@@ -3,7 +3,7 @@ const groupHD = (data) => {
     const ketQua = {};
 
     data.forEach(item => {
-        const key = `${item.HOTENKH}_${item.SODT}_${item.SOTTHD}_${item.NGAYXUAT}_${item.TONGCHIPHI}_${item.MANV}_${item.HOTENNV}_${item._DATHANHTOAN}`;
+        const key = `${item.HOTENKH}_${item.SODT}_${item.SOTTHD}_${item.NGAYXUAT}_${item.TONGCHIPHI}_${item.MANV}_${item.HOTENNV}_${item.DATHANHTOAN}`;
 
         if (!ketQua[key]) {
             ketQua[key] = {
@@ -14,7 +14,7 @@ const groupHD = (data) => {
                 TONGCHIPHI: item.TONGCHIPHI,
                 MANV: item.MANV,
                 HOTENNV: item.HOTENNV,
-                _DATHANHTOAN: item._DATHANHTOAN,
+                DATHANHTOAN: item.DATHANHTOAN,
                 THUOC: [],
                 DICHVU: []
             };
