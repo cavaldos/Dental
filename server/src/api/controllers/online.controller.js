@@ -1,4 +1,5 @@
 import { poolConnect } from "../../config/db.mjs";
+import jwt from "jsonwebtoken";
 const pool = await poolConnect('KHONLINE');
 
 const onlineController = {
@@ -31,11 +32,26 @@ const onlineController = {
       const params = {};
       params.MATK = req.body.matk;
       params.MATKHAU = req.body.matkhau;
-      
 
       const sp = 'SP_DANGNHAP_ALL';
       const result = await pool.executeSP(sp, params);
-      return res.status(200).json({ success: true });
+      if (result.error) {
+        return res.status(401).send(result.error);
+      }
+      else {
+        if (result[0]._DAKHOA) {
+          return res.status(400).send('Tai khoan bi khoa!');
+        }
+        const accessToken = jwt.sign({
+          userId: params.MATK,
+          userRole: result[0].sqOLE
+        },
+          process.env.ACCESS_TOKEN_SECRET_KEY,
+          process.env.ACCESS_TOKEN_LIFE);
+
+        return res.status(200).json({ success: true, accessToken: accessToken });
+      }
+
     } catch (error) {
       console.error('An error occurred:', error.message);
       return res.status(500).json({ error: 'An error occurred while processing the request' });
