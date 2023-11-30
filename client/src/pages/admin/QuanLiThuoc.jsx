@@ -36,30 +36,19 @@ const Com2 = ({ data }) => {
 const Com3 = ({ data }) => {
   const [formValues, setFormValues] = useState(data);
   const [form] = Form.useForm();
-  const selectedDataRef = useRef(data); // Thêm useRef
-  console.log("nocur ", selectedDataRef)
 
-  // if (formValues.MATHUOC !== data.MATHUOC) {
-    
-  // }
-  useEffect(() => {
-    selectedDataRef.current = data; // Cập nhật giá trị của useRef khi data thay đổi
-    setFormValues(data);
-    console.log("cur ", selectedDataRef.current);
-    console.log("form ", formValues)
-  });
 
   const handleSubmit = (values) => {
     console.log("Success:", values);
     message.success("Đăng kí thành công!");
     form.resetFields();
     setFormValues({});
-    selectedDataRef.current = {}; // Cập nhật giá trị của useRef khi form được reset
+
   };
   
   const handleReset = () => {
     form.resetFields();
-    setFormValues(selectedDataRef.current); // Sử dụng giá trị từ useRef khi reset form
+
     message.success("Đã xóa thông tin!");
   };
   
@@ -72,7 +61,7 @@ const Com3 = ({ data }) => {
         name="registration-form"
         layout="vertical"
         onFinish={handleSubmit}
-        // initialValues={formValues}
+        initialValues={formValues}
       >
         <Form.Item
           label="Mã thuốc thuốc"
@@ -93,7 +82,7 @@ const Com3 = ({ data }) => {
           label="Đơn vị tính"
           name="donvitinh"
           style={{ width: "100%" }}
-          // rules={[{ required: true, message: "Vui lòng chọn đơn vị tính!" }]}
+          rules={[{ required: true, message: "Vui lòng chọn đơn vị tính!" }]}
         >
           <Select defaultValue={selectedDataRef.current.DONVITINH}>
             <Option value="Viên">Viên</Option>
@@ -337,7 +326,7 @@ const MedicineInfo = ({ medicine }) => {
         onCancel={handleCancelEdit}
         onOk={handleSubmitEdit}
       >
-        <Com3 data={data3} />
+        {/* <Com3 data={data3} /> */}
       </Modal>
     </>
   );
