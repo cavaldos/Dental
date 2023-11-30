@@ -1,18 +1,28 @@
+import { poolConnect } from "../../config/db.mjs";
+const pool = await poolConnect('KHONLINE');
+
 const onlineController = {
-  signin: async (req, res) => {
+  taoTKKH: async (req, res) => {
     try {
-      res.json(" online");
+      if (!pool) {
+        return res.status(500).json({ error: 'Khong the ket noi db' });
+      }
+      const params = {};
+      params.SODT = req.body.sdt;
+      params.HOTEN = req.body.hoten;
+      params.PHAI = req.body.phai;
+      params.NGAYSINH = req.body.ngaysinh;
+      params.DIACHI = req.body.diachi;
+      params.MATKHAU = req.body.matkhau;
+
+      const sp = 'SP_TAOTKKH_KH';
+      const result = await pool.executeSP(sp, params);
+      return res.status(200).json({ success: true });
     } catch (error) {
-      res.json(error);
+      console.error('An error occurred:', error.message);
+      return res.status(500).json({ error: 'An error occurred while processing the request' });
     }
   },
-  signup: async (req, res) => {
-    try {
-      res.json(" online");
-    } catch (error) {
-      res.json(error);
-    }
-  }
 
 };
 export default onlineController;

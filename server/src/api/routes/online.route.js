@@ -2,7 +2,7 @@ import express from "express";
 import OnlineController from "../controllers/online.controller.js";
 
 const router = express.Router();
-router.get("/signin", OnlineController.signin);
-router.get("/signup", OnlineController.signup);
+router.post("/taoKH", OnlineController.taoTKKH);
+
 
 export default router;

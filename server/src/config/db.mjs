@@ -47,6 +47,12 @@ const poolConnect = async (loginType) => {
         database = process.env.MSSQL_DATABASE;
         logMessage = 'Login as QTV';
         break;
+      case 'KHONLINE':
+        user = process.env.MSSQL_USERNAME_KHONLINE;
+        password = process.env.MSSQL_PASSWORD_KHONLINE
+        database = process.env.MSSQL_DATABASE;
+        logMessage = 'Login as KHONLINE';
+        break;
       default:
         console.error(`Unsupported login type: ${loginType}`);
         return null;
