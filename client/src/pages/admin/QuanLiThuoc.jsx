@@ -1,5 +1,5 @@
 import thuoc from "../../fakedata/thuoc";
-import React, { useState, useCallback, useRef, useEffect } from "react";
+import React, { useState, useCallback, useEffect, useRef } from "react";
 import {
   Table,
   Button,
@@ -33,25 +33,25 @@ const Com1 = ({ data }) => {
 const Com2 = ({ data }) => {
   return <>com2</>;
 };
+
 const Com3 = ({ data }) => {
   const [formValues, setFormValues] = useState(data);
   const [form] = Form.useForm();
-
+  useEffect(() => {
+    form.setFieldsValue(data);
+  }, [data, form]);
 
   const handleSubmit = (values) => {
     console.log("Success:", values);
     message.success("Đăng kí thành công!");
     form.resetFields();
     setFormValues({});
-
   };
-  
+
   const handleReset = () => {
     form.resetFields();
-
     message.success("Đã xóa thông tin!");
   };
-  
 
   return (
     <>
@@ -65,26 +65,28 @@ const Com3 = ({ data }) => {
       >
         <Form.Item
           label="Mã thuốc thuốc"
-          name="mathuoc"
+          name="MATHUOC"
           style={{ width: "100%" }}
         >
-          <Input defaultValue={selectedDataRef.current.MATHUOC} disabled/>
+          <Input disabled />
         </Form.Item>
         <Form.Item
           label="Tên thuốc"
-          name="tenthuoc"
+          name="TENTHUOC"
           style={{ width: "100%" }}
-          rules={[{ required: true, message: "Tên thuốc không được để trống!" }]}
+          rules={[
+            { required: true, message: "Tên thuốc không được để trống!" },
+          ]}
         >
-          <Input defaultValue={selectedDataRef.current.TENTHUOC} />
+          <Input />
         </Form.Item>
         <Form.Item
           label="Đơn vị tính"
-          name="donvitinh"
+          name="DONVITINH"
           style={{ width: "100%" }}
           rules={[{ required: true, message: "Vui lòng chọn đơn vị tính!" }]}
         >
-          <Select defaultValue={selectedDataRef.current.DONVITINH}>
+          <Select placeholder="Chọn đơn vị tính.">
             <Option value="Viên">Viên</Option>
             <Option value="Ống">Ống</Option>
             <Option value="Gói">Gói</Option>
@@ -93,26 +95,30 @@ const Com3 = ({ data }) => {
         </Form.Item>
         <Form.Item
           label="Chỉ định"
-          name="chidinh"
+          name="CHIDINH"
           style={{ width: "100%" }}
-          rules={[{ required: true, message: "Chỉ định sử dụng không được để trống!" }]}
+          rules={[
+            {
+              required: true,
+              message: "Chỉ định sử dụng không được để trống!",
+            },
+          ]}
         >
           <TextArea
             showCount
             minLength={10}
             maxLength={500}
             style={{ height: 120 }}
-            defaultValue={selectedDataRef.current.CHIDINH}
           />
         </Form.Item>
         <Form.Item
           label="Đơn giá"
-          name="dongia"
+          name="DONGIA"
           placeholder="VND"
           style={{ width: "100%" }}
           rules={[{ required: true, message: "Đơn giá không được để trống!" }]}
         >
-          <InputNumber defaultValue={selectedDataRef.current.DONGIA} />
+          <InputNumber />
         </Form.Item>
         <Form.Item style={{ display: "flex", justifyContent: "flex-end" }}>
           <Button
@@ -133,6 +139,7 @@ const MedicineInfo = ({ medicine }) => {
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
   const [openAddModal, setOpenAddModal] = useState(false);
   const [openEditModal, setOpenEditModal] = useState(false);
+  const selectedDataRef = useRef({});
 
   const [data1, setData1] = useState({});
   // console.log("data1", data1);
@@ -140,7 +147,9 @@ const MedicineInfo = ({ medicine }) => {
   // console.log("data2", data2);
   const [data3, setData3] = useState({});
   // console.log("data3", data3);
+
   const handleDelete = (record) => {
+    console.log("record", record);
     setOpenDeleteModal(true);
     setData1(record);
   };
@@ -151,9 +160,8 @@ const MedicineInfo = ({ medicine }) => {
   };
 
   const handleEdit = (record) => {
-    
     setOpenEditModal(true);
-    setData3(record);
+    setData3({ ...record });
   };
 
   const handleCancelDelete = useCallback(() => {
@@ -326,7 +334,7 @@ const MedicineInfo = ({ medicine }) => {
         onCancel={handleCancelEdit}
         onOk={handleSubmitEdit}
       >
-        {/* <Com3 data={data3} /> */}
+        <Com3 data={data3} />
       </Modal>
     </>
   );
@@ -429,7 +437,7 @@ const TaoThuocMoi = () => {
           >
             ĐẶT LẠI
           </Button>
-          <ButtonGreen text="THÊM THUỐC" modal={""}></ButtonGreen>
+          <ButtonGreen text="THÊM THUỐC" />
         </Form.Item>
       </Form>
     </>
@@ -449,7 +457,7 @@ const TaoThuocMoiButton = () => {
   };
   return (
     <>
-      <ButtonGreen text="THÊM LOẠI THUỐC MỚI" modal={showModal}></ButtonGreen>
+      <ButtonGreen text="THÊM LOẠI THUỐC MỚI" modal={showModal} />
 
       <Modal
         title={
