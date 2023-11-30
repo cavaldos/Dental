@@ -326,5 +326,86 @@ const qtvController = {
       return res.status(500).json({ error: 'An error occurred while processing the request' });
     }
   },
+  blockNhaSi: async (req, res) => {
+    try {
+      if (!pool) {
+        return res.status(500).json({ error: 'Khong the ket noi db' });
+      }
+      const params = {};
+      params.MA_NS = req.body.mans;
+
+      const sp = 'SP_KHOA_TAI_KHOAN_NHA_SI';
+      const result = await pool.executeSP(sp, params);
+      return res.status(200).json({ success: true });
+    } catch (error) {
+      console.error('An error occurred:', error.message);
+      return res.status(500).json({ error: 'An error occurred while processing the request' });
+    }
+  },
+  unblockNhaSi: async (req, res) => {
+    try {
+      if (!pool) {
+        return res.status(500).json({ error: 'Khong the ket noi db' });
+      }
+      const params = {};
+      params.MA_NS = req.body.mans;
+
+      const sp = 'SP_MO_TAI_KHOAN_NHA_SI';
+      const result = await pool.executeSP(sp, params);
+      return res.status(200).json({ success: true });
+    } catch (error) {
+      console.error('An error occurred:', error.message);
+      return res.status(500).json({ error: 'An error occurred while processing the request' });
+    }
+  },
+  themQTV: async (req, res) => {
+    try {
+      if (!pool) {
+        return res.status(500).json({ error: 'Khong the ket noi db' });
+      }
+      const params = {};
+      params.HOTEN = req.body.hoten;
+      params.PHAI = req.body.phai;
+
+      const sp = 'SP_TAO_QTV_MOI';
+      const result = await pool.executeSP(sp, params);
+      return res.status(201).json({ success: true });
+    } catch (error) {
+      console.error('An error occurred:', error.message);
+      return res.status(500).json({ error: 'An error occurred while processing the request' });
+    }
+  },
+  blockKH: async (req, res) => {
+    try {
+      if (!pool) {
+        return res.status(500).json({ error: 'Khong the ket noi db' });
+      }
+      const params = {};
+      params.SODT = req.body.sdt;
+
+      const sp = 'SP_KHOA_TAI_KHOAN_KHACH_HANG';
+      const result = await pool.executeSP(sp, params);
+      return res.status(200).json({ success: true });
+    } catch (error) {
+      console.error('An error occurred:', error.message);
+      return res.status(500).json({ error: 'An error occurred while processing the request' });
+    }
+  },
+  unblockKH: async (req, res) => {
+    try {
+      if (!pool) {
+        return res.status(500).json({ error: 'Khong the ket noi db' });
+      }
+      const params = {};
+      params.SODT = req.body.sdt;
+
+      const sp = 'SP_MO_TAI_KHOAN_KHACH_HANG';
+      const result = await pool.executeSP(sp, params);
+      return res.status(200).json({ success: true });
+    } catch (error) {
+      console.error('An error occurred:', error.message);
+      return res.status(500).json({ error: 'An error occurred while processing the request' });
+    }
+  },
 };
 export default qtvController;

@@ -23,6 +23,16 @@ router.put("/blockNhanVien", qtvController.blockNhanVien);
 router.put("/unblockNhanVien", qtvController.unblockNhanVien);
 router.post("/nhasi", qtvController.themNhaSi);
 router.put("/nhasi", qtvController.suaNS);
+router.put("/blockNhaSi", qtvController.blockNhaSi);
+router.put("/unblockNhaSi", qtvController.unblockNhaSi);
+router.post("/themQTV", qtvController.themQTV);
+router.put("/blockKH", qtvController.blockKH);
+router.put("/unblockKH", qtvController.unblockKH);
+
+
+
+
+
 
 
 
