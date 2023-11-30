@@ -1,5 +1,5 @@
 import thuoc from "../../fakedata/thuoc";
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useRef, useEffect } from "react";
 import {
   Table,
   Button,
@@ -25,6 +25,8 @@ import TextArea from "antd/es/input/TextArea";
 import "../../assets/styles/admin.css";
 import ButtonGreen from "../../components/button";
 
+const { Option } = Select;
+
 const Com1 = ({ data }) => {
   return <>com1</>;
 };
@@ -32,7 +34,110 @@ const Com2 = ({ data }) => {
   return <>com2</>;
 };
 const Com3 = ({ data }) => {
-  return <>com3</>;
+  const [formValues, setFormValues] = useState(data);
+  const [form] = Form.useForm();
+  const selectedDataRef = useRef(data); // Thêm useRef
+  console.log("nocur ", selectedDataRef)
+
+  // if (formValues.MATHUOC !== data.MATHUOC) {
+    
+  // }
+  useEffect(() => {
+    selectedDataRef.current = data; // Cập nhật giá trị của useRef khi data thay đổi
+    setFormValues(data);
+    console.log("cur ", selectedDataRef.current);
+    console.log("form ", formValues)
+  });
+
+  const handleSubmit = (values) => {
+    console.log("Success:", values);
+    message.success("Đăng kí thành công!");
+    form.resetFields();
+    setFormValues({});
+    selectedDataRef.current = {}; // Cập nhật giá trị của useRef khi form được reset
+  };
+  
+  const handleReset = () => {
+    form.resetFields();
+    setFormValues(selectedDataRef.current); // Sử dụng giá trị từ useRef khi reset form
+    message.success("Đã xóa thông tin!");
+  };
+  
+
+  return (
+    <>
+      <Form
+        onSubmit={handleSubmit}
+        form={form}
+        name="registration-form"
+        layout="vertical"
+        onFinish={handleSubmit}
+        // initialValues={formValues}
+      >
+        <Form.Item
+          label="Mã thuốc thuốc"
+          name="mathuoc"
+          style={{ width: "100%" }}
+        >
+          <Input defaultValue={selectedDataRef.current.MATHUOC} disabled/>
+        </Form.Item>
+        <Form.Item
+          label="Tên thuốc"
+          name="tenthuoc"
+          style={{ width: "100%" }}
+          rules={[{ required: true, message: "Tên thuốc không được để trống!" }]}
+        >
+          <Input defaultValue={selectedDataRef.current.TENTHUOC} />
+        </Form.Item>
+        <Form.Item
+          label="Đơn vị tính"
+          name="donvitinh"
+          style={{ width: "100%" }}
+          // rules={[{ required: true, message: "Vui lòng chọn đơn vị tính!" }]}
+        >
+          <Select defaultValue={selectedDataRef.current.DONVITINH}>
+            <Option value="Viên">Viên</Option>
+            <Option value="Ống">Ống</Option>
+            <Option value="Gói">Gói</Option>
+            <Option value="Chai">Chai</Option>
+          </Select>
+        </Form.Item>
+        <Form.Item
+          label="Chỉ định"
+          name="chidinh"
+          style={{ width: "100%" }}
+          rules={[{ required: true, message: "Chỉ định sử dụng không được để trống!" }]}
+        >
+          <TextArea
+            showCount
+            minLength={10}
+            maxLength={500}
+            style={{ height: 120 }}
+            defaultValue={selectedDataRef.current.CHIDINH}
+          />
+        </Form.Item>
+        <Form.Item
+          label="Đơn giá"
+          name="dongia"
+          placeholder="VND"
+          style={{ width: "100%" }}
+          rules={[{ required: true, message: "Đơn giá không được để trống!" }]}
+        >
+          <InputNumber defaultValue={selectedDataRef.current.DONGIA} />
+        </Form.Item>
+        <Form.Item style={{ display: "flex", justifyContent: "flex-end" }}>
+          <Button
+            onClick={handleReset}
+            style={{ marginRight: 10 }}
+            type="danger"
+          >
+            ĐẶT LẠI
+          </Button>
+          <ButtonGreen text="THÊM THUỐC" modal={""}></ButtonGreen>
+        </Form.Item>
+      </Form>
+    </>
+  );
 };
 
 const MedicineInfo = ({ medicine }) => {
@@ -41,11 +146,11 @@ const MedicineInfo = ({ medicine }) => {
   const [openEditModal, setOpenEditModal] = useState(false);
 
   const [data1, setData1] = useState({});
-  console.log("data1", data1);
+  // console.log("data1", data1);
   const [data2, setData2] = useState({});
-  console.log("data2", data2);
+  // console.log("data2", data2);
   const [data3, setData3] = useState({});
-  console.log("data3", data3);
+  // console.log("data3", data3);
   const handleDelete = (record) => {
     setOpenDeleteModal(true);
     setData1(record);
@@ -57,6 +162,7 @@ const MedicineInfo = ({ medicine }) => {
   };
 
   const handleEdit = (record) => {
+    
     setOpenEditModal(true);
     setData3(record);
   };
@@ -76,13 +182,13 @@ const MedicineInfo = ({ medicine }) => {
   const handleSubmitDelete = () => {
     // Perform delete action
     setOpenDeleteModal(false);
-    message.success("Đã xóa thuốc!");
+    message.success("Hủy thuốc thành công!");
   };
 
   const handleSubmitAdd = () => {
     // Perform add action
     setOpenAddModal(false);
-    message.success("Đã thêm thuốc!");
+    message.success("Nhập thêm thuốc thành công!");
   };
 
   const handleSubmitEdit = () => {
@@ -198,7 +304,7 @@ const MedicineInfo = ({ medicine }) => {
       <Modal
         title={
           <h1 className="font-montserrat text-lg mb-3 mt-2 font-extrabold">
-            Xóa thuốc
+            HỦY THUỐC
           </h1>
         }
         open={openDeleteModal}
@@ -211,7 +317,7 @@ const MedicineInfo = ({ medicine }) => {
       <Modal
         title={
           <h1 className="font-montserrat text-lg mb-3 mt-2 font-extrabold">
-            Thêm loại thuốc mới
+            NHẬP THÊM THUỐC VÀO KHO
           </h1>
         }
         open={openAddModal}
@@ -224,7 +330,7 @@ const MedicineInfo = ({ medicine }) => {
       <Modal
         title={
           <h1 className="font-montserrat text-lg mb-3 mt-2 font-extrabold">
-            Cập nhật thông tin thuốc
+            CẬP NHẬT THÔNG TIN THUỐC
           </h1>
         }
         open={openEditModal}
@@ -278,10 +384,10 @@ const TaoThuocMoi = () => {
           rules={[{ required: true, message: "Vui lòng chọn đơn vị tính!" }]}
         >
           <Select placeholder="Chọn đơn vị tính.">
-            <Select.Option value="vien">Viên</Select.Option>
-            <Select.Option value="ong">Ống</Select.Option>
-            <Select.Option value="goi">Gói</Select.Option>
-            <Select.Option value="chai">Chai</Select.Option>
+            <Select.Option value="Viên">Viên</Select.Option>
+            <Select.Option value="Ống">Ống</Select.Option>
+            <Select.Option value="Gói">Gói</Select.Option>
+            <Select.Option value="Chai">Chai</Select.Option>
           </Select>
         </Form.Item>
         <Form.Item
