@@ -1,5 +1,5 @@
 import thuoc from "../../fakedata/thuoc";
-import React, { useState, useCallback } from "react";
+import React, { useState } from "react";
 import {
   Table,
   Button,
@@ -25,70 +25,36 @@ import TextArea from "antd/es/input/TextArea";
 import "../../assets/styles/admin.css";
 import ButtonGreen from "../../components/button";
 
-const Com1 = ({ data }) => {
-  return <>com1</>;
-};
-const Com2 = ({ data }) => {
-  return <>com2</>;
-};
-const Com3 = ({ data }) => {
-  return <>com3</>;
-};
-
 const MedicineInfo = ({ medicine }) => {
-  const [openDeleteModal, setOpenDeleteModal] = useState(false);
-  const [openAddModal, setOpenAddModal] = useState(false);
-  const [openEditModal, setOpenEditModal] = useState(false);
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [open1, setOpen1] = useState(false);
+  const [open2, setOpen2] = useState(false);
+  const [open3, setOpen3] = useState(false);
+  const [data, setData] = useState();
 
-  const [data1, setData1] = useState({});
-  console.log("data1", data1);
-  const [data2, setData2] = useState({});
-  console.log("data2", data2);
-  const [data3, setData3] = useState({});
-  console.log("data3", data3);
-  const handleDelete = (record) => {
-    setOpenDeleteModal(true);
-    setData1(record);
+  const formatDateString = (dateString) => {
+    const date = new Date(dateString);
+    return date.toLocaleDateString();
   };
-
-  const handleAddMedicine = (record) => {
-    setOpenAddModal(true);
-    setData2(record);
+  const formatCurrency = (amount) => {
+    const formattedAmount = amount.toLocaleString("vi-VN");
+    return `${formattedAmount} VND`;
   };
 
   const handleEdit = (record) => {
-    setOpenEditModal(true);
-    setData3(record);
+    message.info(`Edit ${record.MATHUOC} ${open3}`);
+    setIsModalVisible(true);
+    setOpen3(true);
   };
 
-  const handleCancelDelete = useCallback(() => {
-    setOpenDeleteModal(false);
-  }, []);
-
-  const handleCancelAdd = useCallback(() => {
-    setOpenAddModal(false);
-  }, []);
-
-  const handleCancelEdit = useCallback(() => {
-    setOpenEditModal(false);
-  }, []);
-
-  const handleSubmitDelete = () => {
-    // Perform delete action
-    setOpenDeleteModal(false);
-    message.success("Đã xóa thuốc!");
+  const handleCancel = () => {
+    // Đóng modal khi nhấp vào nút "Hủy"
+    setIsModalVisible(false);
   };
 
-  const handleSubmitAdd = () => {
-    // Perform add action
-    setOpenAddModal(false);
-    message.success("Đã thêm thuốc!");
-  };
-
-  const handleSubmitEdit = () => {
-    // Perform edit action
-    setOpenEditModal(false);
-    message.success("Đã cập nhật thông tin thuốc!");
+  const handleSubmit = () => {
+    // Thực hiện cập nhật thông tin thuốc
+    setIsModalVisible(false); // Đóng modal sau khi cập nhật thành công
   };
   const columns = [
     {
@@ -136,21 +102,14 @@ const MedicineInfo = ({ medicine }) => {
       title: "Ngày hết hạn",
       dataIndex: "NGAYHETHAN",
       key: "NGAYHETHAN",
-      render: (text) => {
-        const date = new Date(text);
-        const dateString = date.toLocaleDateString();
-        return dateString;
-      },
+      render: (text) => formatDateString(text),
     },
     {
       title: "Đơn giá",
       dataIndex: "DONGIA",
       key: "DONGIA",
       sorter: (a, b) => a.DONGIA - b.DONGIA,
-      render: (text) => {
-        const formattedAmount = text.toLocaleString("vi-VN");
-        return `${formattedAmount} VND`;
-      },
+      render: (text) => formatCurrency(text),
     },
     {
       title: "Quản lí",
@@ -182,7 +141,6 @@ const MedicineInfo = ({ medicine }) => {
       ),
     },
   ];
-
   return (
     <>
       <Table
@@ -194,46 +152,121 @@ const MedicineInfo = ({ medicine }) => {
         tableLayout="auto"
         scroll={{ x: "calc(900px + 50%)" }}
       />
-
       <Modal
         title={
           <h1 className="font-montserrat text-lg mb-3 mt-2 font-extrabold">
-            Xóa thuốc
+            THÊM LOẠI THUỐC MỚI
           </h1>
         }
-        open={openDeleteModal}
-        onCancel={handleCancelDelete}
-        onOk={handleSubmitDelete}
-      >
-        <Com1 data={data1} />
-      </Modal>
-
+        open={isModalOpen}
+        onCancel={handleCancel()}
+        footer={[]}
+      ></Modal>{" "}
       <Modal
         title={
           <h1 className="font-montserrat text-lg mb-3 mt-2 font-extrabold">
-            Thêm loại thuốc mới
+            THÊM LOẠI THUỐC MỚI
           </h1>
         }
-        open={openAddModal}
-        onCancel={handleCancelAdd}
-        onOk={handleSubmitAdd}
-      >
-        <Com2 data={data2} />
-      </Modal>
-
+        open={isModalOpen}
+        onCancel={handleCancel}
+        footer={[]}
+      ></Modal>{" "}
       <Modal
         title={
           <h1 className="font-montserrat text-lg mb-3 mt-2 font-extrabold">
-            Cập nhật thông tin thuốc
+            THÊM LOẠI THUỐC MỚI
           </h1>
         }
-        open={openEditModal}
-        onCancel={handleCancelEdit}
-        onOk={handleSubmitEdit}
-      >
-        <Com3 data={data3} />
-      </Modal>
+        open={isModalOpen}
+        onCancel={handleCancel}
+        footer={[]}
+      ></Modal>
     </>
+  );
+};
+
+const CapNhatThongTinThuoc = ({ data, toggle }) => {
+  console.log("toogle", toggle);
+  // const [data, setdata] = useState({
+  //   code: "MT02",
+  //   name: "Vitamin B",
+  //   unit: "Viên",
+  //   indication: "3/200",
+  //   price: 5000,
+  // });
+  const [medicineType, setMedicineType] = useState(data);
+  const [form] = Form.useForm();
+  const [open, setOpen] = useState(!toggle);
+  console.log("open", open);
+
+  const handleSubmit = (values) => {
+    console.log("Success:", values);
+    message.success("Đăng kí thành công!");
+    form.resetFields();
+    setMedicineType(data);
+  };
+
+  const handleReset = () => {
+    // Đặt lại giá trị trực tiếp trong hàm handleReset
+    form.resetFields(); // Đặt lại trường của Form
+    setMedicineType({}); // Đặt lại giá trị Form (nếu có)
+  };
+
+  const handleCancel = () => {
+    //su dung toan tu 3 ngoi de tat toggle
+    open ? setOpen(false) : setOpen(true);
+  };
+
+  return (
+    <Modal
+      title={
+        <h1 className="font-montserrat text-lg mb-3 mt-2 font-extrabold">
+          THÊM LOẠI THUỐC MỚI
+        </h1>
+      }
+      open={open}
+      onCancel={handleCancel}
+      footer={[]}
+    >
+      <div className="bg-grin ">
+        <Form
+          onSubmit={handleSubmit}
+          labelCol={{ span: 6 }}
+          wrapperCol={{ span: 18 }}
+        >
+          <Form.Item label="Mã thuốc">
+            <Input value={1} disabled />
+          </Form.Item>
+          <Form.Item label="Tên thuốc">
+            <Input value={2} />
+          </Form.Item>
+          <Form.Item label="Đơn vị tính">
+            <Select value={1}>
+              <Select.Option value="Viên">Viên</Select.Option>
+              <Select.Option value="Ống">Ống</Select.Option>
+              <Select.Option value="Hộp">Hộp</Select.Option>
+            </Select>
+          </Form.Item>
+          <Form.Item label="Chỉ định">
+            <Input value={2} />
+          </Form.Item>
+          <Form.Item label="Đơn giá">
+            <Input value={1} />
+          </Form.Item>
+          <Form.Item style={{ display: "flex", justifyContent: "flex-end" }}>
+            <Button
+              onClick={handleReset}
+              style={{ marginRight: 10 }}
+              type="danger"
+            >
+              HOÀN TÁC
+            </Button>
+            <ButtonGreen text="CẬP NHẬT" modal={""}></ButtonGreen>
+          </Form.Item>
+        </Form>
+      </div>
+    </Modal>
   );
 };
 
