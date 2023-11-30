@@ -630,7 +630,7 @@ const lichhen3 = [
 
 const lichhen4 = [
   {
-    NGAY: "29-11-2023",
+    NGAY: "28-11-2023",
     MACA: [
       {
         MACA: "CA002",
@@ -746,7 +746,7 @@ const lichhen4 = [
     ],
   },
   {
-    NGAY: "5-12-2023",
+    NGAY: "29-11-2023",
     MACA: [
       {
         MACA: "CA002",
