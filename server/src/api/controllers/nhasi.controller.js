@@ -126,7 +126,13 @@ const nhaSiController = {
       if (!pool) {
         return res.status(500).json({ error: 'Khong the ket noi db' });
       }
-      const params = req.body;
+      const params = {};
+      params.MATHUOC = req.body.mathuoc;
+      params.SOTT = req.body.stt;
+      params.SODT = req.body.sdt;
+      params.SOLUONG = req.body.slthuoc;
+      params.THOIDIEMDUNG = req.body.thoidiemdung;
+
       const sp = 'SP_THEMCTTHUOC_NS';
       const result = await pool.executeSP(sp, params);
       return res.status(201).json({ success: true });
@@ -140,8 +146,12 @@ const nhaSiController = {
       if (!pool) {
         return res.status(500).json({ error: 'Khong the ket noi db' });
       }
-      const params = req.body;
-      const sp = 'SP_DOIMATKHAU_NS';
+      const params = {};
+      params.MANS = req.body.mans;
+      params.MATKHAUCU = req.body.matkhaucu;
+      params.MATKHAUMOI = req.body.matkhaumoi;
+
+      const sp = 'SP_DOIMK_NS';
       const result = await pool.executeSP(sp, params);
       return res.status(200).json({ success: true });
     } catch (error) {
