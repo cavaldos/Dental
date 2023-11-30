@@ -15,6 +15,9 @@ import {
   Outlet,
 } from "react-router-dom";
 
+
+
+
 import Test from "./test";
 function App() {
   const user = useSelector((state) => state.user);
@@ -35,7 +38,7 @@ function App() {
 
   return (
     <>
-      {/* <Test /> */}
+      <Test />
       <Router>
         <Routes>
           {VerifyRoure().map((route, index) => {
