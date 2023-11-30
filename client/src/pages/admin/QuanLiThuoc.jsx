@@ -29,6 +29,10 @@ import ButtonGreen from "../../components/button";
 
 const MedicineInfo = ({ medicine }) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [open1, setOpen1] = useState(false);
+  const [data, setData] = useState();
+  const [open2, setOpen2] = useState(false);
+  const [open3, setOpen3] = useState(false);
 
   const formatDateString = (dateString) => {
     const date = new Date(dateString);
@@ -38,10 +42,11 @@ const MedicineInfo = ({ medicine }) => {
     const formattedAmount = amount.toLocaleString("vi-VN");
     return `${formattedAmount} VND`;
   };
+
   const handleEdit = (record) => {
-    // Thực hiện cập nhật thông tin thuốc
     message.info(`Edit ${record.MATHUOC}`);
     setIsModalVisible(true);
+    setOpen3(true);
   };
 
   const handleCancel = () => {
@@ -113,23 +118,24 @@ const MedicineInfo = ({ medicine }) => {
       key: "action",
       fixed: 'right',
       // width: "20%",
+
       render: (text, record) => (
         <Space size="middle">
-          <a 
+          <button 
               className="text-orange font-montserrat hover:text-darkorange hover:underline"
-              onClick={() => handleDelete(record.key)}> 
+              onClick={() => handleDelete(record)}> 
               <StopOutlined/> Hủy
-          </a>
-          <a 
+          </button>
+          <button 
               className="text-grin font-montserrat hover:text-darkgrin hover:underline"
-              onClick={() => handleAddMedicine(record.key)}>
+              onClick={() => handleAddMedicine(record)}>
               <PlusCircleOutlined /> Nhập kho
-          </a>
-          <a 
+          </button>
+          <button 
               className="text-blue font-montserrat hover:text-darkblue"
-              onClick={() => handleUpdate(record.key)}>
+              onClick={() => handleEdit(record)}>
               <EditOutlined/>
-          </a>
+          </button>
         </Space>
       ),
     },
@@ -145,66 +151,51 @@ const MedicineInfo = ({ medicine }) => {
         tableLayout="auto"
         scroll={{x: "calc(900px + 50%)",}}
       />
-      <Modal
-        title="Chỉnh sửa thông tin thuốc"
-        open={isModalVisible}
-        onCancel={handleCancel}
-        footer={[
+      <CapNhatThongTinThuoc toggle={open1} data={data}/>
+      <CapNhatThongTinThuoc toggle={open2} data={data}/>
+      <CapNhatThongTinThuoc toggle={open3} data={data}/>
 
-          <Button key="cancel" onClick={handleCancel}>
-            Hủy
-          </Button>,
-
-          <Button
-            className="bg-blue-500"
-            key="submit"
-            type="primary"
-            onClick={handleSubmit}
-          >
-            Cập nhật
-          </Button>,
-        ]}
-      >
-        <Form labelCol={{ span: 6 }} wrapperCol={{ span: 18 }}>
-          <Form.Item label="Mã thuốc">
-            <Input />
-          </Form.Item>
-          <Form.Item label="Tên thuốc">
-            <Input />
-          </Form.Item>
-          <Form.Item label="Đơn vị tính">
-            <Select>
-              <Select.Option value="Viên">Viên</Select.Option>
-              <Select.Option value="Ống">Ống</Select.Option>
-              <Select.Option value="Hộp">Hộp</Select.Option>
-            </Select>
-          </Form.Item>
-          <Form.Item label="Chỉ định">
-            <Input />
-          </Form.Item>
-          <Form.Item label="Đơn giá">
-            <Input />
-          </Form.Item>
-        </Form>
-      </Modal>
     </>
   );
 };
 
-const CapNhatThongTinThuoc = () => {
-  const [medicineType, setMedicineType] = useState({
-    code: "MT02",
-    name: "Vitamin B",
-    unit: "Viên",
-    indication: "3/200",
-    price: 5000,
-  });
+const CapNhatThongTinThuoc = ({data, toggle}) => {
+  // const [data, setdata] = useState({
+  //   code: "MT02",
+  //   name: "Vitamin B",
+  //   unit: "Viên",
+  //   indication: "3/200",
+  //   price: 5000,
+  // });
+  const [medicineType, setMedicineType] = useState(data);
+  const [form] = Form.useForm();
+  const [toggle1, setToggle1] = useState(toggle);
+  console.log(toggle1);
 
-  const handleSubmit = () => {
-    // Thực hiện cập nhật thông tin loại thuốc
+  const handleSubmit = (values) => {
+    console.log("Success:", values);
+    message.success("Đăng kí thành công!");
+    form.resetFields();
+    setMedicineType(data);
   };
+
+  const handleReset = () => {
+    // Đặt lại giá trị trực tiếp trong hàm handleReset
+    form.resetFields(); // Đặt lại trường của Form
+    setMedicineType({}); // Đặt lại giá trị Form (nếu có)
+  };
+
+  const handleCancel = () => {
+    setToggle1(false);
+  };
+
   return (
-    <>
+    <Modal
+        title={<h1 className="font-montserrat text-lg mb-3 mt-2 font-extrabold">THÊM LOẠI THUỐC MỚI</h1>}
+        open={toggle1}
+        onCancel={handleCancel}
+        footer={[]}
+      >
       <div className="bg-grin ">
         <Form
           onSubmit={handleSubmit}
@@ -212,33 +203,33 @@ const CapNhatThongTinThuoc = () => {
           wrapperCol={{ span: 18 }}
         >
           <Form.Item label="Mã thuốc">
-            <Input value={medicineType.code} />
+            <Input value={1} disabled/>
           </Form.Item>
           <Form.Item label="Tên thuốc">
-            <Input value={medicineType.name} />
+            <Input value={2} />
           </Form.Item>
           <Form.Item label="Đơn vị tính">
-            <Select value={medicineType.unit}>
+            <Select value={1}>
               <Select.Option value="Viên">Viên</Select.Option>
               <Select.Option value="Ống">Ống</Select.Option>
               <Select.Option value="Hộp">Hộp</Select.Option>
             </Select>
           </Form.Item>
           <Form.Item label="Chỉ định">
-            <Input value={medicineType.indication} />
+            <Input value={2} />
           </Form.Item>
           <Form.Item label="Đơn giá">
-            <Input value={medicineType.price} />
+            <Input value={1} />
           </Form.Item>
-          <Form.Item>
-            <Button type="primary" htmlType="submit">
-              Cập nhật
+          <Form.Item style={{ display: 'flex', justifyContent: 'flex-end' }}>
+            <Button onClick={handleReset} style={{ marginRight: 10 }} type="danger">
+              HOÀN TÁC
             </Button>
-            <Button type="danger">Hủy</Button>
+            <ButtonGreen text="CẬP NHẬT" modal={""}></ButtonGreen>
           </Form.Item>
         </Form>
       </div>
-    </>
+    </Modal>
   );
 };
 
