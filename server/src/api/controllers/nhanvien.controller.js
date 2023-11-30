@@ -1,6 +1,6 @@
 import { poolConnect } from "../../config/db.mjs";
 const pool = await poolConnect('NV');
-import groupHD from "../../utils/groupData.js"
+import {groupHD} from "../../utils/groupData.js"
 
 const nhanVienController = {
   getLichRanhNS: async (req, res) => {
