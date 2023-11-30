@@ -28,6 +28,8 @@ router.put("/unblockNhaSi", qtvController.unblockNhaSi);
 router.post("/themQTV", qtvController.themQTV);
 router.put("/blockKH", qtvController.blockKH);
 router.put("/unblockKH", qtvController.unblockKH);
+router.put("/matKhau", qtvController.doiMatKhau);
+
 
 
 

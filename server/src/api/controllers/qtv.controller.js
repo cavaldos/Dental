@@ -407,5 +407,23 @@ const qtvController = {
       return res.status(500).json({ error: 'An error occurred while processing the request' });
     }
   },
+  doiMatKhau: async (req, res) => {
+    try {
+      if (!pool) {
+        return res.status(500).json({ error: 'Khong the ket noi db' });
+      }
+      const params = {};
+      params.MAQTV = req.body.maqtv;
+      params.MATKHAUCU = req.body.matkhaucu;
+      params.MATKHAUMOI = req.body.matkhaumoi;
+
+      const sp = 'SP_DOIMK_QTV';
+      const result = await pool.executeSP(sp, params);
+      return res.status(200).json({ success: true });
+    } catch (error) {
+      console.error('An error occurred:', error.message);
+      return res.status(500).json({ error: 'An error occurred while processing the request' });
+    }
+  },
 };
 export default qtvController;
