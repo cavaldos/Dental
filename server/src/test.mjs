@@ -9,11 +9,19 @@ import {
   disconnect,
 } from "./models/index.js";
 
-const result = await load(`SELECT MANS FROM dbo.NhaSi`, "dentist");
-const result2 = await load(`SELECT MANS FROM dbo.NhaSi`, "dentist");
-const result3 = await load(`SELECT MANS FROM dbo .NhaSi`, "staff");
-const result4 = await load(`SELECT MANS FROM dbo.NhaSi`, "dentist");
-const result5 = await disconnect("dentist");
+import Database from "./config/connectDB.js";
+
+const database = new Database("dentist");
+database.connect();
+
+
+// const result = await load(`SELECT MANS FROM dbo.NhaSi`, "dentist");
+// const result2 = await load(`SELECT MANS FROM dbo.NhaSi`, "dentist");
+// const result3 = await load(`SELECT MANS FROM dbo .NhaSi`, "staff");
+// const result4 = await load(`SELECT MANS FROM dbo.NhaSi`, "dentist");
+// const result5 = await disconnect("dentist");
+
+
 
 const save = (data, name) => {
   const jsonData = JSON.stringify(data, null, 2);
