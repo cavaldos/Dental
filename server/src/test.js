@@ -1,210 +1,145 @@
 import _ from "lodash";
+import fs from "fs";
 
-const data = [
-  {
-    sdt: "0123456",
-    sott: "1",
-    hoten: "nguyen van a",
-    madv: "001",
-    mathuoc: "mt001",
-  },
-  {
-    sdt: "0123456",
-    sott: "1",
-    hoten: "nguyen van a",
-    madv: "002",
-    mathuoc: "mt001",
-  },
-  {
-    sdt: "0123456",
-    sott: "1",
-    hoten: "nguyen van a",
-    madv: "003",
-    mathuoc: "mt002",
-  },
-  {
-    sdt: "012345656789",
-    sott: "2",
-    hoten: "nguyen van b",
-    madv: "004",
-    mathuoc: "mt001",
-  },
-  // {
-  //   sdt: "012345656789",
-  //   sott: "2",
-  //   hoten: "nguyen van b",
-  //   madv: "004",
-  //   mathuoc: "mt006",
-  // },
-  // {
-  //   sdt: "012345656789",
-  //   sott: "2",
-  //   hoten: "nguyen van b",
-  //   madv: "004",
-  //   mathuoc: "mt08",
-  // },
-  {
-    sdt: "012345656789",
-    sott: "4",
-    hoten: "nguyen van b",
-    madv: "006",
-    mathuoc: "mt003",
-  },
-  {
-    sdt: "012345656789",
-    sott: "48",
-    hoten: "nguyen van b",
-    madv: "006",
-    mathuoc: "mt0037",
-  },
-];
-// console.log("truoc khi gom",data);
+import { lichhen } from "./lhnv.js";
 
-function groupAndTable(data, groupKeys, tableKeys) {
-  const groupedData = _.groupBy(data, (item) => {
-    return groupKeys.map((key) => item[key]).join("-");
+// Hàm kiểm tra và thêm ngày thiếu
+function kiemTraVaThemNgayThieu(data) {
+  const currentDate = new Date(); // Lấy ngày hiện tại
+  const formattedCurrentDate = `${currentDate.getDate()}-${
+    currentDate.getMonth() + 1
+  }-${currentDate.getFullYear()}`;
+
+  // Tạo bản sao của data
+  const newData = _.cloneDeep(data);
+
+  // Lọc ra danh sách ngày có trong newData
+  const existingDates = _.map(newData, "NGAY");
+
+  // Kiểm tra và thêm ngày thiếu
+  for (let i = 0; i < 30; i++) {
+    const dateToAdd = new Date();
+    dateToAdd.setDate(dateToAdd.getDate() + i);
+    const formattedDateToAdd = `${dateToAdd.getDate()}-${
+      dateToAdd.getMonth() + 1
+    }-${dateToAdd.getFullYear()}`;
+
+    if (!existingDates.includes(formattedDateToAdd)) {
+      // Ngày chưa tồn tại trong newData, thêm vào danh sách
+      newData.push({
+        NGAY: formattedDateToAdd,
+        MACA: [
+          {
+            MACA: "CA001",
+            STATUS: "empty",
+          },
+          {
+            MACA: "CA002",
+            STATUS: "empty",
+          },
+          {
+            MACA: "CA003",
+            STATUS: "empty",
+          },
+          {
+            MACA: "CA004",
+            STATUS: "empty",
+          },
+          {
+            MACA: "CA005",
+            STATUS: "empty",
+          },
+          {
+            MACA: "CA006",
+            STATUS: "empty",
+          },
+        ],
+      });
+    }
+  }
+
+  // Sắp xếp ngày tăng dần trong newData
+  const sortedData = _.orderBy(newData, [
+    (item) => {
+      const [day, month, year] = item.NGAY.split("-");
+      return new Date(`${month}-${day}-${year}`);
+    },
+  ]);
+
+  return sortedData;
+}
+
+// Gọi hàm kiểm tra và thêm ngày thiếu
+const updatedData = kiemTraVaThemNgayThieu(lichhen);
+console.log(updatedData);
+
+function get7DaysFrom(data, fromDate) {
+  // Tìm vị trí ngày bắt đầu
+  let startIndex;
+  data.forEach((item, index) => {
+    if (item.NGAY === fromDate) {
+      startIndex = index;
+    }
   });
-  const result = _.map(groupedData, (items) => {
-    const tableData = {};
-    tableKeys.forEach((key) => {
-      tableData[key] = _.map(items, key);
-    });
-    return {
-      ...groupKeys.reduce((obj, key) => {
-        obj[key] = items[0][key];
-        return obj;
-      }, {}),
-      ...tableData,
-      ..._.pick(
-        items[0],
-        _.difference(Object.keys(items[0]), [...groupKeys, ...tableKeys])
-      ),
-    };
-  });
+
+  // Khai báo mảng kết quả
+  const result = [];
+
+  // Lặp 7 lần để lấy ra 7 ngày tiếp theo
+  for (let i = 0; i < 7; i++) {
+    if (data[startIndex + i]) {
+      result.push(data[startIndex + i]);
+    }
+  }
+
   return result;
 }
-const result3 = groupAndTable(data, ["hoten"], ["madv", "mathuoc"]);
 
-// console.log("result3", result3);
+// Cách dùng:
+const next7days = get7DaysFrom(updatedData, "1-12-2023");
+// console.log(next7days);
+function inNgayTrongTuan(ngay) {
+  const parts = ngay.split("-");
+    console.log(parts);
+  // Không cần cộng thêm 1 cho tháng nữa
+  const day = parseInt(parts[0], 10);
+  console.log(day);
+  const month = parseInt(parts[1], 10) ;
+  console.log(month);
+  const year = parseInt(parts[2], 10);
+  console.log(year);
 
-// function groupAndPivots(data, groupKeys, pivotKeys) {
-//   // Nhóm dữ liệu
-//   const groupedData = {};
-//   data.forEach((item) => {
-//     const groupId = groupKeys.map((key) => item[key]).join("-");
-//     if (!groupedData[groupId]) {
-//       groupedData[groupId] = [];
-//     }
-//     groupedData[groupId].push(item);
-//   });
 
-//   // Chuyển đổi dữ liệu
-//   const result = [];
-//   Object.keys(groupedData).forEach((groupId) => {
-//     // Lấy item đầu tiên
-//     const firstItem = groupedData[groupId][0];
 
-//     // Tạo kết quả ban đầu
-//     let resultObj = { ...firstItem };
-
-//     // Thêm keys pivot
-//     const pivotData = {};
-//     pivotKeys.forEach((pivotKey) => {
-//       pivotData[pivotKey] = [];
-//       groupedData[groupId].forEach((item) => {
-//         pivotData[pivotKey].push(item[pivotKey]);
-//       });
-//       resultObj[pivotKey] = pivotData[pivotKey];
-//     });
-
-//     result.push(resultObj);
-//   });
-
-//   return result;
-// }
-
-// const result4 = groupAndPivots(data, ["hoten","sdt","sott"], ["madv", "mathuoc"]);
-// console.log("result4", result4);
-
-// function groupAndPivot(data, groupKeys, pivotKeys) {
-//   const groupedData = _.groupBy(data, (item) =>
-//     groupKeys.map((key) => item[key]).join("-")
-//   );
-//   const result = _.map(groupedData, (items) => {
-//     let resultObj = { ...items[0] };
-//     const pivotedData = {};
-//     pivotKeys.forEach((key) => {
-//       pivotedData[key] = _.map(items, key);
-//       resultObj[key] = _.map(items, key);
-//     });
-//     const firstItem = items[0];
-//     groupKeys.forEach((key) => {
-//       pivotedData[key] = firstItem[key];
-//     });
-
-//     return resultObj;
-//   });
-
-//   return result;
-// }
-// const result2 = groupAndPivot(data, ["hoten"], ["madv", "mathuoc"]);
-// console.log("result2", result2);
-
-// const groupedData = _.groupBy(data, (item) => `${item.hoten}-${item.sdt}`);
-// const result = _.map(groupedData, (items) => {
-//   const madvArray = _.map(items, "madv");
-//   const mathuocArray = _.map(items, "mathuoc");
-//   return {
-//     sott: items[0].sott,
-//     sdt: items[0].sdt,
-//     hoten: items[0].hoten,
-//     madv: madvArray,
-//     mathuoc: mathuocArray,
-//   };
-// });
-// console.log("sau khi gom :\n", result);
-
-// const result = _.chain(data3)
-//   .groupBy("NGAY")
-//   .map((values, key) => {
-//     return {
-//       NGAY: key,
-//       CA: _.map(values, (item) => {
-//         return {
-//           GIOBATDAU: item.GIOBATDAU,
-//           GIOKETTHUC: item.GIOKETTHUC,
-//         };
-//       }),
-//       MANS: "NS0001", // giả sử đều NS0001
-//       SOTT: values.length, // đếm số lượng phần tử trong ngày
-//     };
-//   })
-//   .value();
-// console.log(result);
-
-// console.log(result.map((item) => item.CA));
-
-class Student {
-  constructor(name, age) {
-    this.name = name;
-    this.age = age;
+  if (month < 3) {
+    month += 12;
+    year--;
   }
-  get info() {
-    return `name: ${this.name}, age: ${this.age}`;
-  }
-  // functionc rename
-  set rename(name) {
-    this.name = name;
-  }
-  connetc() {
-    console.log("connect");
-  }
+
+  const century = Math.floor(year / 100);
+    const yearOfCentury = year % 100;
+
+  const h =
+    day +
+    Math.floor((13 * (month + 1)) / 5) +
+    yearOfCentury +
+    Math.floor(yearOfCentury / 4) +
+    Math.floor(century / 4) +
+    5 * century;
+    const dayOfWeek = h % 7;
+    const dayOfWeekString = [
+    "Chủ nhật",
+    "Thứ hai",
+    "Thứ ba",
+    "Thứ tư",
+    "Thứ năm",
+    "Thứ sáu",
+    "Thứ bảy",
+    ][dayOfWeek];
+    return dayOfWeekString;
 
 }
+// Gọi hàm inNgayTrongTuan với ngày "1-12-2023"
+const ngayTrongTuan = inNgayTrongTuan("30-11-2023");
 
-const student = new Student("Nguyen Van A", 20);
-student.rename = "Nguyen Van B";
-console.log(student.info);
-student.connetc();
-
-
+console.log(ngayTrongTuan);
