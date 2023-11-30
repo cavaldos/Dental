@@ -1,4 +1,5 @@
 import { poolConnect } from "../../config/db.mjs";
+import {groupHSB} from "../../utils/groupData.js"
 const pool = await poolConnect('NS');
 
 const nhaSiController = {
@@ -210,6 +211,22 @@ const nhaSiController = {
       const sp = 'SP_XEMDANHSACHNHASI_ALL';
       const result = await pool.executeSP(sp, params);
       return res.status(200).json(result[0]);
+    } catch (error) {
+      console.error('An error occurred:', error.message);
+      return res.status(500).json({ error: 'An error occurred while processing the request' });
+    }
+  },
+  xemBenhAn: async (req, res) => {
+    try {
+      if (!pool) {
+        return res.status(500).json({ error: 'Khong the ket noi db' });
+      }
+      const params = {};
+      params.SODT = req.params.sdt;
+      const sp = 'SP_GETHSB1KH_NV_NS_KH';
+      const result = await pool.executeSP(sp, params);
+      const groupedResult = groupHSB(result[0]);
+      return res.status(200).json(groupedResult);
     } catch (error) {
       console.error('An error occurred:', error.message);
       return res.status(500).json({ error: 'An error occurred while processing the request' });

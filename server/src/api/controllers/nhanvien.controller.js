@@ -1,6 +1,6 @@
 import { poolConnect } from "../../config/db.mjs";
 const pool = await poolConnect('NV');
-import {groupHD} from "../../utils/groupData.js"
+import {groupHD, groupHSB, groupLich} from "../../utils/groupData.js"
 
 const nhanVienController = {
   getLichRanhNS: async (req, res) => {
@@ -12,8 +12,8 @@ const nhanVienController = {
       const sp = 'SP_GETLICHRANHNS_NV';
       const result = await pool.executeSP(sp, params);
       const lichNS = {
-        lichRanh: result[0],
-        lichHen: result[1]
+        lichHen: groupLich(result[0]),
+        lichRanh:  groupLich(result[1]),
       };
       return res.status(200).json(lichNS);
     } catch (error) {
@@ -183,6 +183,22 @@ const nhanVienController = {
       const sp = 'SP_DELETELICHHEN_NV_KH';
       const result = await pool.executeSP(sp, params);
       return res.status(201).json({ success: true });
+    } catch (error) {
+      console.error('An error occurred:', error.message);
+      return res.status(500).json({ error: 'An error occurred while processing the request' });
+    }
+  },
+  xemBenhAn: async (req, res) => {
+    try {
+      if (!pool) {
+        return res.status(500).json({ error: 'Khong the ket noi db' });
+      }
+      const params = {};
+      params.SODT = req.params.sdt;
+      const sp = 'SP_GETHSB1KH_NV_NS_KH';
+      const result = await pool.executeSP(sp, params);
+      const groupedResult = groupHSB(result[0]);
+      return res.status(200).json(groupedResult);
     } catch (error) {
       console.error('An error occurred:', error.message);
       return res.status(500).json({ error: 'An error occurred while processing the request' });

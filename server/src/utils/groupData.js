@@ -98,5 +98,53 @@ const groupHSB = (data) => {
     return Object.values(ketQua);
 }
 
-export { groupHD, groupHSB };
+const groupLich = (data) => {
+    const ketQua = {};
+
+    data.forEach(item => {
+        const ngay = item.NGAY;
+
+        if (!ketQua[ngay]) {
+            ketQua[ngay] = [];
+        }
+
+        // Tìm kiếm nếu đã tồn tại ca với mã ca
+        const existingCa = ketQua[ngay].find(ca => ca.MACA === item.MACA);
+
+        // Nếu chưa tồn tại, thêm mới
+        if (!existingCa) {
+            ketQua[ngay].push({
+                MACA: item.MACA,
+                GIOBATDAU: item.GIOBATDAU,
+                GIOKETTHUC: item.GIOKETTHUC,
+                NHASI: [
+                    {
+                        MANS: item.MANS,
+                        HOTENNS: item.HOTENNS,
+                        SODTKH: item.SODTKH,
+                        HOTENKH: item.HOTENKH,
+                        SOTTLH: item.SOTTLH,
+                        LYDOKHAM: item.LYDOKHAM,
+                        SOTTLR: item.SOTTLR
+                    }
+                ]
+            });
+        } else {
+            // Nếu đã tồn tại, thêm thông tin nha sĩ vào mã ca đó
+            existingCa.NHASI.push({
+                MANS: item.MANS,
+                HOTENNS: item.HOTENNS,
+                SODTKH: item.SODTKH,
+                HOTENKH: item.HOTENKH,
+                SOTTLH: item.SOTTLH,
+                LYDOKHAM: item.LYDOKHAM,
+                SOTTLR: item.SOTTLR
+            });
+        }
+    });
+
+    return Object.entries(ketQua).map(([ngay, ca]) => ({ NGAY: ngay, CA: ca }));
+}
+
+export { groupHD, groupHSB, groupLich };
 

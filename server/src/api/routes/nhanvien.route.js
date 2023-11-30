@@ -12,6 +12,7 @@ router.get("/getAllThuoc", nhanVienController.getAllThuoc);
 router.get("/getAllDV", nhanVienController.getAllDV);
 router.get("/getAllCa", nhanVienController.getAllCa);
 router.get("/hoaDon/:sdt", nhanVienController.getHoaDon);
+router.get("/benhAn/:sdt", nhanVienController.xemBenhAn);
 router.get("/getAllDSNhaSi", nhanVienController.getAllDSNS);
 router.delete("/lichHen", nhanVienController.deleteLichHen);
 
