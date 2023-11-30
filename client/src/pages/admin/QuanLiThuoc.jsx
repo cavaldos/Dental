@@ -128,7 +128,7 @@ const Com3 = ({ data }) => {
           >
             ĐẶT LẠI
           </Button>
-          <ButtonGreen text="THÊM THUỐC" modal={""}></ButtonGreen>
+          <ButtonGreen text="THÊM THUỐC" modal={""}/>
         </Form.Item>
       </Form>
     </>
