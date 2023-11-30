@@ -170,5 +170,23 @@ const nhanVienController = {
       return res.status(500).json({ error: 'An error occurred while processing the request' });
     }
   },
+  deleteLichHen: async (req, res) => {
+    try {
+      if (!pool) {
+        return res.status(500).json({ error: 'Khong the ket noi db' });
+      }
+      const params = {};
+      params.MANS = req.body.mans;
+      params.SODT = req.body.sdt;
+      params.SOTT = req.body.stt;
+
+      const sp = 'SP_DELETELICHHEN_NV_KH';
+      const result = await pool.executeSP(sp, params);
+      return res.status(201).json({ success: true });
+    } catch (error) {
+      console.error('An error occurred:', error.message);
+      return res.status(500).json({ error: 'An error occurred while processing the request' });
+    }
+  },
 };
 export default nhanVienController;
