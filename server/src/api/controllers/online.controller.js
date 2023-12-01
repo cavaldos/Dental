@@ -36,9 +36,11 @@ const onlineController = {
         MATK: req.body.matk
       }
       const passwordResult = await pool.executeSP('SP_LAYMATKHAU_ALL', passwordParams);
+      console.log(passwordResult);
       const hashedPassword = passwordResult[0].MATKHAU;
-      const isValid = await bcrypt.compare(req.body.password, hashedPassword);
+      const isValid = await bcrypt.compare(req.body.matkhau, hashedPassword);
       if (isValid) {
+        console.log(1);
         const sp = 'SP_DANGNHAP_ALL';
         const params = {};
         params.MATK = req.body.matk;
