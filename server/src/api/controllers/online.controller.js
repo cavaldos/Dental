@@ -1,5 +1,6 @@
 import { poolConnect } from "../../config/db.mjs";
 import jwt from "jsonwebtoken";
+import bcrypt from "bcryptjs";
 const pool = await poolConnect('KHONLINE');
 
 const onlineController = {
@@ -15,7 +16,9 @@ const onlineController = {
       params.NGAYSINH = req.body.ngaysinh;
       params.DIACHI = req.body.diachi;
       params.MATKHAU = req.body.matkhau;
-
+      const salt = await bcrypt.genSalt(10);
+      const hashedPassword = await bcrypt.hash(params.MATKHAU, salt);
+      params.MATKHAU = hashedPassword;
       const sp = 'SP_TAOTKKH_KH';
       const result = await pool.executeSP(sp, params);
       return res.status(200).json({ success: true });
