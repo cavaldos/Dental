@@ -1,9 +1,617 @@
-use PKNHAKHOA 
+﻿USE master;
 GO
--- WARNING: CHỈ CHẠY SCRIPT NÀY 1 LẦN SAU KHI TẠO DB ------------------------------------------------
+
+-- 21126090 - 21126054 - 21126072 - 21126088
+
+-- MỤC LỤC
+
+-- 1. TẠO CƠ SỞ DỮ LIỆU
+-- 2. PHÂN QUYỀN
+-- 3. TRIGGER
+-- 4. NHẬP LIỆU
+
+
+-- 1. TẠO CƠ SỞ DỮ LIỆU----------------------------------------------------------------------------------------------------
+--USE MASTER 
+--GO
+--DROP DATABASE PKNHAKHOA
+IF NOT EXISTS (SELECT name FROM master.dbo.sysdatabases WHERE name = 'PKNHAKHOA')
+BEGIN
+    CREATE DATABASE PKNHAKHOA;
+END
+GO
+
+USE PKNHAKHOA;
+GO
+
+
+IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'KHACHHANG')
+BEGIN
+    CREATE TABLE KHACHHANG 
+    (
+        SODT VARCHAR(10) PRIMARY KEY CHECK (LEN(SODT) = 10),
+        HOTEN NVARCHAR(50),
+        PHAI NVARCHAR(5) CHECK(PHAI IN (N'Nam', N'Nữ')),
+        NGAYSINH DATE,
+        DIACHI NVARCHAR(250),
+        MATKHAU VARCHAR(20),
+        _DAKHOA BIT DEFAULT 0
+    );
+END
+
+IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'NHASI')
+BEGIN
+	CREATE TABLE NHASI 
+	(
+		MANS VARCHAR(10) PRIMARY KEY,
+		HOTEN NVARCHAR(50),
+		PHAI NVARCHAR(5) CHECK(PHAI IN (N'Nam', N'Nữ')),
+		GIOITHIEU NVARCHAR(500),
+		MATKHAU VARCHAR(20),
+		_DAKHOA BIT DEFAULT 0
+	);
+END
+
+IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'NHANVIEN')
+BEGIN
+	CREATE TABLE NHANVIEN 
+	(
+		MANV VARCHAR(10) PRIMARY KEY,
+		HOTEN NVARCHAR(50),
+		PHAI NVARCHAR(5) CHECK(PHAI IN (N'Nam', N'Nữ')),
+		VITRICV NVARCHAR(50),
+		MATKHAU VARCHAR(20),
+		_DAKHOA BIT DEFAULT 0
+	);
+END
+
+IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'QTV')
+BEGIN
+	CREATE TABLE QTV 
+	(
+		MAQTV VARCHAR(10) PRIMARY KEY,
+		HOTEN NVARCHAR(50),
+		PHAI NVARCHAR(5) CHECK(PHAI IN (N'Nam', N'Nữ')),
+		MATKHAU VARCHAR(20),
+	);
+END
+
+IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'LOAITHUOC')
+BEGIN
+	CREATE TABLE LOAITHUOC
+	(
+		MATHUOC VARCHAR(10) PRIMARY KEY,
+		TENTHUOC NVARCHAR(50),
+		DONVITINH NVARCHAR(20),
+		CHIDINH NVARCHAR(200),
+		SLTON INT CHECK (SLTON >= 0),
+		SLNHAP INT CHECK (SLNHAP > 0),
+		SLDAHUY INT CHECK (SLDAHUY >= 0),
+		NGAYHETHAN DATE,
+		DONGIA FLOAT CHECK (DONGIA > 0)
+	);
+END
+
+IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'LOAIDICHVU')
+BEGIN
+	CREATE TABLE LOAIDICHVU
+	(
+		MADV VARCHAR(10) PRIMARY KEY,
+		TENDV NVARCHAR(50),
+		MOTA NVARCHAR(500),
+		DONGIA FLOAT CHECK (DONGIA > 0)
+	);
+END
+
+IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'CA')
+BEGIN
+	CREATE TABLE CA
+	(
+		MACA VARCHAR(10) PRIMARY KEY,
+		GIOBATDAU TIME,
+		GIOKETTHUC TIME
+	);
+END
+
+IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'CHITIETDV')
+BEGIN
+	CREATE TABLE CHITIETDV
+	(
+		MADV VARCHAR(10),
+		SOTT INT,
+		SODT VARCHAR(10),
+		SOLUONG INT CHECK(SOLUONG > 0),
+		DONGIALUCTHEM FLOAT CHECK(DONGIALUCTHEM > 0),
+		PRIMARY KEY(SODT, SOTT, MADV)
+	);
+END
+
+IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'CHITIETTHUOC')
+BEGIN
+	CREATE TABLE CHITIETTHUOC
+	(
+		MATHUOC VARCHAR(10),
+		SOTT INT,
+		SODT VARCHAR(10),
+		SOLUONG INT CHECK (SOLUONG > 0),
+		THOIDIEMDUNG NVARCHAR(200),
+		DONGIALUCTHEM FLOAT CHECK(DONGIALUCTHEM > 0),
+		PRIMARY KEY(SODT, SOTT, MATHUOC)
+	);
+END
+
+IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'LICHRANH')
+BEGIN
+	CREATE TABLE LICHRANH
+	(
+		MANS VARCHAR(10),
+		SOTT INT,
+		MACA VARCHAR(10),
+		NGAY DATE,
+		PRIMARY KEY(MANS, SOTT)
+	);
+END
+
+IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'LICHHEN')
+BEGIN
+	CREATE TABLE LICHHEN
+	(
+		MANS VARCHAR(10),
+		SOTT INT,
+		LYDOKHAM NVARCHAR(200),
+		SODT VARCHAR(10)
+		PRIMARY KEY(MANS, SOTT, SODT)
+	);
+END
+
+IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'HOSOBENH')
+BEGIN
+	CREATE TABLE HOSOBENH
+	(
+		SODT VARCHAR(10),
+		SOTT INT,
+		NGAYKHAM DATE,
+		DANDO NVARCHAR(500),
+		MANS VARCHAR(10),
+		_DAXUATHOADON BIT DEFAULT 0
+		PRIMARY KEY(SODT, SOTT)
+	);
+END
+
+IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'HOADON')
+BEGIN
+	CREATE TABLE HOADON
+	(
+		SODT VARCHAR(10),
+		SOTT INT,
+		NGAYXUAT DATE,
+		TONGCHIPHI FLOAT CHECK (TONGCHIPHI > 0),
+		_DATHANHTOAN BIT DEFAULT 0,
+		MANV VARCHAR(10)
+		PRIMARY KEY(SODT, SOTT)
+	);
+END
+
+--PK1 LICHRANH(MANS) --> NHASI(MANS)
+IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS WHERE CONSTRAINT_NAME = 'FK_LR_NS')
+BEGIN
+    ALTER TABLE LICHRANH
+    ADD CONSTRAINT FK_LR_NS
+    FOREIGN KEY(MANS)
+    REFERENCES NHASI(MANS);
+END
+
+--PK2 LICHRANH(MACA) --> CA(MACA)
+IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS WHERE CONSTRAINT_NAME = 'FK_LR_CA')
+BEGIN
+    ALTER TABLE LICHRANH
+    ADD CONSTRAINT FK_LR_CA
+    FOREIGN KEY(MACA)
+    REFERENCES CA(MACA);
+END
+
+--PK3 LICHHEN(MANS, SOTT) --> LICHRANH(MANS, SOTT)
+IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS WHERE CONSTRAINT_NAME = 'FK_LH_LR')
+BEGIN
+    ALTER TABLE LICHHEN
+    ADD CONSTRAINT FK_LH_LR
+    FOREIGN KEY(MANS, SOTT)
+    REFERENCES LICHRANH(MANS, SOTT);
+END
+
+--PK4 LICHHEN(SODT) --> KHACHHANG(SODT)
+IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS WHERE CONSTRAINT_NAME = 'FK_LH_KH')
+BEGIN
+	ALTER TABLE LICHHEN
+	ADD CONSTRAINT FK_LH_KH
+	FOREIGN KEY(SODT)
+	REFERENCES KHACHHANG(SODT);
+END
+
+-- PK5 HOSOBENH(MANS) --> NHASI(MANS)
+IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS WHERE CONSTRAINT_NAME = 'FK_HSB_NS')
+BEGIN
+    ALTER TABLE HOSOBENH
+    ADD CONSTRAINT FK_HSB_NS
+    FOREIGN KEY(MANS)
+    REFERENCES NHASI(MANS);
+END
+
+-- PK6 HOSOBENH(SODT) --> KHACHHANG(SODT)
+IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS WHERE CONSTRAINT_NAME = 'FK_HSB_KH')
+BEGIN
+    ALTER TABLE HOSOBENH
+    ADD CONSTRAINT FK_HSB_KH
+    FOREIGN KEY(SODT)
+    REFERENCES KHACHHANG(SODT);
+END
+
+-- PK7 HOADON(SODT, SOTT) --> HOSOBENH(SODT, SOTT)
+IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS WHERE CONSTRAINT_NAME = 'FK_HD_HSB')
+BEGIN
+    ALTER TABLE HOADON
+    ADD CONSTRAINT FK_HD_HSB
+    FOREIGN KEY(SODT, SOTT)
+    REFERENCES HOSOBENH(SODT, SOTT);
+END
+
+-- PK8 HOADON(MANV) --> NHANVIEN(MANV)
+IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS WHERE CONSTRAINT_NAME = 'FK_HD_NV')
+BEGIN
+    ALTER TABLE HOADON
+    ADD CONSTRAINT FK_HD_NV
+    FOREIGN KEY(MANV)
+    REFERENCES NHANVIEN(MANV);
+END
+
+-- PK9 CHITIETDV(MADV) --> LOAIDICHVU(MADV)
+IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS WHERE CONSTRAINT_NAME = 'FK_CTDV_LDV')
+BEGIN
+    ALTER TABLE CHITIETDV
+    ADD CONSTRAINT FK_CTDV_LDV
+    FOREIGN KEY(MADV)
+    REFERENCES LOAIDICHVU(MADV);
+END
+
+-- PK10 CHITIETDV(SODT, SOTT) --> HOSOBENH(SODT, SOTT)
+IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS WHERE CONSTRAINT_NAME = 'FK_CTDV_HSB')
+BEGIN
+    ALTER TABLE CHITIETDV
+    ADD CONSTRAINT FK_CTDV_HSB
+    FOREIGN KEY(SODT, SOTT)
+    REFERENCES HOSOBENH(SODT, SOTT);
+END
+
+-- PK11 CHITIETTHUOC(MATHUOC) --> LOAITHUOC(MATHUOC)
+IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS WHERE CONSTRAINT_NAME = 'FK_CTT_LT')
+BEGIN
+    ALTER TABLE CHITIETTHUOC
+    ADD CONSTRAINT FK_CTT_LT
+    FOREIGN KEY(MATHUOC)
+    REFERENCES LOAITHUOC(MATHUOC);
+END
+
+-- PK12 CHITIETTHUOC(SODT, SOTT) --> HOSOBENH(SODT, SOTT)
+IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS WHERE CONSTRAINT_NAME = 'FK_CTT_HSB')
+BEGIN
+    ALTER TABLE CHITIETTHUOC
+    ADD CONSTRAINT FK_CTT_HSB
+    FOREIGN KEY(SODT, SOTT)
+    REFERENCES HOSOBENH(SODT, SOTT);
+END
+-----------------------------------------------------------------------------------------------------------------
+
+-- 2. PHÂN QUYỀN-------------------------------------------------------------------------------------------------
+USE master;
+GO
+
+IF NOT EXISTS (SELECT name FROM sys.server_principals WHERE name = 'loginKH')
+BEGIN
+    CREATE LOGIN loginKH WITH PASSWORD = 'password123@';
+END
+
+IF NOT EXISTS (SELECT name FROM sys.server_principals WHERE name = 'loginNS')
+BEGIN
+    CREATE LOGIN loginNS WITH PASSWORD = 'password123@';
+END
+
+IF NOT EXISTS (SELECT name FROM sys.server_principals WHERE name = 'loginNV')
+BEGIN
+    CREATE LOGIN loginNV WITH PASSWORD = 'password123@';
+END
+
+IF NOT EXISTS (SELECT name FROM sys.server_principals WHERE name = 'loginQTV')
+BEGIN
+    CREATE LOGIN loginQTV WITH PASSWORD = 'password123@';
+END
+
+IF NOT EXISTS (SELECT name FROM sys.server_principals WHERE name = 'loginServer')
+BEGIN
+    CREATE LOGIN loginServer WITH PASSWORD = 'password123@';
+END
+
+
+-- USE PKNHAKHOA;
+-- GO
+
+
+-- IF NOT EXISTS (SELECT name FROM sys.database_principals WHERE name = 'userKH')
+-- BEGIN
+--     CREATE USER userKH FOR LOGIN loginKH;
+-- END
+
+-- IF NOT EXISTS (SELECT name FROM sys.database_principals WHERE name = 'userNS')
+-- BEGIN
+--     CREATE USER userNS FOR LOGIN loginNS;
+-- END
+
+-- IF NOT EXISTS (SELECT name FROM sys.database_principals WHERE name = 'userNV')
+-- BEGIN
+--     CREATE USER userNV FOR LOGIN loginNV;
+-- END
+
+-- IF NOT EXISTS (SELECT name FROM sys.database_principals WHERE name = 'userQTV')
+-- BEGIN
+--     CREATE USER userQTV FOR LOGIN loginQTV;
+-- END
+
+-- IF NOT EXISTS (SELECT name FROM sys.database_principals WHERE name = 'userServer')
+-- BEGIN
+--     CREATE USER userServer FOR LOGIN loginServer;
+-- END
+
+-- IF NOT EXISTS (SELECT name FROM sys.database_principals WHERE name = 'QTV')
+-- BEGIN
+--     EXEC SP_ADDROLE 'QTV';
+-- END
+
+-- IF NOT EXISTS (SELECT name FROM sys.database_principals WHERE name = 'KHACHHANG')
+-- BEGIN
+--     EXEC SP_ADDROLE 'KHACHHANG';
+-- END
+
+-- IF NOT EXISTS (SELECT name FROM sys.database_principals WHERE name = 'NHANVIEN')
+-- BEGIN
+--     EXEC SP_ADDROLE 'NHANVIEN';
+-- END
+
+-- IF NOT EXISTS (SELECT name FROM sys.database_principals WHERE name = 'NHASI')
+-- BEGIN
+--     EXEC SP_ADDROLE 'NHASI';
+-- END
+
+-- EXEC sp_addrolemember 'QTV', 'userQTV'
+-- EXEC sp_addrolemember 'KHACHHANG', 'userKH'
+-- EXEC sp_addrolemember 'NHANVIEN', 'userNV'
+-- EXEC sp_addrolemember 'NHASI', 'userNS'
+-- EXEC sp_addrolemember db_datareader, 'userServer'
+
+-- USE PKNHAKHOA
+-- GO
+-- --I/ Phân quyền cho role QTV
+-- --1. Quyền quản lý tài khoản KH
+-- GRANT SELECT (SODT, HOTEN, PHAI, NGAYSINH, DIACHI, _DAKHOA), UPDATE (_DAKHOA)
+-- ON KHACHHANG
+-- TO QTV
+
+-- --2. Quyền quản lý tài khoản NV
+-- GRANT SELECT (MANV, HOTEN, PHAI, VITRICV, _DAKHOA), INSERT, UPDATE (_DAKHOA)
+-- ON NHANVIEN
+-- TO QTV
+
+-- --3. Quyền quản lý tài khoản NS
+-- GRANT SELECT (MANS, HOTEN, PHAI, GIOITHIEU, _DAKHOA), INSERT, UPDATE (_DAKHOA)
+-- ON NHASI
+-- TO QTV
+
+-- --4. Quyền quản lý tài khoản QTV
+-- GRANT SELECT, INSERT, UPDATE(HOTEN, PHAI, MATKHAU)
+-- ON QTV
+-- TO QTV
+
+-- --5. Quyền quản lý dịch vụ 
+-- GRANT SELECT, INSERT, DELETE, UPDATE(TENDV, MOTA, DONGIA)
+-- ON LOAIDICHVU
+-- TO QTV
+
+-- --6. Quyền quản lý các loại thuốc
+-- GRANT SELECT, INSERT, DELETE, UPDATE (TENTHUOC, DONVITINH, CHIDINH, SLTON, SLNHAP, SLDAHUY, NGAYHETHAN, DONGIA)
+-- ON LOAITHUOC
+-- TO QTV
+
+-- --7. Quyền quản lý các ca
+-- GRANT SELECT, INSERT, DELETE, UPDATE(GIOBATDAU, GIOKETTHUC)
+-- ON CA
+-- TO QTV
+
+-- --II/ Phân quyền cho KHACHHANG 
+-- --1. Mọi quyền trên tài khoản KH trừ xóa tài khoản
+-- GRANT SELECT, INSERT, UPDATE(HOTEN, PHAI, NGAYSINH, DIACHI, MATKHAU)
+-- ON KHACHHANG
+-- TO KHACHHANG
+
+-- --2. Quyền xem,thêm, xóa lịch hẹn
+-- GRANT SELECT, DELETE, INSERT
+-- ON LICHHEN
+-- TO KHACHHANG
+
+-- --3. Quyền xem trên lịch rảnh của nha sĩ
+-- GRANT SELECT
+-- ON LICHRANH
+-- TO KHACHHANG
+
+-- --4. Quyền xem trên CA
+-- GRANT SELECT
+-- ON CA
+-- TO KHACHHANG
+
+-- --5. Quyền xem thông tin nha sĩ
+-- GRANT SELECT (MANS, HOTEN, PHAI, GIOITHIEU)
+-- ON NHASI
+-- TO KHACHHANG
+
+-- --6. Quyền xem hồ sơ bệnh 
+-- GRANT SELECT (SODT, SOTT, NGAYKHAM, DANDO, MANS)
+-- ON HOSOBENH
+-- TO KHACHHANG
+
+-- --7. Quyền xem hóa đơn 
+-- GRANT SELECT
+-- ON HOADON
+-- TO KHACHHANG
+
+-- --8. Quyền xem tên nhân viên trong hóa đơn 
+-- GRANT SELECT(MANV, HOTEN)
+-- ON NHANVIEN
+-- TO KHACHHANG
+
+-- --9. Quyền xem chi tiết dịch vụ
+-- GRANT SELECT
+-- ON CHITIETDV
+-- TO KHACHHANG
+
+-- --10. Quyền xem loại dịch vụ
+-- GRANT SELECT
+-- ON LOAIDICHVU
+-- TO KHACHHANG
+
+-- --11. Quyền xem chi tiết nhân thuốc trong mỗi đơn thuốc
+-- GRANT SELECT
+-- ON CHITIETTHUOC
+-- TO KHACHHANG
+
+-- --12. Quyền xem tên các loại thuốc
+-- GRANT SELECT (MATHUOC, TENTHUOC, DONVITINH, CHIDINH, DONGIA, NGAYHETHAN)
+-- ON LOAITHUOC
+-- TO KHACHHANG
+
+-- --III/ Phân quyền cho role NHASI
+-- --1. Quyền xem, sửa trên bảng nha sĩ.
+-- GRANT SELECT, UPDATE (HOTEN, PHAI, GIOITHIEU, MATKHAU)
+-- ON NHASI
+-- TO NHASI
+
+-- --2. Quyền quản lý lịch rảnh.
+-- GRANT SELECT, INSERT, DELETE, UPDATE(MACA, NGAY)
+-- ON LICHRANH
+-- TO NHASI
+
+-- --3. Quyền xem ca
+-- GRANT SELECT
+-- ON CA
+-- TO NHASI
+
+-- --4. Quyền xem lịch hẹn
+-- GRANT SELECT
+-- ON LICHHEN
+-- TO NHASI
+
+-- --5. Quyền xem, tạo hồ sơ bệnh án của bệnh nhân
+-- GRANT SELECT, INSERT
+-- ON HOSOBENH
+-- TO NHASI
+
+-- --6. Quyền xem và tạo chi tiết dịch vụ
+-- GRANT SELECT, INSERT
+-- ON CHITIETDV
+-- TO NHASI
+
+-- --7. Quyền xem loại dịch vụ
+-- GRANT SELECT
+-- ON LOAIDICHVU
+-- TO NHASI
+
+-- --8. Quyền xem và tạo chi tiết thuốc
+-- GRANT SELECT, INSERT
+-- ON CHITIETTHUOC
+-- TO NHASI
+
+-- --9. Quyền xem loại thuốc
+-- GRANT SELECT
+-- ON LOAITHUOC
+-- TO NHASI
+
+-- --10. Quyền xem thông tin khách hàng
+-- GRANT SELECT(SODT, HOTEN, PHAI, NGAYSINH, DIACHI)
+-- ON KHACHHANG
+-- TO NHASI
+
+-- --IV/ Phân quyền cho role NHANVIEN
+-- --1. Quyền xem, sửa thông tin nhân viên
+-- GRANT SELECT, UPDATE(HOTEN, PHAI)
+-- ON NHANVIEN
+-- TO NHANVIEN
+
+-- --2. Quyền xem, tạo hóa đơn
+-- GRANT SELECT, INSERT
+-- ON HOADON
+-- TO NHANVIEN
+
+-- --3. Quyền xem hồ sơ bệnh án
+-- GRANT SELECT
+-- ON HOSOBENH
+-- TO NHANVIEN
+
+-- --4. Quyền xem trên chi tiết dịch vụ
+-- GRANT SELECT
+-- ON CHITIETDV
+-- TO NHANVIEN
+
+-- --5. Quyền xem trên loại dịch vụ
+-- GRANT SELECT
+-- ON LOAIDICHVU
+-- TO NHANVIEN
+
+-- --6. Quyền xem trên chi tiết thuốc
+-- GRANT SELECT
+-- ON CHITIETTHUOC
+-- TO NHANVIEN
+
+-- --7. Quyền xem các loại thuốc
+-- GRANT SELECT
+-- ON LOAITHUOC
+-- TO NHANVIEN
+
+-- --8. Quyền xem và tạo tài khoản khách hàng
+-- GRANT SELECT(SODT, HOTEN, PHAI, NGAYSINH, _DAKHOA), INSERT 
+-- ON KHACHHANG
+-- TO NHANVIEN
+
+-- --9. Quyền xem thông tin nha sĩ
+-- GRANT SELECT(MANS, HOTEN, PHAI, GIOITHIEU, _DAKHOA) 
+-- ON NHASI
+-- TO NHANVIEN
+
+-- --10. Quyền xem,thêm, xóa lịch hẹn
+-- GRANT SELECT, DELETE, INSERT
+-- ON LICHHEN
+-- TO NHANVIEN
+
+-- --11. Quyền xem trên lịch rảnh của nha sĩ
+-- GRANT SELECT
+-- ON LICHRANH
+-- TO NHANVIEN
+
+-- --12. Quyền xem trên CA
+-- GRANT SELECT
+-- ON CA
+-- TO NHANVIEN
+-- GO
+
+-------------------------------------------------------------------------------------------------------
+-- 3. Trigger------------------------------------------------------------------------------------------
+
+-- Với mọi ca, giờ bắt đầu phải nhỏ hơn giờ kết thúc.
+
+
+-------------------------------------------------------------------------------------------------------
+-- 4. NHẬP LIỆU----------------------------------------------------------------------------------------
+
 
 
 -- Thêm NHASI
+USE PKNHAKHOA 
+GO
 INSERT INTO NHASI (MANS, HOTEN, PHAI, GIOITHIEU, MATKHAU)
 VALUES ('NS0001', N'Lê Văn Hòa', N'Nam', N'Chuyên gia: Điều trị nha chu, chữa răng nội nha, tiểu phẫu răng miệng: nhổ răng khôn, nhổ răng mọc ngầm,… phục hình răng giả tháo lắp, phục hình răng sứ thẩm mỹ, cầu răng sứ.\nNgôn ngữ: Tiếng Việt, Tiếng Anh.\nHọc vấn: Tốt nghiệp Bác sỹ Trường Đại học Y Khoa Quảng Tây năm 2012. Tốt nghiệp thạc sỹ Trường Đại học Y khoa Quảng Tây năm 2016.\nKinh nghiệm: Bác sĩ Răng Hàm Mặt – Đại học Y Dược (2019).', 'S4f3&H@ppy*Day');
 
@@ -283,57 +891,24 @@ VALUES ('NS0006', 1, N'Người thân tôi nói rằng tôi kêu răng khi ngủ
 --Thêm hồ sơ bệnh án
 INSERT INTO HOSOBENH(SODT, SOTT, NGAYKHAM, DANDO, MANS, _DAXUATHOADON)
 VALUES
-('0323456789', 1, '2024-01-05', N'Chải răng cẩn thận, ít nhất hai lần mỗi ngày. Sử dụng bàn chải mềm và kem đánh răng chứa fluor. Hạn chế thức ăn và đồ uống nóng hoặc lạnh.', 'NS0001', 1),
-('0712345678', 1, '2024-01-02', N'Làm sạch răng bằng cách sử dụng chỉ nha khoa và bàn chải mềm mỗi ngày để tránh tái diễn tình trạng này trong tương lai. Không cần tái khám.', 'NS0002', 1),
-('0987654321', 1, '2024-01-07', N'Hạn chế thức ăn nóng hoặc cay và hãy duy trì vệ sinh miệng đúng cách. Uống thuốc theo toa đã chỉ định và tái khám sau 2 tuần. Nếu vết viêm không giảm, cần đến khám ngay.', 'NS0003', 1),
-('0301234567', 1, '2024-01-02', N'Đề nghị tránh những thức ăn cứng hoặc nhai mạnh, và tránh lâu dài trong nhiệt độ lạnh hoặc nóng. Uống thuốc theo toa đã chỉ định và tái khám sau 2 tuần.', 'NS0004', 1),
-('0743216549', 1, '2024-01-02', N'Làm sạch kỹ miệng và nướu hàng ngày. Hạn chế thức ăn và đồ uống có nhiều đường.', 'NS0008', 1),
-('0912345678', 1, '2024-01-05', N'Cần tiếp tục chăm sóc và tự theo dõi vết thương tại nhà. Nếu vết thương không lành hoặc tình trạng trở nên nghiêm trọng hơn, hãy quay lại để kiểm tra. Uống thuốc đều đặn theo toa đã kê.', 'NS0009', 1),
-('0378236541', 1, '2024-01-03', N'Tuân thủ lịch hẹn kiểm tra định kỳ và duy trì vệ sinh miệng tốt. Tránh thức ăn cứng và cẩn thận với việc sử dụng răng để cắn các vật cứng. Nếu có triệu chứng bất thường, vui lòng đến kiểm tra ngay.', 'NS0010', 1),
-('0723456789', 1, '2024-01-03', N'Tuân thủ lịch hẹn kiểm tra định kỳ và duy trì vệ sinh miệng tốt. Tránh thức ăn cứng và cẩn thận với việc sử dụng răng để cắn các vật cứng. Nếu có triệu chứng bất thường, vui lòng đến kiểm tra ngay.', 'NS0003', 1),
-('0923456780', 1, '2024-01-05', N'Sau cấy ghép implant, hạn chế ăn thực phẩm cứng, tránh hút thuốc, và thực hiện vệ sinh kỹ lưỡng vùng cấy ghép để đảm bảo quá trình phục hồi suôn sẻ.', 'NS0009', 1),
-('0345678901', 1, '2024-01-05', N'Trong vài ngày đầu sau nhổ răng nên ăn đồ mềm và dễ tiêu hóa để xương hàm không phải làm việc nhiều. Không ăn thức ăn quá cứng, quá mặn, đồ ngọt, chua, cay, đồ uống có ga, cồn, quá nóng và các chất kích thích khác trong 2 ngày đầu tiên. Không hút thuốc trong ít nhất 3 ngày.', 'NS0001', 1),
+('0323456789', 1, '2024-01-05', N'Chải răng cẩn thận, ít nhất hai lần mỗi ngày. Sử dụng bàn chải mềm và kem đánh răng chứa fluor. Hạn chế thức ăn và đồ uống nóng hoặc lạnh.', 'NS0001', 0),
+('0712345678', 1, '2024-01-02', N'Làm sạch răng bằng cách sử dụng chỉ nha khoa và bàn chải mềm mỗi ngày để tránh tái diễn tình trạng này trong tương lai. Không cần tái khám.', 'NS0002', 0),
+('0987654321', 1, '2024-01-07', N'Hạn chế thức ăn nóng hoặc cay và hãy duy trì vệ sinh miệng đúng cách. Uống thuốc theo toa đã chỉ định và tái khám sau 2 tuần. Nếu vết viêm không giảm, cần đến khám ngay.', 'NS0003', 0),
+('0301234567', 1, '2024-01-02', N'Đề nghị tránh những thức ăn cứng hoặc nhai mạnh, và tránh lâu dài trong nhiệt độ lạnh hoặc nóng. Uống thuốc theo toa đã chỉ định và tái khám sau 2 tuần.', 'NS0004', 0),
+('0743216549', 1, '2024-01-02', N'Làm sạch kỹ miệng và nướu hàng ngày. Hạn chế thức ăn và đồ uống có nhiều đường.', 'NS0008', 0),
+('0912345678', 1, '2024-01-05', N'Cần tiếp tục chăm sóc và tự theo dõi vết thương tại nhà. Nếu vết thương không lành hoặc tình trạng trở nên nghiêm trọng hơn, hãy quay lại để kiểm tra. Uống thuốc đều đặn theo toa đã kê.', 'NS0009', 0),
+('0378236541', 1, '2024-01-03', N'Tuân thủ lịch hẹn kiểm tra định kỳ và duy trì vệ sinh miệng tốt. Tránh thức ăn cứng và cẩn thận với việc sử dụng răng để cắn các vật cứng. Nếu có triệu chứng bất thường, vui lòng đến kiểm tra ngay.', 'NS0010', 0),
+('0723456789', 1, '2024-01-03', N'Tuân thủ lịch hẹn kiểm tra định kỳ và duy trì vệ sinh miệng tốt. Tránh thức ăn cứng và cẩn thận với việc sử dụng răng để cắn các vật cứng. Nếu có triệu chứng bất thường, vui lòng đến kiểm tra ngay.', 'NS0003', 0),
+('0923456780', 1, '2024-01-05', N'Sau cấy ghép implant, hạn chế ăn thực phẩm cứng, tránh hút thuốc, và thực hiện vệ sinh kỹ lưỡng vùng cấy ghép để đảm bảo quá trình phục hồi suôn sẻ.', 'NS0009', 0),
+('0345678901', 1, '2024-01-05', N'Trong vài ngày đầu sau nhổ răng nên ăn đồ mềm và dễ tiêu hóa để xương hàm không phải làm việc nhiều. Không ăn thức ăn quá cứng, quá mặn, đồ ngọt, chua, cay, đồ uống có ga, cồn, quá nóng và các chất kích thích khác trong 2 ngày đầu tiên. Không hút thuốc trong ít nhất 3 ngày.', 'NS0001', 0),
 ('0765432109', 1, '2024-01-07', N'Hạn chế thức ăn cứng và cẩn thận không dùng răng giả để cắn vật cứng. Đảm bảo vệ sinh miệng đúng cách bằng cách đánh răng và súc miệng thường xuyên. Nếu có vấn đề hoặc triệu chứng lạ, nên liên hệ với nha sĩ ngay lập tức.', 'NS0005', 0),
 ('0387654321', 1, '2024-01-01', N'Trước khi ngủ, thư giãn bằng việc thực hiện các kỹ thuật thư giãn như thở sâu, tập yoga, hoặc lắng nghe âm nhạc. Sử dụng đồng hồ bảo vệ răng trong lúc ngủ.', 'NS0006', 0);
 
---Nhap lieu bang HOADON
-INSERT INTO HOADON (SODT, SOTT, NGAYXUAT, _DATHANHTOAN, MANV)
-VALUES ('0323456789', 1, '2024-01-05', 1, 'NV0001');
-
-INSERT INTO HOADON (SODT, SOTT, NGAYXUAT, _DATHANHTOAN, MANV)
-VALUES ('0712345678', 1, '2024-01-02', 1, 'NV0007');
-
-INSERT INTO HOADON (SODT, SOTT, NGAYXUAT, _DATHANHTOAN, MANV)
-VALUES ('0987654321', 1, '2024-01-07', 1, 'NV0001');
-
-INSERT INTO HOADON (SODT, SOTT, NGAYXUAT, _DATHANHTOAN, MANV)
-VALUES ('0301234567', 1, '2024-01-02', 1, 'NV0003');
-
-INSERT INTO HOADON (SODT, SOTT, NGAYXUAT, _DATHANHTOAN, MANV)
-VALUES ('0743216549', 1, '2024-01-02', 1, 'NV0003');
-
-INSERT INTO HOADON (SODT, SOTT, NGAYXUAT, _DATHANHTOAN, MANV)
-VALUES ('0912345678', 1, '2024-01-05', 1, 'NV0014');
-
-INSERT INTO HOADON (SODT, SOTT, NGAYXUAT, MANV)
-VALUES ('0378236541', 1, '2024-01-03', 'NV0012');
-
-INSERT INTO HOADON (SODT, SOTT, NGAYXUAT, _DATHANHTOAN, MANV)
-VALUES ('0723456789', 1, '2024-01-03', 1, 'NV0010');
-
-INSERT INTO HOADON (SODT, SOTT, NGAYXUAT, _DATHANHTOAN, MANV)
-VALUES ('0923456780', 1, '2024-01-05', 1, 'NV0008');
-
-INSERT INTO HOADON (SODT, SOTT, NGAYXUAT, MANV)
-VALUES ('0345678901', 1, '2024-01-05', 'NV0010');
-
-
-
 -- NHAP LOAI THUOC
 INSERT INTO LOAITHUOC (MATHUOC, TENTHUOC, DONVITINH, CHIDINH, SLTON, SLNHAP, SLDAHUY, NGAYHETHAN, DONGIA) 
-VALUES ('MT01', N'Paracetamol', N'Viên', 'Giảm đau nhẹ', 100, 200, 5, '2024-12-31', 5000);
+VALUES ('MT01', N'Paracetamol', N'Viên', N'Giảm đau nhẹ', 100, 200, 5, '2024-12-31', 5000);
 INSERT INTO LOAITHUOC (MATHUOC, TENTHUOC, DONVITINH, CHIDINH, SLTON, SLNHAP, SLDAHUY, NGAYHETHAN, DONGIA) 
-VALUES ('MT02', N'Amoxicillin', N'Hộp ', N'Kháng sinh phổ rộng', 50, 100, 0, '2024-03-31', 20000);
+VALUES ('MT02', N'Amoxicillin', N'Hộp ', N'Kháng sinh phổ rộng', 50, 100, 1, '2024-08-31', 20000);
 INSERT INTO LOAITHUOC (MATHUOC, TENTHUOC, DONVITINH, CHIDINH, SLTON, SLNHAP, SLDAHUY, NGAYHETHAN, DONGIA) 
 VALUES ('MT03', N'Vitamin C', N'Chai ', N'Bổ sung vitamin C', 80, 100, 3, '2024-08-31', 12000);
 INSERT INTO LOAITHUOC (MATHUOC, TENTHUOC, DONVITINH, CHIDINH, SLTON, SLNHAP, SLDAHUY, NGAYHETHAN, DONGIA) 
@@ -406,16 +981,15 @@ VALUES('DV21', N'Chỉnh nha thẩm mỹ', N'Dịch vụ này đảm nhiệm vi�
 --Thêm chi tiết thuốc
 INSERT INTO CHITIETTHUOC (MATHUOC, SODT, SOTT, THOIDIEMDUNG)
 VALUES
-('MT01', '0323456789', 1, 'N"Buổi sáng: 1 viên thuốc sau bữa sáng.\nBuổi trưa: 1 viên thuốc sau bữa trưa.\nBuổi tối: 1 viên thuốc sau bữa tối.\n"'),
-('MT02', '0323456789', 1, 'N"Buổi sáng: 1 viên thuốc sau bữa sáng.\nBuổi trưa: 1 viên thuốc sau bữa trưa.\nBuổi tối: 1 viên thuốc sau bữa tối.\n"'),
-('MT08', '0323456789', 1, 'N"Buổi sáng: 1 viên thuốc sau bữa sáng.\nBuổi trưa: 1 viên thuốc sau bữa trưa.\nBuổi tối: 1 viên thuốc sau bữa tối.\n"'),
-('MT03', '0712345678', 1, 'N"Buổi sáng: 1 viên thuốc sau bữa sáng.\nBuổi trưa: 1 viên thuốc sau bữa trưa.\nBuổi tối: 1 viên thuốc sau bữa tối.\n"'),
-('MT02', '0987654321', 1, 'N"Buổi sáng: 1 viên thuốc sau bữa sáng.\nBuổi trưa: 1 viên thuốc sau bữa trưa.\nBuổi tối: 1 viên thuốc sau bữa tối.\n"'),
-('MT05', '0301234567', 1, 'N"Buổi sáng: 1 viên thuốc sau bữa sáng.\nBuổi trưa: 1 viên thuốc sau bữa trưa.\nBuổi tối: 1 viên thuốc sau bữa tối.\n"'),
-('MT03', '0923456780', 1, 'N"Buổi sáng: 1 viên thuốc sau bữa sáng.\nBuổi trưa: 1 viên thuốc sau bữa trưa.\nBuổi tối: 1 viên thuốc sau bữa tối.\n"'),
-('MT09', '0923456780', 1, 'N"Buổi sáng: 1 viên thuốc sau bữa sáng.\nBuổi trưa: 1 viên thuốc sau bữa trưa.\nBuổi tối: 1 viên thuốc sau bữa tối.\n"'),
-('MT10', '0387654321', 1, 'N"Buổi sáng: 1 viên thuốc sau bữa sáng.\nBuổi trưa: 1 viên thuốc sau bữa trưa.\nBuổi tối: 1 viên thuốc sau bữa tối.\n"');
-
+('MT01', '0323456789', 1, N'Buổi sáng: 1 viên thuốc sau bữa sáng.\nBuổi trưa: 1 viên thuốc sau bữa trưa.\nBuổi tối: 1 viên thuốc sau bữa tối.\n'),
+('MT02', '0323456789', 1, N'Buổi sáng: 1 viên thuốc sau bữa sáng.\nBuổi trưa: 1 viên thuốc sau bữa trưa.\nBuổi tối: 1 viên thuốc sau bữa tối.\n'),
+('MT08', '0323456789', 1, N'Buổi sáng: 1 viên thuốc sau bữa sáng.\nBuổi trưa: 1 viên thuốc sau bữa trưa.\nBuổi tối: 1 viên thuốc sau bữa tối.\n'),
+('MT03', '0712345678', 1, N'Buổi sáng: 1 viên thuốc sau bữa sáng.\nBuổi trưa: 1 viên thuốc sau bữa trưa.\nBuổi tối: 1 viên thuốc sau bữa tối.\n'),
+('MT02', '0987654321', 1, N'Buổi sáng: 1 viên thuốc sau bữa sáng.\nBuổi trưa: 1 viên thuốc sau bữa trưa.\nBuổi tối: 1 viên thuốc sau bữa tối.\n'),
+('MT05', '0301234567', 1, N'Buổi sáng: 1 viên thuốc sau bữa sáng.\nBuổi trưa: 1 viên thuốc sau bữa trưa.\nBuổi tối: 1 viên thuốc sau bữa tối.\n'),
+('MT03', '0923456780', 1, N'Buổi sáng: 1 viên thuốc sau bữa sáng.\nBuổi trưa: 1 viên thuốc sau bữa trưa.\nBuổi tối: 1 viên thuốc sau bữa tối.\n'),
+('MT09', '0923456780', 1, N'Buổi sáng: 1 viên thuốc sau bữa sáng.\nBuổi trưa: 1 viên thuốc sau bữa trưa.\nBuổi tối: 1 viên thuốc sau bữa tối.\n'),
+('MT10', '0387654321', 1, N'Buổi sáng: 1 viên thuốc sau bữa sáng.\nBuổi trưa: 1 viên thuốc sau bữa trưa.\nBuổi tối: 1 viên thuốc sau bữa tối.\n');
 --Thêm chi tiết dịch vụ
 INSERT INTO CHITIETDV (MADV, SOTT, SODT, SOLUONG)
 VALUES
@@ -434,8 +1008,46 @@ VALUES
 ('DV20', 1, '0387654321', 1),
 ('DV06', 1, '0765432109', 1);
 
+--Nhap lieu bang HOADON
+INSERT INTO HOADON (SODT, SOTT, NGAYXUAT, _DATHANHTOAN, MANV)
+VALUES ('0323456789', 1, '2024-01-05', 1, 'NV0001');
 
+INSERT INTO HOADON (SODT, SOTT, NGAYXUAT, _DATHANHTOAN, MANV)
+VALUES ('0712345678', 1, '2024-01-02', 1, 'NV0007');
 
+INSERT INTO HOADON (SODT, SOTT, NGAYXUAT, _DATHANHTOAN, MANV)
+VALUES ('0987654321', 1, '2024-01-07', 1, 'NV0001');
 
+INSERT INTO HOADON (SODT, SOTT, NGAYXUAT, _DATHANHTOAN, MANV)
+VALUES ('0301234567', 1, '2024-01-02', 1, 'NV0003');
 
+INSERT INTO HOADON (SODT, SOTT, NGAYXUAT, _DATHANHTOAN, MANV)
+VALUES ('0743216549', 1, '2024-01-02', 1, 'NV0003');
 
+INSERT INTO HOADON (SODT, SOTT, NGAYXUAT, _DATHANHTOAN, MANV)
+VALUES ('0912345678', 1, '2024-01-05', 1, 'NV0014');
+
+INSERT INTO HOADON (SODT, SOTT, NGAYXUAT, MANV)
+VALUES ('0378236541', 1, '2024-01-03', 'NV0012');
+
+INSERT INTO HOADON (SODT, SOTT, NGAYXUAT, _DATHANHTOAN, MANV)
+VALUES ('0723456789', 1, '2024-01-03', 1, 'NV0010');
+
+INSERT INTO HOADON (SODT, SOTT, NGAYXUAT, _DATHANHTOAN, MANV)
+VALUES ('0923456780', 1, '2024-01-05', 1, 'NV0008');
+
+INSERT INTO HOADON (SODT, SOTT, NGAYXUAT, MANV)
+VALUES ('0345678901', 1, '2024-01-05', 'NV0010');
+
+--Nhap lieu bang QTV
+INSERT INTO QTV (MAQTV, HOTEN, PHAI, MATKHAU)
+VALUES ('QTV0001', N'Vũ Thành Công', N'Nam', '21126054');
+
+INSERT INTO QTV (MAQTV, HOTEN, PHAI, MATKHAU)
+VALUES ('QTV0002', N'Nguyễn Ngọc Hoàng Khánh', N'Nam', '21126072');
+
+INSERT INTO QTV (MAQTV, HOTEN, PHAI, MATKHAU)
+VALUES ('QTV0003', N'Võ Diệp Phi Vũ', N'Nam', '21126088');
+
+INSERT INTO QTV (MAQTV, HOTEN, PHAI, MATKHAU)
+VALUES ('QTV0004', N'Vũ Nguyễn Xuân Uyên', N'Nữ', '21126090');
