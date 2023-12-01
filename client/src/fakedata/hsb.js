@@ -1,24 +1,24 @@
 const hsb = [
   {
     SODT: "0301234567",
-    DV: [
+    DICHVU: [
       {
         SOTT: 1,
         TENDV: "Khám răng",
-        SOLUONG: 1,
+        SLDV: 1,
       },
       {
         SOTT: 2,
         TENDV: "Chinh Nha",
-        SOLUONG: 4,
+        SLDV: 4,
       },
     ],
-    TENTHUOC: [
+    THUOC: [
       {
         SOTT: 1,
         TENTHUOC: "Vitamin D",
         DONVITINH: "Chai ",
-        SOLUONG: 1,
+        SLTHUOC: 1,
         THOIDIEMDUNG:
           '"Bu?i sáng: 1 viên thu?c sau b?a sáng.\\nBu?i trua: 1 viên thu?c sau b?a trua.\\nBu?i t?i: 1 viên thu?c sau b?a t?i.\\n"',
       },
@@ -26,38 +26,38 @@ const hsb = [
         SOTT: 2,
         TENTHUOC: "Amoxicillin",
         DONVITINH: "viên ",
-        SOLUONG: 3,
+        SLTHUOC: 3,
         THOIDIEMDUNG:
           '"Bu?i sáng: 1 viên thu?c sau b?a sáng.\\nBu?i trua: 1 viên thu?c sau b?a trua.\\nBu?i t?i: 1 viên thu?c sau b?a t?i.\\n"',
       },
     ],
-    HOTEN_KH: "Hoàng Văn Tùng",
+    HOTEN: "Hoàng Văn Tùng",
     NGAYSINH: "2002-01-30T00:00:00.000Z",
     MANS: "NS0004",
-    HOTEN_NS: "Trần Minh Tuấn",
+    NHASI: "Trần Minh Tuấn",
     DANDO:
       "Đề nghị tránh những thức ăn cứng hoặc nhai mạnh, và tránh lâu dài trong nhiệt độ lạnh hoặc nóng. Uống thuốc theo toa đã chỉ định và tái khám sau 2 tuần.",
   },
   {
     SODT: "0123456789",
-    DV: [
+    DICHVU: [
       {
         SOTT: 1,
         TENDV: "Khám răng",
-        SOLUONG: 4,
+        SLDV: 4,
       },
       {
         SOTT: 2,
         TENDV: "Chinh Nha",
-        SOLUONG: 6,
+        SLDV: 6,
       },
     ],
-    TENTHUOC: [
+    THUOC: [
       {
         SOTT: 1,
         TENTHUOC: "Vitamin D",
         DONVITINH: "Chai ",
-        SOLUONG: 1,
+        SLTHUOC: 1,
         THOIDIEMDUNG:
           '"Bu?i sáng: 1 viên thu?c sau b?a sáng.\\nBu?i trua: 1 viên thu?c sau b?a trua.\\nBu?i t?i: 1 viên thu?c sau b?a t?i.\\n"',
       },
@@ -65,7 +65,7 @@ const hsb = [
         SOTT: 2,
         TENTHUOC: "Amoxicillin",
         DONVITINH: "viên ",
-        SOLUONG: 3,
+        SLTHUOC: 3,
         THOIDIEMDUNG:
           '"Bu?i sáng: 1 viên thu?c sau b?a sáng.\\nBu?i trua: 1 viên thu?c sau b?a trua.\\nBu?i t?i: 1 viên thu?c sau b?a t?i.\\n"',
       },
@@ -73,15 +73,15 @@ const hsb = [
         SOTT: 2,
         TENTHUOC: "Amoxicillin",
         DONVITINH: "viên ",
-        SOLUONG: 3,
+        SLTHUOC: 3,
         THOIDIEMDUNG:
           '"Bu?i sáng: 1 viên thu?c sau b?a sáng.\\nBu?i trua: 1 viên thu?c sau b?a trua.\\nBu?i t?i: 1 viên thu?c sau b?a t?i.\\n"',
       },
     ],
-    HOTEN_KH: "Nguyễn Ngọc Khánh",
+    HOTEN: "Nguyễn Ngọc Khánh",
     NGAYSINH: "2002-01-30T00:00:00.000Z",
     MANS: "NS0004",
-    HOTEN_NS: "Vũ Thành Công",
+    NHASI: "Vũ Thành Công",
     DANDO: "Đề nghị tránh ánh nắng trực tiếp",
   },
 ];
