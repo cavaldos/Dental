@@ -14,6 +14,9 @@ app.use(express.json());
 app.use(morgan("tiny"));
 app.use(cors());
 AllRouters(app);
+app.get("/", (req, res) => {
+  res.send("Hello World!");
+});
 // ==========================================
 const port = process.env.PORT || 4000;
 const host = "0.0.0.0";
