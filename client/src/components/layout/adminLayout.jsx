@@ -2,11 +2,8 @@ import React, { useState } from "react";
 import { AiOutlineMenuFold, AiOutlineMenuUnfold } from "react-icons/ai";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
-<<<<<<< HEAD
-import { Breadcrumb } from "antd";
-=======
+
 import Bread from "./breadCrumb";
->>>>>>> khanh
 import { menuDentist, menuAdmin, menuStaff } from "./menuItem";
 import Account from "./Account";
 
