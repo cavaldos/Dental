@@ -9,8 +9,12 @@ services:
       SA_PASSWORD: password123@
       ACCEPT_EULA: Y
       MSSQL_PID: "Developer"
-      MSSQL_CONFIG_CONNECTIVITY: "LOCAL"  
+      MSSQL_CONFIG_CONNECTIVITY: "LOCAL"
     ports:
       - "1444:1433"
+    volumes:
+      - ./CreateTable.sql:/var/opt/mssql/init.sql
+    
+    command: [ "/bin/bash", "-c", "sh -c 'while ! netstat -anp | grep -q :1433; do echo Waiting for MSSQL to start...; sleep 1; done; /opt/mssql/tools/sqlcmd -S localhost -d master -U sa -P password123@ -i /var/opt/mssql/init.sql'" ]
 
 # docker compose -f mssql.yml up -d
