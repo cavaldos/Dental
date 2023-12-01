@@ -20,7 +20,7 @@ import { useState } from "react";
 
 import TextArea from "antd/es/input/TextArea";
 import '../../assets/styles/admin.css'
-import ButtonGreen from "../../components/button";
+import {ButtonGreen} from "../../components/button";
 import { 
   SearchOutlined,
   EditOutlined, 
