@@ -1,8 +1,11 @@
 import express from "express";
 import khachHangController from "../controllers/khachhang.controller.js";
 
-
 const router = express.Router();
+router.get("/test", (req, res) => {
+  console.log("test");
+  res.send("test");
+});
 router.post("/taoKH", khachHangController.taoTKKH);
 router.get("/getAllCa", khachHangController.getAllCa);
 router.get("/getAllDV", khachHangController.getAllDV);
@@ -15,10 +18,6 @@ router.get("/benhAn/:sdt", khachHangController.xemBenhAn);
 router.put("/:sdt", khachHangController.capNhanThongTin);
 router.get("/:sdt", khachHangController.xemThongTin);
 router.delete("/lichHen", khachHangController.deleteLichHen);
-
-
-
-
 
 
 export default router;
