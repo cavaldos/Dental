@@ -3,6 +3,7 @@ import khachHangController from "../controllers/khachhang.controller.js";
 import authMiddleware from "../middleware/auth.js";
 
 const router = express.Router();
+
 router.post("/taoKH", khachHangController.taoTKKH);
 router.get("/getAllCa", khachHangController.getAllCa);
 router.get("/getAllDV", khachHangController.getAllDV);
@@ -19,10 +20,6 @@ router.delete("/lichHen", khachHangController.deleteLichHen);
 router.put("/",authMiddleware.authenticateToken, khachHangController.capNhanThongTin);
 // Chỗ này add thử nè
 router.get("/",authMiddleware.authenticateToken, khachHangController.xemThongTin);
-
-
-
-
 
 
 export default router;

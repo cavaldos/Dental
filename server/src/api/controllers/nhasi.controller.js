@@ -165,6 +165,7 @@ const nhaSiController = {
       if (!pool) {
         return res.status(500).json({ error: 'Khong the ket noi db' });
       }
+
       const params = null;
       const sp = 'SP_GETALLTHUOC_NV_QTV_NS';
       const result = await pool.executeSP(sp, params);
