@@ -15,6 +15,8 @@ router.get("/getAllDV", nhaSiController.getAllDV);
 router.get("/getAllCa", nhaSiController.getAllCa);
 router.get("/lichHen/:mans", nhaSiController.xemLichHen);
 router.get("/getAllDSNhaSi", nhaSiController.getAllDSNS);
+router.get("/benhAn/:sdt", nhaSiController.xemBenhAn);
+
 
 
 
