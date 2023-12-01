@@ -30,12 +30,11 @@ const onlineController = {
       if (!pool) {
         return res.status(500).json({ error: 'Khong the ket noi db' });
       }
-  
-
       const sp = 'SP_DANGNHAP_ALL';
       const params = {};
       params.MATK = req.body.matk;
       params.MATKHAU = req.body.matkhau;
+      
       const result = await pool.executeSP(sp, params);
       if (result.error) {
         return res.status(401).send(result.error);
@@ -46,10 +45,10 @@ const onlineController = {
         }
         const accessToken = jwt.sign({
           userId: params.MATK,
-          userRole: result[0].ROLE
+          userRole: result[0][0].ROLE
         },
           process.env.ACCESS_TOKEN_SECRET_KEY,
-          process.env.ACCESS_TOKEN_LIFE);
+          {expiresIn: process.env.ACCESS_TOKEN_LIFE});
 
         return res.status(200).json({ success: true, accessToken: accessToken });
       }

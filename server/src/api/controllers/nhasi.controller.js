@@ -1,5 +1,5 @@
-import { poolConnect } from "../../config/db.mjs";
 import {groupHSB} from "../../utils/groupData.js"
+import { poolConnect } from "../../config/db.mjs";
 const pool = await poolConnect('NS');
 
 const nhaSiController = {

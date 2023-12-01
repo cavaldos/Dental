@@ -3,7 +3,6 @@ import {groupHSB} from "../../utils/groupData.js"
 const pool = await poolConnect('KH');
 
 
-
 const khachHangController = {
   xemThongTin: async (req, res) => {
     try {
@@ -11,7 +10,7 @@ const khachHangController = {
         return res.status(500).json({ error: 'Khong the ket noi db' });
       }
       const params = {};
-      params.SODT = req.params.sdt;
+      params.SODT = req.userId;
       const sp = 'SP_XEMTHONGTIN_KH';
       const result = await pool.executeSP(sp, params);
       return res.status(200).json(result[0]);
@@ -26,7 +25,7 @@ const khachHangController = {
         return res.status(500).json({ error: 'Khong the ket noi db' });
       }
       const params ={}
-      params.SODT = req.params.sdt;
+      params.SODT = req.userId;
       params.HOTEN = req.body.hoten;
       params.PHAI = req.body.phai;
       params.NGAYSINH = req.body.ngaysinh;
@@ -92,7 +91,7 @@ const khachHangController = {
         return res.status(500).json({ error: 'Khong the ket noi db' });
       }
       const params = {};
-      params.SDT = req.params.sdt;
+      params.SDT = req.userId;
       const sp = 'SP_TRUYVANLICHHEN_KH';
       const result = await pool.executeSP(sp, params);
       return res.status(200).json(result[0]);
@@ -188,7 +187,7 @@ const khachHangController = {
         return res.status(500).json({ error: 'Khong the ket noi db' });
       }
       const params = {};
-      params.SODT = req.params.sdt;
+      params.SODT = req.userId;
       const sp = 'SP_GETHSB1KH_NV_NS_KH';
       const result = await pool.executeSP(sp, params);
       const groupedResult = groupHSB(result[0]);
