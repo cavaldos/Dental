@@ -1,21 +1,18 @@
-import { Button } from "antd";
+import { Button, Calendar, Select } from "antd";
 import { lichhen4 } from "~/fakedata/lhnv";
-import React from "react";
+import React, { useState } from "react";
 import TableLichHen from "~/components/dentist/TableLichHen";
 
 const DangKiLichRanh = () => {
-  // goi api tren day
   return (
     <>
-      <div className="flex flex-col">
+      <div className="">
         <TableLichHen data={lichhen4} />
-        <div className=" bg-gray-300 flex">
-          <div className=" bg-red-400 h-[150px] w-[300px]">
-            may cai mo ta tren day
-          </div>
-          <div className="flex  ml-auto items-center gap-10 ">
-            <Button>Hoan Tac</Button>
-            <Button className="bg-green-600">Dang Ki</Button>
+        <div className="flex bg-blue-400">
+          <div className="bg-red-200">viet may cai quy tac o day</div>
+          <div className="ml-auto">
+            <Button>sadf</Button>
+            <Button>sdafsdf</Button>
           </div>
         </div>
       </div>
