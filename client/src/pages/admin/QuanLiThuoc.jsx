@@ -1,5 +1,5 @@
 import thuoc from "../../fakedata/thuoc";
-import React, { useState } from "react";
+import React, { useState, useCallback, useEffect, useRef } from "react";
 import {
   Table,
   Button,
@@ -14,58 +14,358 @@ import {
   Space,
   InputNumber,
 } from "antd";
-import { 
+import {
   SearchOutlined,
   StopOutlined,
   PlusCircleOutlined,
-  EditOutlined, 
+  EditOutlined,
 } from "@ant-design/icons";
-
 import ColumnSearch from "~/hooks/useSortTable";
 import TextArea from "antd/es/input/TextArea";
+import "../../assets/styles/admin.css";
+import {ButtonGreen, ButtonPink} from "../../components/button";
+import moment from 'moment';
 
-import '../../assets/styles/admin.css'
-import ButtonGreen from "../../components/button";
+const { Option } = Select;
+
+const Com1 = ({ data }) => {
+  data.NGAYHETHAN = data.NGAYHETHAN ? moment(data.NGAYHETHAN).format('YYYY-MM-DD'): undefined;
+  const [formValues, setFormValues] = useState(data);
+  const [form] = Form.useForm();
+  useEffect(() => {
+    form.setFieldsValue(data);
+  }, [data, form]);
+
+  const handleSubmit = (values) => {
+    console.log("Success:", values);
+    message.success("Hủy thuốc thành công!");
+    form.resetFields();
+    setFormValues({});
+    window.location.reload();
+  };
+
+  return (
+    <>
+      <Form
+        onSubmit={handleSubmit}
+        form={form}
+        name="registration-form"
+        layout="vertical"
+        onFinish={handleSubmit}
+        initialValues={formValues}
+      >
+        <Form.Item
+          label="Mã thuốc thuốc"
+          name="MATHUOC"
+          style={{ width: "100%" }}
+        >
+          <Input disabled />
+        </Form.Item>
+        <Form.Item
+          label="Tên thuốc"
+          name="TENTHUOC"
+          style={{ width: "100%" }}
+        >
+          <Input disabled/>
+        </Form.Item>
+        <Form.Item
+          label="Đơn vị tính"
+          name="DONVITINH"
+          style={{ width: "100%" }}
+        >
+          <Select disabled>
+            <Option value="Viên">Viên</Option>
+            <Option value="Ống">Ống</Option>
+            <Option value="Gói">Gói</Option>
+            <Option value="Chai">Chai</Option>
+          </Select>
+        </Form.Item>
+        <Form.Item
+          label="Số thuốc sẽ hủy"
+          name="SLTON"
+          style={{ width: "100%" }}
+        >
+          <InputNumber disabled/>
+        </Form.Item>
+        <Form.Item
+          label="Ngày hết hạn"
+          name="NGAYHETHAN"
+          style={{ width: "100%" }}
+        >
+          <Input disabled />
+        </Form.Item>
+        <Form.Item style={{ display: "flex", justifyContent: "flex-end" }}>
+          <ButtonPink text="XÁC NHẬN HỦY THUỐC" func={""} />
+        </Form.Item>
+      </Form>
+    </>
+  );
+};
+
+const Com2 = ({ data }) => {
+  const [formValues, setFormValues] = useState(data);
+  const [form] = Form.useForm();
+  useEffect(() => {
+    form.setFieldsValue(data);
+  }, [data, form]);
+
+  const handleSubmit = (values) => {
+    console.log("Success:", values);
+    message.success("Nhập thêm thuốc thành công!");
+    form.resetFields();
+    setFormValues({});
+    window.location.reload();
+  };
+
+  const handleReset = () => {
+    form.resetFields();
+    message.success("Đã xóa thông tin!");
+  };
+
+  return (
+    <>
+      <Form
+        onSubmit={handleSubmit}
+        form={form}
+        name="registration-form"
+        layout="vertical"
+        onFinish={handleSubmit}
+        initialValues={formValues}
+      >
+        <Form.Item
+          label="Mã thuốc thuốc"
+          name="MATHUOC"
+          style={{ width: "100%" }}
+        >
+          <Input disabled />
+        </Form.Item>
+        <Form.Item
+          label="Tên thuốc"
+          name="TENTHUOC"
+          style={{ width: "100%" }}
+        >
+          <Input disabled/>
+        </Form.Item>
+        <Form.Item
+          label="Đơn vị tính"
+          name="DONVITINH"
+          style={{ width: "100%" }}
+        >
+          <Select disabled>
+            <Option value="Viên">Viên</Option>
+            <Option value="Ống">Ống</Option>
+            <Option value="Gói">Gói</Option>
+            <Option value="Chai">Chai</Option>
+          </Select>
+        </Form.Item>
+        <Form.Item
+          label="Số lượng nhập"
+          name="soluongnhap"
+          style={{ width: "100%" }}
+          rules={[{ required: true, message: "Vui lòng nhập số lượng nhập!" }]}
+        >
+          <InputNumber
+            min={10}
+            placeholder="Số lượng thuốc nhập thêm dựa trên đơn vị tính."
+          />
+        </Form.Item>
+        <Form.Item
+          label="Ngày hết hạn"
+          name="ngayhethan"
+          style={{ width: "100%" }}
+          rules={[{ required: true, message: "Vui lòng nhập ngày hết hạn!" }]}
+        >
+          <DatePicker placeholder="Ngày hết hạn của thuốc." />
+        </Form.Item>
+        <Form.Item
+          label="Đơn giá"
+          name="DONGIA"
+          style={{ width: "100%" }}
+        >
+          <InputNumber disabled/>
+        </Form.Item>
+        <Form.Item style={{ display: "flex", justifyContent: "flex-end" }}>
+          <Button
+            onClick={handleReset}
+            style={{ marginRight: 10 }}
+            type="danger"
+            initialValues={formValues}
+          >
+            ĐẶT LẠI
+          </Button>
+          <ButtonGreen text="THÊM THUỐC" func={""}/>
+        </Form.Item>
+      </Form>
+    </>
+  );
+};
+
+const Com3 = ({ data }) => {
+  const [formValues, setFormValues] = useState(data);
+  const [form] = Form.useForm();
+  useEffect(() => {
+    form.setFieldsValue(data);
+  }, [data, form]);
+
+  const handleSubmit = (values) => {
+    console.log("Success:", values);
+    message.success("Cập nhật thuốc thành công!");
+    form.resetFields();
+    setFormValues({});
+    window.location.reload();
+  };
+
+  const handleReset = () => {
+    form.resetFields();
+    message.success("Hoàn tác quá trình cập nhật!");
+  };
+
+  return (
+    <>
+      <Form
+        onSubmit={handleSubmit}
+        form={form}
+        name="registration-form"
+        layout="vertical"
+        onFinish={handleSubmit}
+        initialValues={formValues}
+      >
+        <Form.Item
+          label="Mã thuốc thuốc"
+          name="MATHUOC"
+          style={{ width: "100%" }}
+        >
+          <Input disabled />
+        </Form.Item>
+        <Form.Item
+          label="Tên thuốc"
+          name="TENTHUOC"
+          style={{ width: "100%" }}
+          rules={[{ required: true, message: "Tên thuốc không được để trống!" }]}
+        >
+          <Input />
+        </Form.Item>
+        <Form.Item
+          label="Đơn vị tính"
+          name="DONVITINH"
+          style={{ width: "100%" }}
+          rules={[{ required: true, message: "Vui lòng chọn đơn vị tính!" }]}
+        >
+          <Select placeholder="Chọn đơn vị tính.">
+            <Option value="Viên">Viên</Option>
+            <Option value="Ống">Ống</Option>
+            <Option value="Gói">Gói</Option>
+            <Option value="Chai">Chai</Option>
+          </Select>
+        </Form.Item>
+        <Form.Item
+          label="Chỉ định"
+          name="CHIDINH"
+          style={{ width: "100%" }}
+          rules={[{ required: true, message: "Chỉ định sử dụng không được để trống!" }]}
+        >
+          <TextArea
+            showCount
+            minLength={10}
+            maxLength={500}
+            style={{ height: 120 }}
+          />
+        </Form.Item>
+        <Form.Item
+          label="Đơn giá"
+          name="DONGIA"
+          style={{ width: "100%" }}
+          rules={[{ required: true, message: "Đơn giá không được để trống!" }]}
+        >
+          <InputNumber />
+        </Form.Item>
+        <Form.Item style={{ display: "flex", justifyContent: "flex-end" }}>
+          <Button
+            onClick={handleReset}
+            style={{ marginRight: 10 }}
+            type="danger"
+            initialValues={formValues}
+          >
+            ĐẶT LẠI
+          </Button>
+          <ButtonGreen text="THÊM THUỐC" func={""}/>
+        </Form.Item>
+      </Form>
+    </>
+  );
+};
 
 const MedicineInfo = ({ medicine }) => {
-  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [openDeleteModal, setOpenDeleteModal] = useState(false);
+  const [openAddModal, setOpenAddModal] = useState(false);
+  const [openEditModal, setOpenEditModal] = useState(false);
+  const selectedDataRef = useRef({});
 
-  const formatDateString = (dateString) => {
-    const date = new Date(dateString);
-    return date.toLocaleDateString();
+  const [data1, setData1] = useState({});
+  // console.log("data1", data1);
+  const [data2, setData2] = useState({});
+  // console.log("data2", data2);
+  const [data3, setData3] = useState({});
+  // console.log("data3", data3);
+
+  const handleDelete = (record) => {
+    console.log("record", record);
+    setOpenDeleteModal(true);
+    setData1(record);
   };
-  const formatCurrency = (amount) => {
-    const formattedAmount = amount.toLocaleString("vi-VN");
-    return `${formattedAmount} VND`;
+
+  const handleAddMedicine = (record) => {
+    setOpenAddModal(true);
+    setData2(record);
   };
+
   const handleEdit = (record) => {
-    // Thực hiện cập nhật thông tin thuốc
-    message.info(`Edit ${record.MATHUOC}`);
-    setIsModalVisible(true);
+    setOpenEditModal(true);
+    setData3({ ...record });
   };
 
-  const handleCancel = () => {
-    // Đóng modal khi nhấp vào nút "Hủy"
-    setIsModalVisible(false);
+  const handleCancelDelete = useCallback(() => {
+    setOpenDeleteModal(false);
+  }, []);
+
+  const handleCancelAdd = useCallback(() => {
+    setOpenAddModal(false);
+  }, []);
+
+  const handleCancelEdit = useCallback(() => {
+    setOpenEditModal(false);
+  }, []);
+
+  const handleSubmitDelete = () => {
+    // Perform delete action
+    setOpenDeleteModal(false);
+    message.success("Hủy thuốc thành công!");
   };
 
-  const handleSubmit = () => {
-    // Thực hiện cập nhật thông tin thuốc
-    setIsModalVisible(false); // Đóng modal sau khi cập nhật thành công
+  const handleSubmitAdd = () => {
+    // Perform add action
+    setOpenAddModal(false);
+    message.success("Nhập thêm thuốc thành công!");
+  };
+
+  const handleSubmitEdit = () => {
+    // Perform edit action
+    setOpenEditModal(false);
+    message.success("Đã cập nhật thông tin thuốc!");
   };
   const columns = [
     {
       title: "Mã thuốc",
       dataIndex: "MATHUOC",
       key: "MATHUOC",
-      fixed: 'left',
+      fixed: "left",
       ...ColumnSearch("MATHUOC", "Mã thuốc"),
     },
     {
       title: "Tên thuốc",
       dataIndex: "TENTHUOC",
       key: "TENTHUOC",
-      fixed: 'left',
+      fixed: "left",
       ...ColumnSearch("TENTHUOC", "Tên thuốc"),
     },
     {
@@ -99,41 +399,53 @@ const MedicineInfo = ({ medicine }) => {
       title: "Ngày hết hạn",
       dataIndex: "NGAYHETHAN",
       key: "NGAYHETHAN",
-      render: (text) => formatDateString(text),
+      render: (text) => {
+        const date = new Date(text);
+        const dateString = date.toLocaleDateString();
+        return dateString;
+      },
     },
     {
       title: "Đơn giá",
       dataIndex: "DONGIA",
       key: "DONGIA",
       sorter: (a, b) => a.DONGIA - b.DONGIA,
-      render: (text) => formatCurrency(text),
+      render: (text) => {
+        const formattedAmount = text.toLocaleString("vi-VN");
+        return `${formattedAmount} VND`;
+      },
     },
     {
       title: "Quản lí",
       key: "action",
-      fixed: 'right',
+      fixed: "right",
       // width: "20%",
+
       render: (text, record) => (
         <Space size="middle">
-          <a 
-              className="text-orange font-montserrat hover:text-darkorange hover:underline"
-              onClick={() => handleDelete(record.key)}> 
-              <StopOutlined/> Hủy
-          </a>
-          <a 
-              className="text-grin font-montserrat hover:text-darkgrin hover:underline"
-              onClick={() => handleAddMedicine(record.key)}>
-              <PlusCircleOutlined /> Nhập kho
-          </a>
-          <a 
-              className="text-blue font-montserrat hover:text-darkblue"
-              onClick={() => handleUpdate(record.key)}>
-              <EditOutlined/>
-          </a>
+          <button
+            className="text-orange font-montserrat hover:text-darkorange hover:underline"
+            onClick={() => handleDelete(record)}
+          >
+            <StopOutlined /> Hủy
+          </button>
+          <button
+            className="text-grin font-montserrat hover:text-darkgrin hover:underline"
+            onClick={() => handleAddMedicine(record)}
+          >
+            <PlusCircleOutlined /> Nhập kho
+          </button>
+          <button
+            className="text-blue font-montserrat hover:text-darkblue"
+            onClick={() => handleEdit(record)}
+          >
+            <EditOutlined />
+          </button>
         </Space>
       ),
     },
   ];
+
   return (
     <>
       <Table
@@ -143,101 +455,47 @@ const MedicineInfo = ({ medicine }) => {
         bordered
         size="middle"
         tableLayout="auto"
-        scroll={{x: "calc(900px + 50%)",}}
+        scroll={{ x: "calc(900px + 50%)" }}
       />
+
       <Modal
-        title="Chỉnh sửa thông tin thuốc"
-        open={isModalVisible}
-        onCancel={handleCancel}
-        footer={[
-
-          <Button key="cancel" onClick={handleCancel}>
-            Hủy
-          </Button>,
-
-          <Button
-            className="bg-blue-500"
-            key="submit"
-            type="primary"
-            onClick={handleSubmit}
-          >
-            Cập nhật
-          </Button>,
-        ]}
+        title={
+          <h1 className="font-montserrat text-xl mb-3 mt-2 font-extrabold">
+            HỦY THUỐC
+          </h1>
+        }
+        open={openDeleteModal}
+        onCancel={handleCancelDelete}
+        onOk={handleSubmitDelete}
       >
-        <Form labelCol={{ span: 6 }} wrapperCol={{ span: 18 }}>
-          <Form.Item label="Mã thuốc">
-            <Input />
-          </Form.Item>
-          <Form.Item label="Tên thuốc">
-            <Input />
-          </Form.Item>
-          <Form.Item label="Đơn vị tính">
-            <Select>
-              <Select.Option value="Viên">Viên</Select.Option>
-              <Select.Option value="Ống">Ống</Select.Option>
-              <Select.Option value="Hộp">Hộp</Select.Option>
-            </Select>
-          </Form.Item>
-          <Form.Item label="Chỉ định">
-            <Input />
-          </Form.Item>
-          <Form.Item label="Đơn giá">
-            <Input />
-          </Form.Item>
-        </Form>
+        <Com1 data={data1} />
       </Modal>
-    </>
-  );
-};
 
-const CapNhatThongTinThuoc = () => {
-  const [medicineType, setMedicineType] = useState({
-    code: "MT02",
-    name: "Vitamin B",
-    unit: "Viên",
-    indication: "3/200",
-    price: 5000,
-  });
+      <Modal
+        title={
+          <h1 className="font-montserrat text-xl mb-3 mt-2 font-extrabold">
+            NHẬP THÊM THUỐC VÀO KHO
+          </h1>
+        }
+        open={openAddModal}
+        onCancel={handleCancelAdd}
+        onOk={handleSubmitAdd}
+      >
+        <Com2 data={data2} />
+      </Modal>
 
-  const handleSubmit = () => {
-    // Thực hiện cập nhật thông tin loại thuốc
-  };
-  return (
-    <>
-      <div className="bg-grin ">
-        <Form
-          onSubmit={handleSubmit}
-          labelCol={{ span: 6 }}
-          wrapperCol={{ span: 18 }}
-        >
-          <Form.Item label="Mã thuốc">
-            <Input value={medicineType.code} />
-          </Form.Item>
-          <Form.Item label="Tên thuốc">
-            <Input value={medicineType.name} />
-          </Form.Item>
-          <Form.Item label="Đơn vị tính">
-            <Select value={medicineType.unit}>
-              <Select.Option value="Viên">Viên</Select.Option>
-              <Select.Option value="Ống">Ống</Select.Option>
-              <Select.Option value="Hộp">Hộp</Select.Option>
-            </Select>
-          </Form.Item>
-          <Form.Item label="Chỉ định">
-            <Input value={medicineType.indication} />
-          </Form.Item>
-          <Form.Item label="Đơn giá">
-            <Input value={medicineType.price} />
-          </Form.Item>
-          <Form.Item>
-            <Button type="primary" htmlType="submit">
-              Cập nhật
-            </Button>
-            <Button type="danger">Hủy</Button>
-          </Form.Item>
-        </Form>
-      </div>
+      <Modal
+        title={
+          <h1 className="font-montserrat text-xl mb-3 mt-2 font-extrabold">
+            CẬP NHẬT THÔNG TIN THUỐC
+          </h1>
+        }
+        open={openEditModal}
+        onCancel={handleCancelEdit}
+        onOk={handleSubmitEdit}
+      >
+        <Com3 data={data3} />
+      </Modal>
     </>
   );
 };
@@ -245,11 +503,13 @@ const CapNhatThongTinThuoc = () => {
 const TaoThuocMoi = () => {
   const [formValues, setFormValues] = useState({});
   const [form] = Form.useForm();
+
   const handleSubmit = (values) => {
     console.log("Success:", values);
     message.success("Đăng kí thành công!");
     form.resetFields();
     setFormValues({});
+    window.location.reload();
   };
 
   const handleReset = () => {
@@ -274,7 +534,7 @@ const TaoThuocMoi = () => {
           style={{ width: "100%" }}
           rules={[{ required: true, message: "Vui lòng nhập tên thuốc!" }]}
         >
-          <Input placeholder="Tên thuốc."/>
+          <Input placeholder="Tên thuốc." />
         </Form.Item>
         <Form.Item
           label="Đơn vị tính"
@@ -283,20 +543,25 @@ const TaoThuocMoi = () => {
           rules={[{ required: true, message: "Vui lòng chọn đơn vị tính!" }]}
         >
           <Select placeholder="Chọn đơn vị tính.">
-            <Select.Option value="vien">Viên</Select.Option>
-            <Select.Option value="ong">Ống</Select.Option>
-            <Select.Option value="goi">Gói</Select.Option>
-            <Select.Option value="chai">Chai</Select.Option>
+            <Select.Option value="Viên">Viên</Select.Option>
+            <Select.Option value="Ống">Ống</Select.Option>
+            <Select.Option value="Gói">Gói</Select.Option>
+            <Select.Option value="Chai">Chai</Select.Option>
           </Select>
         </Form.Item>
         <Form.Item
           label="Chỉ định"
           name="chidinh"
           style={{ width: "100%" }}
-          rules={[{required: true, message: "Vui lòng nhập chỉ định!" }]}
+          rules={[{ required: true, message: "Vui lòng nhập chỉ định!" }]}
         >
-          <TextArea showCount minLength={10} maxLength={500} style={{ height: 120, }}
-              placeholder="Chỉ định sử dụng thuốc của nhà sản xuất."/>
+          <TextArea
+            showCount
+            minLength={10}
+            maxLength={500}
+            style={{ height: 120 }}
+            placeholder="Chỉ định sử dụng thuốc của nhà sản xuất."
+          />
         </Form.Item>
         <Form.Item
           label="Số lượng nhập"
@@ -304,7 +569,10 @@ const TaoThuocMoi = () => {
           style={{ width: "100%" }}
           rules={[{ required: true, message: "Vui lòng nhập số lượng nhập!" }]}
         >
-          <InputNumber min={10} placeholder="Số lượng thuốc dựa trên đơn vị tính."/>
+          <InputNumber
+            min={10}
+            placeholder="Số lượng thuốc dựa trên đơn vị tính."
+          />
         </Form.Item>
         <Form.Item
           label="Ngày hết hạn"
@@ -319,16 +587,19 @@ const TaoThuocMoi = () => {
           name="dongia"
           placeholder="VND"
           style={{ width: "100%" }}
-          rules={[
-            { required: true, message: "Vui lòng nhập đơn giá!" }]}
+          rules={[{ required: true, message: "Vui lòng nhập đơn giá!" }]}
         >
-          <InputNumber min={500} placeholder="Đơn giá dựa trên đơn vị tính"/>
+          <InputNumber min={500} placeholder="Đơn giá dựa trên đơn vị tính" />
         </Form.Item>
-        <Form.Item style={{ display: 'flex', justifyContent: 'flex-end' }}>
-          <Button onClick={handleReset} style={{ marginRight: 10 }} type="danger">
+        <Form.Item style={{ display: "flex", justifyContent: "flex-end" }}>
+          <Button
+            onClick={handleReset}
+            style={{ marginRight: 10 }}
+            type="danger"
+          >
             ĐẶT LẠI
           </Button>
-          <ButtonGreen text="THÊM THUỐC" modal={""}></ButtonGreen>
+          <ButtonGreen text="THÊM THUỐC" func={""}/>
         </Form.Item>
       </Form>
     </>
@@ -348,10 +619,14 @@ const TaoThuocMoiButton = () => {
   };
   return (
     <>
-      <ButtonGreen text="THÊM LOẠI THUỐC MỚI" modal={showModal}></ButtonGreen>
+      <ButtonGreen text="THÊM LOẠI THUỐC MỚI" func={showModal} />
 
       <Modal
-        title={<h1 className="font-montserrat text-lg mb-3 mt-2 font-extrabold">THÊM LOẠI THUỐC MỚI</h1>}
+        title={
+          <h1 className="font-montserrat text-xl mb-3 mt-2 font-extrabold">
+            THÊM LOẠI THUỐC MỚI
+          </h1>
+        }
         open={isModalOpen}
         onCancel={handleCancel}
         footer={[]}
@@ -363,6 +638,7 @@ const TaoThuocMoiButton = () => {
 };
 
 const QuanLiThuoc = () => {
+
   return (
     <>
       <div className="w-full">

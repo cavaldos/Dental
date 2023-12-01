@@ -1,12 +1,21 @@
 import React, { useState } from "react";
 
-const ButtonGreen = ({ text, modal }) => {
-return (
-    <button className="bg-green-600 font-montserrat font-bold text-xs text-white py-2 
-        px-5 rounded-lg mb-4 hover:bg-green-700 active:bg-green-600" onClick={modal}>
-    {text}
-    </button>
-);
+const ButtonGreen = ({ text, func }) => {
+    return (
+        <button className="bg-grin font-montserrat font-bold text-lg text-white py-2 
+            px-5 rounded-lg mb-4 hover:bg-darkgrin active:bg-grin" onClick={!func ? null : func}>
+        {text}
+        </button>
+    );
 };
 
-export default ButtonGreen;
+const ButtonPink = ({ text, func }) => {
+    return (
+        <button className="bg-pinkk font-montserrat font-bold text-lg text-white py-2 
+            px-5 rounded-lg mb-4 hover:bg-darkpinkk active:bg-pinkk" onClick={!func ? null : func}>
+        {text}
+        </button>
+    );
+    };
+
+export { ButtonGreen, ButtonPink };
