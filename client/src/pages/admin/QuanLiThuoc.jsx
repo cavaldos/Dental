@@ -23,18 +23,13 @@ import {
 import ColumnSearch from "~/hooks/useSortTable";
 import TextArea from "antd/es/input/TextArea";
 import "../../assets/styles/admin.css";
-import ButtonGreen from "../../components/button";
+import {ButtonGreen, ButtonPink} from "../../components/button";
+import moment from 'moment';
 
 const { Option } = Select;
 
 const Com1 = ({ data }) => {
-  return <>com1</>;
-};
-const Com2 = ({ data }) => {
-  return <>com2</>;
-};
-
-const Com3 = ({ data }) => {
+  data.NGAYHETHAN = data.NGAYHETHAN ? moment(data.NGAYHETHAN).format('YYYY-MM-DD'): undefined;
   const [formValues, setFormValues] = useState(data);
   const [form] = Form.useForm();
   useEffect(() => {
@@ -43,9 +38,83 @@ const Com3 = ({ data }) => {
 
   const handleSubmit = (values) => {
     console.log("Success:", values);
-    message.success("Đăng kí thành công!");
+    message.success("Hủy thuốc thành công!");
     form.resetFields();
     setFormValues({});
+    window.location.reload();
+  };
+
+  return (
+    <>
+      <Form
+        onSubmit={handleSubmit}
+        form={form}
+        name="registration-form"
+        layout="vertical"
+        onFinish={handleSubmit}
+        initialValues={formValues}
+      >
+        <Form.Item
+          label="Mã thuốc thuốc"
+          name="MATHUOC"
+          style={{ width: "100%" }}
+        >
+          <Input disabled />
+        </Form.Item>
+        <Form.Item
+          label="Tên thuốc"
+          name="TENTHUOC"
+          style={{ width: "100%" }}
+        >
+          <Input disabled/>
+        </Form.Item>
+        <Form.Item
+          label="Đơn vị tính"
+          name="DONVITINH"
+          style={{ width: "100%" }}
+        >
+          <Select disabled>
+            <Option value="Viên">Viên</Option>
+            <Option value="Ống">Ống</Option>
+            <Option value="Gói">Gói</Option>
+            <Option value="Chai">Chai</Option>
+          </Select>
+        </Form.Item>
+        <Form.Item
+          label="Số thuốc sẽ hủy"
+          name="SLTON"
+          style={{ width: "100%" }}
+        >
+          <InputNumber disabled/>
+        </Form.Item>
+        <Form.Item
+          label="Ngày hết hạn"
+          name="NGAYHETHAN"
+          style={{ width: "100%" }}
+        >
+          <Input disabled />
+        </Form.Item>
+        <Form.Item style={{ display: "flex", justifyContent: "flex-end" }}>
+          <ButtonPink text="XÁC NHẬN HỦY THUỐC" func={""} />
+        </Form.Item>
+      </Form>
+    </>
+  );
+};
+
+const Com2 = ({ data }) => {
+  const [formValues, setFormValues] = useState(data);
+  const [form] = Form.useForm();
+  useEffect(() => {
+    form.setFieldsValue(data);
+  }, [data, form]);
+
+  const handleSubmit = (values) => {
+    console.log("Success:", values);
+    message.success("Nhập thêm thuốc thành công!");
+    form.resetFields();
+    setFormValues({});
+    window.location.reload();
   };
 
   const handleReset = () => {
@@ -74,9 +143,105 @@ const Com3 = ({ data }) => {
           label="Tên thuốc"
           name="TENTHUOC"
           style={{ width: "100%" }}
-          rules={[
-            { required: true, message: "Tên thuốc không được để trống!" },
-          ]}
+        >
+          <Input disabled/>
+        </Form.Item>
+        <Form.Item
+          label="Đơn vị tính"
+          name="DONVITINH"
+          style={{ width: "100%" }}
+        >
+          <Select disabled>
+            <Option value="Viên">Viên</Option>
+            <Option value="Ống">Ống</Option>
+            <Option value="Gói">Gói</Option>
+            <Option value="Chai">Chai</Option>
+          </Select>
+        </Form.Item>
+        <Form.Item
+          label="Số lượng nhập"
+          name="soluongnhap"
+          style={{ width: "100%" }}
+          rules={[{ required: true, message: "Vui lòng nhập số lượng nhập!" }]}
+        >
+          <InputNumber
+            min={10}
+            placeholder="Số lượng thuốc nhập thêm dựa trên đơn vị tính."
+          />
+        </Form.Item>
+        <Form.Item
+          label="Ngày hết hạn"
+          name="ngayhethan"
+          style={{ width: "100%" }}
+          rules={[{ required: true, message: "Vui lòng nhập ngày hết hạn!" }]}
+        >
+          <DatePicker placeholder="Ngày hết hạn của thuốc." />
+        </Form.Item>
+        <Form.Item
+          label="Đơn giá"
+          name="DONGIA"
+          style={{ width: "100%" }}
+        >
+          <InputNumber disabled/>
+        </Form.Item>
+        <Form.Item style={{ display: "flex", justifyContent: "flex-end" }}>
+          <Button
+            onClick={handleReset}
+            style={{ marginRight: 10 }}
+            type="danger"
+            initialValues={formValues}
+          >
+            ĐẶT LẠI
+          </Button>
+          <ButtonGreen text="THÊM THUỐC" func={""}/>
+        </Form.Item>
+      </Form>
+    </>
+  );
+};
+
+const Com3 = ({ data }) => {
+  const [formValues, setFormValues] = useState(data);
+  const [form] = Form.useForm();
+  useEffect(() => {
+    form.setFieldsValue(data);
+  }, [data, form]);
+
+  const handleSubmit = (values) => {
+    console.log("Success:", values);
+    message.success("Cập nhật thuốc thành công!");
+    form.resetFields();
+    setFormValues({});
+    window.location.reload();
+  };
+
+  const handleReset = () => {
+    form.resetFields();
+    message.success("Hoàn tác quá trình cập nhật!");
+  };
+
+  return (
+    <>
+      <Form
+        onSubmit={handleSubmit}
+        form={form}
+        name="registration-form"
+        layout="vertical"
+        onFinish={handleSubmit}
+        initialValues={formValues}
+      >
+        <Form.Item
+          label="Mã thuốc thuốc"
+          name="MATHUOC"
+          style={{ width: "100%" }}
+        >
+          <Input disabled />
+        </Form.Item>
+        <Form.Item
+          label="Tên thuốc"
+          name="TENTHUOC"
+          style={{ width: "100%" }}
+          rules={[{ required: true, message: "Tên thuốc không được để trống!" }]}
         >
           <Input />
         </Form.Item>
@@ -97,12 +262,7 @@ const Com3 = ({ data }) => {
           label="Chỉ định"
           name="CHIDINH"
           style={{ width: "100%" }}
-          rules={[
-            {
-              required: true,
-              message: "Chỉ định sử dụng không được để trống!",
-            },
-          ]}
+          rules={[{ required: true, message: "Chỉ định sử dụng không được để trống!" }]}
         >
           <TextArea
             showCount
@@ -114,7 +274,6 @@ const Com3 = ({ data }) => {
         <Form.Item
           label="Đơn giá"
           name="DONGIA"
-          placeholder="VND"
           style={{ width: "100%" }}
           rules={[{ required: true, message: "Đơn giá không được để trống!" }]}
         >
@@ -125,10 +284,11 @@ const Com3 = ({ data }) => {
             onClick={handleReset}
             style={{ marginRight: 10 }}
             type="danger"
+            initialValues={formValues}
           >
             ĐẶT LẠI
           </Button>
-          <ButtonGreen text="THÊM THUỐC" modal={""}/>
+          <ButtonGreen text="THÊM THUỐC" func={""}/>
         </Form.Item>
       </Form>
     </>
@@ -300,7 +460,7 @@ const MedicineInfo = ({ medicine }) => {
 
       <Modal
         title={
-          <h1 className="font-montserrat text-lg mb-3 mt-2 font-extrabold">
+          <h1 className="font-montserrat text-xl mb-3 mt-2 font-extrabold">
             HỦY THUỐC
           </h1>
         }
@@ -313,7 +473,7 @@ const MedicineInfo = ({ medicine }) => {
 
       <Modal
         title={
-          <h1 className="font-montserrat text-lg mb-3 mt-2 font-extrabold">
+          <h1 className="font-montserrat text-xl mb-3 mt-2 font-extrabold">
             NHẬP THÊM THUỐC VÀO KHO
           </h1>
         }
@@ -326,7 +486,7 @@ const MedicineInfo = ({ medicine }) => {
 
       <Modal
         title={
-          <h1 className="font-montserrat text-lg mb-3 mt-2 font-extrabold">
+          <h1 className="font-montserrat text-xl mb-3 mt-2 font-extrabold">
             CẬP NHẬT THÔNG TIN THUỐC
           </h1>
         }
@@ -343,11 +503,13 @@ const MedicineInfo = ({ medicine }) => {
 const TaoThuocMoi = () => {
   const [formValues, setFormValues] = useState({});
   const [form] = Form.useForm();
+
   const handleSubmit = (values) => {
     console.log("Success:", values);
     message.success("Đăng kí thành công!");
     form.resetFields();
     setFormValues({});
+    window.location.reload();
   };
 
   const handleReset = () => {
@@ -437,7 +599,7 @@ const TaoThuocMoi = () => {
           >
             ĐẶT LẠI
           </Button>
-          <ButtonGreen text="THÊM THUỐC" />
+          <ButtonGreen text="THÊM THUỐC" func={""}/>
         </Form.Item>
       </Form>
     </>
@@ -457,11 +619,11 @@ const TaoThuocMoiButton = () => {
   };
   return (
     <>
-      <ButtonGreen text="THÊM LOẠI THUỐC MỚI" modal={showModal} />
+      <ButtonGreen text="THÊM LOẠI THUỐC MỚI" func={showModal} />
 
       <Modal
         title={
-          <h1 className="font-montserrat text-lg mb-3 mt-2 font-extrabold">
+          <h1 className="font-montserrat text-xl mb-3 mt-2 font-extrabold">
             THÊM LOẠI THUỐC MỚI
           </h1>
         }
@@ -476,6 +638,7 @@ const TaoThuocMoiButton = () => {
 };
 
 const QuanLiThuoc = () => {
+
   return (
     <>
       <div className="w-full">
