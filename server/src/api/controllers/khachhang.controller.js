@@ -1,5 +1,5 @@
 import { poolConnect } from "../../config/db.mjs";
-import lodash from 'lodash';
+import {groupHSB} from "../../utils/groupData.js"
 const pool = await poolConnect('KH');
 
 
@@ -159,6 +159,40 @@ const khachHangController = {
       const sp = 'SP_TAOTKKH_KH';
       const result = await pool.executeSP(sp, params);
       return res.status(200).json({ success: true });
+    } catch (error) {
+      console.error('An error occurred:', error.message);
+      return res.status(500).json({ error: 'An error occurred while processing the request' });
+    }
+  },
+  deleteLichHen: async (req, res) => {
+    try {
+      if (!pool) {
+        return res.status(500).json({ error: 'Khong the ket noi db' });
+      }
+      const params = {};
+      params.MANS = req.body.mans;
+      params.SODT = req.body.sdt;
+      params.SOTT = req.body.stt;
+
+      const sp = 'SP_DELETELICHHEN_NV_KH';
+      const result = await pool.executeSP(sp, params);
+      return res.status(201).json({ success: true });
+    } catch (error) {
+      console.error('An error occurred:', error.message);
+      return res.status(500).json({ error: 'An error occurred while processing the request' });
+    }
+  },
+  xemBenhAn: async (req, res) => {
+    try {
+      if (!pool) {
+        return res.status(500).json({ error: 'Khong the ket noi db' });
+      }
+      const params = {};
+      params.SODT = req.params.sdt;
+      const sp = 'SP_GETHSB1KH_NV_NS_KH';
+      const result = await pool.executeSP(sp, params);
+      const groupedResult = groupHSB(result[0]);
+      return res.status(200).json(groupedResult);
     } catch (error) {
       console.error('An error occurred:', error.message);
       return res.status(500).json({ error: 'An error occurred while processing the request' });
