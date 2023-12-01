@@ -13,7 +13,7 @@ import { SearchOutlined, EditOutlined } from "@ant-design/icons";
 import ColumnSearch from "~/hooks/useSortTable";
 
 import "../../assets/styles/admin.css";
-import ButtonGreen from "../../components/button";
+import {ButtonGreen} from "../../components/button";
 
 const TableQTV = ({ admin }) => {
     const columns = [

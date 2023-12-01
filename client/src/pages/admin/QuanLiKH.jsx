@@ -73,7 +73,7 @@ const KhahHangTable = ({ data }) => {
       key: "action",
       fixed: "right",
       width: "6%",
-      className: "px-[60px] min-w-[120px] ",
+      className: "px-[60px] min-w-[100px] ",
       render: (_, record) => {
           const handleAction = record._DAKHOA == 0 ? handleLock : handleUnlock;
           const buttonText = record._DAKHOA == 0 ? "Khóa" : "Mở khóa";
