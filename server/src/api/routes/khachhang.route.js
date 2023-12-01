@@ -2,10 +2,7 @@ import express from "express";
 import khachHangController from "../controllers/khachhang.controller.js";
 
 const router = express.Router();
-router.get("/test", (req, res) => {
-  console.log("test");
-  res.send("test");
-});
+
 router.post("/taoKH", khachHangController.taoTKKH);
 router.get("/getAllCa", khachHangController.getAllCa);
 router.get("/getAllDV", khachHangController.getAllDV);
