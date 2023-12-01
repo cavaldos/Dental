@@ -3,7 +3,7 @@ import { Table, Pagination, Drawer, Empty } from 'antd';
 import axios from 'axios';
 import hsb from '../../fakedata/hsb';
 import '../../assets/styles/guest.css';
-
+import Axios from "../../services/Axios";
 const escapedNewLineToLineBreakTag = (text) => {
   const replacedText = text.replace(/\\n/g, "\n");
   const lines = replacedText.split("\n");
@@ -149,17 +149,79 @@ const HoSoBenh = () => {
   };
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get('http://localhost:3000/khachhang/benhAn/0387654321');
-        const fetchedMedicalRecords = response.data;
-        setMedicalRecords(fetchedMedicalRecords);
-      } catch (error) {
-        console.error('Lỗi khi lấy dữ liệu hồ sơ bệnh:', error);
-      }
-    };
+    // const fetchData = async () => {
+    //   try {
+    //     const response = await axios.get(
+    //       "http://localhost:3000/khachhang/benhAn/0387654321"
+    //     );
+    //     const fetchedMedicalRecords = response.data;
+    //     setMedicalRecords(fetchedMedicalRecords);
+    //   } catch (error) {
+    //     console.error('Lỗi khi lấy dữ liệu hồ sơ bệnh:', error);
+    //   }
+    // };
+    // fetchData();
+    const fakedata = [
+      {
+        "SOTT": 1,
+        "HOTEN": "Nguyễn Văn A",
+        "SODT": "0387654321",
+        "NGAYKHAM": "2021-10-10",
+        "NHASI": "Nguyễn Văn B",
+        "DANDO": "Không có"
+      },
+      {
+        "SOTT": 2,
+        "HOTEN": "Nguyễn Văn C",
+        "SODT": "0387654321",
+        "NGAYKHAM": "2021-10-10",
+        "NHASI": "Nguyễn Văn B",
+        "DANDO": "Không có"
+      },
+      {
+        "SOTT": 3,
+        "HOTEN": "Nguyễn Văn D",
+        "SODT": "0387654321",
+        "NGAYKHAM": "2021-10-10",
+        "NHASI": "Nguyễn Văn B",
+        "DANDO": "Không có"
+      },
+      {
+        "SOTT": 4,
+        "HOTEN": "Nguyễn Văn E",
+        "SODT": "0387654321",
+        "NGAYKHAM": "2021-10-10",
+        "NHASI": "Nguyễn Văn B",
+        "DANDO": "Không có"
+      },
+      {
+        "SOTT": 5,
+        "HOTEN": "Nguyễn Văn F",
+        "SODT": "0387654321",
+        "NGAYKHAM": "2021-10-10",
+        "NHASI": "Nguyễn Văn B",
+        "DANDO": "Không có"
+      },
+      {
+        "SOTT": 6,
+        "HOTEN": "Nguyễn Văn G",
+        "SODT": "0387654321",
+        "NGAYKHAM": "2021-10-10",
+        "NHASI": "Nguyễn Văn B",
+        "DANDO": "Không có"
+      },
+      {
+        "SOTT": 7,
+        "HOTEN": "Nguyễn Văn H",
+        "SODT": "0387654321",
+        "NGAYKHAM": "2021-10-10",
+        "NHASI": "Nguyễn Văn B",
+        "DANDO": "Không có"
+      },
+    ]
 
-    fetchData();
+    setMedicalRecords(fakedata);
+
   }, [currentPage]);
 
   const indexOfLastRecord = currentPage * recordsPerPage;
