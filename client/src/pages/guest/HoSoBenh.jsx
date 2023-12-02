@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Table, Pagination, Drawer, Empty } from "antd";
+import { Table, Pagination, Drawer, Empty,message } from "antd";
 import axios from "axios";
 import hsb from "../../fakedata/hsb";
 import "../../assets/styles/guest.css";
@@ -162,6 +162,8 @@ const HoSoBenh = () => {
   const [selectedType, setSelectedType] = useState("");
 
   const openDrawer = async (type, id) => {
+    setDrawerVisible(true);
+    message.success(`Đã mở thông tin ${type} có mã ${id}`, 5);
     try {
       const response = await axios.get(
         `http://localhost:3000/khachhang/${type}/${id}`
@@ -169,7 +171,6 @@ const HoSoBenh = () => {
       const item = response.data[0];
 
       setSelectedType(type);
-      setDrawerVisible(true);
 
       if (type === "loaiDV") {
         setSelectedService(item);
@@ -179,10 +180,11 @@ const HoSoBenh = () => {
     } catch (error) {
       console.error("Lỗi khi lấy thông tin:", error);
     }
+
   };
 
   const closeDrawer = () => {
-    // Đóng Drawer
+    message.success("Đã đóng thông tin", 5);
     setDrawerVisible(false);
     setSelectedDrug({});
     setSelectedService({});
