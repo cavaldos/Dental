@@ -4,6 +4,7 @@ import axios from "axios";
 import hsb from "../../fakedata/hsb";
 import "../../assets/styles/guest.css";
 import Axios from "../../services/Axios";
+
 const escapedNewLineToLineBreakTag = (text) => {
   const replacedText = text.replace(/\\n/g, "\n");
   const lines = replacedText.split("\n");
@@ -201,9 +202,8 @@ const HoSoBenh = () => {
         console.error("Lỗi khi lấy dữ liệu hồ sơ bệnh:", error);
       }
     };
-    fetchData();
 
-    setMedicalRecords(fakedata);
+    fetchData();
   }, [currentPage]);
 
   const indexOfLastRecord = currentPage * recordsPerPage;

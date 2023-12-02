@@ -7,6 +7,7 @@ import Bread from "./breadCrumb";
 import { menuDentist, menuAdmin, menuStaff } from "./menuItem";
 import Account from "./Account";
 
+
 const Menu = ({ name, icon, path, toggle }) => {
   const navigate = useNavigate();
   const location = useLocation();
@@ -111,7 +112,8 @@ const AdminLayout = ({ children }) => {
           </div>
           {/* bg-[rgb(251,254,251)] */}
           {/* chinh mau o day */}
-          <div className=" bg-lightblue flex justify-center  min-h-[89vh] p-8 overflow-y-auto z-0">
+          
+          <div className=" bg-lightblue flex  justify-center  min-h-[89vh] p-8 overflow-y-auto z-0">
             {children}
           </div>
         </div>
