@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { Card, Pagination, Modal, Button } from "antd";
+import { Card, Pagination, Modal, Button, Empty } from "antd";
 import moment from "moment";
 import lichhen from "../../fakedata/lichhen";
 import "../../assets/styles/guest.css";
-
 
 const isDaKham = (gioKetThuc) => {
   const gioHienTai = new Date();
@@ -82,89 +81,98 @@ const XemLichHen = () => {
 
   return (
     <div>
-      <div className="grid lg:grid-cols-3 gap-5 md:grid-cols-2 grid-cols-1">
-        {currentAppointments.map((lich, index) => (
-          <Card
-            key={index}
-            style={{
-              borderRadius: "30px",
-              boxShadow: "0px 4px 4px 0px rgba(0, 0, 0, 0.10)",
-              overflow: "hidden",
-              padding: "0.8em",
-              height: "100%"
-            }}
-          >
-            <p className="leading-7 font-montserrat font-semibold text-base text-#4B4B4B mb-3 break-words">
-              <span className="text-grey">Ngày, giờ: </span>
-              {moment(lich.NGAY).format("DD/MM/yyyy")} -{" "}
-              {formatTime(isoDateToLocalDate(lich.GIOBATDAU, 0))}
-            </p>
-            <p className="leading-7 font-montserrat font-semibold text-base text-#4B4B4B mb-3 break-words">
-              <span className="text-grey">Nha sĩ: </span>
-              {lich.TENNS}
-            </p>
-            <p className="leading-7 font-montserrat font-semibold text-base text-#4B4B4B mb-3 break-words">
-              <span className="text-grey">Họ tên khách: </span>
-              Lấy từ header
-            </p>
-            <p className="leading-7 font-montserrat font-semibold text-base text-#4B4B4B mb-14 break-words">
-              <span className="text-grey">
-                Lý do khám: <br />
-              </span>
-              {lich.LYDOKHAM}
-            </p>
-            <div className="absolute bottom-7 right-10">
-              {isDaKham(lich.NGAY) ? (
-                <p className="rounded-md text-grin font-montserrat p-2 underline decoration-auto cursor-default">
-                  ĐÃ KHÁM
+      {sortedAppointments.length === 0 ? (
+        <Empty description="Không có lịch hẹn khám nào." />
+      ) : (
+        <>
+          <div className="grid lg:grid-cols-3 gap-5 md:grid-cols-2 grid-cols-1">
+            {currentAppointments.map((lich, index) => (
+              <Card
+                key={index}
+                style={{
+                  borderRadius: "30px",
+                  boxShadow: "0px 4px 4px 0px rgba(0, 0, 0, 0.10)",
+                  overflow: "hidden",
+                  padding: "0.8em",
+                  height: "100%",
+                }}
+              >
+                <p className="leading-7 font-montserrat font-semibold text-base text-#4B4B4B mb-3 break-words">
+                  <span className="text-grey">Ngày, giờ: </span>
+                  {moment(lich.NGAY).format("DD/MM/yyyy")} -{" "}
+                  {formatTime(isoDateToLocalDate(lich.GIOBATDAU, 0))}
                 </p>
-              ) : (
-                <button className="rounded-md text-rose-500 font-montserrat p-2 underline decoration-auto border-2 border-rose-500 hover:bg-rose-500 hover:text-white"
-                onClick={() => showCancelModal(lich)}>
-                  HỦY LỊCH HẸN
-                </button>
-              )}
-            </div>
-          </Card>
-        ))}
-      </div>
-      <div className="flex justify-center py-3">
-        {sortedAppointments.length > 0 && (
-          <Pagination
-            simple
-            defaultCurrent={1}
-            total={sortedAppointments.length}
-            pageSize={appointmentsPerPage}
-            onChange={(page) => setCurrentPage(page)}
-          />
-        )}
-      </div>
+                <p className="leading-7 font-montserrat font-semibold text-base text-#4B4B4B mb-3 break-words">
+                  <span className="text-grey">Nha sĩ: </span>
+                  {lich.TENNS}
+                </p>
+                <p className="leading-7 font-montserrat font-semibold text-base text-#4B4B4B mb-3 break-words">
+                  <span className="text-grey">Họ tên khách: </span>
+                  Lấy từ header
+                </p>
+                <p className="leading-7 font-montserrat font-semibold text-base text-#4B4B4B mb-14 break-words">
+                  <span className="text-grey">
+                    Lý do khám: <br />
+                  </span>
+                  {lich.LYDOKHAM}
+                </p>
+                <div className="absolute bottom-7 right-10">
+                  {isDaKham(lich.NGAY) ? (
+                    <p className="rounded-md text-grin font-montserrat p-2 underline decoration-auto cursor-default">
+                      ĐÃ KHÁM
+                    </p>
+                  ) : (
+                    <button
+                      className="rounded-md text-rose-500 font-montserrat p-2 underline decoration-auto border-2 border-rose-500 hover:bg-rose-500 hover:text-white"
+                      onClick={() => showCancelModal(lich)}
+                    >
+                      HỦY LỊCH HẸN
+                    </button>
+                  )}
+                </div>
+              </Card>
+            ))}
+          </div>
+          <div className="flex justify-center py-3">
+            {sortedAppointments.length > 0 && (
+              <Pagination
+                simple
+                defaultCurrent={1}
+                total={sortedAppointments.length}
+                pageSize={appointmentsPerPage}
+                onChange={(page) => setCurrentPage(page)}
+              />
+            )}
+          </div>
+        </>
+      )}
       <Modal
-      title="Xác nhận hủy lịch hẹn"
-      open={cancelModalVisible}
-      onOk={handleCancel}
-      onCancel={() => setCancelModalVisible(false)}
-      footer={[
-        <Button
-          key="back"
-          onClick={() => setCancelModalVisible(false)}
-          className="bg-gray-300 custom-button-cancel font-montserrat"
-        >
-          Quay lại
-        </Button>,
-        <Button
-          key="submit"
-          type="primary"
-          onClick={handleCancel}
-          className="bg-rose-500 hover:bg-rose-600 custom-button-accept font-montserrat"
-        >
-          Xác nhận hủy lịch
-        </Button>,
-      ]}
-    >
-      <p>Bạn có chắc chắn muốn hủy lịch hẹn?</p>
-    </Modal>
+        title="Xác nhận hủy lịch hẹn"
+        open={cancelModalVisible}
+        onOk={handleCancel}
+        onCancel={() => setCancelModalVisible(false)}
+        footer={[
+          <Button
+            key="back"
+            onClick={() => setCancelModalVisible(false)}
+            className="bg-gray-300 custom-button-cancel font-montserrat"
+          >
+            Quay lại
+          </Button>,
+          <Button
+            key="submit"
+            type="primary"
+            onClick={handleCancel}
+            className="bg-rose-500 hover:bg-rose-600 custom-button-accept font-montserrat"
+          >
+            Xác nhận hủy lịch
+          </Button>,
+        ]}
+      >
+        <p>Bạn có chắc chắn muốn hủy lịch hẹn?</p>
+      </Modal>
     </div>
   );
+  
 };
 export default XemLichHen;

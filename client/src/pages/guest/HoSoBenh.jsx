@@ -265,7 +265,7 @@ const HoSoBenh = () => {
           />
         </div>
       ) : (
-        <Empty />
+        <Empty description="Không có hồ sơ bệnh án nào."/>
       )}
       <div className="flex justify-center py-3">
         {medicalRecords.length > 0 && (
