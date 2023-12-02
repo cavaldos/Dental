@@ -2,10 +2,14 @@ import jwt from 'jsonwebtoken';
 
 const authMiddleware = {
     authenticateToken: async (req, res, next) => {
-        const accessToken = req.header('Authorization').replace('Bearer ', '');
-        if (!accessToken) {
+        // Kiểm tra xem header "Authorization" có tồn tại không
+        const authorizationHeader = req.header('Authorization');
+        if (!authorizationHeader) {
             return res.status(401).send('Khong tim thay access token!');
         }
+
+        // Trích xuất token từ header "Authorization"
+        const accessToken = authorizationHeader.replace('Bearer ', '');
         try {
             const secret = process.env.ACCESS_TOKEN_SECRET_KEY;
 

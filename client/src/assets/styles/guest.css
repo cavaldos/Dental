@@ -19,3 +19,15 @@ th.ant-table-cell::before{
 { 
   font-family: 'Montserrat' !important; 
 }
+
+.custom-button-accept:hover{
+  background-color: rgb(225 29 72) !important
+}
+.custom-button-cancel{
+  color: #fff;
+}
+.custom-button-cancel:hover{
+  background-color:  rgb(156 163 175) !important;
+  color: #fff !important;
+  border: none !important;
+}

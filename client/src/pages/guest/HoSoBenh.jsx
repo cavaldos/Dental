@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Table, Pagination, Drawer, Empty } from "antd";
 import axios from "axios";
+import hsb from "../../fakedata/hsb"
 import "../../assets/styles/guest.css";
 
 const escapedNewLineToLineBreakTag = (text) => {
@@ -189,19 +190,21 @@ const HoSoBenh = () => {
   };
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(
-          "http://localhost:3000/khachhang/benhAn/0387654321"
-        );
-        const fetchedMedicalRecords = response.data;
-        setMedicalRecords(fetchedMedicalRecords);
-      } catch (error) {
-        console.error("Lỗi khi lấy dữ liệu hồ sơ bệnh:", error);
-      }
-    };
+    // const fetchData = async () => {
+    //   try {
+    //     const response = await axios.get(
+    //       "http://localhost:3000/khachhang/benhAn/0387654321"
+    //     );
+    //     const fetchedMedicalRecords = response.data;
+    //     setMedicalRecords(fetchedMedicalRecords);
+    //   } catch (error) {
+    //     console.error("Lỗi khi lấy dữ liệu hồ sơ bệnh:", error);
+    //   }
+    // };
 
-    fetchData();
+    // fetchData();
+    const fetchedMedicalRecords = hsb;
+    setMedicalRecords(fetchedMedicalRecords);
   }, [currentPage]);
 
   const indexOfLastRecord = currentPage * recordsPerPage;
