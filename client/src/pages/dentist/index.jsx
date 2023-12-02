@@ -6,7 +6,7 @@ import TableLichHen from "~/components/dentist/TableLichHen";
 const DentistPage = () => {
   return (
     <>
-      <TableLichHen data={lichhen4} />
+      <h1>Day la trang nha si</h1>
     </>
   );
 };
