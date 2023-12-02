@@ -9,7 +9,15 @@ router.post("/CTDV", nhaSiController.themCTDV);
 router.post("/CTThuoc", nhaSiController.themCTTHUOC);
 router.put("/matKhau", nhaSiController.doiMatKhau);
 router.get("/caDu2NguoiTruc/:mans", nhaSiController.xemCaDu2NguoiTruc);
-router.get("/lichHen/:mans", nhaSiController.xemLichHen);
 router.get("/lichRanhChuaDuocDat/:mans", nhaSiController.xemLichRanhChuaDuocDat);
+router.get("/getAllThuoc", nhaSiController.getAllThuoc);
+router.get("/getAllDV", nhaSiController.getAllDV);
+router.get("/getAllCa", nhaSiController.getAllCa);
+router.get("/lichHen/:mans", nhaSiController.xemLichHen);
+router.get("/getAllDSNhaSi", nhaSiController.getAllDSNS);
+router.get("/benhAn/:sdt", nhaSiController.xemBenhAn);
+
+
+
 
 export default router;

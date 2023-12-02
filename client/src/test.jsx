@@ -16,10 +16,10 @@ const Test = () => {
 
     // cach 2 nếu có token thì phải gắn vào header
     const getData = async () => {
-      const res = await axios.get("https://fakestoreapi.com/products");
+      const res = await axios.get("http://localhost:3000/khachhang/getAllCa");
       console.log("res 2", res.data); // cái  này phải .data mới có data trả về
     };
-    // getData();
+    getData();
   }, []);
 
   return <></>;

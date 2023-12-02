@@ -109,6 +109,22 @@ const getTables = async (role) => {
     console.log("SQL getTables Error Message:", error.message);
   }
 };
+
+const executeProcedure = async (procedureName, inputValue, outputName, role) => {
+  try {
+    const { pool } = await getDatabase(role);
+    const request = pool.request()
+      .input('input_parameter', sql.VarChar, inputValue)
+      .output('output_parameter', sql.VarChar(50))
+      .execute(procedureName);
+    const result = await request;
+    return result;
+  } catch (error) {
+    console.log("SQL executeProcedure Error Code:", error.code);
+    console.log("SQL executeProcedure Error Message:", error.message);
+  }
+}
+
 const disconnect = async (role) => {
   try {
     const { pool } = await getDatabase(role);
@@ -119,4 +135,4 @@ const disconnect = async (role) => {
     console.log("SQL disconnect Error Message:", error.message);
   }
 }
-export { load, add, del, patch, getTables, disconnect };
+export { load, add, del, patch, executeProcedure, getTables, disconnect };

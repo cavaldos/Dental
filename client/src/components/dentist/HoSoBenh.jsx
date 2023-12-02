@@ -3,7 +3,7 @@ import { Table, Pagination, Drawer, Empty } from "antd";
 import axios from "axios";
 import hsb from "../../fakedata/hsb";
 import "../../assets/styles/guest.css";
-
+import Axios from "../../services/Axios";
 const escapedNewLineToLineBreakTag = (text) => {
   const replacedText = text.replace(/\\n/g, "\n");
   const lines = replacedText.split("\n");
@@ -150,10 +150,15 @@ const ThuocTable = ({ dataThuoc, openDrawer }) => {
   );
 };
 
-const HoSoBenh = () => {
+const HoSoBenh = ({ sdt }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [medicalRecords, setMedicalRecords] = useState([]);
   const recordsPerPage = 1; // Số hồ sơ bệnh hiển thị trên mỗi trang
+  const [sdts, setSdts] = useState(sdt);
+
+  useEffect(() => {
+    setSdts(sdt);
+  }, [sdt]);
 
   // Hiển thị chi tiết loại dịch vụ
   const [drawerVisible, setDrawerVisible] = useState(false);
@@ -190,21 +195,18 @@ const HoSoBenh = () => {
   };
 
   useEffect(() => {
-    // const fetchData = async () => {
-    //   try {
-    //     const response = await axios.get(
-    //       "http://localhost:3000/khachhang/benhAn/0387654321"
-    //     );
-    //     const fetchedMedicalRecords = response.data;
-    //     setMedicalRecords(fetchedMedicalRecords);
-    //   } catch (error) {
-    //     console.error("Lỗi khi lấy dữ liệu hồ sơ bệnh:", error);
-    //   }
-    // };
-
-    // fetchData();
-    const fetchedMedicalRecords = hsb;
-    setMedicalRecords(fetchedMedicalRecords);
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          `http://localhost:3000/khachhang/benhAn/${sdts}`
+        );
+        const fetchedMedicalRecords = response.data;
+        setMedicalRecords(fetchedMedicalRecords);
+      } catch (error) {
+        console.error("Lỗi khi lấy dữ liệu hồ sơ bệnh:", error);
+      }
+    };
+    fetchData();
   }, [currentPage]);
 
   const indexOfLastRecord = currentPage * recordsPerPage;
@@ -265,7 +267,7 @@ const HoSoBenh = () => {
           />
         </div>
       ) : (
-        <Empty description="Không có hồ sơ bệnh án nào."/>
+        <Empty />
       )}
       <div className="flex justify-center py-3">
         {medicalRecords.length > 0 && (

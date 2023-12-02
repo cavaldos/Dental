@@ -29,11 +29,8 @@ body {
 .table-striped tbody tr:nth-child(even) {
   background-color: #ffffff;
 }
-
-.with-z-index {
-  z-index: -1; /* phan than */
-}
-
-.with-z-index2 {
-  z-index: 1000; /* header sticky */
+.calendar-page {
+  width: 100%;
+  max-width: 960px;
+  margin: 0 auto;
 }

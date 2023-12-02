@@ -13,7 +13,7 @@ const thuoc = [
   {
     MATHUOC: "MT02",
     TENTHUOC: "Amoxicillin",
-    DONVITINH: "Hộp ",
+    DONVITINH: "Gói",
     CHIDINH: "Kháng sinh phổ rộng",
     SLTON: 50,
     SLNHAP: 100,
@@ -24,7 +24,7 @@ const thuoc = [
   {
     MATHUOC: "MT03",
     TENTHUOC: "Vitamin C",
-    DONVITINH: "Chai ",
+    DONVITINH: "Chai",
     CHIDINH: "Bổ sung vitamin C",
     SLTON: 80,
     SLNHAP: 100,
@@ -35,7 +35,7 @@ const thuoc = [
   {
     MATHUOC: "MT04",
     TENTHUOC: "Vitamin B",
-    DONVITINH: "Chai ",
+    DONVITINH: "Chai",
     CHIDINH: "Bổ sung vitamin B",
     SLTON: 80,
     SLNHAP: 100,
@@ -46,7 +46,7 @@ const thuoc = [
   {
     MATHUOC: "MT05",
     TENTHUOC: "Vitamin D",
-    DONVITINH: "Chai ",
+    DONVITINH: "Chai",
     CHIDINH: "Bổ sung vitamin D",
     SLTON: 80,
     SLNHAP: 100,
@@ -57,7 +57,7 @@ const thuoc = [
   {
     MATHUOC: "MT06",
     TENTHUOC: "Vitamin E",
-    DONVITINH: "Chai ",
+    DONVITINH: "Chai",
     CHIDINH: "Bổ sung vitamin E",
     SLTON: 80,
     SLNHAP: 100,
@@ -68,7 +68,7 @@ const thuoc = [
   {
     MATHUOC: "MT07",
     TENTHUOC: "Vitamin K",
-    DONVITINH: "Chai ",
+    DONVITINH: "Chai",
     CHIDINH: "Bổ sung vitamin K",
     SLTON: 80,
     SLNHAP: 100,
@@ -79,7 +79,7 @@ const thuoc = [
   {
     MATHUOC: "MT08",
     TENTHUOC: "Vitamin A",
-    DONVITINH: "Chai ",
+    DONVITINH: "Chai",
     CHIDINH: "Bổ sung vitamin A",
     SLTON: 80,
     SLNHAP: 100,
@@ -90,7 +90,7 @@ const thuoc = [
   {
     MATHUOC: "MT09",
     TENTHUOC: "Vitamin B1",
-    DONVITINH: "Chai ",
+    DONVITINH: "Chai",
     CHIDINH: "Bổ sung vitamin B1",
     SLTON: 80,
     SLNHAP: 100,
@@ -101,7 +101,7 @@ const thuoc = [
   {
     MATHUOC: "MT10",
     TENTHUOC: "Vitamin B2",
-    DONVITINH: "Chai ",
+    DONVITINH: "Chai",
     CHIDINH: "Bổ sung vitamin B2",
     SLTON: 80,
     SLNHAP: 100,
@@ -112,7 +112,7 @@ const thuoc = [
   {
     MATHUOC: "MT11",
     TENTHUOC: "Vitamin B3",
-    DONVITINH: "Chai ",
+    DONVITINH: "Chai",
     CHIDINH: "Bổ sung vitamin B3",
     SLTON: 80,
     SLNHAP: 100,
@@ -123,7 +123,7 @@ const thuoc = [
   {
     MATHUOC: "MT12",
     TENTHUOC: "Vitamin B5",
-    DONVITINH: "Chai ",
+    DONVITINH: "Chai",
     CHIDINH: "Bổ sung vitamin B5",
     SLTON: 80,
     SLNHAP: 100,
@@ -134,7 +134,7 @@ const thuoc = [
   {
     MATHUOC: "MT13",
     TENTHUOC: "Vitamin B6",
-    DONVITINH: "Chai ",
+    DONVITINH: "Chai",
     CHIDINH: "Bổ sung vitamin B6",
     SLTON: 80,
     SLNHAP: 100,
@@ -145,7 +145,7 @@ const thuoc = [
   {
     MATHUOC: "MT14",
     TENTHUOC: "Vitamin B7",
-    DONVITINH: "Chai ",
+    DONVITINH: "Chai",
     CHIDINH: "Bổ sung vitamin B7",
     SLTON: 80,
     SLNHAP: 100,

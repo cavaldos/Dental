@@ -1,14 +1,11 @@
-
 // Nha si
 import AdminLayout from "~/components/layout/adminLayout";
 import { lazy } from "react";
 
-
 import DentistPage from "~/pages/dentist";
 const DangKiLichRanh = lazy(() => import("~/pages/dentist/DkLichRanh"));
 const XemBenhAnCu = lazy(() => import("~/pages/dentist/XemBenhAnCu"));
-const XemBenhAnMoi = lazy(() => import("~/pages/dentist/XemBenhAnMoi"));
-const XemLichHenNS = lazy(() => import("~/pages/dentist/XemLichHen"));
+const ThemBenhAnMoi = lazy(() => import("~/pages/dentist/ThemBenhAnMoi"));
 const XemLichTruc = lazy(() => import("~/pages/dentist/XemLichTruc"));
 
 const DentistRouter = [
@@ -27,21 +24,23 @@ const DentistRouter = [
     component: XemLichTruc,
     Layout: AdminLayout,
   },
-  {
-    path: "/xem-lich-hen",
-    component: XemLichHenNS,
-    Layout: AdminLayout,
-  },
+
   {
     path: "/xem-benh-an-cu",
     component: XemBenhAnCu,
     Layout: AdminLayout,
   },
+
   {
-    path: "/tao-benh-an-moi",
-    component: XemBenhAnMoi,
+    path: "/tao-benh-an-moi/",
+    component: ThemBenhAnMoi,
+    Layout: AdminLayout,
+  },
+  {
+    path: "/tao-benh-an-moi/:sdt",
+    component: ThemBenhAnMoi,
     Layout: AdminLayout,
   },
 ];
 
-export default DentistRouter;   
+export default DentistRouter;

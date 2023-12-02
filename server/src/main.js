@@ -5,18 +5,20 @@ import morgan from "morgan";
 import cors from "cors";
 import colors from "ansicolors";
 import IP from "./config/ip.js";
+import bodyParser from "body-parser";
 
 import AllRouters from "./api/routes/index.js";
 
-
-AllRouters(app);
-
-app.use(express.json());
 dotenv.config();
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(express.json());
 app.use(morgan("tiny"));
-
 app.use(cors());
-app.use(express.urlencoded({ extended: true }));
+AllRouters(app);
+app.get("/", (req, res) => {
+  res.send("Hello World!");
+});
 // ==========================================
 const port = process.env.PORT || 4000;
 const host = "0.0.0.0";

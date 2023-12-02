@@ -1,8 +1,29 @@
 import nhanvien from "../../fakedata/nhanvien";
 import React, { useState } from "react";
-import { Table, Button, Tag, Modal } from "antd";
-import { SearchOutlined, EditOutlined } from "@ant-design/icons";
+import { 
+  Table, 
+  Button, 
+  Tag, 
+  Modal, 
+  Popconfirm, 
+  Form,
+  Input,
+  Select,
+  DatePicker,
+  Space,
+  InputNumber,
+} from "antd";
 import ColumnSearch from "~/hooks/useSortTable";
+import TextArea from "antd/es/input/TextArea";
+
+import '../../assets/styles/admin.css'
+import {ButtonGreen} from "../../components/button";
+import { 
+  SearchOutlined,
+  EditOutlined, 
+  LockOutlined,
+  UnlockOutlined,
+} from "@ant-design/icons";
 
 const TableNhanVien = ({ staff }) => {
   const columns = [
@@ -30,14 +51,15 @@ const TableNhanVien = ({ staff }) => {
       ...ColumnSearch("VITRICV", "Vị trí công việc"),
     },
     {
-      title: "Trạng thái",
-      key: "status",
+      title: "Tình trạng",
+      dataIndex: "_DAKHOA",
+      key: "_DAKHOA",
       render: (_, record) => {
-        const tags = record._DAKHOA ? ["Locked"] : ["Open"]; // Update with your custom status values
+        const tags = record._DAKHOA ? ["Đã khóa"] : ["Hoạt động"]; // Cập nhật với các giá trị trạng thái tùy chỉnh của bạn
         return (
           <>
             {tags.map((tag) => {
-              let color = tag === "Locked" ? "volcano" : "green"; // Customize colors based on status
+              let color = tag === "Đã khóa" ? "volcano" : "green"; // Tùy chỉnh màu sắc dựa trên trạng thái
               return (
                 <Tag color={color} key={tag}>
                   {tag.toUpperCase()}
@@ -51,19 +73,40 @@ const TableNhanVien = ({ staff }) => {
     {
       title: "Quản lí",
       key: "action",
-      render: (text, record) => (
-        <Button
-          className="bg-blue-600"
-          type="primary"
-        
-          icon={<EditOutlined />}
-          size="small"
-        >
-          Edit
-        </Button>
-      ),
-    },
+      fixed: "right",
+      width: "10%",
+      className: "px-[60px] min-w-[100px] ",
+      render: (_, record) => {
+          const handleAction = record._DAKHOA == 0 ? handleLock : handleUnlock;
+          const buttonText = record._DAKHOA == 0 ? "Khóa" : "Mở khóa";
+          const buttonIcon = record._DAKHOA == 0 ? <LockOutlined /> : <UnlockOutlined />;
+
+          return (
+              <Space size="middle">
+              <a 
+                  className="text-blue font-montserrat text-sm hover:text-darkblue"
+                  onClick={() => handleUpdate(record.key)}>
+                  <EditOutlined/>
+              </a>
+              <Popconfirm title={`${buttonText} tài khoản này?`} onConfirm={() => handleAction(record.SODT)}>
+                  <a className="text-blue font-montserrat text-sm hover:text-darkblue">{buttonIcon}</a>
+              </Popconfirm>
+              </Space>
+          );
+      },
+  },
   ];
+
+  const handleLock = (key) => {
+    const newData = dataSource.filter((item) => item.key !== key);
+    setDataSource(newData);
+  };
+
+  const handleUnlock = (key) => {
+    const newData = dataSource.filter((item) => item.key !== key);
+    setDataSource(newData);
+  };
+
   return (
     <>
       <Table
@@ -72,12 +115,77 @@ const TableNhanVien = ({ staff }) => {
         pagination={true}
         bordered
         size="middle"
+        scroll={{x: "max-content",}}
       />
     </>
   );
 };
 
 const TaoNhanVienMoi = () => {
+  const [formValues, setFormValues] = useState({});
+  const [form] = Form.useForm();
+  const handleSubmit = (values) => {
+    console.log("Success:", values);
+    message.success("Đăng kí thành công!");
+    form.resetFields();
+    setFormValues({});
+  };
+
+  const handleReset = () => {
+    form.resetFields();
+    setFormValues({});
+    message.success("Đã xóa thông tin!");
+  };
+
+  return (
+    <>
+      { <Form
+        onSubmit={handleSubmit}
+        form={form}
+        name="registration-form"
+        layout="vertical"
+        onFinish={handleSubmit}
+        initialValues={formValues}
+      >
+        <Form.Item
+          label="Họ tên"
+          name="hoten"
+          style={{ width: "100%" }}
+          rules={[{ required: true, message: "Vui lòng nhập họ tên nhân viên!" }]}
+        >
+          <Input placeholder="Họ và tên nhân viên."/>
+        </Form.Item>
+        <Form.Item
+          label="Phái"
+          name="phai"
+          style={{ width: "100%" }}
+          rules={[{ required: true, message: "Vui lòng chọn giới tính!" }]}
+        >
+          <Select placeholder="Chọn giới tính.">
+            <Select.Option value="nam">Nam</Select.Option>
+            <Select.Option value="nu">Nữ</Select.Option>
+          </Select>
+        </Form.Item>
+        <Form.Item
+          label="Vị trí công việc"
+          name="vitricongviec"
+          style={{ width: "100%" }}
+          rules={[{ required: true, message: "Vui lòng nhập vị trí công việc!" }]}
+        >
+          <Input placeholder="Vị trí công việc phụ trách."/>
+        </Form.Item>
+        <Form.Item style={{ display: 'flex', justifyContent: 'flex-end' }}>
+          <Button onClick={handleReset} style={{ marginRight: 10 }} type="danger">
+            ĐẶT LẠI
+          </Button>
+          <ButtonGreen text="TẠO" modal={""}></ButtonGreen>
+        </Form.Item>
+      </Form> }
+    </>
+  );
+};
+
+const TaoNhanVienMoiButton = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const showModal = () => {
     setIsModalOpen(true);
@@ -90,29 +198,15 @@ const TaoNhanVienMoi = () => {
   };
   return (
     <>
-      <Button className="bg-green-600 mb-4" type="primary" onClick={showModal}>
-        Tạo Nhân Viên Mới
-      </Button>
+      <ButtonGreen text="TẠO TÀI KHOẢN MỚI" modal={showModal}></ButtonGreen>
+
       <Modal
-        title="Tạo Nhân Viên Mới"
+        title={<h1 className="font-montserrat text-lg mb-3 mt-2 font-extrabold">TẠO TÀI KHOẢN NHÂN VIÊN</h1>}
         open={isModalOpen}
-        onOk={handleOk}
         onCancel={handleCancel}
-        footer={[
-          <Button key="cancel" onClick={handleCancel}>
-            Hủy
-          </Button>,
-          <Button
-            key="ok"
-            type="primary"
-            onClick={handleOk}
-            className=" bg-blue-500"
-          >
-            OK
-          </Button>,
-        ]}
+        footer={[]}
       >
-        <p> Viet form tao nhan vien moi trong day </p>
+        <TaoNhanVienMoi />
       </Modal>
     </>
   );
@@ -121,7 +215,7 @@ const QuanLiNV = () => {
   return (
     <>
       <div className=" w-full">
-        <TaoNhanVienMoi />
+        <TaoNhanVienMoiButton />
         <TableNhanVien staff={nhanvien} />
       </div>
     </>

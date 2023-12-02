@@ -1,8 +1,15 @@
 import khachhang from "../../fakedata/khachhang";
 import React from "react";
-import { Table, Modal, Button, message, Tag } from "antd";
+import { Table, Modal, Button, message, Tag , Popconfirm} from "antd";
 import ColumnSearch from "~/hooks/useSortTable";
 import { useState } from "react";
+
+import '../../assets/styles/admin.css'
+import { 
+  SearchOutlined,
+  LockOutlined,
+  UnlockOutlined,
+} from "@ant-design/icons";
 
 const KhahHangTable = ({ data }) => {
   const formatDateString = (dateString) => {
@@ -15,11 +22,13 @@ const KhahHangTable = ({ data }) => {
       title: "Số điện thoại",
       dataIndex: "SODT",
       key: "SODT",
+      fixed: 'left',
     },
     {
       title: "Họ và tên",
       dataIndex: "HOTEN",
       key: "HOTEN",
+      fixed: 'left',
     },
     {
       title: "Giới tính",
@@ -36,18 +45,19 @@ const KhahHangTable = ({ data }) => {
       title: "Địa chỉ",
       dataIndex: "DIACHI",
       key: "DIACHI",
+      width: "30%",
     },
     
     {
-      title: "Đã khóa",
+      title: "Tình trạng",
       dataIndex: "_DAKHOA",
       key: "_DAKHOA",
       render: (_, record) => {
-        const tags = record._DAKHOA ? ["Locked"] : ["Open"]; // Cập nhật với các giá trị trạng thái tùy chỉnh của bạn
+        const tags = record._DAKHOA ? ["Đã khóa"] : ["Hoạt động"]; // Cập nhật với các giá trị trạng thái tùy chỉnh của bạn
         return (
           <>
             {tags.map((tag) => {
-              let color = tag === "Locked" ? "volcano" : "green"; // Tùy chỉnh màu sắc dựa trên trạng thái
+              let color = tag === "Đã khóa" ? "volcano" : "green"; // Tùy chỉnh màu sắc dựa trên trạng thái
               return (
                 <Tag color={color} key={tag}>
                   {tag.toUpperCase()}
@@ -61,19 +71,32 @@ const KhahHangTable = ({ data }) => {
     {
       title: "Quản lí",
       key: "action",
-      className: "text-center px-[60px] min-w-[120px] ",
-      render: (text, record) => (
-        <Button
-          className="bg-blue-600"
-          type="primary"
-          size="small"
-          onClick={() => message.info(`Edit ${record.HOTEN}`)}
-        >
-          Sửa
-        </Button>
-      ),
+      fixed: "right",
+      width: "6%",
+      className: "px-[60px] min-w-[100px] ",
+      render: (_, record) => {
+          const handleAction = record._DAKHOA == 0 ? handleLock : handleUnlock;
+          const buttonText = record._DAKHOA == 0 ? "Khóa" : "Mở khóa";
+          const buttonIcon = record._DAKHOA == 0 ? <LockOutlined /> : <UnlockOutlined />;
+
+          return (
+              <Popconfirm title={`${buttonText} tài khoản này?`} onConfirm={() => handleAction(record.SODT)}>
+                  <a className="text-blue font-montserrat text-sm hover:text-darkblue">{buttonIcon}</a>
+              </Popconfirm>
+          );
+      },
     },
   ];
+
+  const handleLock = (key) => {
+    const newData = dataSource.filter((item) => item.key !== key);
+    setDataSource(newData);
+  };
+
+  const handleUnlock = (key) => {
+    const newData = dataSource.filter((item) => item.key !== key);
+    setDataSource(newData);
+  };
 
   const paginationOptions = {
     pageSize: 10,
@@ -84,54 +107,13 @@ const KhahHangTable = ({ data }) => {
 
   return (
     <Table
-      className="table-striped w-full"
       columns={columns}
       dataSource={data.map((item, index) => ({ ...item, key: index }))}
       pagination={paginationOptions}
       bordered
       size="middle"
+      scroll={{x: "max-content",}}
     />
-  );
-};
-
-const ThemKhachHangMoi = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const showModal = () => {
-    setIsModalOpen(true);
-  };
-  const handleOk = () => {
-    setIsModalOpen(false);
-  };
-  const handleCancel = () => {
-    setIsModalOpen(false);
-  };
-  return (
-    <>
-      <Button className="bg-green-600 mb-4" type="primary" onClick={showModal}>
-        Thêm Khách Hàng Mới
-      </Button>
-      <Modal
-        title="Tạo Khách Hàng Mới"
-        open={isModalOpen}
-        onOk={handleOk}
-        onCancel={handleCancel}
-        footer={[
-          <Button key="cancel" onClick={handleCancel}>
-            Hủy
-          </Button>,
-          <Button
-            key="ok"
-            type="primary"
-            onClick={handleOk}
-            className=" bg-blue-500"
-          >
-            OK
-          </Button>,
-        ]}
-      >
-        <p> Viet form tao khach hang moi trong day </p>
-      </Modal>
-    </>
   );
 };
 
@@ -139,7 +121,6 @@ const QuanliKH = () => {
   return (
     <>
       <div className=" w-full ">
-        <ThemKhachHangMoi />
         <KhahHangTable data={khachhang} />
       </div>
     </>

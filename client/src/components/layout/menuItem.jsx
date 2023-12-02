@@ -14,11 +14,6 @@ const menuDentist = [
     path: "/xem-lich-truc",
   },
   {
-    name: "Xem lịch hẹn",
-    icon: <AiOutlineMenuFold size={30} />,
-    path: "/xem-lich-hen",
-  },
-  {
     name: "Xem bệnh án cũ",
     icon: <AiOutlineMenuFold size={30} />,
     path: "/xem-benh-an-cu",
@@ -55,6 +50,11 @@ const menuAdmin = [
     name: "Quản lí khách hàng",
     icon: <AiOutlineMenuFold size={30} />,
     path: "/quan-li-khach-hang",
+  },
+  {
+    name: "Quản lí quản trị viên",
+    icon: <AiOutlineMenuFold size={30} />,
+    path: "/quan-li-quan-tri-vien",
   },
 ];
 
