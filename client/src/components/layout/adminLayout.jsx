@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import { AiOutlineMenuFold, AiOutlineMenuUnfold } from "react-icons/ai";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { Breadcrumb } from "antd";
+
+import Bread from "./breadCrumb";
 import { menuDentist, menuAdmin, menuStaff } from "./menuItem";
 import Account from "./Account";
 
@@ -104,12 +105,7 @@ const AdminLayout = ({ children }) => {
                   <AiOutlineMenuFold size={30} />
                 )}
               </button>
-              <Breadcrumb className="ml-5">
-                <Breadcrumb.Item className=" capitalize">
-                  {user.role}
-                </Breadcrumb.Item>
-                <Breadcrumb.Item>{location.pathname}</Breadcrumb.Item>
-              </Breadcrumb>
+              <Bread />
             </div>
             <Account />
           </div>

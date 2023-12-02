@@ -1,9 +1,13 @@
+import { Button, Calendar, Select } from "antd";
+import { lichhen4 } from "~/fakedata/lhnv";
+import React, { useState } from "react";
+import TableLichHen from "~/components/dentist/TableLichHen";
+
 const DentistPage = () => {
   return (
-    <div className="  flex justify-center bg-slate-50 h-60 align-middle items-center ">
-      <h1 className="text-3xl">Trang dành cho Nha Sĩ</h1>
-    </div>
+    <>
+      <TableLichHen data={lichhen4} />
+    </>
   );
 };
-
 export default DentistPage;
