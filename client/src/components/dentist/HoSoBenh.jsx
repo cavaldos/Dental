@@ -150,10 +150,15 @@ const ThuocTable = ({ dataThuoc, openDrawer }) => {
   );
 };
 
-const HoSoBenh = () => {
+const HoSoBenh = ({ sdt }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [medicalRecords, setMedicalRecords] = useState([]);
   const recordsPerPage = 1; // Số hồ sơ bệnh hiển thị trên mỗi trang
+  const [sdts, setSdts] = useState(sdt);
+
+  useEffect(() => {
+    setSdts(sdt);
+  }, [sdt]);
 
   // Hiển thị chi tiết loại dịch vụ
   const [drawerVisible, setDrawerVisible] = useState(false);
@@ -190,78 +195,18 @@ const HoSoBenh = () => {
   };
 
   useEffect(() => {
-    // const fetchData = async () => {
-    //   try {
-    //     const response = await axios.get(
-    //       "http://localhost:3000/khachhang/benhAn/0387654321"
-    //     );
-    //     const fetchedMedicalRecords = response.data;
-    //     setMedicalRecords(fetchedMedicalRecords);
-    //   } catch (error) {
-    //     console.error('Lỗi khi lấy dữ liệu hồ sơ bệnh:', error);
-    //   }
-    // };
-    // fetchData();
-    const fakedata = [
-      {
-        SOTT: 1,
-        HOTEN: "Nguyễn Văn A",
-        SODT: "0387654321",
-        NGAYKHAM: "2021-10-10",
-        NHASI: "Nguyễn Văn B",
-        DANDO: "Không có",
-      },
-      {
-        SOTT: 2,
-        HOTEN: "Nguyễn Văn C",
-        SODT: "0387654321",
-        NGAYKHAM: "2021-10-10",
-        NHASI: "Nguyễn Văn B",
-        DANDO: "Không có",
-      },
-      {
-        SOTT: 3,
-        HOTEN: "Nguyễn Văn D",
-        SODT: "0387654321",
-        NGAYKHAM: "2021-10-10",
-        NHASI: "Nguyễn Văn B",
-        DANDO: "Không có",
-      },
-      {
-        SOTT: 4,
-        HOTEN: "Nguyễn Văn E",
-        SODT: "0387654321",
-        NGAYKHAM: "2021-10-10",
-        NHASI: "Nguyễn Văn B",
-        DANDO: "Không có",
-      },
-      {
-        SOTT: 5,
-        HOTEN: "Nguyễn Văn F",
-        SODT: "0387654321",
-        NGAYKHAM: "2021-10-10",
-        NHASI: "Nguyễn Văn B",
-        DANDO: "Không có",
-      },
-      {
-        SOTT: 6,
-        HOTEN: "Nguyễn Văn G",
-        SODT: "0387654321",
-        NGAYKHAM: "2021-10-10",
-        NHASI: "Nguyễn Văn B",
-        DANDO: "Không có",
-      },
-      {
-        SOTT: 7,
-        HOTEN: "Nguyễn Văn H",
-        SODT: "0387654321",
-        NGAYKHAM: "2021-10-10",
-        NHASI: "Nguyễn Văn B",
-        DANDO: "Không có",
-      },
-    ];
-
-    setMedicalRecords(fakedata);
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          `http://localhost:3000/khachhang/benhAn/${sdts}`
+        );
+        const fetchedMedicalRecords = response.data;
+        setMedicalRecords(fetchedMedicalRecords);
+      } catch (error) {
+        console.error("Lỗi khi lấy dữ liệu hồ sơ bệnh:", error);
+      }
+    };
+    fetchData();
   }, [currentPage]);
 
   const indexOfLastRecord = currentPage * recordsPerPage;

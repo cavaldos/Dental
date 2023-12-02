@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Table, Pagination, Drawer, Empty } from "antd";
 import axios from "axios";
-import hsb from "../../fakedata/hsb"
+import hsb from "../../fakedata/hsb";
 import "../../assets/styles/guest.css";
 
 const escapedNewLineToLineBreakTag = (text) => {
