@@ -83,7 +83,7 @@ COMMIT TRAN
 ----------------------------------
 --ALL04/ ĐĂNG NHẬP
 GO
-CREATE PROC SP_DANGNHAP_ALL
+CREATE OR ALTER PROC SP_DANGNHAP_ALL
 	@MATK VARCHAR(100),
 	@MATKHAU VARCHAR(20)
 AS
@@ -128,20 +128,41 @@ BEGIN TRAN
 		END
 		ELSE
 		BEGIN
-			RAISERROR(N'Tải khoản hoặc mật khẩu không đúng.', 16, 1);
+			RAISERROR(N'Tài khoản hoặc mật khẩu không đúng.', 16, 1);
 			ROLLBACK TRAN
 			RETURN
 		END
 
 		IF (@_ISLOCK = 1)
 		BEGIN
-			RAISERROR(N'Tải khoản đã bị khóa.', 16, 1);
+			RAISERROR(N'Tài khoản đã bị khóa.', 16, 1);
 			ROLLBACK TRAN
 			RETURN
 		END
-		ELSE
+		
+		IF @ROLE = 'KH'
 		BEGIN
-			SELECT @ROLE AS ROLE
+			SELECT 'KH' AS ROLE, SODT, HOTEN, PHAI, NGAYSINH, DIACHI
+			FROM KHACHHANG
+			WHERE SODT = @MATK;
+		END
+		ELSE IF @ROLE = 'NS'
+		BEGIN
+			SELECT 'NS' AS ROLE, MANS, HOTEN, PHAI, GIOITHIEU
+			FROM NHASI
+			WHERE MANS = @MATK;
+		END
+		ELSE IF @ROLE = 'NV'
+		BEGIN
+			SELECT 'NV' AS ROLE, MANV, HOTEN, PHAI, VITRICV
+			FROM NHANVIEN
+			WHERE MANV = @MATK;
+		END
+		ELSE IF @ROLE = 'QTV'
+		BEGIN
+			SELECT 'QTV' AS ROLE, MAQTV, HOTEN, PHAI
+			FROM QTV
+			WHERE MAQTV = @MATK;
 		END
 
 	END TRY
@@ -152,6 +173,7 @@ BEGIN TRAN
 		RETURN
 	END CATCH
 COMMIT TRAN
+
 -------------------------------------------------------
 --ALL05/ TẠO LỊCH HẸN
 GO
