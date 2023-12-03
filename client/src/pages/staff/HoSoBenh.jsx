@@ -17,10 +17,10 @@ const XemHoSoBenh = () => {
 
   return (
     <Suspense fallback={<div>Loading...</div>}>
-      <div className=" bg-white rounded-lg p-5 flex flex-col w-full  ">
-        <div className=" mx-2">
+      <div>
+        <div className="text-center">
           <Search
-            className="w-[600px]"
+            className="w-[1100px] rounded-2xl"
             placeholder="Tim Kiem Ho So Benh An (theo so dien thoai), nhap so bat ki vo day"
             allowClear
             onSearch={onSearch}
@@ -31,7 +31,7 @@ const XemHoSoBenh = () => {
         </div>
 
         {searchResults === "" ? (
-          <Empty className=" mt-3 rounded-md border border-spacing-4" />
+          <Empty className="w-[1100px] mt-6 rounded-3xl border border-spacing-4" />
         ) : (
           <div className="flex flex-col gap-5 mt-5">
             <HoSoBenh sdt={searchResults} />

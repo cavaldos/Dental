@@ -130,7 +130,7 @@ const DichVuTable = ({ service }) => {
 
   const columns = [
     {
-      title: "Mã Dich vụ",
+      title: "Mã dịch vụ",
       dataIndex: "MADV",
       key: "MADV",
       fixed: "left",
@@ -154,7 +154,7 @@ const DichVuTable = ({ service }) => {
       title: "Đơn giá",
       dataIndex: "DONGIA",
       key: "DONGIA",
-      className: "text-center px-[60px] min-w-[120px] ",
+      className: "px-[60px] min-w-[120px] ",
       sorter: (a, b) => a.DONGIA - b.DONGIA,
       render: (text) => {
         const formattedAmount = text.toLocaleString("vi-VN");
