@@ -1,5 +1,7 @@
 import nhasi from "../../fakedata/nhasi";
-import React from "react";
+import "../../assets/styles/admin.css";
+
+import React, { useState, useCallback, useEffect, useRef } from "react";
 import { 
     Table, 
     Modal, 
@@ -15,29 +17,138 @@ import {
     DatePicker,
     InputNumber,
 } from "antd";
-import ColumnSearch from "~/hooks/useSortTable";
-import { useState } from "react";
 
-import TextArea from "antd/es/input/TextArea";
-import "../../assets/styles/admin.css";
-import {ButtonGreen} from "../../components/button";
-import { 
+import {
     SearchOutlined,
-    EditOutlined, 
+    StopOutlined,
+    PlusCircleOutlined,
+    EditOutlined,
     LockOutlined,
     UnlockOutlined,
-} from "@ant-design/icons";
+  } from "@ant-design/icons";
+  import ColumnSearch from "~/hooks/useSortTable";
+  import TextArea from "antd/es/input/TextArea";
+  
+  import {ButtonGreen, ButtonPink} from "../../components/button";
+  import moment from 'moment';
+  
+  const { Option } = Select;
 
-const NhaSiTable = ({ data }) => {
-    const format = (text) => {
-        const replacedText = text.replace(/\\n/g, "\n");
-        const lines = replacedText.split("\n");
-        return lines.map((line, index) => (
-            <React.Fragment key={index}>
-                {line}
-                <br />
-            </React.Fragment>
-        ));
+const format = (text) => {
+    const replacedText = text.replace(/\\n/g, "\n");
+    const lines = replacedText.split("\n");
+    return lines.map((line, index) => (
+        <React.Fragment key={index}>
+            {line}
+            <br />
+        </React.Fragment>
+    ));
+};
+
+const ModalCapNhatNV = ({ data }) => {
+    const [formValues, setFormValues] = useState(data);
+    const [form] = Form.useForm();
+    useEffect(() => {
+      form.setFieldsValue(data);
+    }, [data, form]);
+  
+    const handleSubmit = (values) => {
+      console.log("Success:", values);
+      message.success("Cập nhật thông tin thành công!");
+      form.resetFields();
+      setFormValues({});
+      window.location.reload();
+    };
+  
+    const handleReset = () => {
+      form.resetFields();
+      message.success("Hoàn tác quá trình cập nhật!");
+    };
+  
+    return (
+      <>
+        <Form
+          onSubmit={handleSubmit}
+          form={form}
+          name="registration-form"
+          layout="vertical"
+          onFinish={handleSubmit}
+        //   initialValues={formValues}
+        >
+          <Form.Item
+            label="Mã nha sĩ"
+            name="MANS"
+            style={{ width: "100%" }}
+          >
+            <Input disabled />
+          </Form.Item>
+          <Form.Item
+            label="Họ tên"
+            name="HOTEN"
+            style={{ width: "100%" }}
+          >
+            <Input disabled />
+          </Form.Item>
+          <Form.Item
+            label="Phái"
+            name="PHAI"
+            style={{ width: "100%" }}
+          >
+            <Input disabled />
+          </Form.Item>
+          <Form.Item
+            label="Giới thiệu"
+            name="GIOITHIEU"
+            style={{ width: "100%" }}
+            rules={[{ required: true, message: "Giới thiệu không được để trống!" }]}
+          >
+            <TextArea
+              showCount
+              minLength={10}
+              maxLength={500}
+              style={{ height: 300 }}
+            />
+          </Form.Item>
+          <Form.Item style={{ display: "flex", justifyContent: "flex-end" }}>
+            <Button
+              onClick={handleReset}
+              style={{ marginRight: 10 }}
+              type="danger"
+            //   initialValues={formValues}
+            >
+              ĐẶT LẠI
+            </Button>
+            <ButtonGreen text="CẬP NHẬT" func={""}/>
+          </Form.Item>
+        </Form>
+      </>
+    );
+};
+  
+
+const NhaSiTable = ({ dentist }) => {
+    const [openEditModal, setOpenEditModal] = useState(false);
+    const selectedDataRef = useRef({});
+  
+    const [data, setData] = useState({});
+  
+    const handleEdit = (record) => {
+      setOpenEditModal(true);
+      setData({ ...record });
+    };
+  
+    const handleCancelEdit = useCallback(() => {
+      setOpenEditModal(false);
+    }, []);
+  
+    const handleLock = (key) => {
+      const newData = dataSource.filter((item) => item.key !== key);
+      setDataSource(newData);
+    };
+  
+    const handleUnlock = (key) => {
+      const newData = dataSource.filter((item) => item.key !== key);
+      setDataSource(newData);
     };
     const columns = [
         {
@@ -100,11 +211,12 @@ const NhaSiTable = ({ data }) => {
 
                 return (
                     <Space size="middle">
-                    <a 
-                        className="text-blue font-montserrat text-sm hover:text-darkblue"
-                        onClick={() => handleUpdate(record.key)}>
-                        <EditOutlined/>
-                    </a>
+                    <button
+                        className="text-blue font-montserrat hover:text-darkblue"
+                        onClick={() => handleEdit(record)}
+                        >
+                        <EditOutlined />
+                    </button>
                     <Popconfirm title={`${buttonText} tài khoản này?`} onConfirm={() => handleAction(record.SODT)}>
                         <a className="text-blue font-montserrat text-sm hover:text-darkblue">{buttonIcon}</a>
                     </Popconfirm>
@@ -114,32 +226,39 @@ const NhaSiTable = ({ data }) => {
         },
     ];
 
-    const handleLock = (key) => {
-        const newData = dataSource.filter((item) => item.key !== key);
-        setDataSource(newData);
-    };
-
-    const handleUnlock = (key) => {
-        const newData = dataSource.filter((item) => item.key !== key);
-        setDataSource(newData);
-    };
-
     const paginationOptions = {
         pageSize: 5,
         total: data.length,
         showQuickJumper: true,
     };
 
-    return <Table 
+    return (
+    <>
+    <Table 
         columns={columns} 
-        dataSource={data.map((item, index) => ({ ...item, key: index }))} 
+        dataSource={dentist.map((item, index) => ({ ...item, key: index }))} 
         pagination={paginationOptions} 
         bordered 
         size="middle" 
         // scroll={{x: "max-content",}} 
-    />;
-};
+    />
 
+    <Modal
+        title={
+          <h1 className="font-montserrat text-xl mb-3 mt-2 font-extrabold">
+            CẬP NHẬT THÔNG TIN THUỐC
+          </h1>
+        }
+        open={openEditModal}
+        onCancel={handleCancelEdit}
+        // onOk={handleSubmitEdit}
+        footer={[]}
+      >
+        <ModalCapNhatNV data={data} />
+      </Modal>
+      </>
+    );
+};
 
 const ThemNhaSiMoi = () => {
     const [formValues, setFormValues] = useState({});
@@ -165,7 +284,7 @@ const ThemNhaSiMoi = () => {
           name="registration-form"
           layout="vertical"
           onFinish={handleSubmit}
-          initialValues={formValues}
+        //   initialValues={formValues}
         >
           <Form.Item
           label="Họ tên"
@@ -192,7 +311,7 @@ const ThemNhaSiMoi = () => {
             style={{ width: "100%" }}
             rules={[{required: true, message: "Vui lòng nhập giới thiệu!" }]}
           >
-            <TextArea showCount minLength={10} maxLength={500} style={{ height: 120, }}
+            <TextArea showCount minLength={10} maxLength={500} style={{ height: 300, }}
                 placeholder="Giới thiệu về học vấn, kinh nghiệm của nha sĩ."/>
           </Form.Item>
           <Form.Item style={{ display: 'flex', justifyContent: 'flex-end'  }}>
@@ -205,7 +324,6 @@ const ThemNhaSiMoi = () => {
       </>
     );
 };
-
 
 const ThemNhaSiMoiButton = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -220,7 +338,7 @@ const ThemNhaSiMoiButton = () => {
     };
     return (
         <>
-            <ButtonGreen text="TẠO TÀI KHOẢN MỚI" modal={showModal}></ButtonGreen>
+            <ButtonGreen text="TẠO TÀI KHOẢN MỚI" func={showModal}></ButtonGreen>
 
             <Modal
                 title={<h1 className="font-montserrat text-lg mb-3 mt-2 font-extrabold">TẠO TÀI KHOẢN NHA SĨ</h1>}
@@ -239,7 +357,7 @@ const QuanliNS = () => {
         <>
             <div className=" w-full z-0">
                 <ThemNhaSiMoiButton />
-                <NhaSiTable data={nhasi} />
+                <NhaSiTable dentist={nhasi} />
             </div>
         </>
     );

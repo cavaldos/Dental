@@ -58,7 +58,7 @@ const ModalCapNhatDV = ({ data }) => {
         name="registration-form"
         layout="vertical"
         onFinish={handleSubmit}
-        initialValues={formValues}
+        // initialValues={formValues}
       >
         <Form.Item
           label="Mã dịch vụ"
@@ -101,7 +101,7 @@ const ModalCapNhatDV = ({ data }) => {
             onClick={handleReset}
             style={{ marginRight: 10 }}
             type="danger"
-            initialValues={formValues}
+            // initialValues={formValues}
           >
             ĐẶT LẠI
           </Button>
@@ -233,7 +233,7 @@ const TaoDichVuMoi = () => {
         name="registration-form"
         layout="vertical"
         onFinish={handleSubmit}
-        initialValues={formValues}
+        // initialValues={formValues}
       >
         <Form.Item
           label="Tên thuốc"

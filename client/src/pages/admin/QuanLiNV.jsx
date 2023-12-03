@@ -61,10 +61,10 @@ const ModalCapNhatNV = ({ data }) => {
         name="registration-form"
         layout="vertical"
         onFinish={handleSubmit}
-        initialValues={formValues}
+        // initialValues={formValues}
       >
         <Form.Item
-          label="Mã nhân viêen"
+          label="Mã nhân viên"
           name="MANV"
           style={{ width: "100%" }}
         >
@@ -94,7 +94,7 @@ const ModalCapNhatNV = ({ data }) => {
             showCount
             minLength={10}
             maxLength={50}
-            style={{ height: 120 }}
+            // style={{ height: 50 }}
           />
         </Form.Item>
         <Form.Item style={{ display: "flex", justifyContent: "flex-end" }}>
@@ -102,7 +102,7 @@ const ModalCapNhatNV = ({ data }) => {
             onClick={handleReset}
             style={{ marginRight: 10 }}
             type="danger"
-            initialValues={formValues}
+            // initialValues={formValues}
           >
             ĐẶT LẠI
           </Button>
@@ -264,7 +264,7 @@ const TaoNhanVienMoi = () => {
         name="registration-form"
         layout="vertical"
         onFinish={handleSubmit}
-        initialValues={formValues}
+        // initialValues={formValues}
       >
         <Form.Item
           label="Họ tên"
@@ -295,7 +295,7 @@ const TaoNhanVienMoi = () => {
             showCount
             minLength={5}
             maxLength={50}
-            style={{ height: 120 }}
+            // style={{ height: 120 }}
             placeholder="Vị trí công việc được giao."
           />
         </Form.Item>

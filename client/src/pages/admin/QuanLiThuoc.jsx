@@ -55,7 +55,7 @@ const ModalHuyThuoc = ({ data }) => {
         name="registration-form"
         layout="vertical"
         onFinish={handleSubmit}
-        initialValues={formValues}
+        // initialValues={formValues}
       >
         <Form.Item
           label="Mã thuốc"
@@ -128,7 +128,7 @@ const ModalNhapThuoc = ({ data }) => {
         name="registration-form"
         layout="vertical"
         onFinish={handleSubmit}
-        initialValues={formValues}
+        // initialValues={formValues}
       >
         <Form.Item
           label="Mã thuốc"
@@ -182,7 +182,7 @@ const ModalNhapThuoc = ({ data }) => {
             onClick={handleReset}
             style={{ marginRight: 10 }}
             type="danger"
-            initialValues={formValues}
+            // initialValues={formValues}
           >
             ĐẶT LẠI
           </Button>
@@ -221,7 +221,7 @@ const ModalCapNhatThuoc = ({ data }) => {
         name="registration-form"
         layout="vertical"
         onFinish={handleSubmit}
-        initialValues={formValues}
+        // initialValues={formValues}
       >
         <Form.Item
           label="Mã thuốc"
@@ -277,7 +277,7 @@ const ModalCapNhatThuoc = ({ data }) => {
             onClick={handleReset}
             style={{ marginRight: 10 }}
             type="danger"
-            initialValues={formValues}
+            // initialValues={formValues}
           >
             ĐẶT LẠI
           </Button>
@@ -502,7 +502,7 @@ const TaoThuocMoi = () => {
         name="registration-form"
         layout="vertical"
         onFinish={handleSubmit}
-        initialValues={formValues}
+        // initialValues={formValues}
       >
         <Form.Item
           label="Tên thuốc"
