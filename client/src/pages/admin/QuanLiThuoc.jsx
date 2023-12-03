@@ -1,4 +1,6 @@
 import thuoc from "../../fakedata/thuoc";
+import "../../assets/styles/admin.css";
+
 import React, { useState, useCallback, useEffect, useRef } from "react";
 import {
   Table,
@@ -14,6 +16,7 @@ import {
   Space,
   InputNumber,
 } from "antd";
+
 import {
   SearchOutlined,
   StopOutlined,
@@ -22,13 +25,13 @@ import {
 } from "@ant-design/icons";
 import ColumnSearch from "~/hooks/useSortTable";
 import TextArea from "antd/es/input/TextArea";
-import "../../assets/styles/admin.css";
+
 import {ButtonGreen, ButtonPink} from "../../components/button";
 import moment from 'moment';
 
 const { Option } = Select;
 
-const Com1 = ({ data }) => {
+const ModalHuyThuoc = ({ data }) => {
   data.NGAYHETHAN = data.NGAYHETHAN ? moment(data.NGAYHETHAN).format('YYYY-MM-DD'): undefined;
   const [formValues, setFormValues] = useState(data);
   const [form] = Form.useForm();
@@ -55,7 +58,7 @@ const Com1 = ({ data }) => {
         initialValues={formValues}
       >
         <Form.Item
-          label="Mã thuốc thuốc"
+          label="Mã thuốc"
           name="MATHUOC"
           style={{ width: "100%" }}
         >
@@ -97,7 +100,7 @@ const Com1 = ({ data }) => {
   );
 };
 
-const Com2 = ({ data }) => {
+const ModalNhapThuoc = ({ data }) => {
   const [formValues, setFormValues] = useState(data);
   const [form] = Form.useForm();
   useEffect(() => {
@@ -165,7 +168,7 @@ const Com2 = ({ data }) => {
           style={{ width: "100%" }}
           rules={[{ required: true, message: "Vui lòng nhập ngày hết hạn!" }]}
         >
-          <DatePicker placeholder="Ngày hết hạn của thuốc." />
+          <DatePicker placeholder="Ngày hết hạn mới của thuốc." />
         </Form.Item>
         <Form.Item
           label="Đơn giá"
@@ -190,7 +193,7 @@ const Com2 = ({ data }) => {
   );
 };
 
-const Com3 = ({ data }) => {
+const ModalCapNhatThuoc = ({ data }) => {
   const [formValues, setFormValues] = useState(data);
   const [form] = Form.useForm();
   useEffect(() => {
@@ -221,7 +224,7 @@ const Com3 = ({ data }) => {
         initialValues={formValues}
       >
         <Form.Item
-          label="Mã thuốc thuốc"
+          label="Mã thuốc"
           name="MATHUOC"
           style={{ width: "100%" }}
         >
@@ -278,25 +281,22 @@ const Com3 = ({ data }) => {
           >
             ĐẶT LẠI
           </Button>
-          <ButtonGreen text="THÊM THUỐC" func={""}/>
+          <ButtonGreen text="CẬP NHẬT" func={""}/>
         </Form.Item>
       </Form>
     </>
   );
 };
 
-const MedicineInfo = ({ medicine }) => {
+const ThuocTable = ({ medicine }) => {
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
   const [openAddModal, setOpenAddModal] = useState(false);
   const [openEditModal, setOpenEditModal] = useState(false);
   const selectedDataRef = useRef({});
 
   const [data1, setData1] = useState({});
-  // console.log("data1", data1);
   const [data2, setData2] = useState({});
-  // console.log("data2", data2);
   const [data3, setData3] = useState({});
-  // console.log("data3", data3);
 
   const handleDelete = (record) => {
     console.log("record", record);
@@ -326,23 +326,6 @@ const MedicineInfo = ({ medicine }) => {
     setOpenEditModal(false);
   }, []);
 
-  const handleSubmitDelete = () => {
-    // Perform delete action
-    setOpenDeleteModal(false);
-    message.success("Hủy thuốc thành công!");
-  };
-
-  const handleSubmitAdd = () => {
-    // Perform add action
-    setOpenAddModal(false);
-    message.success("Nhập thêm thuốc thành công!");
-  };
-
-  const handleSubmitEdit = () => {
-    // Perform edit action
-    setOpenEditModal(false);
-    message.success("Đã cập nhật thông tin thuốc!");
-  };
   const columns = [
     {
       title: "Mã thuốc",
@@ -459,7 +442,7 @@ const MedicineInfo = ({ medicine }) => {
         // onOk={handleSubmitDelete}
         footer={[]}
       >
-        <Com1 data={data1} />
+        <ModalHuyThuoc data={data1} />
       </Modal>
 
       <Modal
@@ -473,7 +456,7 @@ const MedicineInfo = ({ medicine }) => {
         // onOk={handleSubmitAdd}
         footer={[]}
       >
-        <Com2 data={data2} />
+        <ModalNhapThuoc data={data2} />
       </Modal>
 
       <Modal
@@ -487,7 +470,7 @@ const MedicineInfo = ({ medicine }) => {
         // onOk={handleSubmitEdit}
         footer={[]}
       >
-        <Com3 data={data3} />
+        <ModalCapNhatThuoc data={data3} />
       </Modal>
     </>
   );
@@ -499,7 +482,7 @@ const TaoThuocMoi = () => {
 
   const handleSubmit = (values) => {
     console.log("Success:", values);
-    message.success("Đăng kí thành công!");
+    message.success("Tạo thuốc mới thành công!");
     form.resetFields();
     setFormValues({});
     window.location.reload();
@@ -523,7 +506,7 @@ const TaoThuocMoi = () => {
       >
         <Form.Item
           label="Tên thuốc"
-          name="tenthuoc"
+          name="tendv"
           style={{ width: "100%" }}
           rules={[{ required: true, message: "Vui lòng nhập tên thuốc!" }]}
         >
@@ -531,7 +514,7 @@ const TaoThuocMoi = () => {
         </Form.Item>
         <Form.Item
           label="Đơn vị tính"
-          name="donvitinh"
+          name="DONVITINH"
           style={{ width: "100%" }}
           rules={[{ required: true, message: "Vui lòng chọn đơn vị tính!" }]}
         >
@@ -544,7 +527,7 @@ const TaoThuocMoi = () => {
         </Form.Item>
         <Form.Item
           label="Chỉ định"
-          name="chidinh"
+          name="CHIDINH"
           style={{ width: "100%" }}
           rules={[{ required: true, message: "Vui lòng nhập chỉ định!" }]}
         >
@@ -558,7 +541,7 @@ const TaoThuocMoi = () => {
         </Form.Item>
         <Form.Item
           label="Số lượng nhập"
-          name="soluongnhap"
+          name="SLNHAP"
           style={{ width: "100%" }}
           rules={[{ required: true, message: "Vui lòng nhập số lượng nhập!" }]}
         >
@@ -569,7 +552,7 @@ const TaoThuocMoi = () => {
         </Form.Item>
         <Form.Item
           label="Ngày hết hạn"
-          name="ngayhethan"
+          name="NGAYHETHAN"
           style={{ width: "100%" }}
           rules={[{ required: true, message: "Vui lòng nhập ngày hết hạn!" }]}
         >
@@ -577,7 +560,7 @@ const TaoThuocMoi = () => {
         </Form.Item>
         <Form.Item
           label="Đơn giá"
-          name="dongia"
+          name="DONGIA"
           placeholder="VND"
           style={{ width: "100%" }}
           rules={[{ required: true, message: "Vui lòng nhập đơn giá!" }]}
@@ -631,14 +614,14 @@ const TaoThuocMoiButton = () => {
 };
 
 const QuanLiThuoc = () => {
-
   return (
     <>
       <div className="w-full">
         <TaoThuocMoiButton />
-        <MedicineInfo medicine={thuoc} />
+        <ThuocTable medicine={thuoc} />
       </div>
     </>
   );
 };
+
 export default QuanLiThuoc;
