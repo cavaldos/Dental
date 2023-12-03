@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, memo } from "react";
 import { Table, Pagination, Drawer, Empty, message } from "antd";
 import axios from "axios";
 import hsb from "~/fakedata/hsb";
@@ -59,7 +59,7 @@ const GuestInfo = ({ currentRecord }) => {
   );
 };
 
-const DichVuTable = ({ dataDV, openDrawer }) => {
+const DichVuTable = memo(({ dataDV, openDrawer }) => {
   const columnDV = [
     {
       title: "STT",
@@ -90,13 +90,13 @@ const DichVuTable = ({ dataDV, openDrawer }) => {
   return (
     <Table
       columns={columnDV}
-      dataSource={dataDV.map((item,index) => ({ ...item, key: index }))}
+      dataSource={dataDV.map((item, index) => ({ ...item, key: index }))}
       pagination={false}
     />
   );
-};
+});
 
-const ThuocTable = ({ dataThuoc, openDrawer }) => {
+const ThuocTable = memo(({ dataThuoc, openDrawer }) => {
   const formatThuocData = (thuocData) => {
     if (!thuocData || !Array.isArray(thuocData)) {
       return [];
@@ -152,11 +152,14 @@ const ThuocTable = ({ dataThuoc, openDrawer }) => {
   return (
     <Table
       columns={columnThuoc}
-      dataSource={formatThuocData(dataThuoc).map((item,index) => ({ ...item, key: index }))}
+      dataSource={formatThuocData(dataThuoc).map((item, index) => ({
+        ...item,
+        key: index,
+      }))}
       pagination={false}
     />
   );
-};
+});
 
 const HoSoBenh = ({ sdt }) => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -208,7 +211,6 @@ const HoSoBenh = ({ sdt }) => {
     //   });
     setMedicalRecords(hsb);
   }, [currentPage, sdt]);
-
 
   const indexOfLastRecord = currentPage * recordsPerPage;
   const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;

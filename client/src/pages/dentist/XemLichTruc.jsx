@@ -1,10 +1,9 @@
-import { Button, Calendar, Select, message } from "antd";
+import React, { memo } from "react";
+import { Button, message } from "antd";
 import { lichhen4 } from "~/fakedata/lhnv";
-import React, { useState, useEffect } from "react";
 import TableLichHen from "~/components/dentist/TableLichHen";
-import HoSoBenh from "~/components/HoSoBenh";
 import { useNavigate } from "react-router-dom";
-const ThongTinLichHen = ({ props }) => {
+const ThongTinLichHen = memo(({ props }) => {
   // const { thoigian, sdt, hoten, ly_do_kham } = props;
   console.log(props);
   const navigate = useNavigate();
@@ -64,7 +63,7 @@ const ThongTinLichHen = ({ props }) => {
       </div>
     </>
   );
-};
+});
 
 const XemLichTruc = () => {
   const data = {
