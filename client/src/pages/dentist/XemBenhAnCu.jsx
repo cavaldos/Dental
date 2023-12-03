@@ -2,12 +2,10 @@ import { Empty } from "antd";
 import { AudioOutlined } from "@ant-design/icons";
 import { Input, Space } from "antd";
 import { useState, Suspense, lazy } from "react";
-
 import { useLocation } from "react-router-dom";
 
 const HoSoBenh = lazy(() => import("~/components/HoSoBenh"));
 const { Search } = Input;
-
 const XemBenhAnCu = () => {
   const location = useLocation();
   const currentPath = location.pathname;
