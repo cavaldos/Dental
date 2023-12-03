@@ -1,5 +1,17 @@
-import { Form, Input, DatePicker, Radio, Button, message } from "antd";
-import { useState } from "react";
+import "../../assets/styles/staff.css";
+import React, { useState, useEffect } from "react";
+import { Button, Form, Input, InputNumber, Select, DatePicker } from "antd";
+import dayjs from 'dayjs';
+import {ButtonGreen, ButtonPink} from "../../components/button";
+
+const layout = {
+  labelCol: {
+    span: 8,
+  },
+  wrapperCol: {
+    span: 16,
+  },
+};
 
 const DangKiTaiKhoanKhachHang = () => {
   const [formValues, setFormValues] = useState({}); // State để lưu giá trị của các trường đầu vào
@@ -17,71 +29,147 @@ const DangKiTaiKhoanKhachHang = () => {
     setFormValues({});
     message.success("Đã xóa trường!");
   };
-
+  
   return (
-    <div className="h-[450px] w-[55vw] bg-slate-50 mx-auto rounded-lg flex flex-col justify-center  ">
-      <div className=" w-full  ">
-        <h1 className="text-2xl  mb-4 ml-20 ">Tạo tài khoản khách hàng</h1>
-      </div>
+    <div
+      className="bg-white p-10 mx-10 sm:px-15 md:px-25 lg:px-40"
+      style={{
+        borderRadius: "27px",
+        boxShadow: "0px 3.111px 3.111px 0px rgba(0, 0, 0, 0.10)",
+      }}
+    >
       <Form
-        className="mx-auto flex flex-col justify-start pr-60 w-[80%]"
-        form={form}
-        name="registration-form"
+        {...layout}
+        name="nest-messages"
         onFinish={onFinish}
-        labelCol={{ span: 8 }}
-        wrapperCol={{ span: 16 }}
-        initialValues={formValues}
-        onValuesChange={(changedValues, allValues) => setFormValues(allValues)} // Cập nhật state khi có sự thay đổi giá trị đầu vào
+        style={{maxWidth:"95%"}}
+        // initialValues={initialValues}
       >
         <Form.Item
-          label="Số điện thoại"
-          name="phoneNumber"
-          rules={[{ required: true, message: "Vui lòng nhập số điện thoại!" }]}
+          name="SODT"
+          label="Số điện thoại:"
+          rules={[
+            {
+              required: true,
+              message: "Vui lòng nhập số điện thoại!",
+            },
+          ]}
+          labelCol={{
+            span: 5,
+          }}
+          wrapperCol={{
+            span: 19,
+          }}
         >
           <Input />
         </Form.Item>
 
         <Form.Item
-          label="Họ và tên"
-          name="fullName"
-          rules={[{ required: true, message: "Vui lòng nhập họ và tên!" }]}
+          name="HOTEN"
+          label="Họ tên:"
+          rules={[
+            {
+              required: true,
+              message: "Vui lòng nhập họ tên!",
+            },
+          ]}
+          labelCol={{
+            span: 5,
+          }}
+          wrapperCol={{
+            span: 19,
+          }}
         >
           <Input />
         </Form.Item>
 
         <Form.Item
-          label="Giới tính"
-          name="gender"
-          rules={[{ required: true, message: "Vui lòng chọn giới tính!" }]}
+          name="PHAI"
+          label="Phái"
+          rules={[
+            {
+              required: true,
+              message:"Vui lòng chọn giới tính"
+            },
+          ]}
+          labelCol={{
+            span: 5,
+          }}
+          wrapperCol={{
+            span: 19,
+          }}
         >
-          <Radio.Group>
-            <Radio value="male">Nam</Radio>
-            <Radio value="female">Nữ</Radio>
-          </Radio.Group>
+          <Select>
+            <Select.Option value="Nam">Nam</Select.Option>
+            <Select.Option value="Nữ">Nữ</Select.Option>
+          </Select>
         </Form.Item>
 
         <Form.Item
+          name="NGAYSINH"
           label="Ngày sinh"
-          name="birthdate"
-          rules={[{ required: true, message: "Vui lòng chọn ngày sinh!" }]}
+          rules={[
+            {
+              required: true,
+              message: "Vui lòng nhập ngày sinh!",
+            },
+          ]}
+          labelCol={{
+            span: 5,
+          }}
+          wrapperCol={{
+            span: 19,
+          }}
         >
-          <DatePicker style={{ width: "100%" }} />
+          <DatePicker placeholder="Chọn ngày" />
         </Form.Item>
 
         <Form.Item
-          label="Địa chỉ"
-          name="address"
-          rules={[{ required: true, message: "Vui lòng nhập địa chỉ!" }]}
+          name="DIACHI"
+          label="Địa chỉ:"
+          rules={[
+            {
+              required: true,
+              message: "Vui lòng nhập địa chỉ!",
+            },
+          ]}
+          labelCol={{
+            span: 5,
+          }}
+          wrapperCol={{
+            span: 19,
+          }}
         >
-          <Input.TextArea />
+          <Input />
+        </Form.Item>
+
+        <Form.Item
+          name="XACNHANMATKHAU"
+          label="Xác nhận mật khẩu"
+          rules={[
+            {
+              required: true,
+              message: "Vui lòng xác nhận mật khẩu!",
+            },
+          ]}
+          labelCol={{
+            span: 5,
+          }}
+          wrapperCol={{
+            span: 19,
+          }}
+        >
+          <Input.Password />
         </Form.Item>
 
         <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-          <Button className="bg-blue-600" type="primary" htmlType="submit">
-            Đăng kí
-          </Button>
-          <Button className="bg-red-600 ml-4" onClick={handleReset}>
-            Đặt lại
+          <ButtonGreen text="ĐĂNG KÝ" func={""}/>
+          <Button
+                onClick={handleReset}
+                style={{ marginLeft: 10 }}
+                type="danger"
+          >
+            ĐẶT LẠI
           </Button>
         </Form.Item>
       </Form>
