@@ -3,7 +3,7 @@ import { Input, Select, message, Button, Form, InputNumber } from "antd";
 import dv from "~/fakedata/dv";
 import thuoc from "~/fakedata/thuoc";
 const { TextArea } = Input;
-const { Option } = Select;
+
 const { Item } = Form;
 
 const DichVuDaChon = ({ ten, soLuong, madv, onClickXoa }) => {

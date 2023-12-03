@@ -2,18 +2,19 @@ import { Button, Calendar, Select, message } from "antd";
 import { lichhen4 } from "~/fakedata/lhnv";
 import React, { useState, useEffect } from "react";
 import TableLichHen from "~/components/dentist/TableLichHen";
-import HoSoBenh from "~/components/dentist/HoSoBenh";
+import HoSoBenh from "~/components/HoSoBenh";
 import { useNavigate } from "react-router-dom";
 const ThongTinLichHen = ({ props }) => {
   // const { thoigian, sdt, hoten, ly_do_kham } = props;
   console.log(props);
   const navigate = useNavigate();
-  const HandleBenhAnCu = () => {
+  const HandleBenhAnCu = (sdt) => {
+    navigate(`/xem-benh-an-cu/${sdt}`);
     message.success("Đã chuyển đến trang xem bệnh án cũ", 5);
   };
   const handleTaoBenhAn = async (sdt) => {
-    await navigate(`/tao-benh-an-moi/${sdt}`);
-    await message.success(
+    navigate(`/tao-benh-an-moi/${sdt}`);
+    message.success(
       `Đã chuyển đến trang tạo bệnh án mới cho khách hàng có số điện thoại ${sdt}`,
       5
     );
@@ -48,7 +49,7 @@ const ThongTinLichHen = ({ props }) => {
         <div className=" mt-auto h-[50px] flex justify-center items-center gap-12">
           <Button
             className="  text-grin border border-grin h"
-            onClick={HandleBenhAnCu}
+            onClick={() => HandleBenhAnCu("123456789")}
           >
             Benh an cu
           </Button>
@@ -78,9 +79,6 @@ const XemLichTruc = () => {
         <div className="flex flex-row gap-4">
           <TableLichHen data={lichhen4} />
           <ThongTinLichHen props={data} />
-        </div>
-        <div className=" border border-spacing-1 mt-3 rounded-lg p-1">
-          <HoSoBenh />
         </div>
       </div>
     </>

@@ -1,12 +1,16 @@
 import { Button, Calendar, Select } from "antd";
-import { lichhen4 } from "~/fakedata/lhnv";
+import HoSoBenh from "~/components/HoSoBenh";
 import React, { useState } from "react";
-import TableLichHen from "~/components/dentist/TableLichHen";
 
 const DentistPage = () => {
   return (
     <>
-      <h1>Day la trang nha si</h1>
+      <div className="flex flex-col">
+        <h1>Day la trang nha si</h1>
+        <div className="bg-red-400 w-[500px] h-[600px]]">
+          <HoSoBenh sdt={"56345665"} />
+        </div>
+      </div>
     </>
   );
 };

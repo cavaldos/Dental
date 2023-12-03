@@ -2,69 +2,41 @@ import { Empty } from "antd";
 import { AudioOutlined } from "@ant-design/icons";
 import { Input, Space } from "antd";
 import { useState } from "react";
+import HoSoBenh from "~/components/HoSoBenh";
+import { useLocation } from "react-router-dom";
 const { Search } = Input;
 
-const ChitietHoSoBenh = ({ searchResults }) => {
-  const hoSoBenh = {
-    Hoten: "Nguyen Van A",
-    sdt: "0123456789",
-    stt: "1",
-    Nhasi: "Nguyen Van B",
-    dando: "Dang dieu tri",
-  };
-  return (
-    <div className=" mt-3 rounded-md border border-gray-300 mx-2 p-3 w-[50vw]">
-      <div className="flex justify-between">
-        <div className="flex flex-col">
-          <div className="text-lg font-bold">Ho Ten: {hoSoBenh.Hoten}</div>
-          <div className="text-lg font-bold">SDT: {hoSoBenh.sdt}</div>
-          <div className="text-lg font-bold">STT: {hoSoBenh.stt}</div>
-          <div className="text-lg font-bold">Nha Si: {hoSoBenh.Nhasi}</div>
-          <div className="text-lg font-bold">Tinh Trang: {hoSoBenh.dando}</div>
-        </div>
-      </div>
-    </div>
-  );
-};
-
-const HoSoBenh = () => {
-  const [searchResults, setSearchResults] = useState([]);
+const XemBenhAnCu = () => {
+  const location = useLocation();
+  const currentPath = location.pathname;
+  const lastPath = currentPath.substring(currentPath.lastIndexOf("/") + 1);
+  const [searchResults, setSearchResults] = useState("");
   const onSearch = (value) => {
-    // Make API call here with the search value
-    // Replace the following code with your actual API call implementation
-    const mockAPIResults = ["Result 1", "Result 2", "Result 3"];
-    setSearchResults(mockAPIResults);
+    setSearchResults(value);
   };
+
   return (
     <div className=" bg-white rounded-lg p-5 flex flex-col w-full  ">
       <div className=" mx-2">
         <Search
           className="w-[600px]"
-          placeholder="Tim Kiem Ho So Benh An"
+          placeholder="Tim Kiem Ho So Benh An (theo so dien thoai), nhap so bat ki vo day"
           allowClear
           onSearch={onSearch}
           suffix={<AudioOutlined />}
           size="large"
+          defaultValue={lastPath==="xem-benh-an-cu"?"":lastPath}
         />
       </div>
-      <ChitietHoSoBenh searchResults={searchResults} />
 
-      {searchResults.length > 0 ? (
-        <ChitietHoSoBenh searchResults={searchResults} />
-      ) : (
+      {searchResults === "" ? (
         <Empty className=" mt-3 rounded-md border border-spacing-4" />
+      ) : (
+        <div className="flex flex-col gap-5 mt-5">
+          <HoSoBenh sdt={searchResults} />
+        </div>
       )}
     </div>
-  );
-};
-
-const XemBenhAnCu = () => {
-  return (
-    <>
-      <div>
-        <HoSoBenh />
-      </div>
-    </>
   );
 };
 export default XemBenhAnCu;
