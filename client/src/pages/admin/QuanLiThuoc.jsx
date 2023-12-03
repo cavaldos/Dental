@@ -73,19 +73,14 @@ const Com1 = ({ data }) => {
           name="DONVITINH"
           style={{ width: "100%" }}
         >
-          <Select disabled>
-            <Option value="Viên">Viên</Option>
-            <Option value="Ống">Ống</Option>
-            <Option value="Gói">Gói</Option>
-            <Option value="Chai">Chai</Option>
-          </Select>
+          <Input disabled />
         </Form.Item>
         <Form.Item
           label="Số thuốc sẽ hủy"
           name="SLTON"
           style={{ width: "100%" }}
         >
-          <InputNumber disabled/>
+          <Input disabled/>
         </Form.Item>
         <Form.Item
           label="Ngày hết hạn"
@@ -133,7 +128,7 @@ const Com2 = ({ data }) => {
         initialValues={formValues}
       >
         <Form.Item
-          label="Mã thuốc thuốc"
+          label="Mã thuốc"
           name="MATHUOC"
           style={{ width: "100%" }}
         >
@@ -151,12 +146,7 @@ const Com2 = ({ data }) => {
           name="DONVITINH"
           style={{ width: "100%" }}
         >
-          <Select disabled>
-            <Option value="Viên">Viên</Option>
-            <Option value="Ống">Ống</Option>
-            <Option value="Gói">Gói</Option>
-            <Option value="Chai">Chai</Option>
-          </Select>
+          <Input disabled/>
         </Form.Item>
         <Form.Item
           label="Số lượng nhập"
@@ -182,7 +172,7 @@ const Com2 = ({ data }) => {
           name="DONGIA"
           style={{ width: "100%" }}
         >
-          <InputNumber disabled/>
+          <Input disabled/>
         </Form.Item>
         <Form.Item style={{ display: "flex", justifyContent: "flex-end" }}>
           <Button
@@ -466,7 +456,8 @@ const MedicineInfo = ({ medicine }) => {
         }
         open={openDeleteModal}
         onCancel={handleCancelDelete}
-        onOk={handleSubmitDelete}
+        // onOk={handleSubmitDelete}
+        footer={[]}
       >
         <Com1 data={data1} />
       </Modal>
@@ -479,7 +470,8 @@ const MedicineInfo = ({ medicine }) => {
         }
         open={openAddModal}
         onCancel={handleCancelAdd}
-        onOk={handleSubmitAdd}
+        // onOk={handleSubmitAdd}
+        footer={[]}
       >
         <Com2 data={data2} />
       </Modal>
@@ -492,7 +484,8 @@ const MedicineInfo = ({ medicine }) => {
         }
         open={openEditModal}
         onCancel={handleCancelEdit}
-        onOk={handleSubmitEdit}
+        // onOk={handleSubmitEdit}
+        footer={[]}
       >
         <Com3 data={data3} />
       </Modal>
@@ -619,7 +612,7 @@ const TaoThuocMoiButton = () => {
   };
   return (
     <>
-      <ButtonGreen text="THÊM LOẠI THUỐC MỚI" func={showModal} />
+      <ButtonGreen text="THÊM LOẠI THUỐC MỚI" func={showModal}/>
 
       <Modal
         title={
