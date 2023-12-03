@@ -27,6 +27,7 @@ const CapNhatTaiKhoan = () => {
       phone: "0987654321", // Giá trị số điện thoại mặc định
       name: "John Doe", // Giá trị họ tên mặc định
       gender: "Nam", // Giá trị giới tính mặc định
+      address: "Trong tim ...", // Giá trị giới tính mặc định
       date: dayjs('01/01/1990', dateFormatList[0]), // Giá trị ngày sinh mặc định
     },
   };
@@ -124,7 +125,26 @@ const CapNhatTaiKhoan = () => {
             span: 19,
           }}
         >
-          <DatePicker defaultValue={dayjs('01/01/2015', dateFormatList[0])} format={dateFormatList} placeholder="Chọn ngày" />
+          <DatePicker format={dateFormatList} placeholder="Chọn ngày" />
+        </Form.Item>
+
+        <Form.Item
+          name={["user", "address"]}
+          label="Địa chỉ:"
+          rules={[
+            {
+              required: true,
+              message: "Vui lòng nhập địa chỉ!",
+            },
+          ]}
+          labelCol={{
+            span: 5,
+          }}
+          wrapperCol={{
+            span: 19,
+          }}
+        >
+          <Input />
         </Form.Item>
 
         <Form.Item

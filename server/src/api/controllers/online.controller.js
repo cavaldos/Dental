@@ -35,6 +35,7 @@ const onlineController = {
       params.MATK = req.body.matk;
       params.MATKHAU = req.body.matkhau;
       const result = await pool.executeSP(sp, params);
+      console.log(result[0]);
       if (result.error) {
         return res.status(401).send(result.error);
       }
@@ -48,7 +49,7 @@ const onlineController = {
         },
           process.env.ACCESS_TOKEN_SECRET_KEY,
           {expiresIn: process.env.ACCESS_TOKEN_LIFE});
-        return res.status(200).json({ success: true, accessToken: accessToken });
+        return res.status(200).json({ success: true, accessToken: accessToken, info:result[0]});
       }
 
 
