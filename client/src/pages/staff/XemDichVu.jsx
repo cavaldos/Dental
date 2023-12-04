@@ -1,24 +1,29 @@
-import thuoc from "../../fakedata/thuoc";
+
 import dv from "../../fakedata/dv";
-import React from "react";
-import { Table } from "antd";
+import '../../assets/styles/admin.css'
+
+import React, { useState, useCallback, useRef } from "react";
+import {
+  Table,
+} from "antd";
+
 import ColumnSearch from "~/hooks/useSortTable";
 
-const DichVuTable = ({ data }) => {
-
+const DichVuTable = ({ service }) => {
   const columns = [
     {
-      title: "Mã Dich vụ",
+      title: "Mã dịch vụ",
       dataIndex: "MADV",
       key: "MADV",
-      className: "text-center px-[60px] min-w-[120px] ",
-
+      fixed: "left",
+      className: "px-[60px] min-w-[120px] ",
       ...ColumnSearch("MADV", "Mã Dich vụ"),
     },
     {
       title: "Tên dich vụ",
       dataIndex: "TENDV",
       key: "TENDV",
+      fixed: "left",
       ...ColumnSearch("TENDV", "Tên dich vụ"),
     },
     {
@@ -31,19 +36,26 @@ const DichVuTable = ({ data }) => {
       title: "Đơn giá",
       dataIndex: "DONGIA",
       key: "DONGIA",
-      className: "text-center px-[60px] min-w-[120px] ",
+      className: "px-[60px] min-w-[120px] ",
       sorter: (a, b) => a.DONGIA - b.DONGIA,
+      render: (text) => {
+        const formattedAmount = text.toLocaleString("vi-VN");
+        return `${formattedAmount} VND`;
+      },
     },
   ];
   return (
+    <>
     <Table
-      className="table-striped"
       columns={columns}
-      dataSource={data.map((item, index) => ({ ...item, key: index }))}
+      dataSource={service.map((item, index) => ({ ...item, key: index }))}
       pagination={true}
       bordered
       size="middle"
+      tableLayout="auto"
+      scroll={{x: "calc(900px + 50%)",}}
     />
+    </>
   );
 };
 
@@ -51,7 +63,7 @@ const XemDichVu = () => {
   return (
     <>
       <div className=" w-full">
-        <DichVuTable data={dv} />
+        <DichVuTable service={dv} />
       </div>
     </>
   );

@@ -1,26 +1,27 @@
 import thuoc from "../../fakedata/thuoc";
-import React, { useState } from "react";
-import { Table, Button, message, Modal } from "antd";
-import { SearchOutlined, EditOutlined } from "@ant-design/icons";
+import "../../assets/styles/admin.css";
+
+import React from "react";
+import {
+  Table,
+} from "antd";
+
 import ColumnSearch from "~/hooks/useSortTable";
 
-const MedicineInfo = ({ medicine }) => {
-  const formatDateString = (dateString) => {
-    const date = new Date(dateString);
-    return date.toLocaleDateString();
-  };
-
+const ThuocTable = ({ medicine }) => {
   const columns = [
     {
       title: "Mã thuốc",
       dataIndex: "MATHUOC",
       key: "MATHUOC",
+      fixed: "left",
       ...ColumnSearch("MATHUOC", "Mã thuốc"),
     },
     {
       title: "Tên thuốc",
       dataIndex: "TENTHUOC",
       key: "TENTHUOC",
+      fixed: "left",
       ...ColumnSearch("TENTHUOC", "Tên thuốc"),
     },
     {
@@ -54,33 +55,44 @@ const MedicineInfo = ({ medicine }) => {
       title: "Ngày hết hạn",
       dataIndex: "NGAYHETHAN",
       key: "NGAYHETHAN",
-      render: (text) => formatDateString(text),
+      render: (text) => {
+        const date = new Date(text);
+        const dateString = date.toLocaleDateString();
+        return dateString;
+      },
     },
     {
       title: "Đơn giá",
       dataIndex: "DONGIA",
       key: "DONGIA",
       sorter: (a, b) => a.DONGIA - b.DONGIA,
+      render: (text) => {
+        const formattedAmount = text.toLocaleString("vi-VN");
+        return `${formattedAmount} VND`;
+      },
     },
-    
   ];
+
   return (
-    <Table
-      className="table-striped"
-      columns={columns}
-      dataSource={medicine.map((item, index) => ({ ...item, key: index }))}
-      pagination={true}
-      bordered
-      size="middle"
-    />
+    <>
+      <Table
+        columns={columns}
+        dataSource={medicine.map((item, index) => ({ ...item, key: index }))}
+        pagination={true}
+        bordered
+        size="middle"
+        tableLayout="auto"
+        scroll={{ x: "calc(900px + 50%)" }}
+      />
+    </>
   );
 };
 
 const XemThuoc = () => {
   return (
     <>
-      <div className=" w-full">
-        <MedicineInfo medicine={thuoc} />
+      <div className="w-full">
+        <ThuocTable medicine={thuoc} />
       </div>
     </>
   );

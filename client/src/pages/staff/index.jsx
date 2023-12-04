@@ -21,7 +21,7 @@ const StaffPage = () => {
     };
     getDataconfig();
   }, []);
-  console.log("data", data);
+  // console.log("data", data);
 
   return (
     <div className=" khanh flex justify-center bg-slate-50 h-60 align-middle items-center ">

@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
-import { Table, Pagination, Drawer, Empty } from "antd";
+import React, { useState, useEffect, memo } from "react";
+import { Table, Pagination, Drawer, Empty, message } from "antd";
 import axios from "axios";
-import hsb from "../../fakedata/hsb";
-import "../../assets/styles/guest.css";
-import Axios from "../../services/Axios";
+import hsb from "~/fakedata/hsb";
+import "~/assets/styles/guest.css";
+import Axios from "../services/Axios";
 const escapedNewLineToLineBreakTag = (text) => {
   const replacedText = text.replace(/\\n/g, "\n");
   const lines = replacedText.split("\n");
@@ -59,11 +59,12 @@ const GuestInfo = ({ currentRecord }) => {
   );
 };
 
-const DichVuTable = ({ dataDV, openDrawer }) => {
+const DichVuTable = memo(({ dataDV, openDrawer }) => {
   const columnDV = [
     {
       title: "STT",
       width: "20%",
+      key: "STT",
       render: (text, record, index) => index + 1,
     },
     {
@@ -86,10 +87,16 @@ const DichVuTable = ({ dataDV, openDrawer }) => {
       key: "SLDV",
     },
   ];
-  return <Table columns={columnDV} dataSource={dataDV} pagination={false} />;
-};
+  return (
+    <Table
+      columns={columnDV}
+      dataSource={dataDV.map((item, index) => ({ ...item, key: index }))}
+      pagination={false}
+    />
+  );
+});
 
-const ThuocTable = ({ dataThuoc, openDrawer }) => {
+const ThuocTable = memo(({ dataThuoc, openDrawer }) => {
   const formatThuocData = (thuocData) => {
     if (!thuocData || !Array.isArray(thuocData)) {
       return [];
@@ -111,6 +118,7 @@ const ThuocTable = ({ dataThuoc, openDrawer }) => {
   const columnThuoc = [
     {
       title: "STT",
+      key: "STT",
       width: "20%",
       render: (text, record, index) => index + 1,
     },
@@ -144,21 +152,20 @@ const ThuocTable = ({ dataThuoc, openDrawer }) => {
   return (
     <Table
       columns={columnThuoc}
-      dataSource={formatThuocData(dataThuoc)}
+      dataSource={formatThuocData(dataThuoc).map((item, index) => ({
+        ...item,
+        key: index,
+      }))}
       pagination={false}
     />
   );
-};
+});
 
 const HoSoBenh = ({ sdt }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [medicalRecords, setMedicalRecords] = useState([]);
   const recordsPerPage = 1; // Số hồ sơ bệnh hiển thị trên mỗi trang
   const [sdts, setSdts] = useState(sdt);
-
-  useEffect(() => {
-    setSdts(sdt);
-  }, [sdt]);
 
   // Hiển thị chi tiết loại dịch vụ
   const [drawerVisible, setDrawerVisible] = useState(false);
@@ -167,14 +174,14 @@ const HoSoBenh = ({ sdt }) => {
   const [selectedType, setSelectedType] = useState("");
 
   const openDrawer = async (type, id) => {
+    setDrawerVisible(true);
     try {
-      const response = await axios.get(
+      const response = await Axios.get(
         `http://localhost:3000/khachhang/${type}/${id}`
       );
       const item = response.data[0];
 
       setSelectedType(type);
-      setDrawerVisible(true);
 
       if (type === "loaiDV") {
         setSelectedService(item);
@@ -182,12 +189,11 @@ const HoSoBenh = ({ sdt }) => {
         setSelectedDrug(item);
       }
     } catch (error) {
-      console.error("Lỗi khi lấy thông tin:", error);
+      console.log("Lỗi khi lấy thông tin:", error);
     }
   };
 
   const closeDrawer = () => {
-    // Đóng Drawer
     setDrawerVisible(false);
     setSelectedDrug({});
     setSelectedService({});
@@ -195,19 +201,16 @@ const HoSoBenh = ({ sdt }) => {
   };
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(
-          `http://localhost:3000/khachhang/benhAn/${sdts}`
-        );
-        const fetchedMedicalRecords = response.data;
-        setMedicalRecords(fetchedMedicalRecords);
-      } catch (error) {
-        console.error("Lỗi khi lấy dữ liệu hồ sơ bệnh:", error);
-      }
-    };
-    fetchData();
-  }, [currentPage]);
+    setSdts(sdt);
+    // Axios.get(`/khachhang/benhAn/${sdts}`)
+    //   .then((res) => {
+    //     setMedicalRecords(res.data);
+    //   })
+    //   .catch((error) => {
+    //     console.log("Lỗi khi lấy dữ liệu hồ sơ bệnh:", error);
+    //   });
+    setMedicalRecords(hsb);
+  }, [currentPage, sdt]);
 
   const indexOfLastRecord = currentPage * recordsPerPage;
   const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;

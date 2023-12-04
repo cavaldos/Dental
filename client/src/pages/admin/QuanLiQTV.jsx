@@ -15,7 +15,7 @@ import ColumnSearch from "~/hooks/useSortTable";
 import "../../assets/styles/admin.css";
 import {ButtonGreen} from "../../components/button";
 
-const TableQTV = ({ admin }) => {
+const QTVTable = ({ admin }) => {
     const columns = [
         {
             title: "Mã QTV",
@@ -92,7 +92,7 @@ const TaoQTVMoi = () => {
             <Button onClick={handleReset} style={{ marginRight: 10 }} type="danger">
                 ĐẶT LẠI
             </Button>
-            <ButtonGreen text="TẠO" modal={""}></ButtonGreen>
+            <ButtonGreen text="TẠO" func={""} />
             </Form.Item>
         </Form>
       </>
@@ -113,7 +113,7 @@ const TaoQTVMoiButton = () => {
     };
     return (
         <>
-            <ButtonGreen text="TẠO TÀI KHOẢN MỚI" modal={showModal}></ButtonGreen>
+            <ButtonGreen text="TẠO TÀI KHOẢN MỚI" func={showModal} />
 
             <Modal
                 title={<h1 className="font-montserrat text-lg mb-3 mt-2 font-extrabold">TẠO TÀI KHOẢN QUẢN TRỊ VIÊN</h1>}
@@ -131,7 +131,7 @@ const QuanLiNV = () => {
         <>
             <div className=" w-full">
                 <TaoQTVMoiButton />
-                <TableQTV admin={qtv} />
+                <QTVTable admin={qtv} />
             </div>
         </>
     );

@@ -30,6 +30,11 @@ const DentistRouter = [
     component: XemBenhAnCu,
     Layout: AdminLayout,
   },
+  {
+    path: "/xem-benh-an-cu/:sdt",
+    component: XemBenhAnCu,
+    Layout: AdminLayout,
+  },
 
   {
     path: "/tao-benh-an-moi/",

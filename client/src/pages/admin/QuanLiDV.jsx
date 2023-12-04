@@ -1,6 +1,8 @@
 
 import dv from "../../fakedata/dv";
-import React from "react";
+import '../../assets/styles/admin.css'
+
+import React, { useState, useCallback, useEffect, useRef } from "react";
 import {
   Table,
   Button,
@@ -15,26 +17,120 @@ import {
   Space,
   InputNumber,
 } from "antd";
-import ColumnSearch from "~/hooks/useSortTable";
-import { useState } from "react";
 
-import TextArea from "antd/es/input/TextArea";
-import '../../assets/styles/admin.css'
-import {ButtonGreen} from "../../components/button";
 import { 
   SearchOutlined,
   EditOutlined, 
 } from "@ant-design/icons";
+import ColumnSearch from "~/hooks/useSortTable";
+import TextArea from "antd/es/input/TextArea";
 
-const DichVuTable = ({ data }) => {
-    const formatCurrency = (amount) => {
-      const formattedAmount = amount.toLocaleString("vi-VN");
-      return `${formattedAmount} VND`;
-    };
+import {ButtonGreen, ButtonPink} from "../../components/button";
+import moment from 'moment';
+
+const { Option } = Select;
+
+const ModalCapNhatDV = ({ data }) => {
+  const [formValues, setFormValues] = useState(data);
+  const [form] = Form.useForm();
+  useEffect(() => {
+    form.setFieldsValue(data);
+  }, [data, form]);
+
+  const handleSubmit = (values) => {
+    console.log("Success:", values);
+    message.success("Cập nhật dịch vụ công!");
+    form.resetFields();
+    setFormValues({});
+    window.location.reload();
+  };
+
+  const handleReset = () => {
+    form.resetFields();
+    message.success("Hoàn tác quá trình cập nhật!");
+  };
+
+  return (
+    <>
+      <Form
+        onSubmit={handleSubmit}
+        form={form}
+        name="registration-form"
+        layout="vertical"
+        onFinish={handleSubmit}
+        // initialValues={formValues}
+      >
+        <Form.Item
+          label="Mã dịch vụ"
+          name="MADV"
+          style={{ width: "100%" }}
+        >
+          <Input disabled />
+        </Form.Item>
+        <Form.Item
+          label="Tên dịch vụ"
+          name="TENDV"
+          style={{ width: "100%" }}
+          rules={[{ required: true, message: "Tên dịch vụ không được để trống!" }]}
+        >
+          <Input />
+        </Form.Item>
+        <Form.Item
+          label="Mô tả"
+          name="MOTA"
+          style={{ width: "100%" }}
+          rules={[{ required: true, message: "Mô tả dịch vụ không được để trống!" }]}
+        >
+          <TextArea
+            showCount
+            minLength={10}
+            maxLength={500}
+            style={{ height: 120 }}
+          />
+        </Form.Item>
+        <Form.Item
+          label="Đơn giá"
+          name="DONGIA"
+          style={{ width: "100%" }}
+          rules={[{ required: true, message: "Đơn giá không được để trống!" }]}
+        >
+          <InputNumber />
+        </Form.Item>
+        <Form.Item style={{ display: "flex", justifyContent: "flex-end" }}>
+          <Button
+            onClick={handleReset}
+            style={{ marginRight: 10 }}
+            type="danger"
+            // initialValues={formValues}
+          >
+            ĐẶT LẠI
+          </Button>
+          <ButtonGreen text="CẬP NHẬT" func={""}/>
+        </Form.Item>
+      </Form>
+    </>
+  );
+};
+
+const DichVuTable = ({ service }) => {
+  const [openDeleteModal, setOpenDeleteModal] = useState(false);
+  const [openAddModal, setOpenAddModal] = useState(false);
+  const [openEditModal, setOpenEditModal] = useState(false);
+  const selectedDataRef = useRef({});
+  const [data, setData] = useState({});
+
+  const handleEdit = (record) => {
+    setOpenEditModal(true);
+    setData({ ...record });
+  };
+
+  const handleCancelEdit = useCallback(() => {
+    setOpenEditModal(false);
+  }, []);
 
   const columns = [
     {
-      title: "Mã Dich vụ",
+      title: "Mã dịch vụ",
       dataIndex: "MADV",
       key: "MADV",
       fixed: "left",
@@ -58,9 +154,12 @@ const DichVuTable = ({ data }) => {
       title: "Đơn giá",
       dataIndex: "DONGIA",
       key: "DONGIA",
-      className: "text-center px-[60px] min-w-[120px] ",
+      className: "px-[60px] min-w-[120px] ",
       sorter: (a, b) => a.DONGIA - b.DONGIA,
-      render: (text) => formatCurrency(text),
+      render: (text) => {
+        const formattedAmount = text.toLocaleString("vi-VN");
+        return `${formattedAmount} VND`;
+      },
     },
     {
       title: "Quản lí",
@@ -69,36 +168,55 @@ const DichVuTable = ({ data }) => {
       width: "6%",
       render: (text, record) => (
         <Space size="middle">
-          <a 
-              className="text-blue font-montserrat text-sm hover:text-darkblue"
-              onClick={() => handleUpdate(record.key)}>
-              <EditOutlined/>
-          </a>
+          <button
+            className="text-blue font-montserrat hover:text-darkblue"
+            onClick={() => handleEdit(record)}
+          >
+            <EditOutlined />
+          </button>
         </Space>
       ),
     },
   ];
   return (
+    <>
     <Table
       columns={columns}
-      dataSource={data.map((item, index) => ({ ...item, key: index }))}
+      dataSource={service.map((item, index) => ({ ...item, key: index }))}
       pagination={true}
       bordered
       size="middle"
       tableLayout="auto"
       scroll={{x: "calc(900px + 50%)",}}
     />
+
+    <Modal
+        title={
+          <h1 className="font-montserrat text-xl mb-3 mt-2 font-extrabold">
+            CẬP NHẬT THÔNG TIN DỊCH VỤ
+          </h1>
+        }
+        open={openEditModal}
+        onCancel={handleCancelEdit}
+        // onOk={handleSubmitEdit}
+        footer={[]}
+      >
+        <ModalCapNhatDV data={data} />
+      </Modal>
+    </>
   );
 };
 
 const TaoDichVuMoi = () => {
   const [formValues, setFormValues] = useState({});
   const [form] = Form.useForm();
+
   const handleSubmit = (values) => {
     console.log("Success:", values);
-    message.success("Đăng kí thành công!");
+    message.success("Tạo dịch vụ mới thành công!");
     form.resetFields();
     setFormValues({});
+    window.location.reload();
   };
 
   const handleReset = () => {
@@ -115,40 +233,48 @@ const TaoDichVuMoi = () => {
         name="registration-form"
         layout="vertical"
         onFinish={handleSubmit}
-        initialValues={formValues}
+        // initialValues={formValues}
       >
         <Form.Item
-          label="Tên dịch vụ"
-          name="tendv"
+          label="Tên thuốc"
+          name="TENDV"
           style={{ width: "100%" }}
           rules={[{ required: true, message: "Vui lòng nhập tên dịch vụ!" }]}
         >
-          <Input placeholder="Tên dịch vụ."/>
+          <Input placeholder="Tên thuốc." />
         </Form.Item>
         <Form.Item
-          label="Mô tả"
-          name="mota"
+          label="Chỉ định"
+          name="CHIDINH"
           style={{ width: "100%" }}
-          rules={[{required: true, message: "Vui lòng mô tả dịch vụ!" }]}
+          rules={[{ required: true, message: "Vui lòng nhập mô tả!" }]}
         >
-          <TextArea showCount minLength={10} maxLength={500} style={{ height: 120, }}
-              placeholder="Mô tả về dịch vụ nha khoa."/>
+          <TextArea
+            showCount
+            minLength={10}
+            maxLength={500}
+            style={{ height: 120 }}
+            placeholder="Mô tả dịch vụ nha khoa."
+          />
         </Form.Item>
         <Form.Item
           label="Đơn giá"
-          name="dongia"
+          name="DONGIA"
           placeholder="VND"
           style={{ width: "100%" }}
-          rules={[
-            { required: true, message: "Vui lòng nhập đơn giá!" }]}
+          rules={[{ required: true, message: "Vui lòng nhập đơn giá!" }]}
         >
-          <InputNumber min={50000} placeholder="Đơn giá dịch vụ phòng khám"/>
+          <InputNumber min={500} placeholder="Đơn giá dịch vụ" />
         </Form.Item>
-        <Form.Item style={{ display: 'flex', justifyContent: 'flex-end' }}>
-          <Button onClick={handleReset} style={{ marginRight: 10 }} type="danger">
+        <Form.Item style={{ display: "flex", justifyContent: "flex-end" }}>
+          <Button
+            onClick={handleReset}
+            style={{ marginRight: 10 }}
+            type="danger"
+          >
             ĐẶT LẠI
           </Button>
-          <ButtonGreen text="THÊM DỊCH VỤ" modal={""}></ButtonGreen>
+          <ButtonGreen text="THÊM DỊCH VỤ" func={""}/>
         </Form.Item>
       </Form>
     </>
@@ -168,10 +294,14 @@ const ThemDichVuMoiButton = () => {
   };
   return (
     <>
-      <ButtonGreen text="THÊM LOẠI DỊCH VỤ MỚI" modal={showModal}></ButtonGreen>
+      <ButtonGreen text="THÊM LOẠI DỊCH VỤ MỚI" func={showModal} />
 
       <Modal
-        title={<h1 className="font-montserrat text-lg mb-3 mt-2 font-extrabold">THÊM LOẠI DỊCH VỤ MỚI</h1>}
+        title={
+          <h1 className="font-montserrat text-xl mb-3 mt-2 font-extrabold">
+            THÊM LOẠI THUỐC MỚI
+          </h1>
+        }
         open={isModalOpen}
         onCancel={handleCancel}
         footer={[]}
@@ -187,7 +317,7 @@ const QuanliDV = () => {
     <>
       <div className=" w-full">
         <ThemDichVuMoiButton />
-        <DichVuTable data={dv} />
+        <DichVuTable service={dv} />
       </div>
     </>
   );

@@ -12,7 +12,6 @@ import {
   BrowserRouter as Router,
   Route,
   Routes,
-  Outlet,
 } from "react-router-dom";
 import Loading from "./components/err/loading";
 const NotfoundError = lazy(() => import("~/components/err"));
@@ -40,7 +39,7 @@ function App() {
 
   return (
     <>
-      {/* <Test /> */}
+      <Test />
       <Router>
         <Suspense fallback={<Loading />}>
           <Routes>

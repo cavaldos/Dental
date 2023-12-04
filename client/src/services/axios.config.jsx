@@ -1,5 +1,19 @@
 import axios from "axios";
+const getCookie = (key) => {
+  const cookieStr = document.cookie;
+  if (!cookieStr) {
+    return null;
+  }
+  const cookies = cookieStr.split("; ");
+  for (let cookie of cookies) {
+    const [name, value] = cookie.split("=");
+    if (name === key) {
+      return value;
+    }
+  }
 
+  return null;
+}
 const instance = axios.create({
   baseURL: "https://fakestoreapi.com/", // import.meta.env.VITE_API_URL,
   timeout: 5000,
@@ -8,7 +22,7 @@ const instance = axios.create({
 
 instance.interceptors.request.use(
   function (config) {
-    const token = "get token from local storage ";
+    const token = getCookie("token");
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
