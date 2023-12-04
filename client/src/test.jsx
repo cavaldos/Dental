@@ -1,9 +1,14 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
-import Axios from "~/services/Axios";
+import { useEffect } from "react";
+
 import AdminService from "./services/admin/index";
 import StaffService from "./services/staff";
 const Test = () => {
+
+
+    const CallApi = async () => {
+      const res = await AdminService.getAllNhanVien();
+      console.log(res);
+    };
   useEffect(() => {
     AdminService.getAllNhanVien().then((res) => {
       console.log(res);
@@ -17,7 +22,14 @@ const Test = () => {
     StaffService.getAllThuoc().then((res) => {
       console.log(res);
     });
+    StaffService.getAllDV().then((res) => {
+      console.log(res);
+    });
+    console.log("test");
+    CallApi();
   }, []);
+
+
 
   return <></>;
 };
