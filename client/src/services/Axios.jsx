@@ -1,5 +1,6 @@
 import instance from "./axios.config";
 
+
 const Axios = {
   get: async (url) => {
     try {

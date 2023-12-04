@@ -1,11 +1,22 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import Axios from "~/services/Axios";
-import useCookie from "./hooks/useCookie";
+import AdminService from "./services/admin/index";
+import StaffService from "./services/staff";
 const Test = () => {
-  const [token, setToken, removeToken] = useCookie("token", "");
   useEffect(() => {
-    setToken("123dddddddddddddd");
+    AdminService.getAllNhanVien().then((res) => {
+      console.log(res);
+    });
+    AdminService.getAllKhachHang().then((res) => {
+      console.log(res);
+    });
+    StaffService.getLichRanhNS().then((res) => {
+      console.log(res);
+    });
+    StaffService.getAllThuoc().then((res) => {
+      console.log(res);
+    });
   }, []);
 
   return <></>;
