@@ -1,5 +1,5 @@
 import instance from "./axios.config";
-
+import { message } from "antd";
 
 const Axios = {
   get: async (url) => {
@@ -7,6 +7,7 @@ const Axios = {
       const res = await instance.get(url);
       return res;
     } catch (err) {
+      message.error(err.message);
       console.log(err);
     }
   },
@@ -15,6 +16,7 @@ const Axios = {
       const res = await instance.post(url, data);
       return res;
     } catch (err) {
+      message.error(err.message);
       console.log(err);
     }
   },
@@ -23,6 +25,7 @@ const Axios = {
       const res = await instance.put(url, data);
       return res;
     } catch (err) {
+      message.error(err.message);
       console.log(err);
     }
   },
@@ -31,6 +34,7 @@ const Axios = {
       const res = await instance.patch(url, data);
       return res;
     } catch (err) {
+      message.error(err.message);
       console.log(err);
     }
   },
@@ -40,6 +44,7 @@ const Axios = {
       const res = await instance.delete(url);
       return res;
     } catch (err) {
+      message.error(err.message);
       console.log(err);
     }
   },

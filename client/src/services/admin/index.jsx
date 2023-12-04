@@ -3,7 +3,7 @@ import Axios from "../Axios";
 const AdminService = {
   getAllNhanVien: async () => {
     try {
-      const res = await Axios.get("/qtv/getAllNhanVien");
+      const res = await Axios.get("/qtv/getAllNhanViean");
       return res;
     } catch (err) {
       console.log(err);
