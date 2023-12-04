@@ -31,7 +31,7 @@ const Account = () => {
             className="mx-auto text-2xl uppercase"
             onClick={() => navigate("/")}
           >
-            {user.role}
+            {user.ROLE}
           </button>
         </Tag>
 

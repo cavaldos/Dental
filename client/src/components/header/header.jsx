@@ -41,7 +41,7 @@ const Header = () => {
           </h1>
         </div>
       
-        {user.role === "online" ? (
+        {user.ROLE === "online" ? (
           <div className="flex">
             <button
               className="bg-blue-500 px-5 py-2 my-3 rounded-md"

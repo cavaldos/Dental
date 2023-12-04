@@ -1,19 +1,35 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import axios from "axios";
+
+
+export const GetUserInfo = createAsyncThunk(
+  "user/getUserInfo",
+  async (data, thunkAPI) => {
+    try {
+      const res = await axios.get("/user/getUserInfo");
+      return res.data;
+    } catch (err) {
+      console.log(err);
+    }
+  }
+);
 
 export const userSlice = createSlice({
   name: "user",
   initialState: {
-    name: null,
-    phone: null,
-    email: null,
-    role: "online",
+    ROLE: "online",
+    SDT: "",
+    HOTEN: "",
+    PHAI: "",
+    NGAYSINH: "",
+    DIACHI: "",
   },
   reducers: {
     setRole: (state, action) => {
-      state.role= action.payload;
+      state.ROLE= action.payload;
     },
     deleteRole: (state) => {
-      state.role = "online";
+      state.ROLE = "online";
     },
   },
 });

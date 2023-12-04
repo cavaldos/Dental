@@ -5,7 +5,7 @@ const Axios = {
   get: async (url) => {
     try {
       const res = await instance.get(url);
-      return res;
+      return res.data;
     } catch (err) {
       message.error(err.message);
       console.log(err);
@@ -14,7 +14,11 @@ const Axios = {
   post: async (url, data) => {
     try {
       const res = await instance.post(url, data);
-      return res;
+      if (res.status === 200) {
+        message.success("Thành công");
+      }
+      
+      return res.data;
     } catch (err) {
       message.error(err.message);
       console.log(err);
@@ -23,7 +27,10 @@ const Axios = {
   put: async (url, data) => {
     try {
       const res = await instance.put(url, data);
-      return res;
+      if (res.status === 200) {
+        message.success("Thành công");
+      }
+      return res.data;
     } catch (err) {
       message.error(err.message);
       console.log(err);
@@ -32,7 +39,10 @@ const Axios = {
   patch: async (url, data) => {
     try {
       const res = await instance.patch(url, data);
-      return res;
+      if (res.status === 200) {
+        message.success("Thành công");
+      }
+      return res.data;
     } catch (err) {
       message.error(err.message);
       console.log(err);
@@ -42,7 +52,10 @@ const Axios = {
   delete: async (url) => {
     try {
       const res = await instance.delete(url);
-      return res;
+      if (res.status === 200) {
+        message.success("Thành công");
+      }
+      return res.data;
     } catch (err) {
       message.error(err.message);
       console.log(err);

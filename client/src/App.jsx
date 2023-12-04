@@ -23,7 +23,7 @@ import Test from "./test";
 function App() {
   const user = useSelector((state) => state.user);
   const VerifyRoure = () => {
-    switch (user.role) {
+    switch (user.ROLE) {
       case "admin":
         return AdminRouter;
       case "guest":
