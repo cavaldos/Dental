@@ -1,16 +1,23 @@
 import { useEffect } from "react";
-
+import {GetUserInfo} from "./redux/features/userSlice";
 import AdminService from "./services/admin/index";
 import StaffService from "./services/staff";
+import { useDispatch } from "react-redux";
+
 const Test = () => {
   const CallApi = async () => {
     const res = await AdminService.getAllNhanVien();
     console.log(res);
   };
+  const dispatch = useDispatch();
   useEffect(() => {
-    AdminService.getAllNhanVien().then((res) => {
-      console.log(res);
-    });
+    // dispatch(GetUserInfo({name: "test"}));
+
+
+
+    // AdminService.getAllNhanVien().then((res) => {
+    //   // console.log(res);
+    // });
     // AdminService.getAllKhachHang().then((res) => {
     //   console.log(res);
     // });
