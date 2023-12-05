@@ -1,6 +1,8 @@
-import React from "react";
+import React,{lazy, Suspense} from "react";
 import ReactDOM from "react-dom/client";
-import App from "~/App.jsx";
+
+// import App from "~/App.jsx";
+const App = lazy(() => import("~/App.jsx"));
 import "~/index.css";
 import Provider from "./redux/provider.jsx";
 
@@ -34,7 +36,9 @@ ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <Provider>
       <ErrorBoundary>
-        <App />
+        <Suspense fallback={<h1>Loading...</h1>}>
+          <App />
+        </Suspense>
       </ErrorBoundary>
     </Provider>
   </React.StrictMode>
