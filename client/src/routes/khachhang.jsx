@@ -1,7 +1,8 @@
-import DefaultLayout from "~/components/layout/defaultLayout";
 // khach hang
 
 import { lazy } from "react";
+// import DefaultLayout from "~/components/layout/defaultLayout";
+const DefaultLayout = lazy(() => import("~/components/layout/defaultLayout"));
 
 import GuestPage from "~/pages/guest";
 const CapNhatTaiKhoan = lazy(() => import("../pages/guest/CapNhatTk"));

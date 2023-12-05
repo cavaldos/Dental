@@ -1,6 +1,7 @@
 // Nha si
-import AdminLayout from "~/components/layout/adminLayout";
 import { lazy } from "react";
+// import AdminLayout from "~/components/layout/adminLayout";
+const AdminLayout = lazy(() => import("~/components/layout/adminLayout"));
 
 import DentistPage from "~/pages/dentist";
 const DangKiLichRanh = lazy(() => import("~/pages/dentist/DkLichRanh"));

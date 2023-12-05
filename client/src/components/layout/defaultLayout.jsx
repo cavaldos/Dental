@@ -1,5 +1,6 @@
 import Header from "~/components/header/header";
 import Nav from "~/components/header/nav";
+import { Suspense } from "react";
 const DefaultLayout = ({ children }) => {
   return (
     <>
@@ -9,7 +10,7 @@ const DefaultLayout = ({ children }) => {
       </div>
       <div className="min-h-[90vh] pt-10 bg-[#DFEBFD] pb-10 z-0">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-10">
-          {children}
+          <Suspense fallback={<div>Loading...</div>}>{children}</Suspense>
         </div>
       </div>
     </>

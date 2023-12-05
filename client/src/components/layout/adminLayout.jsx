@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,Suspense } from "react";
 import { AiOutlineMenuFold, AiOutlineMenuUnfold } from "react-icons/ai";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
@@ -114,7 +114,9 @@ const AdminLayout = ({ children }) => {
           {/* chinh mau o day */}
           
           <div className=" bg-lightblue flex  justify-center  min-h-[89vh] p-8 overflow-y-auto z-0">
+          <Suspense fallback={<div>Loading...</div>}>
             {children}
+            </Suspense>
           </div>
         </div>
       </div>
