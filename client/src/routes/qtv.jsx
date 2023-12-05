@@ -2,8 +2,7 @@
 // import AdminLayout from "~/components/layout/adminLayout";
 import { lazy } from "react";
 const AdminLayout = lazy(() => import("~/components/layout/adminLayout"));
-
-import AdminPage from "~/pages/admin";
+const AdminPage = lazy(() => import("~/pages/admin"));
 const QuanLiKH = lazy(() => import("~/pages/admin/QuanLiKH"));
 const QuanLiNS = lazy(() => import("~/pages/admin/QuanLiNS"));
 const QuanLiDV = lazy(() => import("~/pages/admin/QuanLiDV"));

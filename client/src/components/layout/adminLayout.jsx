@@ -45,7 +45,7 @@ const Sidebar = (props) => {
   const toggle = props.toggle;
   const user = useSelector((state) => state.user);
   const Veryrole = () => {
-    const role = user.role;
+    const role = user.ROLE;
     switch (role) {
       case "admin":
         return menuAdmin;
