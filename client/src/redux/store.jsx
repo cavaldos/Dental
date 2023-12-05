@@ -1,5 +1,6 @@
 import countSlice from "./features/countSlice";
 import userSlice from "./features/userSlice";
+import orderSlice from "./features/orderSlice";
 import { configureStore, combineReducers } from "@reduxjs/toolkit";
 import {
   persistStore,

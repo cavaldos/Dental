@@ -1,61 +1,71 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, message, Steps } from "antd";
+import dv from "../../fakedata/dv";
+import ns from "../../fakedata/nhasi";
 
-const datlich = {
-  nhasi: "",
-  dichvu: "",
-  ngay: "",
-  gio: "",
+
+
+const NhaSi = ({ TENNS, MAND }) => {
+  const handleOnClick = () => {
+    message.success("Processing complete!");
+  };
+  return (
+    <>
+      <Button className="p-4 rounded-lg border border-slate-400">
+        <h1>{TENNS}</h1>
+        <h1>{MAND}</h1>
+      </Button>
+    </>
+  );
+};
+const DichVu = ({ TENDV, MADV }) => {
+
+  const handleOnClick = () => {
+    message.success("Processing complete!");
+  };
+  return (
+    <>
+      <Button className="p-4 rounded-lg border border-slate-400">
+        <h1>{TENDV}</h1>
+        <h1>{MADV}</h1>
+      </Button>
+    </>
+  );
 };
 
 const ChonNhaSi = () => {
+  const [nhasi, setNhaSi] = useState([]);
+  useEffect(() => {
+    setNhaSi(ns);
+  }, []);
+
   return (
     <>
       <div className="flex justify-center ">
         <div className="grid grid-cols-3 grid-rows-3 gap-4">
-          <div className="bg-gray-200 w-[150px] h-20 flex justify-center">
-            Nha Si 1
-          </div>
-          <div className="bg-gray-200 w-[150px] h-20 flex justify-center">
-            Nha Si 2
-          </div>
-          <div className="bg-gray-200 w-[150px] h-20 flex justify-center">
-            Nha Si 3
-          </div>
-          <div className="bg-gray-200 w-[150px] h-20 flex justify-center">
-            Nha Si 4
-          </div>
-          <div className="bg-gray-200 w-[150px] h-20 flex justify-center">
-            Nha Si 5
-          </div>
-          <div className="bg-gray-200 w-[150px] h-20 flex justify-center">
-            Nha Si 6
-          </div>
-          <div className="bg-gray-200 w-[150px] h-20 flex justify-center">
-            Nha Si 7
-          </div>
-          <div className="bg-gray-200 w-[150px] h-20 flex justify-center">
-            Nha Si 8
-          </div>
-          <div className="bg-gray-200 w-[150px] h-20 flex justify-center">
-            Nha Si 9
-          </div>
+          {nhasi.map((item) => (
+            <NhaSi TENNS={item.HOTEN} MAND={item.MANS} />
+          ))}
         </div>
       </div>
     </>
   );
 };
 const ChonDichVu = () => {
+  const [dichvu, setDichVu] = useState([]);
+  useEffect(() => {
+    setDichVu(dv);
+  }, []);
+  console.log(dichvu);
+
   return (
     <>
       <div className="flex justify-center">
-        <Button
-          className="bg-blue-500"
-          type="primary"
-          onClick={() => message.success("Processing complete!")}
-        >
-          Chọn Dịch Vụ
-        </Button>
+        <div className="grid grid-cols-3 grid-rows-3 gap-4">
+          {dichvu.map((item) => (
+            <DichVu TENDV={item.TENDV} MADV={item.MADV} />
+          ))}
+        </div>
       </div>
     </>
   );
@@ -65,13 +75,7 @@ const ChonNgay = () => {
   return (
     <>
       <div className="flex justify-center">
-        <Button
-          className="bg-blue-500"
-          type="primary"
-          onClick={() => message.success("Processing complete!")}
-        >
-          Chọn Ngày
-        </Button>
+       <h1>Cho nay se hien thi lich cua nha si</h1>
       </div>
     </>
   );
@@ -80,13 +84,7 @@ const ChonGio = () => {
   return (
     <>
       <div className="flex justify-center">
-        <Button
-          className="bg-blue-500"
-          type="primary"
-          onClick={() => message.success("Processing complete!")}
-        >
-          Chọn Giờ
-        </Button>
+        <h1>Cho nay se hien thi lich cua nha si</h1>
       </div>
     </>
   );
@@ -95,13 +93,7 @@ const XacNhan = () => {
   return (
     <>
       <div className="flex justify-center">
-        <Button
-          className="bg-blue-500"
-          type="primary"
-          onClick={() => message.success("Processing complete!")}
-        >
-          Xác Nhận
-        </Button>
+       <h1>chỗ này m sẽ code 1 cái from hiển thị lại những thông tin đã chọn và chuẩn bị gửi về data base</h1>
       </div>
     </>
   );
@@ -128,6 +120,7 @@ const steps = [
     content: <XacNhan />,
   },
 ];
+
 const DatLichContainer = () => {
   const [current, setCurrent] = useState(0);
   const next = () => {
