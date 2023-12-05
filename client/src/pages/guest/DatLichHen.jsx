@@ -3,8 +3,6 @@ import { Button, message, Steps } from "antd";
 import dv from "../../fakedata/dv";
 import ns from "../../fakedata/nhasi";
 
-
-
 const NhaSi = ({ TENNS, MAND }) => {
   const handleOnClick = () => {
     message.success("Processing complete!");
@@ -19,7 +17,6 @@ const NhaSi = ({ TENNS, MAND }) => {
   );
 };
 const DichVu = ({ TENDV, MADV }) => {
-
   const handleOnClick = () => {
     message.success("Processing complete!");
   };
@@ -75,7 +72,7 @@ const ChonNgay = () => {
   return (
     <>
       <div className="flex justify-center">
-       <h1>Cho nay se hien thi lich cua nha si</h1>
+        <h1>Cho nay se hien thi lich cua nha si</h1>
       </div>
     </>
   );
@@ -93,7 +90,14 @@ const XacNhan = () => {
   return (
     <>
       <div className="flex justify-center">
-       <h1>chỗ này m sẽ code 1 cái from hiển thị lại những thông tin đã chọn và chuẩn bị gửi về data base</h1>
+        <h1>
+          chỗ này m sẽ code 1 cái from hiển thị lại những thông tin đã chọn và
+          chuẩn bị gửi về data base
+        </h1>
+        <h1>nha si</h1>
+        <h1>dich vu</h1>
+        <h1>ngay</h1>
+        <h1>gio</h1>
       </div>
     </>
   );
