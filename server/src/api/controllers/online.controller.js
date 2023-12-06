@@ -45,7 +45,8 @@ const onlineController = {
         }
         const accessToken = jwt.sign({
           userId: params.MATK,
-          userRole: result[0][0].ROLE
+          userRole: result[0][0].ROLE,
+          AccessokenExpirationTime: process.env.ACCESS_TOKEN_LIFE
         },
           process.env.ACCESS_TOKEN_SECRET_KEY,
           {expiresIn: process.env.ACCESS_TOKEN_LIFE});

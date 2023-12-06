@@ -2,7 +2,6 @@
 // import DefaultLayout from "~/components/layout/defaultLayout";
 import { lazy } from "react";
 const DefaultLayout = lazy(() => import("~/components/layout/defaultLayout"));
-
 const HomePage = lazy(() => import("~/pages/online"));
 const DanhSachNhaSi = lazy(() => import("~/pages/online/ListNhaSi"));
 const DanhSachDichVu = lazy(() => import("~/pages/online/ListDV"));
