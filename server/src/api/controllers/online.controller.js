@@ -46,11 +46,11 @@ const onlineController = {
         const accessToken = jwt.sign({
           userId: params.MATK,
           userRole: result[0][0].ROLE,
-          AccessokenExpirationTime: process.env.ACCESS_TOKEN_LIFE
+          
         },
           process.env.ACCESS_TOKEN_SECRET_KEY,
           {expiresIn: process.env.ACCESS_TOKEN_LIFE});
-        return res.status(200).json({ success: true, accessToken: accessToken, info:result[0][0]});
+        return res.status(200).json({ success: true, accessToken: accessToken, info:result[0][0], AccessokenExpirationTime: process.env.ACCESS_TOKEN_LIFE});
       }
 
 
