@@ -1,5 +1,5 @@
 import { poolConnect } from "../../config/db.mjs";
-import {groupHSB} from "../../utils/groupData.js"
+import { groupHSB } from "../../utils/groupData.js"
 const pool = await poolConnect('KH');
 
 
@@ -24,7 +24,7 @@ const khachHangController = {
       if (!pool) {
         return res.status(500).json({ error: 'Khong the ket noi db' });
       }
-      const params ={}
+      const params = {}
       params.SODT = req.userId;
       params.HOTEN = req.body.hoten;
       params.PHAI = req.body.phai;
@@ -35,7 +35,7 @@ const khachHangController = {
 
       const sp = 'SP_CAPNHATTHONGTIN_KH';
       const result = await pool.executeSP(sp, params);
-      return res.status(200).json({success: true});
+      return res.status(200).json({ success: true });
     } catch (error) {
       console.error('An error occurred:', error.message);
       return res.status(500).json({ error: 'An error occurred while processing the request' });
@@ -197,5 +197,25 @@ const khachHangController = {
       return res.status(500).json({ error: 'An error occurred while processing the request' });
     }
   },
+  taoLichHen: async (req, res) => {
+    try {
+      if (!pool) {
+        return res.status(500).json({ error: 'Khong the ket noi db' });
+      }
+      const params = {
+        SODT: req.body.sodt,
+        MANS: req.body.mans,
+        SOTT: req.body.sott,
+        LYDOKHAM: req.body.lydokham
+      };
+      const sp = 'SP_DATLICHHEN_NV_KH';
+      const result = await pool.executeSP(sp,params);
+      return res.status(201).json({succes: true});
+
+    } catch (error) {
+      console.error('An error occurred:', error.message);
+      return res.status(500).json({ error: 'An error occurred while processing the request' });
+    }
+  }
 };
 export default khachHangController;

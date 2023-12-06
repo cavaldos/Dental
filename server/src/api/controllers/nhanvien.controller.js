@@ -1,6 +1,6 @@
 import { poolConnect } from "../../config/db.mjs";
 const pool = await poolConnect('NV');
-import {groupHD, groupHSB, groupLich} from "../../utils/groupData.js"
+import { groupHD, groupHSB, groupLich } from "../../utils/groupData.js"
 
 const nhanVienController = {
   getLichRanhNS: async (req, res) => {
@@ -13,7 +13,7 @@ const nhanVienController = {
       const result = await pool.executeSP(sp, params);
       const lichNS = {
         lichHen: groupLich(result[0]),
-        lichRanh:  groupLich(result[1]),
+        lichRanh: groupLich(result[1]),
       };
       return res.status(200).json(lichNS);
     } catch (error) {
@@ -41,16 +41,16 @@ const nhanVienController = {
       return res.status(500).json({ error: 'An error occurred while processing the request' });
     }
   },
-  
+
   taoHoaDon: async (req, res) => {
     try {
       if (!pool) {
         return res.status(500).json({ error: 'Khong the ket noi db' });
       }
       const params = {};
-      params.SODT  = req.body.sdt;
-      params.SOTT  = req.body.stt;
-      params.MANV   = req.body.manv;
+      params.SODT = req.body.sdt;
+      params.SOTT = req.body.stt;
+      params.MANV = req.body.manv;
 
       const sp = 'SP_TAOHOADON_NV';
       const result = await pool.executeSP(sp, params);
@@ -204,5 +204,26 @@ const nhanVienController = {
       return res.status(500).json({ error: 'An error occurred while processing the request' });
     }
   },
+  taoLichHen: async (req, res) => {
+    try {
+      if (!pool) {
+        return res.status(500).json({ error: 'Khong the ket noi db' });
+      }
+      const params = {
+        SODT: req.userId,
+        MANS: req.body.mans,
+        SOTT: req.body.sott,
+        LYDOKHAM: req.body.lydokham
+      };
+      const sp = 'SP_DATLICHHEN_NV_KH';
+      const result = await pool.executeSP(sp, params);
+      return res.status(201).json({ succes: true });
+
+    } catch (error) {
+      console.error('An error occurred:', error.message);
+      return res.status(500).json({ error: 'An error occurred while processing the request' });
+    }
+  }
+
 };
 export default nhanVienController;
