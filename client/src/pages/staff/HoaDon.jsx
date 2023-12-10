@@ -21,7 +21,7 @@ const XemHoaDon = () => {
       <div>
         <div className="text-center">
           <Search
-            className="w-[1100px] rounded-2xl font-montserrat text-base"
+            className="w-[960px] rounded-2xl font-montserrat text-base"
             placeholder="Tìm kiếm hóa đơn bằng số điện thoại khách hàng"
             allowClear
             onSearch={onSearch}
@@ -32,7 +32,7 @@ const XemHoaDon = () => {
         </div>
 
         {searchResults === "" ? (
-          <Empty className="w-[1100px] mt-6 rounded-3xl border border-spacing-4" />
+          <Empty className="w-[960px] mt-6 rounded-3xl border border-spacing-4" />
         ) : (
           <div className="flex flex-col gap-5 mt-5">
             <HoaDon sdt={searchResults} />

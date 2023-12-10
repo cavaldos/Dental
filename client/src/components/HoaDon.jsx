@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, memo } from "react";
 import { Table, Pagination, Drawer, Empty, message } from "antd";
 import axios from "axios";
@@ -32,29 +31,29 @@ const GuestInfo = ({ currentRecord }) => {
   const { HOTEN, SODT, SOTT, NGAYKHAM, NHASI, DANDO } = currentRecord;
   return (
     <div>
+      <div className="font-montserrat font-bold">
+        <p className="text-lg text-blue">NHA KHOA HAHA</p>
+        <p>227 Đ.Nguyễn Văn Cừ, Quận 5</p>
+        <p>nhakhoahaha.com</p>
+      </div>
+      <div className="text-2xl text-center font-black my-5">
+        HÓA ĐƠN KHÁM BỆNH
+      </div>
       <p className="leading-9 font-montserrat font-semibold text-base text-#4B4B4B">
-        <span className="text-grey">Họ tên: </span>
-        {HOTEN}
-      </p>
-      <p className="leading-9 font-montserrat font-semibold text-base text-#4B4B4B">
-        <span className="text-grey">Số điện thoại: </span>
+        <span className="">Số điện thoại: </span>
         {SODT}
       </p>
       <p className="leading-9 font-montserrat font-semibold text-base text-#4B4B4B">
-        <span className="text-grey">Số thứ tự hồ sơ: </span>
+        <span className="">Họ tên: </span>
+        {HOTEN}
+      </p>
+      <p className="leading-9 font-montserrat font-semibold text-base text-#4B4B4B">
+        <span className="">Hóa đơn số: </span>
         {SOTT}
       </p>
       <p className="leading-9 font-montserrat font-semibold text-base text-#4B4B4B">
-        <span className="text-grey">Ngày khám: </span>
+        <span className="">Ngày xuất: </span>
         {NGAYKHAM}
-      </p>
-      <p className="leading-9 font-montserrat font-semibold text-base text-#4B4B4B">
-        <span className="text-grey">Nha sĩ: </span>
-        {NHASI}
-      </p>
-      <p className="leading-9 font-montserrat font-semibold text-base text-#4B4B4B">
-        <span className="text-grey">Dặn dò: </span>
-        {DANDO}
       </p>
     </div>
   );
@@ -73,19 +72,25 @@ const DichVuTable = memo(({ dataDV, openDrawer }) => {
       dataIndex: "TENDV",
       key: "TENDV",
       width: "20%",
-      render: (text, record) => (
-        <a
-          className="text-primary underline decoration-solid"
-          onClick={() => openDrawer("loaiDV", record.MADV)}
-        >
-          {text}
-        </a>
-      ),
     },
     {
       title: "Số lượng",
       dataIndex: "SLDV",
       key: "SLDV",
+    },
+    {
+      title: "Đơn giá",
+      dataIndex: "DONGIA",
+      key: "DONGIA",
+    },
+    {
+      title: "Thành tiền",
+      key: "THANHTIEN",
+      render: (text, record) => (
+        <p>
+          {record.DONGIA * record.SLDV}
+        </p>
+      ),
     },
   ];
   return (
@@ -128,25 +133,25 @@ const ThuocTable = memo(({ dataThuoc, openDrawer }) => {
       dataIndex: "TENTHUOC",
       key: "TENTHUOC",
       width: "20%",
+    },
+    {
+      title: "Số lượng",
+      dataIndex: "SLDV",
+      key: "SLDV",
+    },
+    {
+      title: "Đơn giá",
+      dataIndex: "DONGIA",
+      key: "DONGIA",
+    },
+    {
+      title: "Thành tiền",
+      key: "THANHTIEN",
       render: (text, record) => (
-        <a
-          className="text-primary underline decoration-solid"
-          onClick={() => openDrawer("loaiThuoc", record.MATHUOC)}
-        >
-          {text}
-        </a>
+        <p>
+          {record.DONGIA * record.SLDV}
+        </p>
       ),
-    },
-    {
-      title: "Số lượng/đơn vị tính",
-      dataIndex: "SLTHUOC",
-      key: "SLTHUOC",
-      width: "30%",
-    },
-    {
-      title: "Thời điểm dùng",
-      dataIndex: "THOIDIEMDUNG",
-      key: "THOIDIEMDUNG",
     },
   ];
 
@@ -203,13 +208,6 @@ const HoaDon = ({ sdt }) => {
 
   useEffect(() => {
     setSdts(sdt);
-    // Axios.get(`/khachhang/benhAn/${sdts}`)
-    //   .then((res) => {
-    //     setMedicalRecords(res.data);
-    //   })
-    //   .catch((error) => {
-    //     console.log("Lỗi khi lấy dữ liệu hồ sơ bệnh:", error);
-    //   });
     setMedicalRecords(hsb);
   }, [currentPage, sdt]);
 
@@ -224,7 +222,7 @@ const HoaDon = ({ sdt }) => {
     <div>
       {medicalRecords.length > 0 ? (
         <div
-          className="bg-white p-10 mx-10"
+          className="bg-white p-10 mx-[120px]"
           style={{
             borderRadius: "35px",
             boxShadow: "0px 4px 4px 0px rgba(0, 0, 0, 0.10)",
@@ -288,14 +286,5 @@ const HoaDon = ({ sdt }) => {
   );
 };
 
-// const HoaDon = ({sdt}) => {
-//   return (
-//     <>
-//   <div className="bg-red-200 w-[1000px] p-2 rounded-lg">
-//         <h1>HoaDsdfasdfon</h1>
-//   </div>
-//     </>
-//   );
-// };
 
 export default HoaDon;
