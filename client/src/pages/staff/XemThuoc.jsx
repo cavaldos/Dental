@@ -1,5 +1,5 @@
 import thuoc from "../../fakedata/thuoc";
-import "../../assets/styles/admin.css";
+import "../../assets/styles/staff.css";
 
 import React from "react";
 import {

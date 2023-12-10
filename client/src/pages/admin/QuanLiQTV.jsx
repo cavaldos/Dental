@@ -3,13 +3,11 @@ import React, { useState } from "react";
 import { 
     Table, 
     Button, 
-    Tag, 
     Modal,
     Form,
     Select,
     Input,
 } from "antd";
-import { SearchOutlined, EditOutlined } from "@ant-design/icons";
 import ColumnSearch from "~/hooks/useSortTable";
 
 import "../../assets/styles/admin.css";

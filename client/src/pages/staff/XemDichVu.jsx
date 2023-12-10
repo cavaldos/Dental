@@ -1,8 +1,7 @@
-
 import dv from "../../fakedata/dv";
-import '../../assets/styles/admin.css'
+import '../../assets/styles/staff.css'
 
-import React, { useState, useCallback, useRef } from "react";
+import React from "react";
 import {
   Table,
 } from "antd";

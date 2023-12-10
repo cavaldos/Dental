@@ -1,12 +1,9 @@
 import khachhang from "../../fakedata/khachhang";
 import React from "react";
-import { Table, Modal, Button, message, Tag , Popconfirm} from "antd";
-import ColumnSearch from "~/hooks/useSortTable";
-import { useState } from "react";
+import { Table, Tag , Popconfirm} from "antd";
 
 import '../../assets/styles/admin.css'
 import { 
-  SearchOutlined,
   LockOutlined,
   UnlockOutlined,
 } from "@ant-design/icons";

@@ -1,35 +1,95 @@
 import {lichhen} from "../../fakedata/lhnv";
-import '../../assets/styles/admin.css'
+import '../../assets/styles/staff.css'
 
-import React, { useState, useCallback, useEffect, useRef } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import {
   Table,
-  Button,
   message,
   Modal,
   Form,
   Input,
   Select,
-  Checkbox,
-  DatePicker,
-  Tag,
   Space,
-  InputNumber,
 } from "antd";
 
 import {
-  SearchOutlined,
   StopOutlined,
-  PlusCircleOutlined,
-  EditOutlined,
 } from "@ant-design/icons";
 import ColumnSearch from "~/hooks/useSortTable";
-import TextArea from "antd/es/input/TextArea";
 
 import {ButtonGreen, ButtonPink} from "../../components/button";
-import moment from 'moment';
 
-const { Option } = Select;
+
+const ModalHuyThuoc = ({ data }) => {
+  const [formValues, setFormValues] = useState(data);
+  const [form] = Form.useForm();
+  const [formattedTime, setFormattedTime] = useState('');
+  
+  useEffect(() => {
+    form.setFieldsValue(data);
+    if (data && data.GIOBATDAU && !formattedTime) {
+      const time = new Date(data.GIOBATDAU);
+      const options = { hour: 'numeric', minute: 'numeric' };
+      const formattedTime = time.toLocaleTimeString('en-US', options);
+      setFormattedTime(formattedTime);
+    }
+  }, [data, form, formattedTime]);
+
+  const handleSubmit = (values) => {
+    console.log("Success:", values);
+    message.success("Hủy lịch hẹn thành công!");
+    form.resetFields();
+    setFormValues({});
+    window.location.reload();
+  };
+
+  return (
+    <>
+      <Form
+        onSubmit={handleSubmit}
+        form={form}
+        name="registration-form"
+        layout="vertical"
+        onFinish={handleSubmit}
+        initialValues={{
+          GIOBATDAU: formattedTime,
+        }}
+      >
+        <Form.Item
+          label="Khách hàng"
+          name="KH_HOTEN"
+          style={{ width: "100%" }}
+        >
+          <Input disabled />
+        </Form.Item>
+        <Form.Item
+          label="Ngày hẹn"
+          name="NGAY"
+          style={{ width: "100%" }}
+        >
+          <Input disabled/>
+        </Form.Item>
+        <Form.Item
+          label="Giờ hẹn"
+          name="GIOBATDAU"
+          style={{ width: "100%" }}
+        >
+          <Input value={formattedTime} disabled />
+        </Form.Item>
+        <Form.Item
+          label="Nha sĩ đã hẹn"
+          name="NS_HOTEN"
+          style={{ width: "100%" }}
+        >
+          <Input disabled/>
+        </Form.Item>
+        <Form.Item style={{ display: "flex", justifyContent: "flex-end" }}>
+          <ButtonPink text="HỦY LỊCH NÀY" func={""} />
+        </Form.Item>
+      </Form>
+    </>
+  );
+};
 
 
 const LichhenTabble = ({ appointment }) => {
@@ -40,12 +100,8 @@ const LichhenTabble = ({ appointment }) => {
   };
 
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
-  const [openAddModal, setOpenAddModal] = useState(false);
-  const [openEditModal, setOpenEditModal] = useState(false);
 
   const [data1, setData1] = useState({});
-  const [data2, setData2] = useState({});
-  const [data3, setData3] = useState({});
 
   const handleDelete = (record) => {
     console.log("record", record);
@@ -53,26 +109,8 @@ const LichhenTabble = ({ appointment }) => {
     setData1(record);
   };
 
-  const handleAddMedicine = (record) => {
-    setOpenAddModal(true);
-    setData2(record);
-  };
-
-  const handleEdit = (record) => {
-    setOpenEditModal(true);
-    setData3({ ...record });
-  };
-
   const handleCancelDelete = useCallback(() => {
     setOpenDeleteModal(false);
-  }, []);
-
-  const handleCancelAdd = useCallback(() => {
-    setOpenAddModal(false);
-  }, []);
-
-  const handleCancelEdit = useCallback(() => {
-    setOpenEditModal(false);
   }, []);
 
   const columns = [
@@ -87,7 +125,8 @@ const LichhenTabble = ({ appointment }) => {
       dataIndex: "NGAY",
       key: "NGAY",
       render: (text) => {
-        const formattedDate = new Date().toLocaleDateString();
+        const date = new Date(text);
+        const formattedDate = date.toLocaleDateString();
         return formattedDate;
       },
     },
@@ -164,47 +203,18 @@ const LichhenTabble = ({ appointment }) => {
         scroll={{ x: "calc(900px + 50%)" }}
       />
 
-      {/* <Modal
+      <Modal
         title={
           <h1 className="font-montserrat text-xl mb-3 mt-2 font-extrabold">
-            HỦY THUỐC
+            XÁC NHẬN HỦY HẸN
           </h1>
         }
         open={openDeleteModal}
         onCancel={handleCancelDelete}
-        // onOk={handleSubmitDelete}
         footer={[]}
       >
         <ModalHuyThuoc data={data1} />
       </Modal>
-
-      <Modal
-        title={
-          <h1 className="font-montserrat text-xl mb-3 mt-2 font-extrabold">
-            NHẬP THÊM THUỐC VÀO KHO
-          </h1>
-        }
-        open={openAddModal}
-        onCancel={handleCancelAdd}
-        // onOk={handleSubmitAdd}
-        footer={[]}
-      >
-        <ModalNhapThuoc data={data2} />
-      </Modal>
-
-      <Modal
-        title={
-          <h1 className="font-montserrat text-xl mb-3 mt-2 font-extrabold">
-            CẬP NHẬT THÔNG TIN THUỐC
-          </h1>
-        }
-        open={openEditModal}
-        onCancel={handleCancelEdit}
-        // onOk={handleSubmitEdit}
-        footer={[]}
-      >
-        <ModalCapNhatThuoc data={data3} />
-      </Modal> */}
     </>
   );
 };

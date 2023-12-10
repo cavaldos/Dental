@@ -1,50 +1,46 @@
 import { Empty } from "antd";
 import { AudioOutlined } from "@ant-design/icons";
 import { Input, Space } from "antd";
-import { useState } from "react";
+import { useState, Suspense, lazy } from "react";
+import { useLocation } from "react-router-dom";
+import '../../assets/styles/staff.css'
+
+const HoaDon = lazy(() => import("~/components/HoaDon"));
 const { Search } = Input;
-
-const ChitietHoSoBenh = ({ searchResults }) => {
-  return (
-    <div className=" mt-3 rounded-md border border-gray-300 mx-2 p-3">
-      <h1>Hoa dosn</h1>
-      <ul>
-        {searchResults.map((result, index) => (
-          <li key={index}>{result}</li>
-        ))}
-      </ul>
-    </div>
-  );
-};
-
-const HoaDon = () => {
-  const [searchResults, setSearchResults] = useState([]);
+const XemHoaDon = () => {
+  const location = useLocation();
+  const currentPath = location.pathname;
+  const lastPath = currentPath.substring(currentPath.lastIndexOf("/") + 1);
+  const [searchResults, setSearchResults] = useState("");
   const onSearch = (value) => {
-    // Make API call here with the search value
-    // Replace the following code with your actual API call implementation
-    const mockAPIResults = ["Result 1", "Result 2", "Result 3"];
-    setSearchResults(mockAPIResults);
+    setSearchResults(value);
   };
-  return (
-    <div className=" bg-white rounded-lg p-5 flex flex-col w-full ">
-      <div className=" mx-2">
-        <Search
-          className="w-[600px]"
-          placeholder="Tim Kiem Ho So Benh An"
-          allowClear
-          onSearch={onSearch}
-          suffix={<AudioOutlined />}
-          size="large"
-        />
-      </div>
-      <ChitietHoSoBenh searchResults={searchResults} />
 
-      {searchResults.length > 0 ? (
-        <ChitietHoSoBenh searchResults={searchResults} />
-      ) : (
-        <Empty className=" mt-3 rounded-md border border-spacing-4" />
-      )}
-    </div>
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <div>
+        <div className="text-center">
+          <Search
+            className="w-[1100px] rounded-2xl font-montserrat text-base"
+            placeholder="Tìm kiếm hóa đơn bằng số điện thoại khách hàng"
+            allowClear
+            onSearch={onSearch}
+            suffix={<AudioOutlined />}
+            size="large"
+            defaultValue={lastPath === "hoa-don" ? "" : lastPath}
+          />
+        </div>
+
+        {searchResults === "" ? (
+          <Empty className="w-[1100px] mt-6 rounded-3xl border border-spacing-4" />
+        ) : (
+          <div className="flex flex-col gap-5 mt-5">
+            <HoaDon sdt={searchResults} />
+          </div>
+        )}
+      </div>
+    </Suspense>
   );
 };
-export default HoaDon;
+
+export default XemHoaDon;

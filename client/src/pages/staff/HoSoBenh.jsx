@@ -3,6 +3,7 @@ import { AudioOutlined } from "@ant-design/icons";
 import { Input, Space } from "antd";
 import { useState, Suspense, lazy } from "react";
 import { useLocation } from "react-router-dom";
+import '../../assets/styles/staff.css'
 
 const HoSoBenh = lazy(() => import("~/components/HoSoBenh"));
 const { Search } = Input;
@@ -20,8 +21,8 @@ const XemHoSoBenh = () => {
       <div>
         <div className="text-center">
           <Search
-            className="w-[1100px] rounded-2xl"
-            placeholder="Tim Kiem Ho So Benh An (theo so dien thoai), nhap so bat ki vo day"
+            className="w-[1100px] rounded-2xl font-montserrat text-base"
+            placeholder="Tìm kiếm hồ sơ bệnh án bằng số điện thoại khách hàng"
             allowClear
             onSearch={onSearch}
             suffix={<AudioOutlined />}

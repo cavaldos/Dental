@@ -13,15 +13,9 @@ import {
     Form,
     Input,
     Select,
-    Checkbox,
-    DatePicker,
-    InputNumber,
 } from "antd";
 
 import {
-    SearchOutlined,
-    StopOutlined,
-    PlusCircleOutlined,
     EditOutlined,
     LockOutlined,
     UnlockOutlined,
@@ -30,9 +24,6 @@ import {
   import TextArea from "antd/es/input/TextArea";
   
   import {ButtonGreen, ButtonPink} from "../../components/button";
-  import moment from 'moment';
-  
-  const { Option } = Select;
 
 const format = (text) => {
     const replacedText = text.replace(/\\n/g, "\n");

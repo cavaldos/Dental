@@ -1,6 +1,7 @@
 const lichhen = [
   {
     MACA: "CA002",
+    NGAY: "2024-01-01T00:00:00.000Z",
     GIOBATDAU: "1970-01-01T11:00:00.000Z",
     MANS: "NS0001",
     NS_HOTEN: "Lê Văn Hòa",
@@ -11,6 +12,7 @@ const lichhen = [
   },
   {
     MACA: "CA003",
+    NGAY: "2024-01-01T00:00:00.000Z",
     GIOBATDAU: "1970-01-01T13:00:00.000Z",
     MANS: "NS0001",
     NS_HOTEN: "Lê Văn Hòa",
@@ -21,6 +23,7 @@ const lichhen = [
   },
   {
     MACA: "CA004",
+    NGAY: "2024-01-01T00:00:00.000Z",
     GIOBATDAU: "1970-01-01T15:00:00.000Z",
     MANS: "NS0001",
     NS_HOTEN: "Lê Văn Hòa",
@@ -31,6 +34,7 @@ const lichhen = [
   },
   {
     MACA: "CA001",
+    NGAY: "2024-01-01T00:00:00.000Z",
     GIOBATDAU: "1970-01-01T09:00:00.000Z",
     MANS: "NS0001",
     NS_HOTEN: "Lê Văn Hòa",
@@ -41,6 +45,7 @@ const lichhen = [
   },
   {
     MACA: "CA002",
+    NGAY: "2024-01-01T00:00:00.000Z",
     GIOBATDAU: "1970-01-01T11:00:00.000Z",
     MANS: "NS0001",
     NS_HOTEN: "Lê Văn Hòa",
@@ -51,6 +56,7 @@ const lichhen = [
   },
   {
     MACA: "CA003",
+    NGAY: "2024-01-01T00:00:00.000Z",
     GIOBATDAU: "1970-01-01T13:00:00.000Z",
     MANS: "NS0001",
     NS_HOTEN: "Lê Văn Hòa",

@@ -11,15 +11,10 @@ import {
   Form,
   Input,
   Select,
-  DatePicker,
   Space,
-  InputNumber,
 } from "antd";
 
 import {
-  SearchOutlined,
-  StopOutlined,
-  PlusCircleOutlined,
   EditOutlined,
   LockOutlined,
   UnlockOutlined,
@@ -28,9 +23,6 @@ import ColumnSearch from "~/hooks/useSortTable";
 import TextArea from "antd/es/input/TextArea";
 
 import {ButtonGreen, ButtonPink} from "../../components/button";
-import moment from 'moment';
-
-const { Option } = Select;
 
 
 const ModalCapNhatNV = ({ data }) => {
