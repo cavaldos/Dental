@@ -6,6 +6,8 @@ const lichhen = [
     NS_HOTEN: "Lê Văn Hòa",
     SODT: "0323456789",
     KH_HOTEN: "Lê Thị Thu Hà",
+    LYDOKHAM:
+      "Người thân tôi nói rằng tôi kêu răng khi ngủ, và tôi muốn kiểm tra xem có vấn đề gì về nha khoa gây ra điều này\n.",
   },
   {
     MACA: "CA003",
@@ -14,6 +16,8 @@ const lichhen = [
     NS_HOTEN: "Lê Văn Hòa",
     SODT: "0323456789",
     KH_HOTEN: "Lê Thị Thu Hà",
+    LYDOKHAM:
+      "Người thân tôi nói rằng tôi kêu răng khi ngủ, và tôi muốn kiểm tra xem có vấn đề gì về nha khoa gây ra điều này\n.",
   },
   {
     MACA: "CA004",
@@ -22,6 +26,8 @@ const lichhen = [
     NS_HOTEN: "Lê Văn Hòa",
     SODT: "0323456789",
     KH_HOTEN: "Lê Thị Thu Hà",
+    LYDOKHAM:
+      "Người thân tôi nói rằng tôi kêu răng khi ngủ, và tôi muốn kiểm tra xem có vấn đề gì về nha khoa gây ra điều này\n.",
   },
   {
     MACA: "CA001",
@@ -30,6 +36,8 @@ const lichhen = [
     NS_HOTEN: "Lê Văn Hòa",
     SODT: "0323456789",
     KH_HOTEN: "Lê Thị Thu Hà",
+    LYDOKHAM:
+      "Người thân tôi nói rằng tôi kêu răng khi ngủ, và tôi muốn kiểm tra xem có vấn đề gì về nha khoa gây ra điều này\n.",
   },
   {
     MACA: "CA002",
@@ -38,6 +46,8 @@ const lichhen = [
     NS_HOTEN: "Lê Văn Hòa",
     SODT: "0345678901",
     KH_HOTEN: "Lê Minh Hoàng",
+    LYDOKHAM:
+      "Người thân tôi nói rằng tôi kêu răng khi ngủ, và tôi muốn kiểm tra xem có vấn đề gì về nha khoa gây ra điều này\n.",
   },
   {
     MACA: "CA003",
@@ -46,6 +56,8 @@ const lichhen = [
     NS_HOTEN: "Lê Văn Hòa",
     SODT: "0345678901",
     KH_HOTEN: "Lê Minh Hoàng",
+    LYDOKHAM:
+      "Người thân tôi nói rằng tôi kêu răng khi ngủ, và tôi muốn kiểm tra xem có vấn đề gì về nha khoa gây ra điều này\n.",
   },
   {
     MACA: "CA004",
@@ -54,6 +66,8 @@ const lichhen = [
     NS_HOTEN: "Lê Văn Hòa",
     SODT: "0345678901",
     KH_HOTEN: "Lê Minh Hoàng",
+    LYDOKHAM:
+      "Người thân tôi nói rằng tôi kêu răng khi ngủ, và tôi muốn kiểm tra xem có vấn đề gì về nha khoa gây ra điều này\n.",
   },
   {
     MACA: "CA001",
@@ -62,6 +76,8 @@ const lichhen = [
     NS_HOTEN: "Lê Văn Hòa",
     SODT: "0345678901",
     KH_HOTEN: "Lê Minh Hoàng",
+    LYDOKHAM:
+      "Người thân tôi nói rằng tôi kêu răng khi ngủ, và tôi muốn kiểm tra xem có vấn đề gì về nha khoa gây ra điều này\n.",
   },
   {
     MACA: "CA005",
@@ -70,6 +86,8 @@ const lichhen = [
     NS_HOTEN: "Phạm Xuân Thanh",
     SODT: "0712345678",
     KH_HOTEN: "Ngô Đình Quân",
+    LYDOKHAM:
+      "Người thân tôi nói rằng tôi kêu răng khi ngủ, và tôi muốn kiểm tra xem có vấn đề gì về nha khoa gây ra điều này\n.",
   },
   {
     MACA: "CA004",
@@ -78,6 +96,8 @@ const lichhen = [
     NS_HOTEN: "Phạm Xuân Thanh",
     SODT: "0712345678",
     KH_HOTEN: "Ngô Đình Quân",
+    LYDOKHAM:
+      "Người thân tôi nói rằng tôi kêu răng khi ngủ, và tôi muốn kiểm tra xem có vấn đề gì về nha khoa gây ra điều này\n.",
   },
   {
     MACA: "CA001",
@@ -86,6 +106,8 @@ const lichhen = [
     NS_HOTEN: "Trần Thị Mai Loan",
     SODT: "0987654321",
     KH_HOTEN: "Dương Thị Thảo",
+    LYDOKHAM:
+      "Người thân tôi nói rằng tôi kêu răng khi ngủ, và tôi muốn kiểm tra xem có vấn đề gì về nha khoa gây ra điều này\n.",
   },
   {
     MACA: "CA004",
@@ -94,6 +116,8 @@ const lichhen = [
     NS_HOTEN: "Trần Thị Mai Loan",
     SODT: "0987654321",
     KH_HOTEN: "Dương Thị Thảo",
+    LYDOKHAM:
+      "Người thân tôi nói rằng tôi kêu răng khi ngủ, và tôi muốn kiểm tra xem có vấn đề gì về nha khoa gây ra điều này\n.",
   },
   {
     MACA: "CA006",
@@ -102,6 +126,8 @@ const lichhen = [
     NS_HOTEN: "Trần Thị Mai Loan",
     SODT: "0987654321",
     KH_HOTEN: "Dương Thị Thảo",
+    LYDOKHAM:
+      "Người thân tôi nói rằng tôi kêu răng khi ngủ, và tôi muốn kiểm tra xem có vấn đề gì về nha khoa gây ra điều này\n.",
   },
   {
     MACA: "CA005",
@@ -110,6 +136,8 @@ const lichhen = [
     NS_HOTEN: "Trần Thị Mai Loan",
     SODT: "0987654321",
     KH_HOTEN: "Dương Thị Thảo",
+    LYDOKHAM:
+      "Người thân tôi nói rằng tôi kêu răng khi ngủ, và tôi muốn kiểm tra xem có vấn đề gì về nha khoa gây ra điều này\n.",
   },
   {
     MACA: "CA001",
@@ -118,6 +146,8 @@ const lichhen = [
     NS_HOTEN: "Trần Thị Mai Loan",
     SODT: "0723456789",
     KH_HOTEN: "Bùi Văn Thành",
+    LYDOKHAM:
+      "Người thân tôi nói rằng tôi kêu răng khi ngủ, và tôi muốn kiểm tra xem có vấn đề gì về nha khoa gây ra điều này\n.",
   },
   {
     MACA: "CA004",
@@ -126,6 +156,8 @@ const lichhen = [
     NS_HOTEN: "Trần Thị Mai Loan",
     SODT: "0723456789",
     KH_HOTEN: "Bùi Văn Thành",
+    LYDOKHAM:
+      "Người thân tôi nói rằng tôi kêu răng khi ngủ, và tôi muốn kiểm tra xem có vấn đề gì về nha khoa gây ra điều này\n.",
   },
   {
     MACA: "CA006",
@@ -134,6 +166,8 @@ const lichhen = [
     NS_HOTEN: "Trần Thị Mai Loan",
     SODT: "0723456789",
     KH_HOTEN: "Bùi Văn Thành",
+    LYDOKHAM:
+      "Người thân tôi nói rằng tôi kêu răng khi ngủ, và tôi muốn kiểm tra xem có vấn đề gì về nha khoa gây ra điều này\n.",
   },
   {
     MACA: "CA005",
@@ -142,6 +176,8 @@ const lichhen = [
     NS_HOTEN: "Trần Thị Mai Loan",
     SODT: "0723456789",
     KH_HOTEN: "Bùi Văn Thành",
+    LYDOKHAM:
+      "Người thân tôi nói rằng tôi kêu răng khi ngủ, và tôi muốn kiểm tra xem có vấn đề gì về nha khoa gây ra điều này\n.",
   },
   {
     MACA: "CA001",
@@ -150,6 +186,8 @@ const lichhen = [
     NS_HOTEN: "Trần Minh Tuấn",
     SODT: "0301234567",
     KH_HOTEN: "Hoàng Văn Tùng",
+    LYDOKHAM:
+      "Người thân tôi nói rằng tôi kêu răng khi ngủ, và tôi muốn kiểm tra xem có vấn đề gì về nha khoa gây ra điều này\n.",
   },
   {
     MACA: "CA004",
@@ -158,6 +196,8 @@ const lichhen = [
     NS_HOTEN: "Trần Minh Tuấn",
     SODT: "0301234567",
     KH_HOTEN: "Hoàng Văn Tùng",
+    LYDOKHAM:
+      "Người thân tôi nói rằng tôi kêu răng khi ngủ, và tôi muốn kiểm tra xem có vấn đề gì về nha khoa gây ra điều này\n.",
   },
   {
     MACA: "CA005",
@@ -166,6 +206,8 @@ const lichhen = [
     NS_HOTEN: "Trần Minh Tuấn",
     SODT: "0301234567",
     KH_HOTEN: "Hoàng Văn Tùng",
+    LYDOKHAM:
+      "Người thân tôi nói rằng tôi kêu răng khi ngủ, và tôi muốn kiểm tra xem có vấn đề gì về nha khoa gây ra điều này\n.",
   },
   {
     MACA: "CA002",
@@ -174,6 +216,8 @@ const lichhen = [
     NS_HOTEN: "Trần Minh Tuấn",
     SODT: "0301234567",
     KH_HOTEN: "Hoàng Văn Tùng",
+    LYDOKHAM:
+      "Người thân tôi nói rằng tôi kêu răng khi ngủ, và tôi muốn kiểm tra xem có vấn đề gì về nha khoa gây ra điều này\n.",
   },
   {
     MACA: "CA004",
@@ -182,6 +226,8 @@ const lichhen = [
     NS_HOTEN: "Nguyễn Văn Đông",
     SODT: "0765432109",
     KH_HOTEN: "Ngô Thị Lan Anh",
+    LYDOKHAM:
+      "Người thân tôi nói rằng tôi kêu răng khi ngủ, và tôi muốn kiểm tra xem có vấn đề gì về nha khoa gây ra điều này\n.",
   },
   {
     MACA: "CA002",
@@ -190,6 +236,8 @@ const lichhen = [
     NS_HOTEN: "Nguyễn Văn Đông",
     SODT: "0765432109",
     KH_HOTEN: "Ngô Thị Lan Anh",
+    LYDOKHAM:
+      "Người thân tôi nói rằng tôi kêu răng khi ngủ, và tôi muốn kiểm tra xem có vấn đề gì về nha khoa gây ra điều này\n.",
   },
   {
     MACA: "CA005",
@@ -198,6 +246,8 @@ const lichhen = [
     NS_HOTEN: "Nguyễn Văn Đông",
     SODT: "0765432109",
     KH_HOTEN: "Ngô Thị Lan Anh",
+    LYDOKHAM:
+      "Người thân tôi nói rằng tôi kêu răng khi ngủ, và tôi muốn kiểm tra xem có vấn đề gì về nha khoa gây ra điều này\n.",
   },
   {
     MACA: "CA005",
@@ -206,6 +256,8 @@ const lichhen = [
     NS_HOTEN: "Hoàng Thị Ngọc Anh",
     SODT: "0387654321",
     KH_HOTEN: "Dương Văn Quyền",
+    LYDOKHAM:
+      "Người thân tôi nói rằng tôi kêu răng khi ngủ, và tôi muốn kiểm tra xem có vấn đề gì về nha khoa gây ra điều này\n.",
   },
   {
     MACA: "CA006",
@@ -214,6 +266,8 @@ const lichhen = [
     NS_HOTEN: "Hoàng Thị Ngọc Anh",
     SODT: "0387654321",
     KH_HOTEN: "Dương Văn Quyền",
+    LYDOKHAM:
+      "Người thân tôi nói rằng tôi kêu răng khi ngủ, và tôi muốn kiểm tra xem có vấn đề gì về nha khoa gây ra điều này\n.",
   },
   {
     MACA: "CA002",
@@ -222,6 +276,8 @@ const lichhen = [
     NS_HOTEN: "Hoàng Thị Ngọc Anh",
     SODT: "0387654321",
     KH_HOTEN: "Dương Văn Quyền",
+    LYDOKHAM:
+      "Người thân tôi nói rằng tôi kêu răng khi ngủ, và tôi muốn kiểm tra xem có vấn đề gì về nha khoa gây ra điều này\n.",
   },
   {
     MACA: "CA006",
@@ -230,6 +286,8 @@ const lichhen = [
     NS_HOTEN: "Nguyễn Thị Kim Liên",
     SODT: "0743216549",
     KH_HOTEN: "Nguyễn Thị Bích Ngọc",
+    LYDOKHAM:
+      "Người thân tôi nói rằng tôi kêu răng khi ngủ, và tôi muốn kiểm tra xem có vấn đề gì về nha khoa gây ra điều này\n.",
   },
   {
     MACA: "CA002",
@@ -238,6 +296,8 @@ const lichhen = [
     NS_HOTEN: "Đinh Quang Huy",
     SODT: "0912345678",
     KH_HOTEN: "Võ Văn Thắng",
+    LYDOKHAM:
+      "Người thân tôi nói rằng tôi kêu răng khi ngủ, và tôi muốn kiểm tra xem có vấn đề gì về nha khoa gây ra điều này\n.",
   },
   {
     MACA: "CA004",
@@ -246,6 +306,8 @@ const lichhen = [
     NS_HOTEN: "Đinh Quang Huy",
     SODT: "0912345678",
     KH_HOTEN: "Võ Văn Thắng",
+    LYDOKHAM:
+      "Người thân tôi nói rằng tôi kêu răng khi ngủ, và tôi muốn kiểm tra xem có vấn đề gì về nha khoa gây ra điều này\n.",
   },
   {
     MACA: "CA006",
@@ -254,6 +316,8 @@ const lichhen = [
     NS_HOTEN: "Đinh Quang Huy",
     SODT: "0912345678",
     KH_HOTEN: "Võ Văn Thắng",
+    LYDOKHAM:
+      "Người thân tôi nói rằng tôi kêu răng khi ngủ, và tôi muốn kiểm tra xem có vấn đề gì về nha khoa gây ra điều này\n.",
   },
   {
     MACA: "CA002",
@@ -262,6 +326,8 @@ const lichhen = [
     NS_HOTEN: "Đinh Quang Huy",
     SODT: "0923456780",
     KH_HOTEN: "Đoàn Thị Kim Ngân",
+    LYDOKHAM:
+      "Người thân tôi nói rằng tôi kêu răng khi ngủ, và tôi muốn kiểm tra xem có vấn đề gì về nha khoa gây ra điều này\n.",
   },
   {
     MACA: "CA004",
@@ -270,6 +336,8 @@ const lichhen = [
     NS_HOTEN: "Đinh Quang Huy",
     SODT: "0923456780",
     KH_HOTEN: "Đoàn Thị Kim Ngân",
+    LYDOKHAM:
+      "Người thân tôi nói rằng tôi kêu răng khi ngủ, và tôi muốn kiểm tra xem có vấn đề gì về nha khoa gây ra điều này\n.",
   },
   {
     MACA: "CA006",
@@ -278,6 +346,8 @@ const lichhen = [
     NS_HOTEN: "Đinh Quang Huy",
     SODT: "0923456780",
     KH_HOTEN: "Đoàn Thị Kim Ngân",
+    LYDOKHAM:
+      "Người thân tôi nói rằng tôi kêu răng khi ngủ, và tôi muốn kiểm tra xem có vấn đề gì về nha khoa gây ra điều này\n.",
   },
   {
     MACA: "CA002",
@@ -286,6 +356,8 @@ const lichhen = [
     NS_HOTEN: "Vũ Hoàng Anh",
     SODT: "0378236541",
     KH_HOTEN: "Vũ Thị Hồng Loan",
+    LYDOKHAM:
+      "Người thân tôi nói rằng tôi kêu răng khi ngủ, và tôi muốn kiểm tra xem có vấn đề gì về nha khoa gây ra điều này\n.",
   },
   {
     MACA: "CA001",
@@ -294,6 +366,8 @@ const lichhen = [
     NS_HOTEN: "Vũ Hoàng Anh",
     SODT: "0378236541",
     KH_HOTEN: "Vũ Thị Hồng Loan",
+    LYDOKHAM:
+      "Người thân tôi nói rằng tôi kêu răng khi ngủ, và tôi muốn kiểm tra xem có vấn đề gì về nha khoa gây ra điều này\n.",
   },
   {
     MACA: "CA006",
@@ -302,6 +376,8 @@ const lichhen = [
     NS_HOTEN: "Vũ Hoàng Anh",
     SODT: "0378236541",
     KH_HOTEN: "Vũ Thị Hồng Loan",
+    LYDOKHAM:
+      "Người thân tôi nói rằng tôi kêu răng khi ngủ, và tôi muốn kiểm tra xem có vấn đề gì về nha khoa gây ra điều này\n.",
   },
 ];
 
@@ -319,6 +395,8 @@ const lichhen2 = [
     NGAY: "2024-01-01T00:00:00.000Z",
     GIOBATDAU: "1970-01-01T11:00:00.000Z",
     GIOKETTHUC: "1970-01-01T13:00:00.000Z",
+    LYDOKHAM:
+      "Người thân tôi nói rằng tôi kêu răng khi ngủ, và tôi muốn kiểm tra xem có vấn đề gì về nha khoa gây ra điều này\n.",
   },
   {
     MACA: "CA003",
@@ -326,6 +404,8 @@ const lichhen2 = [
     NGAY: "2024-01-01T00:00:00.000Z",
     GIOBATDAU: "1970-01-01T13:00:00.000Z",
     GIOKETTHUC: "1970-01-01T15:00:00.000Z",
+    LYDOKHAM:
+      "Người thân tôi nói rằng tôi kêu răng khi ngủ, và tôi muốn kiểm tra xem có vấn đề gì về nha khoa gây ra điều này\n.",
   },
   {
     MACA: "CA004",
@@ -340,6 +420,8 @@ const lichhen2 = [
     NGAY: "2024-01-02T00:00:00.000Z",
     GIOBATDAU: "1970-01-01T15:00:00.000Z",
     GIOKETTHUC: "1970-01-01T17:00:00.000Z",
+    LYDOKHAM:
+      "Người thân tôi nói rằng tôi kêu răng khi ngủ, và tôi muốn kiểm tra xem có vấn đề gì về nha khoa gây ra điều này\n.",
   },
   {
     MACA: "CA001",
@@ -352,6 +434,8 @@ const lichhen2 = [
     NGAY: "2024-01-03T00:00:00.000Z",
     GIOBATDAU: "1970-01-01T09:00:00.000Z",
     GIOKETTHUC: "1970-01-01T11:00:00.000Z",
+    LYDOKHAM:
+      "Người thân tôi nói rằng tôi kêu răng khi ngủ, và tôi muốn kiểm tra xem có vấn đề gì về nha khoa gây ra điều này\n.",
   },
   {
     MACA: "CA005",
@@ -366,6 +450,8 @@ const lichhen2 = [
     NGAY: "2024-01-01T00:00:00.000Z",
     GIOBATDAU: "1970-01-01T17:00:00.000Z",
     GIOKETTHUC: "1970-01-01T19:00:00.000Z",
+    LYDOKHAM:
+      "Người thân tôi nói rằng tôi kêu răng khi ngủ, và tôi muốn kiểm tra xem có vấn đề gì về nha khoa gây ra điều này\n.",
   },
   {
     MACA: "CA006",
@@ -380,6 +466,8 @@ const lichhen2 = [
     NGAY: "2024-01-01T00:00:00.000Z",
     GIOBATDAU: "1970-01-01T19:00:00.000Z",
     GIOKETTHUC: "1970-01-01T21:00:00.000Z",
+    LYDOKHAM:
+      "Người thân tôi nói rằng tôi kêu răng khi ngủ, và tôi muốn kiểm tra xem có vấn đề gì về nha khoa gây ra điều này\n.",
   },
 ];
 
@@ -391,6 +479,8 @@ const lichhen3 = [
     GIOBATDAU: "1970-01-01T11:00:00.000Z",
     GIOKETTHUC: "1970-01-01T13:00:00.000Z",
     SODT: "0323456789",
+    LYDOKHAM:
+      "Người thân tôi nói rằng tôi kêu răng khi ngủ, và tôi muốn kiểm tra xem có vấn đề gì về nha khoa gây ra điều này\n.",
   },
   {
     MACA: "CA003",
@@ -399,6 +489,8 @@ const lichhen3 = [
     GIOBATDAU: "1970-01-01T13:00:00.000Z",
     GIOKETTHUC: "1970-01-01T15:00:00.000Z",
     SODT: "0345678901",
+    LYDOKHAM:
+      "Người thân tôi nói rằng tôi kêu răng khi ngủ, và tôi muốn kiểm tra xem có vấn đề gì về nha khoa gây ra điều này\n.",
   },
   {
     MACA: "CA001",
@@ -407,6 +499,8 @@ const lichhen3 = [
     GIOBATDAU: "1970-01-01T09:00:00.000Z",
     GIOKETTHUC: "1970-01-01T11:00:00.000Z",
     SODT: "0987654321",
+    LYDOKHAM:
+      "Người thân tôi nói rằng tôi kêu răng khi ngủ, và tôi muốn kiểm tra xem có vấn đề gì về nha khoa gây ra điều này\n.",
   },
   {
     MACA: "CA004",
@@ -415,6 +509,8 @@ const lichhen3 = [
     GIOBATDAU: "1970-01-01T15:00:00.000Z",
     GIOKETTHUC: "1970-01-01T17:00:00.000Z",
     SODT: "0723456789",
+    LYDOKHAM:
+      "Người thân tôi nói rằng tôi kêu răng khi ngủ, và tôi muốn kiểm tra xem có vấn đề gì về nha khoa gây ra điều này\n.",
   },
   {
     MACA: "CA006",
@@ -431,6 +527,8 @@ const lichhen3 = [
     GIOBATDAU: "1970-01-01T09:00:00.000Z",
     GIOKETTHUC: "1970-01-01T11:00:00.000Z",
     SODT: "0301234567",
+    LYDOKHAM:
+      "Người thân tôi nói rằng tôi kêu răng khi ngủ, và tôi muốn kiểm tra xem có vấn đề gì về nha khoa gây ra điều này\n.",
   },
   {
     MACA: "CA004",
@@ -447,6 +545,8 @@ const lichhen3 = [
     GIOBATDAU: "1970-01-01T17:00:00.000Z",
     GIOKETTHUC: "1970-01-01T19:00:00.000Z",
     SODT: "0712345678",
+    LYDOKHAM:
+      "Người thân tôi nói rằng tôi kêu răng khi ngủ, và tôi muốn kiểm tra xem có vấn đề gì về nha khoa gây ra điều này\n.",
   },
   {
     MACA: "CA005",
@@ -455,6 +555,8 @@ const lichhen3 = [
     GIOBATDAU: "1970-01-01T17:00:00.000Z",
     GIOKETTHUC: "1970-01-01T19:00:00.000Z",
     SODT: "0387654321",
+    LYDOKHAM:
+      "Người thân tôi nói rằng tôi kêu răng khi ngủ, và tôi muốn kiểm tra xem có vấn đề gì về nha khoa gây ra điều này\n.",
   },
   {
     MACA: "CA006",
@@ -479,6 +581,8 @@ const lichhen3 = [
     GIOBATDAU: "1970-01-01T11:00:00.000Z",
     GIOKETTHUC: "1970-01-01T13:00:00.000Z",
     SODT: "0378236541",
+    LYDOKHAM:
+      "Người thân tôi nói rằng tôi kêu răng khi ngủ, và tôi muốn kiểm tra xem có vấn đề gì về nha khoa gây ra điều này\n.",
   },
   {
     MACA: "CA002",
@@ -487,6 +591,8 @@ const lichhen3 = [
     GIOBATDAU: "1970-01-01T11:00:00.000Z",
     GIOKETTHUC: "1970-01-01T13:00:00.000Z",
     SODT: "0912345678",
+    LYDOKHAM:
+      "Người thân tôi nói rằng tôi kêu răng khi ngủ, và tôi muốn kiểm tra xem có vấn đề gì về nha khoa gây ra điều này\n.",
   },
   {
     MACA: "CA002",
@@ -551,6 +657,8 @@ const lichhen3 = [
     GIOBATDAU: "1970-01-01T15:00:00.000Z",
     GIOKETTHUC: "1970-01-01T17:00:00.000Z",
     SODT: "0923456780",
+    LYDOKHAM:
+      "Người thân tôi nói rằng tôi kêu răng khi ngủ, và tôi muốn kiểm tra xem có vấn đề gì về nha khoa gây ra điều này\n.",
   },
   {
     MACA: "CA006",
@@ -567,6 +675,8 @@ const lichhen3 = [
     GIOBATDAU: "1970-01-01T19:00:00.000Z",
     GIOKETTHUC: "1970-01-01T21:00:00.000Z",
     SODT: "0743216549",
+    LYDOKHAM:
+      "Người thân tôi nói rằng tôi kêu răng khi ngủ, và tôi muốn kiểm tra xem có vấn đề gì về nha khoa gây ra điều này\n.",
   },
   {
     MACA: "CA004",
@@ -575,6 +685,8 @@ const lichhen3 = [
     GIOBATDAU: "1970-01-01T15:00:00.000Z",
     GIOKETTHUC: "1970-01-01T17:00:00.000Z",
     SODT: "0765432109",
+    LYDOKHAM:
+      "Người thân tôi nói rằng tôi kêu răng khi ngủ, và tôi muốn kiểm tra xem có vấn đề gì về nha khoa gây ra điều này\n.",
   },
   {
     MACA: "CA002",
