@@ -1,9 +1,12 @@
 import React, { useState, useEffect, memo } from "react";
-import { Table, Pagination, Drawer, Empty, message } from "antd";
-import axios from "axios";
+import { Table, Pagination, Drawer, Empty } from "antd";
 import hsb from "~/fakedata/hsb";
-import "~/assets/styles/guest.css";
+
+import '~/assets/styles/staff_invoice.css'
 import Axios from "../services/Axios";
+import {ButtonGreen, ButtonGrey} from "~/components/button";
+import { PrinterOutlined } from "@ant-design/icons";
+
 const escapedNewLineToLineBreakTag = (text) => {
   const replacedText = text.replace(/\\n/g, "\n");
   const lines = replacedText.split("\n");
@@ -28,33 +31,39 @@ const GuestInfo = ({ currentRecord }) => {
     return null;
   }
 
-  const { HOTEN, SODT, SOTT, NGAYKHAM, NHASI, DANDO } = currentRecord;
+  const { HOTEN, SODT, SOTT, NGAYKHAM } = currentRecord;
   return (
     <div>
-      <div className="font-montserrat font-bold">
-        <p className="text-lg text-blue">NHA KHOA HAHA</p>
-        <p>227 Đ.Nguyễn Văn Cừ, Quận 5</p>
-        <p>nhakhoahaha.com</p>
+      <div className="font-montserrat">
+        <p className="text-lg text-blue font-[700]">NHA KHOA HAHA</p>
+        <p className="text-[#adadad] italic text-sm">227 Đ.Nguyễn Văn Cừ, Quận 5</p>
+        <p className="text-[#adadad] italic text-sm">nhakhoahaha.com</p>
       </div>
-      <div className="text-2xl text-center font-black my-5">
+      <div className="font-montserrat text-2xl text-center font-[900] my-6">
         HÓA ĐƠN KHÁM BỆNH
       </div>
-      <p className="leading-9 font-montserrat font-semibold text-base text-#4B4B4B">
-        <span className="">Số điện thoại: </span>
-        {SODT}
-      </p>
-      <p className="leading-9 font-montserrat font-semibold text-base text-#4B4B4B">
-        <span className="">Họ tên: </span>
-        {HOTEN}
-      </p>
-      <p className="leading-9 font-montserrat font-semibold text-base text-#4B4B4B">
-        <span className="">Hóa đơn số: </span>
-        {SOTT}
-      </p>
-      <p className="leading-9 font-montserrat font-semibold text-base text-#4B4B4B">
-        <span className="">Ngày xuất: </span>
-        {NGAYKHAM}
-      </p>
+      <div className="grid grid-cols-2 gap-4">
+      <div>
+        <p className="leading-9 font-montserrat font-semibold text-base text-#4B4B4B">
+          <span className="">Số điện thoại: </span>
+          {SODT}
+        </p>
+        <p className="leading-9 font-montserrat font-semibold text-base text-#4B4B4B">
+          <span className="">Họ tên: </span>
+          {HOTEN}
+        </p>
+      </div>
+      <div>
+        <p className="leading-9 font-montserrat font-semibold text-base text-#4B4B4B">
+          <span className="">Hóa đơn số: </span>
+          {SOTT}
+        </p>
+        <p className="leading-9 font-montserrat font-semibold text-base text-#4B4B4B">
+          <span className="">Ngày xuất: </span>
+          {NGAYKHAM}
+        </p>
+      </div>
+      </div>
     </div>
   );
 };
@@ -63,7 +72,6 @@ const DichVuTable = memo(({ dataDV, openDrawer }) => {
   const columnDV = [
     {
       title: "STT",
-      width: "20%",
       key: "STT",
       render: (text, record, index) => index + 1,
     },
@@ -71,7 +79,7 @@ const DichVuTable = memo(({ dataDV, openDrawer }) => {
       title: "Tên dịch vụ",
       dataIndex: "TENDV",
       key: "TENDV",
-      width: "20%",
+      width: "23%",
     },
     {
       title: "Số lượng",
@@ -125,14 +133,13 @@ const ThuocTable = memo(({ dataThuoc, openDrawer }) => {
     {
       title: "STT",
       key: "STT",
-      width: "20%",
       render: (text, record, index) => index + 1,
     },
     {
       title: "Tên thuốc",
       dataIndex: "TENTHUOC",
       key: "TENTHUOC",
-      width: "20%",
+      width: "23%",
     },
     {
       title: "Số lượng",
@@ -147,7 +154,7 @@ const ThuocTable = memo(({ dataThuoc, openDrawer }) => {
     {
       title: "Thành tiền",
       key: "THANHTIEN",
-      render: (text, record) => (
+      render: (record) => (
         <p>
           {record.DONGIA * record.SLDV}
         </p>
@@ -173,12 +180,6 @@ const HoaDon = ({ sdt }) => {
   const recordsPerPage = 1; // Số hồ sơ bệnh hiển thị trên mỗi trang
   const [sdts, setSdts] = useState(sdt);
 
-  // Hiển thị chi tiết loại dịch vụ
-  const [drawerVisible, setDrawerVisible] = useState(false);
-  const [selectedService, setSelectedService] = useState({});
-  const [selectedDrug, setSelectedDrug] = useState({});
-  const [selectedType, setSelectedType] = useState("");
-
   const openDrawer = async (type, id) => {
     setDrawerVisible(true);
     try {
@@ -199,13 +200,6 @@ const HoaDon = ({ sdt }) => {
     }
   };
 
-  const closeDrawer = () => {
-    setDrawerVisible(false);
-    setSelectedDrug({});
-    setSelectedService({});
-    setSelectedType("");
-  };
-
   useEffect(() => {
     setSdts(sdt);
     setMedicalRecords(hsb);
@@ -222,7 +216,7 @@ const HoaDon = ({ sdt }) => {
     <div>
       {medicalRecords.length > 0 ? (
         <div
-          className="bg-white p-10 mx-[120px]"
+          className="bg-white p-10"
           style={{
             borderRadius: "35px",
             boxShadow: "0px 4px 4px 0px rgba(0, 0, 0, 0.10)",
@@ -237,41 +231,41 @@ const HoaDon = ({ sdt }) => {
               openDrawer={openDrawer}
             />
           </div>
-          <Drawer
-            title={`THÔNG TIN ${
-              selectedType === "loaiDV" ? "DỊCH VỤ" : "THUỐC"
-            }`}
-            placement="right"
-            onClose={closeDrawer}
-            open={drawerVisible}
-          >
-            {selectedType === "loaiDV" && (
-              <>
-                <p className="mb-2">Tên dịch vụ: {selectedService.TENDV}</p>
-                <p className="mb-2">Mô tả: {selectedService.MOTA}</p>
-                <p>Đơn giá: {formatCurrency(selectedService.DONGIA)}/lần</p>
-              </>
-            )}
-            {selectedType === "loaiThuoc" && (
-              <>
-                <p className="mb-2">Tên thuốc: {selectedDrug.TENTHUOC}</p>
-                <p className="mb-2">Chỉ định: {selectedDrug.CHIDINH}</p>
-                <p>
-                  Đơn giá: {formatCurrency(selectedDrug.DONGIA)}/
-                  {selectedDrug.DONVITINH}
-                </p>
-              </>
-            )}
-          </Drawer>
+          <div className="mb-5">
           <ThuocTable
             dataThuoc={currentRecords[0]?.THUOC}
             openDrawer={openDrawer}
           />
+          </div>
+          <div className="grid grid-cols-[2.3fr,0.7fr] gap-5">
+            <p className="text-right">TỔNG CỘNG: </p>
+            <p>{currentRecords[0].TONGCHIPHI}</p>
+          </div>
+          <div className="mt-5">
+            <p>Nhân viên phụ trách: {currentRecords[0].HOTENNV} </p>
+
+            {currentRecords[0]._DAXUATHOADON === 0 ? (
+              <p className="text-pinkk italic">*Hóa đơn chưa được thanh toán</p>
+            ) : (
+              <p className="text-pinkk italic">*Hóa đơn đã được thanh toán</p>
+            )}
+          </div>
         </div>
       ) : (
         <Empty />
       )}
-      <div className="flex justify-center py-3">
+      <div className="grid grid-cols-[2fr,1fr] gap-4 mt-6">
+        <div className="flex justify-start">
+          <p className="me-4">
+            <ButtonGrey text={<><PrinterOutlined /> IN HÓA ĐƠN</>} func=""/>
+          </p>
+          {currentRecords[0]._DAXUATHOADON === 0 ? (
+          <p>
+            <ButtonGreen text="XÁC NHẬN THANH TOÁN" func=""/>
+          </p>
+          ) : null}
+        </div>
+        <div className="flex justify-end py-3">
         {medicalRecords.length > 0 && (
           <Pagination
             simple
@@ -281,6 +275,7 @@ const HoaDon = ({ sdt }) => {
             onChange={(page) => setCurrentPage(page)}
           />
         )}
+      </div>
       </div>
     </div>
   );

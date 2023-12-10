@@ -31,6 +31,7 @@ export default {
         'darkorange': "#d1660e",
         'pinkk': "#F36062",
         'darkpinkk': "#E0595A",
+        'darkgrey': "#5D5D5D",
       },
       screens: {
         sm: "640px",
