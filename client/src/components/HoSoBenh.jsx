@@ -1,9 +1,10 @@
 import React, { useState, useEffect, memo } from "react";
-import { Table, Pagination, Drawer, Empty, message } from "antd";
+import { Table, Pagination, Drawer, Empty, message, Button } from "antd";
 import axios from "axios";
 import hsb from "~/fakedata/hsb";
 import "~/assets/styles/guest.css";
 import Axios from "../services/Axios";
+import {ButtonGreen} from "~/components/button";
 const escapedNewLineToLineBreakTag = (text) => {
   const replacedText = text.replace(/\\n/g, "\n");
   const lines = replacedText.split("\n");
@@ -63,7 +64,7 @@ const DichVuTable = memo(({ dataDV, openDrawer }) => {
   const columnDV = [
     {
       title: "STT",
-      width: "20%",
+      width: "10%",
       key: "STT",
       render: (text, record, index) => index + 1,
     },
@@ -119,7 +120,7 @@ const ThuocTable = memo(({ dataThuoc, openDrawer }) => {
     {
       title: "STT",
       key: "STT",
-      width: "20%",
+      width: "10%",
       render: (text, record, index) => index + 1,
     },
     {
@@ -140,7 +141,7 @@ const ThuocTable = memo(({ dataThuoc, openDrawer }) => {
       title: "Số lượng/đơn vị tính",
       dataIndex: "SLTHUOC",
       key: "SLTHUOC",
-      width: "30%",
+      width: "max-content",
     },
     {
       title: "Thời điểm dùng",
@@ -161,7 +162,8 @@ const ThuocTable = memo(({ dataThuoc, openDrawer }) => {
   );
 });
 
-const HoSoBenh = ({ sdt }) => {
+const HoSoBenh = ({ sdt, isStaff }) => {
+  const _DAXUATHOADON = 1;
   const [currentPage, setCurrentPage] = useState(1);
   const [medicalRecords, setMedicalRecords] = useState([]);
   const recordsPerPage = 1; // Số hồ sơ bệnh hiển thị trên mỗi trang
@@ -268,7 +270,22 @@ const HoSoBenh = ({ sdt }) => {
             dataThuoc={currentRecords[0]?.THUOC}
             openDrawer={openDrawer}
           />
+          <div>
+            {isStaff === 1 ? (
+              <div className="mt-6 flex justify-end">
+                {_DAXUATHOADON == 1 ? (
+                  <p className="font-montserrat font-black text-md text-grin py-2 
+                      px-5 rounded-xl mb-3 border-4 border-grin">
+                      ĐÃ XUẤT HÓA ĐƠN
+                  </p>
+                ) : (
+                  <ButtonGreen text="XUẤT HÓA ĐƠN" func=""/>
+                )}
+              </div>
+            ) : null}
+          </div>
         </div>
+        
       ) : (
         <Empty />
       )}

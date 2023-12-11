@@ -175,6 +175,7 @@ const ThuocTable = memo(({ dataThuoc, openDrawer }) => {
 });
 
 const HoaDon = ({ sdt }) => {
+  const _DATHANHTOAN = 0;
   const [currentPage, setCurrentPage] = useState(1);
   const [medicalRecords, setMedicalRecords] = useState([]);
   const recordsPerPage = 1; // Số hồ sơ bệnh hiển thị trên mỗi trang
@@ -244,7 +245,7 @@ const HoaDon = ({ sdt }) => {
           <div className="mt-5">
             <p>Nhân viên phụ trách: {currentRecords[0].HOTENNV} </p>
 
-            {currentRecords[0]._DAXUATHOADON === 0 ? (
+            {_DATHANHTOAN === 0 ? (
               <p className="text-pinkk italic">*Hóa đơn chưa được thanh toán</p>
             ) : (
               <p className="text-pinkk italic">*Hóa đơn đã được thanh toán</p>
@@ -259,7 +260,7 @@ const HoaDon = ({ sdt }) => {
           <p className="me-4">
             <ButtonGrey text={<><PrinterOutlined /> IN HÓA ĐƠN</>} func=""/>
           </p>
-          {currentRecords[0]._DAXUATHOADON === 0 ? (
+          {_DATHANHTOAN === 0 ? (
           <p>
             <ButtonGreen text="XÁC NHẬN THANH TOÁN" func=""/>
           </p>

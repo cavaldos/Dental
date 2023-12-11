@@ -34,8 +34,8 @@ const XemHoSoBenh = () => {
         {searchResults === "" ? (
           <Empty className="w-[1100px] mt-6 rounded-3xl border border-spacing-4" />
         ) : (
-          <div className="flex flex-col gap-5 mt-5">
-            <HoSoBenh sdt={searchResults} />
+          <div className="w-[1200px] flex flex-col gap-5 mt-5">
+            <HoSoBenh sdt={searchResults} isStaff={1} />
           </div>
         )}
       </div>
