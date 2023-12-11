@@ -1,6 +1,19 @@
 import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import axios from "axios";
+
 const HomePage = () => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
+  useEffect( () => {
+    axios
+      .get("https://fakestoreapi.com/producdts")
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
   return (
     <>
       <div className="bg-red-100 flex justify-center">

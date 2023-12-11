@@ -1,10 +1,11 @@
-import dv from "../../fakedata/dv";
+// import dv from "../../fakedata/dv";
 import React from "react";
 import { Table, Modal, Button, message } from "antd";
 import ColumnSearch from "~/hooks/useSortTable";
-import { useState } from "react";
-
+import { useState, useEffect } from "react";
+import OnlineService from "~/services/online";
 const DichVuTable = ({ data }) => {
+  
   const formatCurrency = (amount) => {
     const formattedAmount = amount.toLocaleString("vi-VN");
     return `${formattedAmount} VND`;
@@ -38,7 +39,6 @@ const DichVuTable = ({ data }) => {
       sorter: (a, b) => a.DONGIA - b.DONGIA,
       render: (text) => formatCurrency(text),
     },
-    
   ];
   return (
     <Table
@@ -52,13 +52,17 @@ const DichVuTable = ({ data }) => {
   );
 };
 
-
 const DanhSachDV = () => {
+  const [dv, setDV] = useState([]);
+  useEffect(() => {
+    OnlineService.getAllDV().then((res) => {
+      setDV(res);
+    });
+  }, []);
   return (
     <>
       <div className=" w-full">
-        
-        <DichVuTable data={dv} />
+        <DichVuTable data={dv ? dv : []} />
       </div>
     </>
   );
