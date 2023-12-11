@@ -196,6 +196,7 @@ const HoSoBenh = ({ sdt, isStaff }) => {
       console.log("Lỗi khi lấy thông tin:", error);
     }
   };
+  
 
   const closeDrawer = () => {
     setDrawerVisible(false);
