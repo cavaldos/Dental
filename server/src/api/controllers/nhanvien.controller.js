@@ -224,6 +224,5 @@ const nhanVienController = {
       return res.status(500).json({ error: 'An error occurred while processing the request' });
     }
   }
-
 };
 export default nhanVienController;

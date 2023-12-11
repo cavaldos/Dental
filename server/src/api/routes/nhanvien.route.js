@@ -16,6 +16,6 @@ router.get("/benhAn/:sdt", nhanVienController.xemBenhAn);
 router.get("/getAllDSNhaSi", nhanVienController.getAllDSNS);
 router.delete("/lichHen", nhanVienController.deleteLichHen);
 // Chỗ này add thử nè
-router.post("/lichHen",authMiddleware.authenticateToken, khachHangController.xemLichHen);
+router.post("/lichHen",authMiddleware.authenticateToken, nhanVienController.taoLichHen);
 
 export default router;
