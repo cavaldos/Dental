@@ -2,7 +2,7 @@ import nhasis from "../../fakedata/nhasi";
 import "../../assets/styles/admin.css";
 import AdminService from "../../services/admin";
 
-import React, { useState, useCallback, useEffect, useRef } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import {
   Table,
   Modal,
@@ -21,6 +21,8 @@ import ColumnSearch from "~/hooks/useSortTable";
 import TextArea from "antd/es/input/TextArea";
 
 import { ButtonGreen, ButtonPink } from "../../components/button";
+import { changeState } from "~/redux/features/dataSlice";
+import { useSelector, useDispatch } from "react-redux";
 
 const format = (text) => {
   const replacedText = text.replace(/\\n/g, "\n");
@@ -36,6 +38,7 @@ const format = (text) => {
 const ModalCapNhatNV = ({ data }) => {
   const [formValues, setFormValues] = useState(data);
   const [form] = Form.useForm();
+  const dispatch = useDispatch();
   useEffect(() => {
     form.setFieldsValue(data);
   }, [data, form]);
@@ -48,7 +51,7 @@ const ModalCapNhatNV = ({ data }) => {
     }).then((res) => {
       console.log(res);
     });
-    await message.success("Cập nhật thông tin thành công!");
+    dispatch(changeState());
     form.resetFields();
     setFormValues({});
   };
@@ -110,10 +113,8 @@ const ModalCapNhatNV = ({ data }) => {
 
 const NhaSiTable = ({ dentist }) => {
   const [openEditModal, setOpenEditModal] = useState(false);
-  const selectedDataRef = useRef({});
-
   const [data, setData] = useState({});
-
+  const dispatch = useDispatch();
   const handleEdit = (record) => {
     setOpenEditModal(true);
     setData({ ...record });
@@ -124,22 +125,21 @@ const NhaSiTable = ({ dentist }) => {
   }, []);
 
   const handleLock = async (key) => {
+    console.log(key);
     await AdminService.blockNhaSi({
       mans: key,
     }).then((res) => {
       console.log(res);
     });
-    const newData = dataSource.filter((item) => item.key !== key);
-    setDataSource(newData);
+    dispatch(changeState());
   };
 
   const handleUnlock = async (key) => {
+    console.log(key);
     await AdminService.unblockNhaSi({ mans: key }).then((res) => {
       console.log(res);
     });
-
-    const newData = dataSource.filter((item) => item.key !== key);
-    setDataSource(newData);
+    dispatch(changeState());
   };
   const columns = [
     {
@@ -211,7 +211,7 @@ const NhaSiTable = ({ dentist }) => {
             </button>
             <Popconfirm
               title={`${buttonText} tài khoản này?`}
-              onConfirm={() => handleAction(record.SODT)}
+              onConfirm={() => handleAction(record.MANS)}
             >
               <a className="text-blue font-montserrat text-sm hover:text-darkblue">
                 {buttonIcon}
@@ -237,7 +237,6 @@ const NhaSiTable = ({ dentist }) => {
         pagination={paginationOptions}
         bordered
         size="middle"
-        // scroll={{x: "max-content",}}
       />
 
       <Modal
@@ -260,10 +259,12 @@ const NhaSiTable = ({ dentist }) => {
 const ThemNhaSiMoi = () => {
   const [formValues, setFormValues] = useState({});
   const [form] = Form.useForm();
+  const dispatch = useDispatch();
   const handleSubmit = async (values) => {
     await AdminService.themNhaSi(values).then((res) => {
       console.log(res);
     });
+    dispatch(changeState());
     form.resetFields();
     setFormValues({});
   };
@@ -361,12 +362,14 @@ const ThemNhaSiMoiButton = () => {
 };
 
 const QuanliNS = () => {
+  const state = useSelector((state) => state.stateData.value);
+
   const [nhasi, setNhaSi] = useState([]);
   useEffect(() => {
     AdminService.getAllNhaSi().then((res) => {
-      setNhaSi(res || nhasis);
+      setNhaSi(res);
     });
-  }, []);
+  }, [state]);
   return (
     <>
       <div className=" w-full z-0">

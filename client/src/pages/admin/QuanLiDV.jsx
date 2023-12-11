@@ -1,6 +1,5 @@
 import dv from "../../fakedata/dv";
 import "../../assets/styles/admin.css";
-
 import AdminService from "../../services/admin";
 import React, { useState, useCallback, useEffect, useRef } from "react";
 import {
@@ -21,26 +20,30 @@ import {
 import { SearchOutlined, EditOutlined } from "@ant-design/icons";
 import ColumnSearch from "~/hooks/useSortTable";
 import TextArea from "antd/es/input/TextArea";
-
+import { changeState } from "~/redux/features/dataSlice";
+import { useSelector, useDispatch } from "react-redux";
 import { ButtonGreen, ButtonPink } from "../../components/button";
-
-
-const { Option } = Select;
 
 const ModalCapNhatDV = ({ data }) => {
   const [formValues, setFormValues] = useState(data);
   const [form] = Form.useForm();
+  const dispatch = useDispatch();
   useEffect(() => {
     form.setFieldsValue(data);
   }, [data, form]);
 
   const handleSubmit = async (values) => {
-    await AdminService.suaDV(values).then((res) => {
+    await AdminService.suaDV({
+      madv: values.MADV,
+      tendv: values.TENDV,
+      mota: values.MOTA,
+      dongia: values.DONGIA,  
+    }).then((res) => {
       console.log(res);
     });
     form.resetFields();
     setFormValues({});
-    window.location.reload();
+    dispatch(changeState());
   };
 
   const handleReset = () => {
@@ -56,7 +59,7 @@ const ModalCapNhatDV = ({ data }) => {
         name="registration-form"
         layout="vertical"
         onFinish={handleSubmit}
-        // initialValues={formValues}
+        initialValues={formValues}
       >
         <Form.Item label="Mã dịch vụ" name="MADV" style={{ width: "100%" }}>
           <Input disabled />
@@ -111,12 +114,8 @@ const ModalCapNhatDV = ({ data }) => {
 };
 
 const DichVuTable = ({ service }) => {
-  const [openDeleteModal, setOpenDeleteModal] = useState(false);
-  const [openAddModal, setOpenAddModal] = useState(false);
   const [openEditModal, setOpenEditModal] = useState(false);
-  const selectedDataRef = useRef({});
   const [data, setData] = useState({});
-
   const handleEdit = (record) => {
     setOpenEditModal(true);
     setData({ ...record });
@@ -155,6 +154,9 @@ const DichVuTable = ({ service }) => {
       className: "px-[60px] min-w-[120px] ",
       sorter: (a, b) => a.DONGIA - b.DONGIA,
       render: (text) => {
+        if (text === null) {
+          return "null";
+        }
         const formattedAmount = text.toLocaleString("vi-VN");
         return `${formattedAmount} VND`;
       },
@@ -206,17 +208,19 @@ const DichVuTable = ({ service }) => {
 };
 
 const TaoDichVuMoi = () => {
+  const dispatch = useDispatch();
   const [formValues, setFormValues] = useState({});
   const [form] = Form.useForm();
 
   const handleSubmit = async (values) => {
+    console.log(values);
     await AdminService.themDV(values).then((res) => {
       console.log(res);
     });
 
     form.resetFields();
     setFormValues({});
-    window.location.reload();
+    dispatch(changeState());
   };
 
   const handleReset = () => {
@@ -233,11 +237,11 @@ const TaoDichVuMoi = () => {
         name="registration-form"
         layout="vertical"
         onFinish={handleSubmit}
-        // initialValues={formValues}
+        initialValues={formValues}
       >
         <Form.Item
           label="Tên thuốc"
-          name="TENDV"
+          name="tendv"
           style={{ width: "100%" }}
           rules={[{ required: true, message: "Vui lòng nhập tên dịch vụ!" }]}
         >
@@ -245,7 +249,7 @@ const TaoDichVuMoi = () => {
         </Form.Item>
         <Form.Item
           label="Chỉ định"
-          name="CHIDINH"
+          name="mota"
           style={{ width: "100%" }}
           rules={[{ required: true, message: "Vui lòng nhập mô tả!" }]}
         >
@@ -259,7 +263,7 @@ const TaoDichVuMoi = () => {
         </Form.Item>
         <Form.Item
           label="Đơn giá"
-          name="DONGIA"
+          name="dongia"
           placeholder="VND"
           style={{ width: "100%" }}
           rules={[{ required: true, message: "Vui lòng nhập đơn giá!" }]}
@@ -313,12 +317,15 @@ const ThemDichVuMoiButton = () => {
 };
 
 const QuanliDV = () => {
+  const state = useSelector((state) => state.stateData.value);
+
   const [dv, setDV] = useState([]);
+
   useEffect(() => {
     AdminService.getAllDV().then((res) => {
       setDV(res);
     });
-  }, []);
+  }, [state]);
   return (
     <>
       <div className=" w-full">

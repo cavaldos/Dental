@@ -1,7 +1,9 @@
-import thuoc from "../../fakedata/thuoc";
+import thuocs from "../../fakedata/thuoc";
 import "../../assets/styles/admin.css";
-
+import AdminService from "../../services/admin";
 import React, { useState, useCallback, useEffect, useRef } from "react";
+import moment from "moment";
+import "moment/locale/vi";
 import {
   Table,
   Button,
@@ -22,26 +24,31 @@ import {
 } from "@ant-design/icons";
 import ColumnSearch from "~/hooks/useSortTable";
 import TextArea from "antd/es/input/TextArea";
+import { ButtonGreen, ButtonPink } from "../../components/button";
 
-import {ButtonGreen, ButtonPink} from "../../components/button";
-import moment from 'moment';
-
+import { changeState } from "~/redux/features/dataSlice";
+import { useSelector, useDispatch } from "react-redux";
 const { Option } = Select;
 
 const ModalHuyThuoc = ({ data }) => {
-  data.NGAYHETHAN = data.NGAYHETHAN ? moment(data.NGAYHETHAN).format('YYYY-MM-DD'): undefined;
+  data.NGAYHETHAN = data.NGAYHETHAN
+    ? moment(data.NGAYHETHAN).format("YYYY-MM-DD")
+    : undefined;
   const [formValues, setFormValues] = useState(data);
   const [form] = Form.useForm();
   useEffect(() => {
     form.setFieldsValue(data);
   }, [data, form]);
 
-  const handleSubmit = (values) => {
-    console.log("Success:", values);
-    message.success("Hủy thuốc thành công!");
+  const handleSubmit = async (values) => {
+    await AdminService.xoaThuoc({
+      mathuoc: values.MATHUOC,
+    }).then((res) => {
+      console.log(res);
+    });
+    dispatch(changeState());
     form.resetFields();
     setFormValues({});
-    window.location.reload();
   };
 
   return (
@@ -54,19 +61,11 @@ const ModalHuyThuoc = ({ data }) => {
         onFinish={handleSubmit}
         // initialValues={formValues}
       >
-        <Form.Item
-          label="Mã thuốc"
-          name="MATHUOC"
-          style={{ width: "100%" }}
-        >
+        <Form.Item label="Mã thuốc" name="MATHUOC" style={{ width: "100%" }}>
           <Input disabled />
         </Form.Item>
-        <Form.Item
-          label="Tên thuốc"
-          name="TENTHUOC"
-          style={{ width: "100%" }}
-        >
-          <Input disabled/>
+        <Form.Item label="Tên thuốc" name="TENTHUOC" style={{ width: "100%" }}>
+          <Input disabled />
         </Form.Item>
         <Form.Item
           label="Đơn vị tính"
@@ -80,7 +79,7 @@ const ModalHuyThuoc = ({ data }) => {
           name="SLTON"
           style={{ width: "100%" }}
         >
-          <Input disabled/>
+          <Input disabled />
         </Form.Item>
         <Form.Item
           label="Ngày hết hạn"
@@ -99,17 +98,23 @@ const ModalHuyThuoc = ({ data }) => {
 
 const ModalNhapThuoc = ({ data }) => {
   const [formValues, setFormValues] = useState(data);
+  const [date, setDate] = useState(null);
   const [form] = Form.useForm();
   useEffect(() => {
     form.setFieldsValue(data);
   }, [data, form]);
 
-  const handleSubmit = (values) => {
-    console.log("Success:", values);
-    message.success("Nhập thêm thuốc thành công!");
+  const handleSubmit = async (values) => {
+    await AdminService.nhapThuoc({
+      mathuoc: values.MATHUOC,
+      slnhap: values.soluongnhap,
+      ngayhethan: date,
+    }).then((res) => {
+      console.log(res);
+    });
+    dispatch(changeState());
     form.resetFields();
     setFormValues({});
-    window.location.reload();
   };
 
   const handleReset = () => {
@@ -127,26 +132,18 @@ const ModalNhapThuoc = ({ data }) => {
         onFinish={handleSubmit}
         // initialValues={formValues}
       >
-        <Form.Item
-          label="Mã thuốc"
-          name="MATHUOC"
-          style={{ width: "100%" }}
-        >
+        <Form.Item label="Mã thuốc" name="MATHUOC" style={{ width: "100%" }}>
           <Input disabled />
         </Form.Item>
-        <Form.Item
-          label="Tên thuốc"
-          name="TENTHUOC"
-          style={{ width: "100%" }}
-        >
-          <Input disabled/>
+        <Form.Item label="Tên thuốc" name="TENTHUOC" style={{ width: "100%" }}>
+          <Input disabled />
         </Form.Item>
         <Form.Item
           label="Đơn vị tính"
           name="DONVITINH"
           style={{ width: "100%" }}
         >
-          <Input disabled/>
+          <Input disabled />
         </Form.Item>
         <Form.Item
           label="Số lượng nhập"
@@ -165,14 +162,16 @@ const ModalNhapThuoc = ({ data }) => {
           style={{ width: "100%" }}
           rules={[{ required: true, message: "Vui lòng nhập ngày hết hạn!" }]}
         >
-          <DatePicker placeholder="Ngày hết hạn mới của thuốc." />
+          <DatePicker
+            placeholder="Ngày hết hạn của thuốc."
+            format="YYYY-MM-DD"
+            onChange={(date, dateString) => {
+              setDate(dateString);
+            }}
+          />
         </Form.Item>
-        <Form.Item
-          label="Đơn giá"
-          name="DONGIA"
-          style={{ width: "100%" }}
-        >
-          <Input disabled/>
+        <Form.Item label="Đơn giá" name="DONGIA" style={{ width: "100%" }}>
+          <Input disabled />
         </Form.Item>
         <Form.Item style={{ display: "flex", justifyContent: "flex-end" }}>
           <Button
@@ -183,7 +182,7 @@ const ModalNhapThuoc = ({ data }) => {
           >
             ĐẶT LẠI
           </Button>
-          <ButtonGreen text="THÊM THUỐC" func={""}/>
+          <ButtonGreen text="THÊM THUỐC" func={""} />
         </Form.Item>
       </Form>
     </>
@@ -193,16 +192,23 @@ const ModalNhapThuoc = ({ data }) => {
 const ModalCapNhatThuoc = ({ data }) => {
   const [formValues, setFormValues] = useState(data);
   const [form] = Form.useForm();
+  const dispatch = useDispatch();
   useEffect(() => {
     form.setFieldsValue(data);
   }, [data, form]);
 
-  const handleSubmit = (values) => {
-    console.log("Success:", values);
-    message.success("Cập nhật thuốc thành công!");
+  const handleSubmit = async (values) => {
+    await AdminService.suaThuoc({
+      mathuoc: values.MATHUOC,
+      tenthuoc: values.TENTHUOC,
+      chidinh: values.CHIDINH,
+      dongia: values.DONGIA,
+    }).then((res) => {
+      console.log(res);
+    });
+    dispatch(changeState());
     form.resetFields();
     setFormValues({});
-    window.location.reload();
   };
 
   const handleReset = () => {
@@ -220,18 +226,16 @@ const ModalCapNhatThuoc = ({ data }) => {
         onFinish={handleSubmit}
         // initialValues={formValues}
       >
-        <Form.Item
-          label="Mã thuốc"
-          name="MATHUOC"
-          style={{ width: "100%" }}
-        >
+        <Form.Item label="Mã thuốc" name="MATHUOC" style={{ width: "100%" }}>
           <Input disabled />
         </Form.Item>
         <Form.Item
           label="Tên thuốc"
           name="TENTHUOC"
           style={{ width: "100%" }}
-          rules={[{ required: true, message: "Tên thuốc không được để trống!" }]}
+          rules={[
+            { required: true, message: "Tên thuốc không được để trống!" },
+          ]}
         >
           <Input />
         </Form.Item>
@@ -252,7 +256,12 @@ const ModalCapNhatThuoc = ({ data }) => {
           label="Chỉ định"
           name="CHIDINH"
           style={{ width: "100%" }}
-          rules={[{ required: true, message: "Chỉ định sử dụng không được để trống!" }]}
+          rules={[
+            {
+              required: true,
+              message: "Chỉ định sử dụng không được để trống!",
+            },
+          ]}
         >
           <TextArea
             showCount
@@ -278,7 +287,7 @@ const ModalCapNhatThuoc = ({ data }) => {
           >
             ĐẶT LẠI
           </Button>
-          <ButtonGreen text="CẬP NHẬT" func={""}/>
+          <ButtonGreen text="CẬP NHẬT" func={""} />
         </Form.Item>
       </Form>
     </>
@@ -289,7 +298,6 @@ const ThuocTable = ({ medicine }) => {
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
   const [openAddModal, setOpenAddModal] = useState(false);
   const [openEditModal, setOpenEditModal] = useState(false);
-  const selectedDataRef = useRef({});
 
   const [data1, setData1] = useState({});
   const [data2, setData2] = useState({});
@@ -476,13 +484,17 @@ const ThuocTable = ({ medicine }) => {
 const TaoThuocMoi = () => {
   const [formValues, setFormValues] = useState({});
   const [form] = Form.useForm();
+  const [date, setDate] = useState(null);
+  const dispatch = useDispatch();
+  const handleSubmit = async (values) => {
+    const newValues = { ...values, ngayhethan: date };
 
-  const handleSubmit = (values) => {
-    console.log("Success:", values);
-    message.success("Tạo thuốc mới thành công!");
+    await AdminService.themThuoc(newValues).then((res) => {
+      console.log(res);
+    });
+    dispatch(changeState());
     form.resetFields();
     setFormValues({});
-    window.location.reload();
   };
 
   const handleReset = () => {
@@ -499,11 +511,11 @@ const TaoThuocMoi = () => {
         name="registration-form"
         layout="vertical"
         onFinish={handleSubmit}
-        // initialValues={formValues}
+        initialValues={formValues}
       >
         <Form.Item
           label="Tên thuốc"
-          name="tendv"
+          name="tenthuoc"
           style={{ width: "100%" }}
           rules={[{ required: true, message: "Vui lòng nhập tên thuốc!" }]}
         >
@@ -511,7 +523,7 @@ const TaoThuocMoi = () => {
         </Form.Item>
         <Form.Item
           label="Đơn vị tính"
-          name="DONVITINH"
+          name="donvitinh"
           style={{ width: "100%" }}
           rules={[{ required: true, message: "Vui lòng chọn đơn vị tính!" }]}
         >
@@ -524,7 +536,7 @@ const TaoThuocMoi = () => {
         </Form.Item>
         <Form.Item
           label="Chỉ định"
-          name="CHIDINH"
+          name="chidinh"
           style={{ width: "100%" }}
           rules={[{ required: true, message: "Vui lòng nhập chỉ định!" }]}
         >
@@ -538,7 +550,7 @@ const TaoThuocMoi = () => {
         </Form.Item>
         <Form.Item
           label="Số lượng nhập"
-          name="SLNHAP"
+          name="slnhap"
           style={{ width: "100%" }}
           rules={[{ required: true, message: "Vui lòng nhập số lượng nhập!" }]}
         >
@@ -549,15 +561,21 @@ const TaoThuocMoi = () => {
         </Form.Item>
         <Form.Item
           label="Ngày hết hạn"
-          name="NGAYHETHAN"
+          name="ngayhethan"
           style={{ width: "100%" }}
           rules={[{ required: true, message: "Vui lòng nhập ngày hết hạn!" }]}
         >
-          <DatePicker placeholder="Ngày hết hạn của thuốc." />
+          <DatePicker
+            placeholder="Ngày hết hạn của thuốc."
+            format="YYYY-MM-DD"
+            onChange={(date, dateString) => {
+              setDate(dateString);
+            }}
+          />
         </Form.Item>
         <Form.Item
           label="Đơn giá"
-          name="DONGIA"
+          name="dongia"
           placeholder="VND"
           style={{ width: "100%" }}
           rules={[{ required: true, message: "Vui lòng nhập đơn giá!" }]}
@@ -572,7 +590,7 @@ const TaoThuocMoi = () => {
           >
             ĐẶT LẠI
           </Button>
-          <ButtonGreen text="THÊM THUỐC" func={""}/>
+          <ButtonGreen text="THÊM THUỐC" func={""} />
         </Form.Item>
       </Form>
     </>
@@ -592,7 +610,7 @@ const TaoThuocMoiButton = () => {
   };
   return (
     <>
-      <ButtonGreen text="THÊM LOẠI THUỐC MỚI" func={showModal}/>
+      <ButtonGreen text="THÊM LOẠI THUỐC MỚI" func={showModal} />
 
       <Modal
         title={
@@ -611,6 +629,13 @@ const TaoThuocMoiButton = () => {
 };
 
 const QuanLiThuoc = () => {
+  const state = useSelector((state) => state.stateData.value);
+  const [thuoc, setThuoc] = useState([]);
+  useEffect(() => {
+    AdminService.getAllThuoc().then((res) => {
+      setThuoc(res);
+    });
+  }, [state]);
   return (
     <>
       <div className="w-full">

@@ -1,21 +1,17 @@
 import khachhangs from "../../fakedata/khachhang";
 
 import AdminService from "../../services/admin";
-
 import React, { useEffect } from "react";
 import { Table, Tag, Popconfirm, message } from "antd";
 
 import "../../assets/styles/admin.css";
 import { LockOutlined, UnlockOutlined } from "@ant-design/icons";
+import { changeState } from "~/redux/features/dataSlice";
+import { useSelector, useDispatch } from "react-redux";
 
 const KhahHangTable = ({ data }) => {
-  const [dataSource, setDataSource] = React.useState(data);
-  useEffect(() => {
-    setDataSource(data);
-  }, [data]);
 
-
-
+  const dispatch = useDispatch();
   const formatDateString = (dateString) => {
     const date = new Date(dateString);
     return date.toLocaleDateString();
@@ -99,16 +95,13 @@ const KhahHangTable = ({ data }) => {
   ];
 
   const handleLock = async (key) => {
-    const newData = dataSource.filter((item) => item.key !== key);
     await AdminService.blockKH({ sdt: key });
-    setDataSource(newData);
-
+    dispatch(changeState());
   };
 
   const handleUnlock = async (key) => {
-    const newData = dataSource.filter((item) => item.key !== key);
     await AdminService.unblockKH({ sdt: key });
-    setDataSource(newData);
+    dispatch(changeState());
   };
 
   const paginationOptions = {
@@ -131,13 +124,15 @@ const KhahHangTable = ({ data }) => {
 };
 
 const QuanliKH = () => {
+  const state = useSelector((state) => state.stateData.value);
+
   const [khachhang, setKhachHang] = React.useState([]);
   useEffect(() => {
     AdminService.getAllKhachHang().then((res) => {
       setKhachHang(res || khachhangs);
     });
-  }, []);
-    return (
+  }, [state]);
+  return (
     <>
       <div className=" w-full ">
         <KhahHangTable data={khachhang} />

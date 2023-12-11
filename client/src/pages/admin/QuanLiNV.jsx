@@ -1,7 +1,9 @@
 import nhanviens from "../../fakedata/nhanvien";
 import "../../assets/styles/admin.css";
 import AdminService from "../../services/admin";
-import React, { useState, useCallback, useEffect, useRef } from "react";
+import React, { useState, useCallback, useEffect, useRef, memo } from "react";
+import { changeState } from "~/redux/features/dataSlice";
+import { useSelector, useDispatch } from "react-redux";
 import {
   Table,
   Button,
@@ -23,6 +25,7 @@ import { ButtonGreen, ButtonPink } from "../../components/button";
 const ModalCapNhatNV = ({ data }) => {
   const [formValues, setFormValues] = useState(data);
   const [form] = Form.useForm();
+  const dispatch = useDispatch();
   useEffect(() => {
     form.setFieldsValue(data);
   }, [data, form]);
@@ -35,9 +38,9 @@ const ModalCapNhatNV = ({ data }) => {
     }).then((res) => {
       console.log(res);
     });
+    dispatch(changeState());
     form.resetFields();
     setFormValues({});
-    window.location.reload();
   };
 
   const handleReset = () => {
@@ -53,7 +56,7 @@ const ModalCapNhatNV = ({ data }) => {
         name="registration-form"
         layout="vertical"
         onFinish={handleSubmit}
-        // initialValues={formValues}
+        initialValues={formValues}
       >
         <Form.Item label="Mã nhân viên" name="MANV" style={{ width: "100%" }}>
           <Input disabled />
@@ -100,20 +103,13 @@ const ModalCapNhatNV = ({ data }) => {
 
 const TableNhanVien = ({ staff }) => {
   const [openEditModal, setOpenEditModal] = useState(false);
-  const selectedDataRef = useRef({});
-  const [dataSource, setDataSource] = useState(staff);
-  const [reset, setReset] = useState(false);
-  useEffect(() => {
-    setDataSource(staff);
-  }, [staff, reset]);
+  const dispatch = useDispatch();
 
   const [data, setData] = useState({});
-
   const handleEdit = (record) => {
     setOpenEditModal(true);
     setData({ ...record });
   };
-
   const handleCancelEdit = useCallback(() => {
     setOpenEditModal(false);
   }, []);
@@ -122,18 +118,16 @@ const TableNhanVien = ({ staff }) => {
     await AdminService.blockNhanVien({ manv: key }).then((res) => {
       console.log(res);
     });
-    setReset(!reset);
-    const newData = dataSource.filter((item) => item.key !== key);
-    setDataSource(newData);
+    dispatch(changeState());
+   
   };
 
   const handleUnlock = async (key) => {
     await AdminService.unblockNhanVien({ manv: key }).then((res) => {
       console.log(res);
     });
-    setReset(!reset);
-    const newData = dataSource.filter((item) => item.key !== key);
-    setDataSource(newData);
+    dispatch(changeState());
+
   };
 
   const columns = [
@@ -202,7 +196,7 @@ const TableNhanVien = ({ staff }) => {
             </button>
             <Popconfirm
               title={`${buttonText} tài khoản này?`}
-              onConfirm={() => handleAction(record.SODT)}
+              onConfirm={() => handleAction(record.MANV)}
             >
               <a className="text-blue font-montserrat text-sm hover:text-darkblue">
                 {buttonIcon}
@@ -243,6 +237,7 @@ const TableNhanVien = ({ staff }) => {
 };
 
 const TaoNhanVienMoi = () => {
+  const dispatch = useDispatch();
   const [formValues, setFormValues] = useState({});
   const [form] = Form.useForm();
 
@@ -250,6 +245,7 @@ const TaoNhanVienMoi = () => {
     await AdminService.themNhanVien(values).then((res) => {
       console.log(res);
     });
+    dispatch(changeState());
     form.resetFields();
     setFormValues({});
   };
@@ -355,11 +351,12 @@ const TaoNhanVienMoiButton = () => {
 
 const QuanLiNV = () => {
   const [nhanvien, setNhanvien] = useState([]);
+  const state = useSelector((state) => state.stateData.value);
   useEffect(() => {
     AdminService.getAllNhanVien().then((res) => {
       setNhanvien(res || nhanviens);
     });
-  }, [nhanviens]);
+  }, [state]);
   return (
     <>
       <div className=" w-full">
@@ -369,4 +366,4 @@ const QuanLiNV = () => {
     </>
   );
 };
-export default QuanLiNV;
+export default memo(QuanLiNV);

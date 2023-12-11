@@ -3,7 +3,8 @@ import AdminService from "../../services/admin";
 import React, { useEffect, useState } from "react";
 import { Table, Button, Modal, Form, Select, Input } from "antd";
 import ColumnSearch from "~/hooks/useSortTable";
-
+import { changeState } from "~/redux/features/dataSlice";
+import { useSelector, useDispatch } from "react-redux";
 import "../../assets/styles/admin.css";
 import { ButtonGreen } from "../../components/button";
 
@@ -42,12 +43,14 @@ const QTVTable = ({ admin }) => {
 };
 
 const TaoQTVMoi = () => {
+  const dispatch = useDispatch();
   const [formValues, setFormValues] = useState({});
   const [form] = Form.useForm();
-  const handleSubmit = async (values) => {
-    await AdminService.taoQTV(values).then((res) => {
+  const handleSubmit = (values) => {
+    AdminService.themQTV(values).then((res) => {
       console.log(res);
     });
+    dispatch(changeState());
     form.resetFields();
     setFormValues({});
   };
@@ -132,12 +135,14 @@ const TaoQTVMoiButton = () => {
   );
 };
 const QuanLiNV = () => {
+  const state = useSelector((state) => state.stateData.value);
+
   const [qtv, setQTV] = useState([]);
   useEffect(() => {
     AdminService.getAllQTV().then((res) => {
-      setQTV(res || qtvs);
+      setQTV(res);
     });
-  }, []);
+  }, [state]);
   return (
     <>
       <div className=" w-full">
