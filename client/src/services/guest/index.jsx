@@ -36,5 +36,10 @@ const GuestService = {
     const res = await Axios.get(`/khachhang/loaiDV/${madv}`);
     return res;
   },
+  chitietHoSo: async (type,id ) => {
+    console.log(type, id);
+    const res = await Axios.get(`/khachhang/${type}/${id}`);
+    return res;
+  },
 };
 export default GuestService;

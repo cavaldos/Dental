@@ -44,7 +44,7 @@ const ModalCapNhatNV = ({ data }) => {
   }, [data, form]);
 
   const handleSubmit = async (values) => {
-    console.log("Success:", values);
+    // console.log("Success:", values);
     await AdminService.suaNS({
       mans: values.MANS,
       gioithieu: values.GIOITHIEU,
@@ -69,7 +69,7 @@ const ModalCapNhatNV = ({ data }) => {
         name="registration-form"
         layout="vertical"
         onFinish={handleSubmit}
-        //   initialValues={formValues}
+        initialValues={formValues}
       >
         <Form.Item label="Mã nha sĩ" name="MANS" style={{ width: "100%" }}>
           <Input disabled />
@@ -365,6 +365,7 @@ const QuanliNS = () => {
   const state = useSelector((state) => state.stateData.value);
 
   const [nhasi, setNhaSi] = useState([]);
+  console.log(nhasi); 
   useEffect(() => {
     AdminService.getAllNhaSi().then((res) => {
       setNhaSi(res);

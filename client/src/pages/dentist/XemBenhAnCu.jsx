@@ -14,7 +14,7 @@ const XemBenhAnCu = () => {
   const onSearch = (value) => {
     setSearchResults(value);
   };
-
+  
   return (
     <Suspense fallback={<div>Loading...</div>}>
       <div className=" bg-white rounded-lg p-5 flex flex-col w-full  ">

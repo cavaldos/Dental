@@ -5,6 +5,13 @@ const Axios = {
   get: async (url) => {
     try {
       const res = await instance.get(url);
+      if (res.status === 200 || res.status === 201) {
+        message.success("Thành công");
+      } else if (res.status === 500) {
+        message.error("Thất bại");
+      } else {
+        message.error("Thất bại");
+      }
       return res.data;
     } catch (err) {
       message.error(err.message);

@@ -4,7 +4,9 @@ import axios from "axios";
 import hsb from "~/fakedata/hsb";
 import "~/assets/styles/guest.css";
 import Axios from "../services/Axios";
-import {ButtonGreen} from "~/components/button";
+import { ButtonGreen } from "~/components/button";
+import StaffService from "../services/staff";
+import GuestService from "../services/guest";
 const escapedNewLineToLineBreakTag = (text) => {
   const replacedText = text.replace(/\\n/g, "\n");
   const lines = replacedText.split("\n");
@@ -178,13 +180,13 @@ const HoSoBenh = ({ sdt, isStaff }) => {
   const openDrawer = async (type, id) => {
     setDrawerVisible(true);
     try {
-      const response = await Axios.get(
-        `http://localhost:3000/khachhang/${type}/${id}`
-      );
-      const item = response.data[0];
-
+      const response = await GuestService.chitietHoSo(type, id).then((res) => {
+        return res;
+      });
+      const item = response.map((item) => {
+        return item;
+      })[0];
       setSelectedType(type);
-
       if (type === "loaiDV") {
         setSelectedService(item);
       } else if (type === "loaiThuoc") {
@@ -204,14 +206,14 @@ const HoSoBenh = ({ sdt, isStaff }) => {
 
   useEffect(() => {
     setSdts(sdt);
-    // Axios.get(`/khachhang/benhAn/${sdts}`)
-    //   .then((res) => {
-    //     setMedicalRecords(res.data);
-    //   })
-    //   .catch((error) => {
-    //     console.log("Lỗi khi lấy dữ liệu hồ sơ bệnh:", error);
-    //   });
-    setMedicalRecords(hsb);
+    StaffService.xemBenhAn(sdt)
+      .then((res) => {
+        console.log(res);
+        setMedicalRecords(res);
+      })
+      .catch((error) => {
+        console.log("Lỗi khi lấy dữ liệu hồ sơ bệnh:", error);
+      });
   }, [currentPage, sdt]);
 
   const indexOfLastRecord = currentPage * recordsPerPage;
@@ -274,18 +276,19 @@ const HoSoBenh = ({ sdt, isStaff }) => {
             {isStaff === 1 ? (
               <div className="mt-6 flex justify-end">
                 {_DAXUATHOADON == 1 ? (
-                  <p className="font-montserrat font-black text-md text-grin py-2 
-                      px-5 rounded-xl mb-3 border-4 border-grin">
-                      ĐÃ XUẤT HÓA ĐƠN
+                  <p
+                    className="font-montserrat font-black text-md text-grin py-2 
+                      px-5 rounded-xl mb-3 border-4 border-grin"
+                  >
+                    ĐÃ XUẤT HÓA ĐƠN
                   </p>
                 ) : (
-                  <ButtonGreen text="XUẤT HÓA ĐƠN" func=""/>
+                  <ButtonGreen text="XUẤT HÓA ĐƠN" func="" />
                 )}
               </div>
             ) : null}
           </div>
         </div>
-        
       ) : (
         <Empty />
       )}
