@@ -1,7 +1,7 @@
-
 import dv from "../../fakedata/dv";
-import '../../assets/styles/admin.css'
+import "../../assets/styles/admin.css";
 
+import AdminService from "../../services/admin";
 import React, { useState, useCallback, useEffect, useRef } from "react";
 import {
   Table,
@@ -18,15 +18,12 @@ import {
   InputNumber,
 } from "antd";
 
-import { 
-  SearchOutlined,
-  EditOutlined, 
-} from "@ant-design/icons";
+import { SearchOutlined, EditOutlined } from "@ant-design/icons";
 import ColumnSearch from "~/hooks/useSortTable";
 import TextArea from "antd/es/input/TextArea";
 
-import {ButtonGreen, ButtonPink} from "../../components/button";
-import moment from 'moment';
+import { ButtonGreen, ButtonPink } from "../../components/button";
+
 
 const { Option } = Select;
 
@@ -37,9 +34,10 @@ const ModalCapNhatDV = ({ data }) => {
     form.setFieldsValue(data);
   }, [data, form]);
 
-  const handleSubmit = (values) => {
-    console.log("Success:", values);
-    message.success("Cập nhật dịch vụ công!");
+  const handleSubmit = async (values) => {
+    await AdminService.suaDV(values).then((res) => {
+      console.log(res);
+    });
     form.resetFields();
     setFormValues({});
     window.location.reload();
@@ -60,18 +58,16 @@ const ModalCapNhatDV = ({ data }) => {
         onFinish={handleSubmit}
         // initialValues={formValues}
       >
-        <Form.Item
-          label="Mã dịch vụ"
-          name="MADV"
-          style={{ width: "100%" }}
-        >
+        <Form.Item label="Mã dịch vụ" name="MADV" style={{ width: "100%" }}>
           <Input disabled />
         </Form.Item>
         <Form.Item
           label="Tên dịch vụ"
           name="TENDV"
           style={{ width: "100%" }}
-          rules={[{ required: true, message: "Tên dịch vụ không được để trống!" }]}
+          rules={[
+            { required: true, message: "Tên dịch vụ không được để trống!" },
+          ]}
         >
           <Input />
         </Form.Item>
@@ -79,7 +75,9 @@ const ModalCapNhatDV = ({ data }) => {
           label="Mô tả"
           name="MOTA"
           style={{ width: "100%" }}
-          rules={[{ required: true, message: "Mô tả dịch vụ không được để trống!" }]}
+          rules={[
+            { required: true, message: "Mô tả dịch vụ không được để trống!" },
+          ]}
         >
           <TextArea
             showCount
@@ -105,7 +103,7 @@ const ModalCapNhatDV = ({ data }) => {
           >
             ĐẶT LẠI
           </Button>
-          <ButtonGreen text="CẬP NHẬT" func={""}/>
+          <ButtonGreen text="CẬP NHẬT" func={""} />
         </Form.Item>
       </Form>
     </>
@@ -164,7 +162,7 @@ const DichVuTable = ({ service }) => {
     {
       title: "Quản lí",
       key: "action",
-      fixed: 'right',
+      fixed: "right",
       width: "6%",
       render: (text, record) => (
         <Space size="middle">
@@ -180,17 +178,17 @@ const DichVuTable = ({ service }) => {
   ];
   return (
     <>
-    <Table
-      columns={columns}
-      dataSource={service.map((item, index) => ({ ...item, key: index }))}
-      pagination={true}
-      bordered
-      size="middle"
-      tableLayout="auto"
-      scroll={{x: "calc(900px + 50%)",}}
-    />
+      <Table
+        columns={columns}
+        dataSource={service.map((item, index) => ({ ...item, key: index }))}
+        pagination={true}
+        bordered
+        size="middle"
+        tableLayout="auto"
+        scroll={{ x: "calc(900px + 50%)" }}
+      />
 
-    <Modal
+      <Modal
         title={
           <h1 className="font-montserrat text-xl mb-3 mt-2 font-extrabold">
             CẬP NHẬT THÔNG TIN DỊCH VỤ
@@ -211,9 +209,11 @@ const TaoDichVuMoi = () => {
   const [formValues, setFormValues] = useState({});
   const [form] = Form.useForm();
 
-  const handleSubmit = (values) => {
-    console.log("Success:", values);
-    message.success("Tạo dịch vụ mới thành công!");
+  const handleSubmit = async (values) => {
+    await AdminService.themDV(values).then((res) => {
+      console.log(res);
+    });
+
     form.resetFields();
     setFormValues({});
     window.location.reload();
@@ -274,7 +274,7 @@ const TaoDichVuMoi = () => {
           >
             ĐẶT LẠI
           </Button>
-          <ButtonGreen text="THÊM DỊCH VỤ" func={""}/>
+          <ButtonGreen text="THÊM DỊCH VỤ" func={""} />
         </Form.Item>
       </Form>
     </>
@@ -313,6 +313,12 @@ const ThemDichVuMoiButton = () => {
 };
 
 const QuanliDV = () => {
+  const [dv, setDV] = useState([]);
+  useEffect(() => {
+    AdminService.getAllDV().then((res) => {
+      setDV(res);
+    });
+  }, []);
   return (
     <>
       <div className=" w-full">

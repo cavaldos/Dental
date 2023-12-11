@@ -2,215 +2,111 @@ import Axios from "../Axios";
 
 const AdminService = {
   getAllNhanVien: async () => {
-    try {
-      const res = await Axios.get("/qtv/getAllNhanViean");
-      return res;
-    } catch (err) {
-      console.log(err);
-    }
+    const res = await Axios.get("/qtv/getAllNhanViean");
+    return res;
   },
   getAllNhaSi: async () => {
-    try {
-      const res = await Axios.get("/qtv/getAllNhaSi");
-      return res;
-    } catch (err) {
-      console.log(err);
-    }
+    const res = await Axios.get("/qtv/getAllNhaSi");
+    return res;
   },
   getAllQTV: async () => {
-    try {
-      const res = await Axios.get("/qtv/getAllQTV");
-      return res;
-    } catch (err) {
-      console.log(err);
-    }
+    const res = await Axios.get("/qtv/getAllQTV");
+    return res;
   },
   getAllKhachHang: async () => {
-    try {
-      const res = await Axios.get("/qtv/getAllKhachHang");
-      return res;
-    } catch (err) {
-      console.log(err);
-    }
+    const res = await Axios.get("/qtv/getAllKhachHang");
+    return res;
   },
   getAllThuoc: async () => {
-    try {
-      const res = await Axios.get("/qtv/getAllThuoc");
-      return res;
-    } catch (err) {
-      console.log(err);
-    }
+    const res = await Axios.get("/qtv/getAllThuoc");
+    return res;
   },
 
   getAllDV: async () => {
-    try {
-      const res = await Axios.get("/qtv/getAllDV");
-      return res;
-    } catch (err) {
-      console.log(err);
-    }
+    const res = await Axios.get("/qtv/getAllDV");
+    return res;
   },
 
   getAllCa: async () => {
-    try {
-      const res = await Axios.get("/qtv/getAllCa");
-      return res;
-    } catch (err) {
-      console.log(err);
-    }
+    const res = await Axios.get("/qtv/getAllCa");
+    return res;
   },
 
   getAllDSNhaSi: async () => {
-    try {
-      const res = await Axios.get("/qtv/getAllDSNhaSi");
-      return res;
-    } catch (err) {
-      console.log(err);
-    }
+    const res = await Axios.get("/qtv/getAllDSNhaSi");
+    return res;
   },
   themThuoc: async (data) => {
-    try {
-      const res = await Axios.post("/qtv/themThuoc", data);
-      return res;
-    } catch (err) {
-      console.log(err);
-    }
+    const res = await Axios.post("/qtv/themThuoc", data);
+    return res;
   },
   themDV: async (data) => {
-    try {
-      const res = await Axios.post("/qtv/themDV", data);
-      return res;
-    } catch (err) {
-      console.log(err);
-    }
+    const res = await Axios.post("/qtv/themDV", data);
+    return res;
   },
   nhapThuoc: async (data) => {
-    try {
-      const res = await Axios.put("/qtv/nhapThuoc", data);
-      return res;
-    } catch (err) {
-      console.log(err);
-    }
+    const res = await Axios.put("/qtv/nhapThuoc", data);
+    return res;
   },
   xoaThuoc: async (data) => {
-    try {
-      const res = await Axios.delete("/qtv/xoaThuoc", data);
-      return res;
-    } catch (err) {
-      console.log(err);
-    }
+    const res = await Axios.delete("/qtv/xoaThuoc", data);
+    return res;
   },
   suaThuoc: async (data) => {
-    try {
-      const res = await Axios.put("/qtv/suaThuoc", data);
-      return res;
-    } catch (err) {
-      console.log(err);
-    }
+    const res = await Axios.put("/qtv/suaThuoc", data);
+    return res;
   },
   suaDV: async (data) => {
-    try {
-      const res = await Axios.put("/qtv/suaDV", data);
-      return res;
-    } catch (err) {
-      console.log(err);
-    }
+    const res = await Axios.put("/qtv/suaDV", data);
+    return res;
   },
-  nhanVien: async (data) => {
-    try {
-      const res = await Axios.put("/qtv/nhanVien", data);
-      return res;
-    } catch (err) {
-      console.log(err);
-    }
+  suaNV: async (data) => {
+    const res = await Axios.put("/qtv/nhanVien", data);
+    return res;
   },
   themNhanVien: async (data) => {
-    try {
-      const res = await Axios.post("/qtv/nhanVien", data);
-      return res;
-    } catch (err) {
-      console.log(err);
-    }
+    const res = await Axios.post("/qtv/nhanVien", data);
+    return res;
   },
   blockNhanVien: async (data) => {
-    try {
-      const res = await Axios.put("/qtv/blockNhanVien", data);
-      return res;
-    } catch (err) {
-      console.log(err);
-    }
+    const res = await Axios.put("/qtv/blockNhanVien", data);
+    return res;
   },
   unblockNhanVien: async (data) => {
-    try {
-      const res = await Axios.put("/qtv/unblockNhanVien", data);
-      return res;
-    } catch (err) {
-      console.log(err);
-    }
+    const res = await Axios.put("/qtv/unblockNhanVien", data);
+    return res;
   },
   themNhaSi: async (data) => {
-    try {
-      const res = await Axios.post("/qtv/nhasi", data);
-      return res;
-    } catch (err) {
-      console.log(err);
-    }
+    const res = await Axios.post("/qtv/nhasi", data);
+    return res;
   },
   suaNS: async (data) => {
-    try {
-      const res = await Axios.put("/qtv/nhasi", data);
-      return res;
-    } catch (err) {
-      console.log(err);
-    }
+    const res = await Axios.put("/qtv/nhasi", data);
+    return res;
   },
   blockNhaSi: async (data) => {
-    try {
-      const res = await Axios.put("/qtv/blockNhaSi", data);
-      return res;
-    } catch (err) {
-      console.log(err);
-    }
+    const res = await Axios.put("/qtv/blockNhaSi", data);
+    return res;
   },
   unblockNhaSi: async (data) => {
-    try {
-      const res = await Axios.put("/qtv/unblockNhaSi", data);
-      return res;
-    } catch (err) {
-      console.log(err);
-    }
+    const res = await Axios.put("/qtv/unblockNhaSi", data);
+    return res;
   },
   themQTV: async (data) => {
-    try {
-      const res = await Axios.post("/qtv/themQTV", data);
-      return res;
-    } catch (err) {
-      console.log(err);
-    }
+    const res = await Axios.post("/qtv/themQTV", data);
+    return res;
   },
   blockKH: async (data) => {
-    try {
-      const res = await Axios.put("/qtv/blockKH", data);
-      return res;
-    } catch (err) {
-      console.log(err);
-    }
+    const res = await Axios.put("/qtv/blockKH", data);
+    return res;
   },
   unblockKH: async (data) => {
-    try {
-      const res = await Axios.put("/qtv/unblockKH", data);
-      return res;
-    } catch (err) {
-      console.log(err);
-    }
+    const res = await Axios.put("/qtv/unblockKH", data);
+    return res;
   },
   matKhau: async (data) => {
-    try {
-      const res = await Axios.put("/qtv/matKhau", data);
-      return res;
-    } catch (err) {
-      console.log(err);
-    }
+    const res = await Axios.put("/qtv/matKhau", data);
+    return res;
   },
 };
 export default AdminService;

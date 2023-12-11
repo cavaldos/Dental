@@ -1,14 +1,21 @@
-import khachhang from "../../fakedata/khachhang";
-import React from "react";
-import { Table, Tag , Popconfirm} from "antd";
+import khachhangs from "../../fakedata/khachhang";
 
-import '../../assets/styles/admin.css'
-import { 
-  LockOutlined,
-  UnlockOutlined,
-} from "@ant-design/icons";
+import AdminService from "../../services/admin";
+
+import React, { useEffect } from "react";
+import { Table, Tag, Popconfirm, message } from "antd";
+
+import "../../assets/styles/admin.css";
+import { LockOutlined, UnlockOutlined } from "@ant-design/icons";
 
 const KhahHangTable = ({ data }) => {
+  const [dataSource, setDataSource] = React.useState(data);
+  useEffect(() => {
+    setDataSource(data);
+  }, [data]);
+
+
+
   const formatDateString = (dateString) => {
     const date = new Date(dateString);
     return date.toLocaleDateString();
@@ -19,13 +26,13 @@ const KhahHangTable = ({ data }) => {
       title: "Số điện thoại",
       dataIndex: "SODT",
       key: "SODT",
-      fixed: 'left',
+      fixed: "left",
     },
     {
       title: "Họ và tên",
       dataIndex: "HOTEN",
       key: "HOTEN",
-      fixed: 'left',
+      fixed: "left",
     },
     {
       title: "Giới tính",
@@ -44,7 +51,7 @@ const KhahHangTable = ({ data }) => {
       key: "DIACHI",
       width: "30%",
     },
-    
+
     {
       title: "Tình trạng",
       dataIndex: "_DAKHOA",
@@ -72,26 +79,35 @@ const KhahHangTable = ({ data }) => {
       width: "6%",
       className: "px-[60px] min-w-[100px] ",
       render: (_, record) => {
-          const handleAction = record._DAKHOA == 0 ? handleLock : handleUnlock;
-          const buttonText = record._DAKHOA == 0 ? "Khóa" : "Mở khóa";
-          const buttonIcon = record._DAKHOA == 0 ? <LockOutlined /> : <UnlockOutlined />;
+        const handleAction = record._DAKHOA == 0 ? handleLock : handleUnlock;
+        const buttonText = record._DAKHOA == 0 ? "Khóa" : "Mở khóa";
+        const buttonIcon =
+          record._DAKHOA == 0 ? <LockOutlined /> : <UnlockOutlined />;
 
-          return (
-              <Popconfirm title={`${buttonText} tài khoản này?`} onConfirm={() => handleAction(record.SODT)}>
-                  <a className="text-blue font-montserrat text-sm hover:text-darkblue">{buttonIcon}</a>
-              </Popconfirm>
-          );
+        return (
+          <Popconfirm
+            title={`${buttonText} tài khoản này?`}
+            onConfirm={() => handleAction(record.SODT)}
+          >
+            <a className="text-blue font-montserrat text-sm hover:text-darkblue">
+              {buttonIcon}
+            </a>
+          </Popconfirm>
+        );
       },
     },
   ];
 
-  const handleLock = (key) => {
+  const handleLock = async (key) => {
     const newData = dataSource.filter((item) => item.key !== key);
+    await AdminService.blockKH({ sdt: key });
     setDataSource(newData);
+
   };
 
-  const handleUnlock = (key) => {
+  const handleUnlock = async (key) => {
     const newData = dataSource.filter((item) => item.key !== key);
+    await AdminService.unblockKH({ sdt: key });
     setDataSource(newData);
   };
 
@@ -109,13 +125,19 @@ const KhahHangTable = ({ data }) => {
       pagination={paginationOptions}
       bordered
       size="middle"
-      scroll={{x: "max-content",}}
+      scroll={{ x: "max-content" }}
     />
   );
 };
 
 const QuanliKH = () => {
-  return (
+  const [khachhang, setKhachHang] = React.useState([]);
+  useEffect(() => {
+    AdminService.getAllKhachHang().then((res) => {
+      setKhachHang(res || khachhangs);
+    });
+  }, []);
+    return (
     <>
       <div className=" w-full ">
         <KhahHangTable data={khachhang} />

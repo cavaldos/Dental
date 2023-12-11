@@ -1,29 +1,24 @@
-import nhanvien from "../../fakedata/nhanvien";
+import nhanviens from "../../fakedata/nhanvien";
 import "../../assets/styles/admin.css";
-
+import AdminService from "../../services/admin";
 import React, { useState, useCallback, useEffect, useRef } from "react";
-import { 
-  Table, 
-  Button, 
-  Tag, 
-  Modal, 
-  Popconfirm, 
+import {
+  Table,
+  Button,
+  Tag,
+  Modal,
+  Popconfirm,
   Form,
   Input,
   Select,
   Space,
 } from "antd";
 
-import {
-  EditOutlined,
-  LockOutlined,
-  UnlockOutlined,
-} from "@ant-design/icons";
+import { EditOutlined, LockOutlined, UnlockOutlined } from "@ant-design/icons";
 import ColumnSearch from "~/hooks/useSortTable";
 import TextArea from "antd/es/input/TextArea";
 
-import {ButtonGreen, ButtonPink} from "../../components/button";
-
+import { ButtonGreen, ButtonPink } from "../../components/button";
 
 const ModalCapNhatNV = ({ data }) => {
   const [formValues, setFormValues] = useState(data);
@@ -32,9 +27,14 @@ const ModalCapNhatNV = ({ data }) => {
     form.setFieldsValue(data);
   }, [data, form]);
 
-  const handleSubmit = (values) => {
+  const handleSubmit = async (values) => {
     console.log("Success:", values);
-    message.success("Cập nhật thông tin thành công!");
+    await AdminService.suaNV({
+      manv: values.MANV,
+      vitricv: values.VITRICV,
+    }).then((res) => {
+      console.log(res);
+    });
     form.resetFields();
     setFormValues({});
     window.location.reload();
@@ -55,32 +55,25 @@ const ModalCapNhatNV = ({ data }) => {
         onFinish={handleSubmit}
         // initialValues={formValues}
       >
-        <Form.Item
-          label="Mã nhân viên"
-          name="MANV"
-          style={{ width: "100%" }}
-        >
+        <Form.Item label="Mã nhân viên" name="MANV" style={{ width: "100%" }}>
           <Input disabled />
         </Form.Item>
-        <Form.Item
-          label="Họ tên"
-          name="HOTEN"
-          style={{ width: "100%" }}
-        >
+        <Form.Item label="Họ tên" name="HOTEN" style={{ width: "100%" }}>
           <Input disabled />
         </Form.Item>
-        <Form.Item
-          label="Phái"
-          name="PHAI"
-          style={{ width: "100%" }}
-        >
+        <Form.Item label="Phái" name="PHAI" style={{ width: "100%" }}>
           <Input disabled />
         </Form.Item>
         <Form.Item
           label="Vị trí công việc"
           name="VITRICV"
           style={{ width: "100%" }}
-          rules={[{ required: true, message: "Vị trí công việc không được để trống!" }]}
+          rules={[
+            {
+              required: true,
+              message: "Vị trí công việc không được để trống!",
+            },
+          ]}
         >
           <TextArea
             showCount
@@ -98,7 +91,7 @@ const ModalCapNhatNV = ({ data }) => {
           >
             ĐẶT LẠI
           </Button>
-          <ButtonGreen text="CẬP NHẬT" func={""}/>
+          <ButtonGreen text="CẬP NHẬT" func={""} />
         </Form.Item>
       </Form>
     </>
@@ -108,6 +101,11 @@ const ModalCapNhatNV = ({ data }) => {
 const TableNhanVien = ({ staff }) => {
   const [openEditModal, setOpenEditModal] = useState(false);
   const selectedDataRef = useRef({});
+  const [dataSource, setDataSource] = useState(staff);
+  const [reset, setReset] = useState(false);
+  useEffect(() => {
+    setDataSource(staff);
+  }, [staff, reset]);
 
   const [data, setData] = useState({});
 
@@ -120,12 +118,20 @@ const TableNhanVien = ({ staff }) => {
     setOpenEditModal(false);
   }, []);
 
-  const handleLock = (key) => {
+  const handleLock = async (key) => {
+    await AdminService.blockNhanVien({ manv: key }).then((res) => {
+      console.log(res);
+    });
+    setReset(!reset);
     const newData = dataSource.filter((item) => item.key !== key);
     setDataSource(newData);
   };
 
-  const handleUnlock = (key) => {
+  const handleUnlock = async (key) => {
+    await AdminService.unblockNhanVien({ manv: key }).then((res) => {
+      console.log(res);
+    });
+    setReset(!reset);
     const newData = dataSource.filter((item) => item.key !== key);
     setDataSource(newData);
   };
@@ -181,25 +187,31 @@ const TableNhanVien = ({ staff }) => {
       width: "10%",
       className: "px-[60px] min-w-[100px] ",
       render: (_, record) => {
-          const handleAction = record._DAKHOA == 0 ? handleLock : handleUnlock;
-          const buttonText = record._DAKHOA == 0 ? "Khóa" : "Mở khóa";
-          const buttonIcon = record._DAKHOA == 0 ? <LockOutlined /> : <UnlockOutlined />;
+        const handleAction = record._DAKHOA == 0 ? handleLock : handleUnlock;
+        const buttonText = record._DAKHOA == 0 ? "Khóa" : "Mở khóa";
+        const buttonIcon =
+          record._DAKHOA == 0 ? <LockOutlined /> : <UnlockOutlined />;
 
-          return (
-              <Space size="middle">
-                <button
-                  className="text-blue font-montserrat hover:text-darkblue"
-                  onClick={() => handleEdit(record)}
-                >
-                  <EditOutlined />
-                </button>
-              <Popconfirm title={`${buttonText} tài khoản này?`} onConfirm={() => handleAction(record.SODT)}>
-                  <a className="text-blue font-montserrat text-sm hover:text-darkblue">{buttonIcon}</a>
-              </Popconfirm>
-              </Space>
-          );
+        return (
+          <Space size="middle">
+            <button
+              className="text-blue font-montserrat hover:text-darkblue"
+              onClick={() => handleEdit(record)}
+            >
+              <EditOutlined />
+            </button>
+            <Popconfirm
+              title={`${buttonText} tài khoản này?`}
+              onConfirm={() => handleAction(record.SODT)}
+            >
+              <a className="text-blue font-montserrat text-sm hover:text-darkblue">
+                {buttonIcon}
+              </a>
+            </Popconfirm>
+          </Space>
+        );
       },
-  },
+    },
   ];
 
   return (
@@ -210,13 +222,13 @@ const TableNhanVien = ({ staff }) => {
         pagination={true}
         bordered
         size="middle"
-        scroll={{x: "max-content",}}
+        scroll={{ x: "max-content" }}
       />
 
       <Modal
         title={
           <h1 className="font-montserrat text-xl mb-3 mt-2 font-extrabold">
-            CẬP NHẬT THÔNG TIN THUỐC
+            CẬP NHẬT THÔNG TIN NHÂN VIÊN
           </h1>
         }
         open={openEditModal}
@@ -234,12 +246,12 @@ const TaoNhanVienMoi = () => {
   const [formValues, setFormValues] = useState({});
   const [form] = Form.useForm();
 
-  const handleSubmit = (values) => {
-    console.log("Success:", values);
-    message.success("Tạo tài khoản nhân viên thành công!");
+  const handleSubmit = async (values) => {
+    await AdminService.themNhanVien(values).then((res) => {
+      console.log(res);
+    });
     form.resetFields();
     setFormValues({});
-    window.location.reload();
   };
 
   const handleReset = () => {
@@ -260,15 +272,17 @@ const TaoNhanVienMoi = () => {
       >
         <Form.Item
           label="Họ tên"
-          name="HOTEN"
+          name="hoten"
           style={{ width: "100%" }}
-          rules={[{ required: true, message: "Vui lòng nhập họ tên nhân viên!" }]}
+          rules={[
+            { required: true, message: "Vui lòng nhập họ tên nhân viên!" },
+          ]}
         >
           <Input placeholder="Họ và tên nhân viên." />
         </Form.Item>
         <Form.Item
           label="Phái"
-          name="PHAI"
+          name="phai"
           style={{ width: "100%" }}
           rules={[{ required: true, message: "Vui lòng chọn giới tính!" }]}
         >
@@ -279,9 +293,11 @@ const TaoNhanVienMoi = () => {
         </Form.Item>
         <Form.Item
           label="Vị trí công việc"
-          name="VITRICV"
+          name="vitricv"
           style={{ width: "100%" }}
-          rules={[{ required: true, message: "Vui lòng ghi rõ vị trí công việc!" }]}
+          rules={[
+            { required: true, message: "Vui lòng ghi rõ vị trí công việc!" },
+          ]}
         >
           <TextArea
             showCount
@@ -299,7 +315,7 @@ const TaoNhanVienMoi = () => {
           >
             ĐẶT LẠI
           </Button>
-          <ButtonGreen text="TẠO" func={""}/>
+          <ButtonGreen text="TẠO" func={""} />
         </Form.Item>
       </Form>
     </>
@@ -322,7 +338,11 @@ const TaoNhanVienMoiButton = () => {
       <ButtonGreen text="TẠO TÀI KHOẢN MỚI" func={showModal}></ButtonGreen>
 
       <Modal
-        title={<h1 className="font-montserrat text-lg mb-3 mt-2 font-extrabold">TẠO TÀI KHOẢN NHÂN VIÊN</h1>}
+        title={
+          <h1 className="font-montserrat text-lg mb-3 mt-2 font-extrabold">
+            TẠO TÀI KHOẢN NHÂN VIÊN
+          </h1>
+        }
         open={isModalOpen}
         onCancel={handleCancel}
         footer={[]}
@@ -334,6 +354,12 @@ const TaoNhanVienMoiButton = () => {
 };
 
 const QuanLiNV = () => {
+  const [nhanvien, setNhanvien] = useState([]);
+  useEffect(() => {
+    AdminService.getAllNhanVien().then((res) => {
+      setNhanvien(res || nhanviens);
+    });
+  }, [nhanviens]);
   return (
     <>
       <div className=" w-full">
