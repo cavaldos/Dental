@@ -76,7 +76,7 @@ const groupHSB = (data) => {
     const ketQua = {};
 
     data.forEach(item => {
-        const key = `${item.SOTT}_${item.SODT}_${item.HOTEN}_${item.TUOI}_${item.NGAYKHAM}_${item.MANS}_${item.NHASI}_${item.DANDO}`;
+        const key = `${item.SOTT}_${item.SODT}_${item.HOTEN}_${item.TUOI}_${item.NGAYKHAM}_${item.MANS}_${item.NHASI}_${item.DANDO}_${item.DAXUATHOADON}`;
 
         if (!ketQua[key]) {
             ketQua[key] = {
@@ -88,6 +88,7 @@ const groupHSB = (data) => {
                 MANS: item.MANS,
                 NHASI: item.NHASI,
                 DANDO: item.DANDO,
+                DAXUATHOADON: item.DAXUATHOADON,
                 THUOC: [],
                 DICHVU: []
             };

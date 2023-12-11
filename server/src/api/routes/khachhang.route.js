@@ -14,7 +14,7 @@ router.get("/loaiDV/:madv", khachHangController.xemDV);
 // Chỗ này add thử nè
 router.get("/lichHen",authMiddleware.authenticateToken, khachHangController.xemLichHen);
 // Chỗ này add thử nè
-router.post("/lichHen",authMiddleware.authenticateToken, khachHangController.xemLichHen);
+router.post("/lichHen",authMiddleware.authenticateToken, khachHangController.taoLichHen);
 // Chỗ này add thử nè
 router.get("/benhAn",authMiddleware.authenticateToken, khachHangController.xemBenhAn);
 router.delete("/lichHen", khachHangController.deleteLichHen);
