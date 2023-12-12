@@ -22,13 +22,13 @@ const authMiddleware = {
                 const params = {
                     MATK: decodedToken.userId
                 }
-                const result = await pool.executeSP('SP_KTTL_ALL', params);
+                const result = await pool.executeSP('SP_KTTK_ALL', params);
                 if(result[0][0].ROLE != decodedToken.userRole){
-                    return res.status(400).send({error: 'Wrong ROLE'});
+                    return res.status(401).send('Wrong ROLE');
                 }
                 
             }catch(error){
-                return res.status(401).sned({error: 'Wrong ID or the account is blocked'});
+                return res.status(401).send('Wrong ID or the account is blocked');
             }
             req.userId = decodedToken.userId;
             req.userRole = decodedToken.userRole;

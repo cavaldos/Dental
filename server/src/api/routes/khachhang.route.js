@@ -4,24 +4,58 @@ import authMiddleware from "../middleware/auth.js";
 
 const router = express.Router();
 
-router.post("/taoKH", khachHangController.taoTKKH);
-router.get("/getAllCa", khachHangController.getAllCa);
-router.get("/getAllDV", khachHangController.getAllDV);
-router.get("/getAllDSNhaSi", khachHangController.getAllDSNS);
-router.get("/lichRanh", khachHangController.xemLRChuaDatTatCaNS);
-router.get("/loaiThuoc/:mathuoc", khachHangController.xemThuoc);
-router.get("/loaiDV/:madv", khachHangController.xemDV);
-// Chỗ này add thử nè
-router.get("/lichHen",authMiddleware.authenticateToken, khachHangController.xemLichHen);
-// Chỗ này add thử nè
-router.post("/lichHen",authMiddleware.authenticateToken, khachHangController.taoLichHen);
-// Chỗ này add thử nè
-router.get("/benhAn",authMiddleware.authenticateToken, khachHangController.xemBenhAn);
-router.delete("/lichHen", khachHangController.deleteLichHen);
-// Chỗ này add thử nè
-router.put("/",authMiddleware.authenticateToken, khachHangController.capNhanThongTin);
-// Chỗ này add thử nè
-router.get("/",authMiddleware.authenticateToken, khachHangController.xemThongTin);
+// ?
+router.post("/taoKH",
+    authMiddleware.authenticateToken,
+    khachHangController.taoTKKH);
+ 
+router.get("/getAllCa",
+    authMiddleware.authenticateToken,
+    khachHangController.getAllCa);
+
+router.get("/getAllDV",
+    authMiddleware.authenticateToken,
+    khachHangController.getAllDV);
+
+router.get("/getAllDSNhaSi",
+    authMiddleware.authenticateToken,
+    khachHangController.getAllDSNS);
+
+router.get("/lichRanh",
+    authMiddleware.authenticateToken,
+    khachHangController.xemLRChuaDatTatCaNS);
+
+router.get("/loaiThuoc/:mathuoc",
+    authMiddleware.authenticateToken,
+    khachHangController.xemThuoc);
+
+router.get("/loaiDV/:madv",
+    authMiddleware.authenticateToken,
+    khachHangController.xemDV);
+
+router.get("/lichHen",
+    authMiddleware.authenticateToken,
+    khachHangController.xemLichHen);
+
+router.post("/lichHen",
+    authMiddleware.authenticateToken,
+    khachHangController.taoLichHen);
+
+router.get("/benhAn",
+    authMiddleware.authenticateToken,
+    khachHangController.xemBenhAn);
+
+router.delete("/lichHen",
+    authMiddleware.authenticateToken,
+    khachHangController.deleteLichHen);
+
+router.put("/",
+    authMiddleware.authenticateToken,
+    khachHangController.capNhanThongTin);
+
+router.get("/",
+    authMiddleware.authenticateToken,
+    khachHangController.xemThongTin);
 
 
 export default router;
