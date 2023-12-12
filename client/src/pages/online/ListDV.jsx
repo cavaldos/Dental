@@ -1,11 +1,10 @@
 // import dv from "../../fakedata/dv";
-import React from "react";
+import React, { memo } from "react";
 import { Table, Modal, Button, message } from "antd";
 import ColumnSearch from "~/hooks/useSortTable";
 import { useState, useEffect } from "react";
 import OnlineService from "~/services/online";
 const DichVuTable = ({ data }) => {
-  
   const formatCurrency = (amount) => {
     const formattedAmount = amount.toLocaleString("vi-VN");
     return `${formattedAmount} VND`;
@@ -61,11 +60,11 @@ const DanhSachDV = () => {
   }, []);
   return (
     <>
-      <div className=" w-full">
-        <DichVuTable data={dv ? dv : []} />
+      <div className="w-full">
+        <DichVuTable data={dv} />
       </div>
     </>
   );
 };
 
-export default DanhSachDV;
+export default memo(DanhSachDV);

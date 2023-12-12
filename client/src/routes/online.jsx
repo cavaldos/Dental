@@ -2,17 +2,12 @@
 // import DefaultLayout from "~/components/layout/defaultLayout";
 import { lazy } from "react";
 const DefaultLayout = lazy(() => import("~/components/layout/defaultLayout"));
-// const HomePage = lazy(() => import("~/pages/online"));
-// const DanhSachNhaSi = lazy(() => import("~/pages/online/ListNhaSi"));
-// const DanhSachDichVu = lazy(() => import("~/pages/online/ListDV"));
-// const SignInPage = lazy(() => import("~/pages/online/signin"));
-// const SignUpPage = lazy(() => import("~/pages/online/signup"));
-import HomePage from "~/pages/online";
-import DanhSachNhaSi from "~/pages/online/ListNhaSi";
-import DanhSachDichVu from "~/pages/online/ListDV";
-import SignInPage from "~/pages/online/signin";
-import SignUpPage from "~/pages/online/signup";
- 
+const HomePage = lazy(() => import("~/pages/online"));
+const DanhSachNhaSi = lazy(() => import("~/pages/online/ListNhaSi"));
+const DanhSachDichVu = lazy(() => import("~/pages/online/ListDV"));
+const SignInPage = lazy(() => import("~/pages/online/signin"));
+const SignUpPage = lazy(() => import("~/pages/online/signup"));
+const TestSignIn = lazy(() => import("~/pages/online/testsignin"));
 
 const OnlineRouter = [
   {
@@ -33,6 +28,11 @@ const OnlineRouter = [
   {
     path: "/signin",
     component: SignInPage,
+    Layout: null,
+  },
+  {
+    path: "/signins",
+    component: TestSignIn,
     Layout: null,
   },
   {

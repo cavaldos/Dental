@@ -1,5 +1,6 @@
-import thuoc from "../../fakedata/thuoc";
+// import thuoc from "../../fakedata/thuoc";
 import "../../assets/styles/staff.css";
+import StaffService from "../../services/staff";
 
 import React from "react";
 import {
@@ -89,6 +90,12 @@ const ThuocTable = ({ medicine }) => {
 };
 
 const XemThuoc = () => {
+  const [thuoc, setThuoc] = React.useState([]);
+  React.useEffect(() => {
+    StaffService.getAllThuoc().then((res) => {
+      setThuoc(res);
+    });
+  }, []);
   return (
     <>
       <div className="w-full">

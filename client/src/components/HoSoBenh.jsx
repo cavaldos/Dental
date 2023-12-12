@@ -181,7 +181,7 @@ const HoSoBenh = ({ sdt, isStaff }) => {
     setDrawerVisible(true);
     try {
       const response = await GuestService.chitietHoSo(type, id).then((res) => {
-        return res;
+        return res ? res : [];
       });
       const item = response.map((item) => {
         return item;
@@ -209,8 +209,7 @@ const HoSoBenh = ({ sdt, isStaff }) => {
     setSdts(sdt);
     StaffService.xemBenhAn(sdt)
       .then((res) => {
-        console.log(res);
-        setMedicalRecords(res);
+        setMedicalRecords(res ? res : []);
       })
       .catch((error) => {
         console.log("Lỗi khi lấy dữ liệu hồ sơ bệnh:", error);

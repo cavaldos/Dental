@@ -199,6 +199,7 @@ const nhanVienController = {
       const result = await pool.executeSP(sp, params);
       const groupedResult = groupHSB(result[0]);
       return res.status(200).json(groupedResult);
+      
     } catch (error) {
       console.error('An error occurred:', error.message);
       return res.status(500).json({ error: 'An error occurred while processing the request' });

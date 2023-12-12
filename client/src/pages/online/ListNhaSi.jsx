@@ -1,5 +1,6 @@
 // import nhasi from "../../fakedata/nhasi";
-import React from "react";
+import React, { memo } from "react";
+
 import { Table, Tag } from "antd";
 import ColumnSearch from "~/hooks/useSortTable";
 import { useState, useEffect } from "react";
@@ -88,19 +89,19 @@ const NhaSiTable = ({ data }) => {
 
 const DanhSachNS = () => {
   const [nhasi, setNhaSi] = useState([]);
+
   useEffect(() => {
     OnlineService.getAllDSNS().then((res) => {
       setNhaSi(res);
-
     });
   }, []);
   return (
     <>
       <div className=" w-full z-0">
-        <NhaSiTable data={nhasi ? nhasi : []} />
+        <NhaSiTable data={nhasi} />
       </div>
     </>
   );
 };
 
-export default DanhSachNS;
+export default memo(DanhSachNS);

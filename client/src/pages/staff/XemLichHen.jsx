@@ -1,36 +1,26 @@
-import {lichhen} from "../../fakedata/lhnv";
-import '../../assets/styles/staff.css'
+// import {lichhen} from "../../fakedata/lhnv";
+import "../../assets/styles/staff.css";
+import StaffService from "../../services/staff";
 
 import React, { useState, useCallback, useEffect } from "react";
-import {
-  Table,
-  message,
-  Modal,
-  Form,
-  Input,
-  Select,
-  Space,
-} from "antd";
+import { Table, message, Modal, Form, Input, Select, Space } from "antd";
 
-import {
-  StopOutlined,
-} from "@ant-design/icons";
+import { StopOutlined } from "@ant-design/icons";
 import ColumnSearch from "~/hooks/useSortTable";
 
-import {ButtonGreen, ButtonPink} from "../../components/button";
-
+import { ButtonGreen, ButtonPink } from "../../components/button";
 
 const ModalHuyThuoc = ({ data }) => {
   const [formValues, setFormValues] = useState(data);
   const [form] = Form.useForm();
-  const [formattedTime, setFormattedTime] = useState('');
-  
+  const [formattedTime, setFormattedTime] = useState("");
+
   useEffect(() => {
     form.setFieldsValue(data);
     if (data && data.GIOBATDAU && !formattedTime) {
       const time = new Date(data.GIOBATDAU);
-      const options = { hour: 'numeric', minute: 'numeric' };
-      const formattedTime = time.toLocaleTimeString('en-US', options);
+      const options = { hour: "numeric", minute: "numeric" };
+      const formattedTime = time.toLocaleTimeString("en-US", options);
       setFormattedTime(formattedTime);
     }
   }, [data, form, formattedTime]);
@@ -55,25 +45,13 @@ const ModalHuyThuoc = ({ data }) => {
           GIOBATDAU: formattedTime,
         }}
       >
-        <Form.Item
-          label="Khách hàng"
-          name="KH_HOTEN"
-          style={{ width: "100%" }}
-        >
+        <Form.Item label="Khách hàng" name="KH_HOTEN" style={{ width: "100%" }}>
           <Input disabled />
         </Form.Item>
-        <Form.Item
-          label="Ngày hẹn"
-          name="NGAY"
-          style={{ width: "100%" }}
-        >
-          <Input disabled/>
+        <Form.Item label="Ngày hẹn" name="NGAY" style={{ width: "100%" }}>
+          <Input disabled />
         </Form.Item>
-        <Form.Item
-          label="Giờ hẹn"
-          name="GIOBATDAU"
-          style={{ width: "100%" }}
-        >
+        <Form.Item label="Giờ hẹn" name="GIOBATDAU" style={{ width: "100%" }}>
           <Input value={formattedTime} disabled />
         </Form.Item>
         <Form.Item
@@ -81,7 +59,7 @@ const ModalHuyThuoc = ({ data }) => {
           name="NS_HOTEN"
           style={{ width: "100%" }}
         >
-          <Input disabled/>
+          <Input disabled />
         </Form.Item>
         <Form.Item style={{ display: "flex", justifyContent: "flex-end" }}>
           <ButtonPink text="HỦY LỊCH NÀY" func={""} />
@@ -91,11 +69,10 @@ const ModalHuyThuoc = ({ data }) => {
   );
 };
 
-
 const LichhenTabble = ({ appointment }) => {
   const options = {
-    hour: 'numeric',
-    minute: 'numeric',
+    hour: "numeric",
+    minute: "numeric",
     hour12: false,
   };
 
@@ -136,7 +113,7 @@ const LichhenTabble = ({ appointment }) => {
       key: "GIOBATDAU",
       render: (text) => {
         const time = new Date(text);
-        const formattedTime = time.toLocaleTimeString('en-US', options);
+        const formattedTime = time.toLocaleTimeString("en-US", options);
         return formattedTime;
       },
       sorter: (a, b) => a.GIOBATDAU - b.GIOBATDAU,
@@ -220,10 +197,17 @@ const LichhenTabble = ({ appointment }) => {
 };
 
 const XemLichHen = () => {
+  const [lichHen, setLichHen] = useState([]);
+  useEffect(() => {
+    StaffService.getLichRanhNS().then((res) => {
+      console.log(res.lichHen);
+      setLichHen(res);
+    });
+  }, []);
   return (
     <>
       <div className=" rounded-lg w-full">
-        <LichhenTabble appointment={lichhen} />
+        <LichhenTabble appointment={ []} />
       </div>
     </>
   );
