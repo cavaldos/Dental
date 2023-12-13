@@ -199,8 +199,8 @@ const LichhenTabble = ({ appointment }) => {
 const XemLichHen = () => {
   const [lichHen, setLichHen] = useState([]);
   useEffect(() => {
-    StaffService.getLichRanhNS().then((res) => {
-      console.log(res.lichHen);
+    StaffService.getLichHenNS().then((res) => {
+      console.log(res);
       setLichHen(res);
     });
   }, []);

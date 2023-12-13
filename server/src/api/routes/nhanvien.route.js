@@ -8,6 +8,11 @@ router.get("/lichRanhNS",
     authMiddleware.protected('NV'),
     nhanVienController.getLichRanhNS);
 
+router.get("/lichHen",
+    authMiddleware.authenticateToken,
+    authMiddleware.protected('NV'),
+    nhanVienController.getLichHenNS);
+
 router.post("/khachHang",
     authMiddleware.authenticateToken,
     authMiddleware.protected('NV'),
