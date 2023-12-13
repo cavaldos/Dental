@@ -7,6 +7,7 @@ const DanhSachNhaSi = lazy(() => import("~/pages/online/ListNhaSi"));
 const DanhSachDichVu = lazy(() => import("~/pages/online/ListDV"));
 const SignInPage = lazy(() => import("~/pages/online/signin"));
 const SignUpPage = lazy(() => import("~/pages/online/signup"));
+const TestSignIn = lazy(() => import("~/pages/online/testsignin"));
 
 const OnlineRouter = [
   {
@@ -27,6 +28,11 @@ const OnlineRouter = [
   {
     path: "/signin",
     component: SignInPage,
+    Layout: null,
+  },
+  {
+    path: "/signins",
+    component: TestSignIn,
     Layout: null,
   },
   {

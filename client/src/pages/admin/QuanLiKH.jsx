@@ -135,7 +135,7 @@ const QuanliKH = () => {
   return (
     <>
       <div className=" w-full ">
-        <KhahHangTable data={khachhang} />
+        <KhahHangTable data={khachhang || []} />
       </div>
     </>
   );

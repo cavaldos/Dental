@@ -181,7 +181,7 @@ const HoSoBenh = ({ sdt, isStaff }) => {
     setDrawerVisible(true);
     try {
       const response = await GuestService.chitietHoSo(type, id).then((res) => {
-        return res;
+        return res ? res : [];
       });
       const item = response.map((item) => {
         return item;

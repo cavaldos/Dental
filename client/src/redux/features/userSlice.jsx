@@ -5,11 +5,11 @@ export const GetUserInfo = createAsyncThunk(
   "user/getUserInfo",
   async ({ name }, { rejectWithValue }) => {
     try {
-      console.log(name);
+      console.log("name",name);
       const res = await axios
-        .get(`https://fakestoreapi.com/products`)
+        .get(`http://localhost:3000/checklogin`)
         .then((res) => res.data);
-      // console.log(res);
+      console.log(res);
       return res;
     } catch (err) {
       return rejectWithValue(err.response.data);
@@ -21,17 +21,17 @@ export const userSlice = createSlice({
   name: "user",
   initialState: {
     ROLE: "online",
-    SDT: "",
+    SODT: "",
+    MANS: "",
+    MANV: "",
     HOTEN: "",
     PHAI: "",
     NGAYSINH: "",
     DIACHI: "",
-    category:"",
+    VITRICV: "",
     loading: false,
     status: "idle",
     error: null,
-
-
   },
   reducers: {
     setRole: (state, action) => {
@@ -39,6 +39,16 @@ export const userSlice = createSlice({
     },
     deleteRole: (state) => {
       state.ROLE = "online";
+    },
+    updateUserInfo: (state, action) => {
+      state.SODT = action.payload.SODT;
+      state.MANS = action.payload.MANS;
+      state.MANV = action.payload.MANV;
+      state.HOTEN = action.payload.HOTEN;
+      state.PHAI = action.payload.PHAI;
+      state.NGAYSINH = action.payload.NGAYSINH;
+      state.DIACHI = action.payload.DIACHI;
+      state.VITRICV = action.payload.VITRICV;
     },
   },
   extraReducers: (builder) => {
@@ -49,11 +59,9 @@ export const userSlice = createSlice({
         state.error = null;
       })
       .addCase(GetUserInfo.fulfilled, (state, action) => {
-        console.log(action.payload);
         state.loading = false;
         state.status = "success";
         state.error = null;
-        state.category = action.payload[0].category;
       })
       .addCase(GetUserInfo.rejected, (state, action) => {
         state.loading = false;
@@ -62,5 +70,5 @@ export const userSlice = createSlice({
       });
   },
 });
-export const { setRole, deleteRole } = userSlice.actions;
+export const { setRole, deleteRole, updateUserInfo } = userSlice.actions;
 export default userSlice.reducer;
