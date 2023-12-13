@@ -15,7 +15,7 @@ const routers = (app) => {
   );
   app.use(
     "/qtv",
-    authMiddleware.authenticateToken,
+    // authMiddleware.authenticateToken,
     // authMiddleware.protected("QTV"),
     QtvRoutes
   );
