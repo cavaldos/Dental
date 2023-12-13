@@ -361,7 +361,7 @@ const QuanLiNV = () => {
     <>
       <div className=" w-full">
         <TaoNhanVienMoiButton />
-        <TableNhanVien staff={nhanvien} />
+        <TableNhanVien staff={nhanvien || []} />
       </div>
     </>
   );

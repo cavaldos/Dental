@@ -4,16 +4,16 @@ import axios from "axios";
 
 const HomePage = () => {
   // const navigate = useNavigate();
-  useEffect( () => {
-    axios
-      .get("https://fakestoreapi.com/producdts")
-      .then((res) => {
-        console.log(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
+  // useEffect( () => {
+  //   axios
+  //     .get("https://fakestoreapi.com/producdts")
+  //     .then((res) => {
+  //       console.log(res.data);
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // }, []);
   return (
     <>
       <div className="bg-red-100 flex justify-center">
