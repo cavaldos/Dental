@@ -147,7 +147,7 @@ const QuanLiNV = () => {
     <>
       <div className=" w-full">
         <TaoQTVMoiButton />
-        <QTVTable admin={qtv} />
+        <QTVTable admin={qtv || []} />
       </div>
     </>
   );

@@ -6,7 +6,7 @@ const router = express.Router();
 
 router.get("/getAllNhanVien",
     authMiddleware.authenticateToken,
-     authMiddleware.protected('QTV'),
+    authMiddleware.protected('QTV'),
     qtvController.getNV);
 
 router.get("/getAllNhaSi",
@@ -133,22 +133,6 @@ router.put("/matKhau",
     authMiddleware.authenticateToken,
     authMiddleware.protected('QTV'),
     qtvController.doiMatKhau);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

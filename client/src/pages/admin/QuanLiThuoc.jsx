@@ -640,7 +640,7 @@ const QuanLiThuoc = () => {
     <>
       <div className="w-full">
         <TaoThuocMoiButton />
-        <ThuocTable medicine={thuoc} />
+        <ThuocTable medicine={thuoc || []} />
       </div>
     </>
   );
