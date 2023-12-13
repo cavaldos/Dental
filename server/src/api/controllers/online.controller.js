@@ -37,11 +37,11 @@ const onlineController = {
       const result = await pool.executeSP(sp, params);
       // console.log(result[0]);
       if (result.error) {
-        return res.status(401).send(result.error);
+        return res.status(401).json(result.error);
       }
       else {
         if (result[0]._DAKHOA) {
-          return res.status(400).send('Tai khoan bi khoa!');
+          return res.status(400).json('Tai khoan bi khoa!');
         }
         const accessToken = jwt.sign({
           userId: params.MATK,

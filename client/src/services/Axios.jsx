@@ -11,10 +11,7 @@ const Axios = {
         message.error("Thất bại");
       }
       return res.data;
-    } catch (err) {
-      message.error(err.message);
-      console.log(err);
-    }
+    } catch (err) {}
   },
   post: async (url, data) => {
     try {

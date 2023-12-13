@@ -105,6 +105,7 @@ const khachHangController = {
       if (!pool) {
         return res.status(500).json({ error: 'Khong the ket noi db' });
       }
+      console.log(req.userRole);
       const params = null;
       const sp = 'SP_XEMDANHSACHDICHVU_ALL';
       const result = await pool.executeSP(sp, params);
