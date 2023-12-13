@@ -208,7 +208,7 @@ const HoSoBenh = ({ sdt, isStaff }) => {
   useEffect(() => {
     setSdts(sdt);
     setMedicalRecords(hsb);
-  }, [currentPage, sdt]);
+  });
 
   const indexOfLastRecord = currentPage * recordsPerPage;
   const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
