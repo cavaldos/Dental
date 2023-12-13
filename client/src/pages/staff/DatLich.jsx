@@ -1,10 +1,36 @@
 import { lichhen2 } from "../../fakedata/lhnv";
+import ns from "~/fakedata/nhasi";
+import '../../assets/styles/staff.css'
 
-import React from "react";
-import { Form, Input, Button } from "antd";
+import React, { useState } from "react";
+import { Form, Input, Button, Select } from "antd";
+const { Item } = Form;
+
+const NhaSi = ({ mans, tenns }) => {
+  return (
+    <>
+      <div className="flex w-[440px]  gap-6 ">
+        <Input className=" w-[300px]" value={mans} disabled />
+        <Input className="w-[130px]" value={tenns} disabled />
+      </div>
+    </>
+  );
+};
 
 const TaoLichHen = () => {
   const [form] = Form.useForm();
+  const [nhaSiList, setNhaSiList] = useState(ns);
+  const [chonNhaSi, setChonNhaSi] = useState("");
+
+  const inputNhaSi = () => {
+    const tenNS = nhaSiList.find((item) => item.MANS === MANS).HOTEN;
+    const newData = {
+      MANS,
+      HOTEN: tenNS,
+    };
+    setChonNhaSi([...chonNhaSi, newData]);
+    form.resetFields();
+  };
 
   const onFinish = (values) => {
     console.log("Submitted values:", values);
@@ -15,7 +41,7 @@ const TaoLichHen = () => {
   };
 
   return (
-    <div className="bg-[#FFFEFE] w-[650px] h-[600px] rounded-lg p-5">
+    <div className="bg-[#FFFFFF] w-[570px] h-[600px] rounded-xl p-9">
       <h1 className="text-2xl mb-4">Tạo lịch hẹn</h1>
       <Form
         name="appointmentForm"
@@ -23,14 +49,20 @@ const TaoLichHen = () => {
         onFinish={onFinish}
         labelCol={{ span: 24 }}
       >
-        <Form.Item
-          name="dentist"
-          label="Nha sĩ"
-          rules={[{ required: true, message: "Vui lòng nhập Nha sĩ!" }]}
-          wrapperCol={{ span: 24 }}
+        <Item name="dentist"
+              label="Nha sĩ"
+              rules={[{ required: true, message: "Vui lòng nhập Nha sĩ!" }]}
+              wrapperCol={{ span: 24 }}
         >
-          <Input />
-        </Form.Item>
+              <Select
+                className="w-72"
+                placeholder="Chon nha si"
+                options={nhaSiList.map((item) => ({
+                  value: item.MANS,
+                  label: item.HOTEN,
+                }))}
+              />
+            </Item>
         <Form.Item
           name="appointmentNumber"
           label="Số thứ tự lịch hẹn"

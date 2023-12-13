@@ -5,7 +5,6 @@ import HoaDon from "~/components/HoaDon";
 const DentistPage = () => {
   return (
     <>
-        <HoaDon sdt={"dsfdsfdsf"}/>
     </>
   );
 };
