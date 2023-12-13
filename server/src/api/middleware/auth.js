@@ -36,6 +36,12 @@ const authMiddleware = {
         }catch(error){
             res.status(500).send(error.message);
         }
+    },
+    protected: (requireRole) => (req,res,next) =>{
+        if(req.userId === requireRole){
+            next();
+        }
+        else return res.status(403).send('Protected route');
     }
 };
 export default authMiddleware;
