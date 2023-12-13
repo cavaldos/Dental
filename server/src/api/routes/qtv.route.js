@@ -5,19 +5,19 @@ import authMiddleware from "../middleware/auth.js";
 const router = express.Router();
 
 router.get("/getAllNhanVien",
-    // authMiddleware.authenticateToken,
+    authMiddleware.authenticateToken,
     qtvController.getNV);
 
 router.get("/getAllNhaSi",
-    // authMiddleware.authenticateToken,
+    authMiddleware.authenticateToken,
     qtvController.getNS);
 
 router.get("/getAllQTV",
-    // authMiddleware.authenticateToken,
+    authMiddleware.authenticateToken,
     qtvController.getQTV);
 
 router.get("/getAllKhachHang",
-    // authMiddleware.authenticateToken,
+    authMiddleware.authenticateToken,
     qtvController.getKH);
 
 router.get("/getAllThuoc",
