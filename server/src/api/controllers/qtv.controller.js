@@ -160,7 +160,7 @@ const qtvController = {
       }
       const params = {};
       params.MATHUOC = req.body.mathuoc;
-
+      console.log(req);
       const sp = "SP_HUYTHUOC_QTV";
       const result = await pool.executeSP(sp, params);
       return res.status(200).json({ success: true });
