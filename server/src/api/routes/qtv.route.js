@@ -5,55 +5,55 @@ import authMiddleware from "../middleware/auth.js";
 const router = express.Router();
 
 router.get("/getAllNhanVien",
-    authMiddleware.authenticateToken,
+    // authMiddleware.authenticateToken,
     qtvController.getNV);
 
 router.get("/getAllNhaSi",
-    authMiddleware.authenticateToken,
+    // authMiddleware.authenticateToken,
     qtvController.getNS);
 
 router.get("/getAllQTV",
-    authMiddleware.authenticateToken,
+    // authMiddleware.authenticateToken,
     qtvController.getQTV);
 
 router.get("/getAllKhachHang",
-    authMiddleware.authenticateToken,
+    // authMiddleware.authenticateToken,
     qtvController.getKH);
 
 router.get("/getAllThuoc",
-    authMiddleware.authenticateToken,
+    // authMiddleware.authenticateToken,
     qtvController.getAllThuoc);
 
 router.get("/getAllDV",
-    authMiddleware.authenticateToken,
+    // authMiddleware.authenticateToken,
     qtvController.getAllDV);
 
 router.get("/getAllCa",
-    authMiddleware.authenticateToken,
+    // authMiddleware.authenticateToken,
     qtvController.getAllCa);
 
 router.get("/getAllDSNhaSi",
-    authMiddleware.authenticateToken,
+    // authMiddleware.authenticateToken,
     qtvController.getAllDSNS);
 
 router.post("/themThuoc",
-    authMiddleware.authenticateToken,
+    // authMiddleware.authenticateToken,
     qtvController.themThuoc);
 
 router.post("/themDV",
-    authMiddleware.authenticateToken,
+    // authMiddleware.authenticateToken,
     qtvController.themDV);
 
 router.put("/nhapThuoc",
-    authMiddleware.authenticateToken,
+    // authMiddleware.authenticateToken,
     qtvController.nhapThuoc);
 
 router.delete("/xoaThuoc",
-    authMiddleware.authenticateToken,
+    // authMiddleware.authenticateToken,
     qtvController.huyThuoc);
 
 router.put("/suaThuoc",
-    authMiddleware.authenticateToken,
+    // authMiddleware.authenticateToken,
     qtvController.suaThuoc);
 
 router.put("/suaDV",
