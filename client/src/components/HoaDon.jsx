@@ -1,5 +1,5 @@
 import React, { useState, useEffect, memo } from "react";
-import { Table, Pagination, Drawer, Empty } from "antd";
+import { Table, Pagination, Empty, message } from "antd";
 import hsb from "~/fakedata/hsb";
 
 import '~/assets/styles/staff_invoice.css'
@@ -181,26 +181,6 @@ const HoaDon = ({ sdt }) => {
   const recordsPerPage = 1; // Số hồ sơ bệnh hiển thị trên mỗi trang
   const [sdts, setSdts] = useState(sdt);
 
-  const openDrawer = async (type, id) => {
-    setDrawerVisible(true);
-    try {
-      const response = await Axios.get(
-        `http://localhost:3000/khachhang/${type}/${id}`
-      );
-      const item = response.data[0];
-
-      setSelectedType(type);
-
-      if (type === "loaiDV") {
-        setSelectedService(item);
-      } else if (type === "loaiThuoc") {
-        setSelectedDrug(item);
-      }
-    } catch (error) {
-      console.log("Lỗi khi lấy thông tin:", error);
-    }
-  };
-
   useEffect(() => {
     setSdts(sdt);
     setMedicalRecords(hsb);
@@ -212,6 +192,15 @@ const HoaDon = ({ sdt }) => {
     indexOfFirstRecord,
     indexOfLastRecord
   );
+
+  const paying = ({ sdt, sott }) => {
+    // Khanh goi API trong nay nha
+    message.success("Cập nhật trạng thái 'Đã thanh toán' thành công!");
+  };
+
+  const print = () => {
+    // Khanh goi API trong nay nha
+  };
 
   return (
     <div>
@@ -229,13 +218,13 @@ const HoaDon = ({ sdt }) => {
           <div className="mb-5">
             <DichVuTable
               dataDV={currentRecords[0]?.DICHVU}
-              openDrawer={openDrawer}
+              openDrawer=""
             />
           </div>
           <div className="mb-5">
           <ThuocTable
             dataThuoc={currentRecords[0]?.THUOC}
-            openDrawer={openDrawer}
+            openDrawer=""
           />
           </div>
           <div className="grid grid-cols-[2.3fr,0.7fr] gap-5">
@@ -258,11 +247,11 @@ const HoaDon = ({ sdt }) => {
       <div className="grid grid-cols-[2fr,1fr] gap-4 mt-6">
         <div className="flex justify-start">
           <p className="me-4">
-            <ButtonGrey text={<><PrinterOutlined /> IN HÓA ĐƠN</>} func=""/>
+            <ButtonGrey text={<><PrinterOutlined /> IN HÓA ĐƠN</>} func={() => print()}/>
           </p>
           {_DATHANHTOAN === 0 ? (
           <p>
-            <ButtonGreen text="XÁC NHẬN THANH TOÁN" func=""/>
+            <ButtonGreen text="XÁC NHẬN THANH TOÁN" func={() => paying( sdt, currentRecords[0].SOTT )}/>
           </p>
           ) : null}
         </div>

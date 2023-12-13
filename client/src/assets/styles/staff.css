@@ -76,3 +76,8 @@
     font-family: Montserrat !important;
     font-size: small;
 }
+
+.ant-message, .ant-message-top {
+    font-family: Montserrat !important;
+    font-size: medium !important;
+}

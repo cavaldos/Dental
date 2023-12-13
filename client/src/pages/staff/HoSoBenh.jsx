@@ -7,7 +7,7 @@ import '../../assets/styles/staff.css'
 
 const HoSoBenh = lazy(() => import("~/components/HoSoBenh"));
 const { Search } = Input;
-const XemHoSoBenh = () => {
+const XemHoSoBenh_NV = () => {
   const location = useLocation();
   const currentPath = location.pathname;
   const lastPath = currentPath.substring(currentPath.lastIndexOf("/") + 1);
@@ -42,4 +42,4 @@ const XemHoSoBenh = () => {
     </Suspense>
   );
 };
-export default XemHoSoBenh;
+export default XemHoSoBenh_NV;

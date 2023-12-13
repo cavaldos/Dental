@@ -5,6 +5,10 @@ const StaffService = {
     const res = await Axios.get("/nhanvien/lichRanhNS");
     return res;
   },
+  getLichHenNS: async () => {
+    const res = await Axios.get("/nhanvien/lichHen");
+    return res;
+  },
   taoTaiKhoanKH: async (data) => {
     const res = await Axios.post("/nhanvien/khachHang", data);
     return res;
