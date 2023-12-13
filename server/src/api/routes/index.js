@@ -19,7 +19,7 @@ const routers = (app) => {
       },
       accessokenExpirationTime: "30d",
     };
-    
+
     res.json(result);
   });
   app.use("/qtv", QtvRoutes);

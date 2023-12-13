@@ -9,7 +9,7 @@ const nhaSiController = {
         return res.status(500).json({ error: 'Khong the ket noi db' });
       }
       const params = {};
-      params.MANS = req.params.mans;
+      params.MANS = req.userId;
       const sp = 'SP_XEMCADU2NGTRUC_NS';
       const result = await pool.executeSP(sp, params);
       return res.status(200).json(result[0]);
@@ -24,7 +24,7 @@ const nhaSiController = {
         return res.status(500).json({ error: 'Khong the ket noi db' });
       }
       const params = {};
-      params.MANS = req.params.mans;
+      params.MANS = req.userId;
       const sp = 'SP_XEMLICHHENNS_NS';
       const result = await pool.executeSP(sp, params);
       return res.status(200).json(result[0]);
@@ -39,7 +39,7 @@ const nhaSiController = {
         return res.status(500).json({ error: 'Khong the ket noi db' });
       }
       const params = {};
-      params.MANS = req.params.mans;
+      params.MANS = req.userId;
       const sp = 'SP_LICHRANHCHUADUOCDAT_NS';
       const result = await pool.executeSP(sp, params);
       return res.status(200).json(result[0]);

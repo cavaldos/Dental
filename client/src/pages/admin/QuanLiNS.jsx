@@ -373,7 +373,7 @@ const QuanliNS = () => {
     <>
       <div className=" w-full z-0">
         <ThemNhaSiMoiButton />
-        <NhaSiTable dentist={nhasi} />
+        <NhaSiTable dentist={nhasi || []} />
       </div>
     </>
   );
