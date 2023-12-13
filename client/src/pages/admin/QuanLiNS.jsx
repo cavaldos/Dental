@@ -363,9 +363,7 @@ const ThemNhaSiMoiButton = () => {
 
 const QuanliNS = () => {
   const state = useSelector((state) => state.stateData.value);
-
   const [nhasi, setNhaSi] = useState([]);
-  console.log(nhasi); 
   useEffect(() => {
     AdminService.getAllNhaSi().then((res) => {
       setNhaSi(res);

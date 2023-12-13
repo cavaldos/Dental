@@ -28,7 +28,7 @@ const authMiddleware = {
                 }
                 
             }catch(error){
-                return res.status(401).sned({error: 'Wrong ID or the account is blocked'});
+                return res.status(401).send({error: 'Wrong ID or the account is blocked'});
             }
             req.userId = decodedToken.userId;
             req.userRole = decodedToken.userRole;
