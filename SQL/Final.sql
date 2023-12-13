@@ -1582,6 +1582,12 @@ AS
 BEGIN TRAN
 BEGIN TRY 
 BEGIN
+	IF @NGAYHETHAN < GETDATE()
+		BEGIN
+        RAISERROR(N'Không được thêm thuốc đã hết hạn', 16, 1)
+        ROLLBACK TRAN
+        RETURN
+    END
     IF @SLNHAP < 1 OR @DONGIA < 1
     BEGIN
         RAISERROR(N'Số lượng nhập và đơn giá không được nhỏ hơn hoặc bằng 0', 16, 1)
@@ -2017,7 +2023,7 @@ COMMIT TRAN
 GO
 CREATE PROC SP_UPDATENS_QTV
     @MANS VARCHAR(100),
-    @GIOITHIEU NVARCHAR(200)
+    @GIOITHIEU NVARCHAR(500)
 AS
 BEGIN TRAN
     BEGIN TRY
