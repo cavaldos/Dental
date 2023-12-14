@@ -5,41 +5,38 @@ import {
   StaffRouter,
   DentistRouter,
 } from "~/routes";
-import { Fragment, Suspense, lazy } from "react";
+import React, { Fragment, Suspense, lazy } from "react";
 
 import { useSelector } from "react-redux";
-import {
-  BrowserRouter as Router,
-  Route,
-  Routes,
-} from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Loading from "./components/err/loading";
 const NotfoundError = lazy(() => import("~/components/err"));
 
-
-
-
+import Auth from "./components/Auth";
 import Test from "./test";
+
 function App() {
   const user = useSelector((state) => state.user);
+
   const VerifyRoure = () => {
     switch (user.ROLE) {
       case "admin":
-        return AdminRouter;
+        return StaffRouter;
       case "guest":
-        return GuestRouter;
+        return StaffRouter;
       case "staff":
         return StaffRouter;
       case "dentist":
-        return DentistRouter;
+        return StaffRouter;
       default:
-        return OnlineRouter;
+        return StaffRouter;
     }
   };
 
   return (
     <>
       <Test />
+      <Auth />
       <Router>
         <Suspense fallback={<Loading />}>
           <Routes>

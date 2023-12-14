@@ -7,22 +7,6 @@
     font-family: Montserrat !important;
 }
 
-.ant-btn-danger {
-    background-color: white;
-    outline: 2.5px solid #adadad;
-    border-radius: 0.45rem;
-    color: #adadad;
-    font-family: Montserrat !important;
-    font-weight: 640 !important;
-    font-size: small;
-    padding: 0 1.5rem;
-    /* padding-top: 0.5rem;
-    padding-bottom: 0.5rem;
-    margin-bottom: 1rem;*/
-    margin-top: 0.5rem; 
-    height: 35.5px !important;
-}
-
 .ant-btn {
     font-weight: 600 !important;
 }
@@ -57,15 +41,22 @@
     margin-bottom: 22px !important;
 }
 .ant-input, .ant-select-selection-placeholder, 
-.ant-input-number-input, .ant-picker-input>input, .ant-select-selection-item {
+.ant-input-number-input, .ant-picker-input>input, .ant-select-selection-item
+.ant-select-selection-search-input, .ant-select-dropdown, .ant-select-selection-item {
     font-family: Montserrat !important;
-    font-size: small !important;
+    font-size: medium !important;
     font-weight: 640 !important;
 }
 .ant-form-item-label, .ant-form-item-required {
     font-family: Montserrat !important;
-    font-size: small !important;
+    font-size: medium !important;
     font-weight: 640 !important;
+}
+.ant-dropdown-menu-title-content {
+    font-family: Montserrat !important;
+    font-size: medium !important;
+    font-weight: 600 !important;
+    color: black;
 }
 .ant-input-disabled , .ant-select-disable {
     color: #adadad !important;
@@ -74,5 +65,26 @@
 .ant-input-search, .ant-empty-description {
     border-radius: 10px !important;
     font-family: Montserrat !important;
+    font-size: medium;
+}
+
+.ant-message, .ant-message-top {
+    font-family: Montserrat !important;
+    font-size: medium !important;
+}
+
+.ant-btn-danger {
+    background-color: white;
+    outline: 2.5px solid #adadad;
+    border-radius: 0.45rem;
+    color: #adadad;
+    font-family: Montserrat !important;
+    font-weight: 640 !important;
     font-size: small;
+    padding: 0 1.5rem;
+    /* padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    margin-bottom: 1rem;*/
+    margin-top: 0.5rem; 
+    height: 35.5px !important;
 }

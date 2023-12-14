@@ -146,7 +146,7 @@ const groupLich = (data) => {
                     {
                         MANS: item.MANS,
                         HOTENNS: item.HOTENNS,
-                        SODTKH: item.SODTKH,
+                        SODTKH: item.SODTKH || null,
                         HOTENKH: item.HOTENKH,
                         SOTTLH: item.SOTTLH,
                         LYDOKHAM: item.LYDOKHAM,
@@ -159,7 +159,7 @@ const groupLich = (data) => {
             existingCa.NHASI.push({
                 MANS: item.MANS,
                 HOTENNS: item.HOTENNS,
-                SODTKH: item.SODTKH,
+                SODTKH: item.SODTKH || null,
                 HOTENKH: item.HOTENKH,
                 SOTTLH: item.SOTTLH,
                 LYDOKHAM: item.LYDOKHAM,

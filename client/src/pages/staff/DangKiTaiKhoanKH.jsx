@@ -32,7 +32,7 @@ const DangKiTaiKhoanKhachHang = () => {
   
   return (
     <div
-      className="bg-white p-10 mx-10 sm:px-15 md:px-25 lg:px-40"
+      className="bg-white w-[1000px] h-fit p-10 mx-10 sm:px-15 md:px-25 lg:px-40 pb-0"
       style={{
         borderRadius: "27px",
         boxShadow: "0px 3.111px 3.111px 0px rgba(0, 0, 0, 0.10)",
@@ -42,12 +42,10 @@ const DangKiTaiKhoanKhachHang = () => {
         {...layout}
         name="nest-messages"
         onFinish={onFinish}
-        style={{maxWidth:"95%"}}
-        // initialValues={initialValues}
       >
         <Form.Item
           name="SODT"
-          label="Số điện thoại:"
+          label="Số điện thoại: "
           rules={[
             {
               required: true,
@@ -61,12 +59,12 @@ const DangKiTaiKhoanKhachHang = () => {
             span: 19,
           }}
         >
-          <Input />
+          <Input placeholder="Số điện thoại khách hàng."/>
         </Form.Item>
 
         <Form.Item
           name="HOTEN"
-          label="Họ tên:"
+          label="Họ tên: "
           rules={[
             {
               required: true,
@@ -80,12 +78,12 @@ const DangKiTaiKhoanKhachHang = () => {
             span: 19,
           }}
         >
-          <Input />
+          <Input placeholder="Họ và tên khách hàng."/>
         </Form.Item>
 
         <Form.Item
           name="PHAI"
-          label="Phái"
+          label="Phái: "
           rules={[
             {
               required: true,
@@ -99,7 +97,7 @@ const DangKiTaiKhoanKhachHang = () => {
             span: 19,
           }}
         >
-          <Select>
+          <Select placeholder="Chọn giới tính.">
             <Select.Option value="Nam">Nam</Select.Option>
             <Select.Option value="Nữ">Nữ</Select.Option>
           </Select>
@@ -107,7 +105,7 @@ const DangKiTaiKhoanKhachHang = () => {
 
         <Form.Item
           name="NGAYSINH"
-          label="Ngày sinh"
+          label="Ngày sinh: "
           rules={[
             {
               required: true,
@@ -121,12 +119,12 @@ const DangKiTaiKhoanKhachHang = () => {
             span: 19,
           }}
         >
-          <DatePicker placeholder="Chọn ngày" />
+          <DatePicker placeholder="Chọn ngày sinh." />
         </Form.Item>
 
         <Form.Item
           name="DIACHI"
-          label="Địa chỉ:"
+          label="Địa chỉ: "
           rules={[
             {
               required: true,
@@ -140,29 +138,10 @@ const DangKiTaiKhoanKhachHang = () => {
             span: 19,
           }}
         >
-          <Input />
+          <Input placeholder="Địa chỉ thường trú."/>
         </Form.Item>
 
-        <Form.Item
-          name="XACNHANMATKHAU"
-          label="Xác nhận mật khẩu"
-          rules={[
-            {
-              required: true,
-              message: "Vui lòng xác nhận mật khẩu!",
-            },
-          ]}
-          labelCol={{
-            span: 5,
-          }}
-          wrapperCol={{
-            span: 19,
-          }}
-        >
-          <Input.Password />
-        </Form.Item>
-
-        <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
+        <Form.Item wrapperCol={{ offset: 5, span: 19 }}>
           <ButtonGreen text="ĐĂNG KÝ" func={""}/>
           <Button
                 onClick={handleReset}

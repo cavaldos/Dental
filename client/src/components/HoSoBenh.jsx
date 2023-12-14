@@ -1,12 +1,11 @@
 import React, { useState, useEffect, memo } from "react";
-import { Table, Pagination, Drawer, Empty, message, Button } from "antd";
-import axios from "axios";
+import { Table, Pagination, Drawer, Empty, message } from "antd";
 import hsb from "~/fakedata/hsb";
+
 import "~/assets/styles/guest.css";
-import Axios from "../services/Axios";
 import { ButtonGreen } from "~/components/button";
-import StaffService from "../services/staff";
 import GuestService from "../services/guest";
+
 const escapedNewLineToLineBreakTag = (text) => {
   const replacedText = text.replace(/\\n/g, "\n");
   const lines = replacedText.split("\n");
@@ -165,7 +164,8 @@ const ThuocTable = memo(({ dataThuoc, openDrawer }) => {
 });
 
 const HoSoBenh = ({ sdt, isStaff }) => {
-  const _DAXUATHOADON = 1;
+  const _DAXUATHOADON = 0;
+  const MANV = 'NV0001';
   const [currentPage, setCurrentPage] = useState(1);
   const [medicalRecords, setMedicalRecords] = useState([]);
   const recordsPerPage = 1; // Số hồ sơ bệnh hiển thị trên mỗi trang
@@ -207,14 +207,8 @@ const HoSoBenh = ({ sdt, isStaff }) => {
 
   useEffect(() => {
     setSdts(sdt);
-    StaffService.xemBenhAn(sdt)
-      .then((res) => {
-        setMedicalRecords(res ? res : []);
-      })
-      .catch((error) => {
-        console.log("Lỗi khi lấy dữ liệu hồ sơ bệnh:", error);
-      });
-  }, [currentPage, sdt]);
+    setMedicalRecords(hsb);
+  });
 
   const indexOfLastRecord = currentPage * recordsPerPage;
   const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
@@ -222,6 +216,11 @@ const HoSoBenh = ({ sdt, isStaff }) => {
     indexOfFirstRecord,
     indexOfLastRecord
   );
+
+  const createInvoice = ({ sdt, sott, manv }) => {
+    // Khanh goi API trong nay nha
+    message.success("Đã tạo hóa đơn thành công!");
+  };
 
   return (
     <div>
@@ -283,7 +282,7 @@ const HoSoBenh = ({ sdt, isStaff }) => {
                     ĐÃ XUẤT HÓA ĐƠN
                   </p>
                 ) : (
-                  <ButtonGreen text="XUẤT HÓA ĐƠN" func="" />
+                  <ButtonGreen text="XUẤT HÓA ĐƠN" func={() => createInvoice( sdt, currentRecords[0].SOTT, MANV)} />
                 )}
               </div>
             ) : null}
