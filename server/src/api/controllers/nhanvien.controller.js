@@ -12,10 +12,7 @@ const nhanVienController = {
       const sp = 'SP_GETLICHRANHNS_NV';
       
       const result = await pool.executeSP(sp, params);
-      const lichNS = {
-        lichHen: groupLich(result[0]),
-        lichRanh: groupLich(result[1]),
-      };
+      const lichNS = [...groupLich(result[0]), ...groupLich(result[1])];
       return res.status(200).json(lichNS);
     } catch (error) {
       console.error('An error occurred:', error.message);
