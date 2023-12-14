@@ -114,12 +114,10 @@ const OneWorkSchedule = ({ data }) => {
       {
         key: '1',
         label: 'Mã NS: ' + mans,
-        disabled: true,
       },
       {
         key: '2',
         label: 'STT lịch rảnh: ' + sott,
-        disabled: true,
       },
     ];
   };
