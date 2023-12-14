@@ -953,116 +953,28 @@ const lichhen4 = [
 
 const lichhen5 = [
 {
-  "NGAY": "11/12/2023",
+  "NGAY": "14/12/2023",
   "CA": [
-      {
-          "MACA": "CA002",
-          "GIOBATDAU": "18:00:00",
-          "GIOKETTHUC": "20:00:00",
-          "NHASI": [
-              {
-                  "MANS": "NS0001",
-                  "HOTENNS": "Lê Văn Hòa",
-                  "SODTKH": "0323456789",
-                  "HOTENKH": "Lê Thị Thu Hà",
-                  "SOTTLH": 1,
-                  "LYDOKHAM": "Đau rát răng và nướu: Tôi đã cảm thấy đau rát và sưng nướu ở chiếc răng ở phía dưới bên trái trong vài ngày qua. Đau đớn khi chải răng và ăn."
-              },
-              {
-                  "MANS": "NS0010",
-                  "HOTENNS": "Vũ Hoàng Anh",
-                  "SODTKH": "0378236541",
-                  "HOTENKH": "Vũ Thị Hồng Loan",
-                  "SOTTLH": 1,
-                  "LYDOKHAM": "Răng của tôi lệch và tôi muốn tư vấn về cách chỉnh nha."
-              }
-          ]
-      },
-      {
-          "MACA": "CA003",
-          "GIOBATDAU": "20:00:00",
-          "GIOKETTHUC": "22:00:00",
-          "NHASI": [
-              {
-                  "MANS": "NS0001",
-                  "HOTENNS": "Lê Văn Hòa",
-                  "SODTKH": "0345678901",
-                  "HOTENKH": "Lê Minh Hoàng",
-                  "SOTTLH": 2,
-                  "LYDOKHAM": "Nhổ răng khôn"
-              },
-              {
-                  "MANS": "NS0007",
-                  "HOTENNS": "Phạm Thị Minh Trang",
-                  "SOTTLH": 1,
-                  "SODTKH": null
-              }
-          ]
-      },
-      {
-          "MACA": "CA005",
-          "GIOBATDAU": "00:00:00",
-          "GIOKETTHUC": "02:00:00",
-          "NHASI": [
-              {
-                  "MANS": "NS0002",
-                  "HOTENNS": "Phạm Xuân Thanh",
-                  "SODTKH": "0712345678",
-                  "HOTENKH": "Ngô Đình Quân",
-                  "SOTTLH": 1,
-                  "LYDOKHAM": "Tôi nhận thấy có một vết đen trên chiếc răng cửa sau bên trái và nghi ngờ răng bị hỏng. Tôi muốn làm sạch và lấy mảng cặn."
-              },
-              {
-                  "MANS": "NS0006",
-                  "HOTENNS": "Hoàng Thị Ngọc Anh",
-                  "SODTKH": "0387654321",
-                  "HOTENKH": "Dương Văn Quyền",
-                  "SOTTLH": 1,
-                  "LYDOKHAM": "Người thân tôi nói rằng tôi kêu răng khi ngủ, và tôi muốn kiểm tra xem có vấn đề gì về nha khoa gây ra điều này."
-              }
-          ]
-      },
-      {
-          "MACA": "CA001",
-          "GIOBATDAU": "16:00:00",
-          "GIOKETTHUC": "18:00:00",
-          "NHASI": [
-              {
-                  "MANS": "NS0003",
-                  "HOTENNS": "Trần Thị Mai Loan",
-                  "SODTKH": "0987654321",
-                  "HOTENKH": "Dương Thị Thảo",
-                  "SOTTLH": 1,
-                  "LYDOKHAM": "Lợi của tôi thường bị sưng và chảy máu khi chải răng. Tôi lo lắng về tình trạng viêm nướu này và muốn tư vấn và điều trị."
-              },
-              {
-                  "MANS": "NS0004",
-                  "HOTENNS": "Trần Minh Tuấn",
-                  "SODTKH": "0301234567",
-                  "HOTENKH": "Hoàng Văn Tùng",
-                  "SOTTLH": 1,
-                  "LYDOKHAM": "Chiếc răng trước cửa đã bị nứt và tôi cảm thấy đau."
-              }
-          ]
-      },
       {
           "MACA": "CA004",
           "GIOBATDAU": "22:00:00",
           "GIOKETTHUC": "00:00:00",
           "NHASI": [
               {
-                  "MANS": "NS0003",
-                  "HOTENNS": "Trần Thị Mai Loan",
-                  "SODTKH": "0723456789",
-                  "HOTENKH": "Bùi Văn Thành",
-                  "SOTTLH": 2,
-                  "LYDOKHAM": "Răng xấu, cần được khám và tư vấn niềng răng."
+                  "MANS": "NS0009",
+                  "HOTENNS": "Đinh Quang Huy",
+                  "SODTKH": "0923456780",
+                  "HOTENKH": "Đoàn Thị Kim Ngân",
+                  "SOTTLR": 2,
+                  "LYDOKHAM": "Mất một chiếc răng mọc ở phía trên và lo lắng về việc điều này có thể ảnh hưởng đến cách nhai và nụ cười của tôi."
               },
               {
-                  "MANS": "NS0004",
-                  "HOTENNS": "Trần Minh Tuấn",
-                  "SOTTLH": 2,
-                  "SODTKH": null
+                  "MANS": "NS0005",
+                  "HOTENNS": "Nguyễn Văn Đông",
+                  "SODTKH": "0765432109",
+                  "HOTENKH": "Ngô Thị Lan Anh",
+                  "SOTTLR": 1,
+                  "LYDOKHAM": "Thay răng giả. Tôi muốn thay chiếc răng giả cũ bằng một chiếc mới để đảm bảo chúng vẫn hoạt động tốt."
               }
           ]
       },
@@ -1072,15 +984,17 @@ const lichhen5 = [
           "GIOKETTHUC": "04:00:00",
           "NHASI": [
               {
-                  "MANS": "NS0003",
-                  "HOTENNS": "Trần Thị Mai Loan",
-                  "SOTTLH": 3,
-                  "SODTKH": null
+                  "MANS": "NS0008",
+                  "HOTENNS": "Nguyễn Thị Kim Liên",
+                  "SODTKH": "0743216549",
+                  "HOTENKH": "Nguyễn Thị Bích Ngọc",
+                  "SOTTLR": 1,
+                  "LYDOKHAM": "Mặt nướu ở phía dưới răng cửa sau bên phải đã sưng lên và tôi cảm thấy đau hàm mặt khi nhai."
               },
               {
-                  "MANS": "NS0006",
-                  "HOTENNS": "Hoàng Thị Ngọc Anh",
-                  "SOTTLH": 2,
+                  "MANS": "NS0009",
+                  "HOTENNS": "Đinh Quang Huy",
+                  "SOTTLR": 3,
                   "SODTKH": null
               }
           ]
@@ -1100,13 +1014,13 @@ const lichhen5 = [
                   "HOTENNS": "Đinh Quang Huy",
                   "SODTKH": "0912345678",
                   "HOTENKH": "Võ Văn Thắng",
-                  "SOTTLH": 1,
+                  "SOTTLR": 1,
                   "LYDOKHAM": "Nghi ngờ có vết thương trong miệng. Tôi thấy có một vết thương nhỏ trên bên trong má lúp và lo lắng về tính trạng này."
               },
               {
                   "MANS": "NS0006",
                   "HOTENNS": "Hoàng Thị Ngọc Anh",
-                  "SOTTLH": 3,
+                  "SOTTLR": 3,
                   "SODTKH": null
               }
           ]
@@ -1119,105 +1033,13 @@ const lichhen5 = [
               {
                   "MANS": "NS0002",
                   "HOTENNS": "Phạm Xuân Thanh",
-                  "SOTTLH": 2,
+                  "SOTTLR": 2,
                   "SODTKH": null
               },
               {
                   "MANS": "NS0001",
                   "HOTENNS": "Lê Văn Hòa",
-                  "SOTTLH": 3,
-                  "SODTKH": null
-              }
-          ]
-      }
-  ]
-},
-{
-  "NGAY": "13/12/2023",
-  "CA": [
-      {
-          "MACA": "CA001",
-          "GIOBATDAU": "16:00:00",
-          "GIOKETTHUC": "18:00:00",
-          "NHASI": [
-              {
-                  "MANS": "NS0001",
-                  "HOTENNS": "Lê Văn Hòa",
-                  "SOTTLH": 4,
-                  "SODTKH": null
-              },
-              {
-                  "MANS": "NS0010",
-                  "HOTENNS": "Vũ Hoàng Anh",
-                  "SOTTLH": 2,
-                  "SODTKH": null
-              }
-          ]
-      },
-      {
-          "MACA": "CA005",
-          "GIOBATDAU": "00:00:00",
-          "GIOKETTHUC": "02:00:00",
-          "NHASI": [
-              {
-                  "MANS": "NS0004",
-                  "HOTENNS": "Trần Minh Tuấn",
-                  "SOTTLH": 3,
-                  "SODTKH": null
-              },
-              {
-                  "MANS": "NS0007",
-                  "HOTENNS": "Phạm Thị Minh Trang",
-                  "SOTTLH": 2,
-                  "SODTKH": null
-              }
-          ]
-      }
-  ]
-},
-{
-  "NGAY": "14/12/2023",
-  "CA": [
-      {
-          "MACA": "CA004",
-          "GIOBATDAU": "22:00:00",
-          "GIOKETTHUC": "00:00:00",
-          "NHASI": [
-              {
-                  "MANS": "NS0009",
-                  "HOTENNS": "Đinh Quang Huy",
-                  "SODTKH": "0923456780",
-                  "HOTENKH": "Đoàn Thị Kim Ngân",
-                  "SOTTLH": 2,
-                  "LYDOKHAM": "Mất một chiếc răng mọc ở phía trên và lo lắng về việc điều này có thể ảnh hưởng đến cách nhai và nụ cười của tôi."
-              },
-              {
-                  "MANS": "NS0005",
-                  "HOTENNS": "Nguyễn Văn Đông",
-                  "SODTKH": "0765432109",
-                  "HOTENKH": "Ngô Thị Lan Anh",
-                  "SOTTLH": 1,
-                  "LYDOKHAM": "Thay răng giả. Tôi muốn thay chiếc răng giả cũ bằng một chiếc mới để đảm bảo chúng vẫn hoạt động tốt."
-              }
-          ]
-      },
-      {
-          "MACA": "CA006",
-          "GIOBATDAU": "02:00:00",
-          "GIOKETTHUC": "04:00:00",
-          "NHASI": [
-              {
-                  "MANS": "NS0008",
-                  "HOTENNS": "Nguyễn Thị Kim Liên",
-                  "SODTKH": "0743216549",
-                  "HOTENKH": "Nguyễn Thị Bích Ngọc",
-                  "SOTTLH": 1,
-                  "LYDOKHAM": "Mặt nướu ở phía dưới răng cửa sau bên phải đã sưng lên và tôi cảm thấy đau hàm mặt khi nhai."
-              },
-              {
-                  "MANS": "NS0009",
-                  "HOTENNS": "Đinh Quang Huy",
-                  "SOTTLH": 3,
+                  "SOTTLR": 3,
                   "SODTKH": null
               }
           ]
@@ -1235,13 +1057,191 @@ const lichhen5 = [
               {
                   "MANS": "NS0004",
                   "HOTENNS": "Trần Minh Tuấn",
-                  "SOTTLH": 4,
+                  "SOTTLR": 4,
                   "SODTKH": null
               },
               {
                   "MANS": "NS0005",
                   "HOTENNS": "Nguyễn Văn Đông",
-                  "SOTTLH": 2,
+                  "SOTTLR": 2,
+                  "SODTKH": null
+              }
+          ]
+      }
+  ]
+},
+{
+  "NGAY": "11/12/2023",
+  "CA": [
+      {
+          "MACA": "CA002",
+          "GIOBATDAU": "18:00:00",
+          "GIOKETTHUC": "20:00:00",
+          "NHASI": [
+              {
+                  "MANS": "NS0001",
+                  "HOTENNS": "Lê Văn Hòa",
+                  "SODTKH": "0323456789",
+                  "HOTENKH": "Lê Thị Thu Hà",
+                  "SOTTLR": 1,
+                  "LYDOKHAM": "Đau rát răng và nướu: Tôi đã cảm thấy đau rát và sưng nướu ở chiếc răng ở phía dưới bên trái trong vài ngày qua. Đau đớn khi chải răng và ăn."
+              },
+              {
+                  "MANS": "NS0010",
+                  "HOTENNS": "Vũ Hoàng Anh",
+                  "SODTKH": "0378236541",
+                  "HOTENKH": "Vũ Thị Hồng Loan",
+                  "SOTTLR": 1,
+                  "LYDOKHAM": "Răng của tôi lệch và tôi muốn tư vấn về cách chỉnh nha."
+              }
+          ]
+      },
+      {
+          "MACA": "CA003",
+          "GIOBATDAU": "20:00:00",
+          "GIOKETTHUC": "22:00:00",
+          "NHASI": [
+              {
+                  "MANS": "NS0001",
+                  "HOTENNS": "Lê Văn Hòa",
+                  "SODTKH": "0345678901",
+                  "HOTENKH": "Lê Minh Hoàng",
+                  "SOTTLR": 2,
+                  "LYDOKHAM": "Nhổ răng khôn"
+              },
+              {
+                  "MANS": "NS0007",
+                  "HOTENNS": "Phạm Thị Minh Trang",
+                  "SOTTLR": 1,
+                  "SODTKH": null
+              }
+          ]
+      },
+      {
+          "MACA": "CA005",
+          "GIOBATDAU": "00:00:00",
+          "GIOKETTHUC": "02:00:00",
+          "NHASI": [
+              {
+                  "MANS": "NS0002",
+                  "HOTENNS": "Phạm Xuân Thanh",
+                  "SODTKH": "0712345678",
+                  "HOTENKH": "Ngô Đình Quân",
+                  "SOTTLR": 1,
+                  "LYDOKHAM": "Tôi nhận thấy có một vết đen trên chiếc răng cửa sau bên trái và nghi ngờ răng bị hỏng. Tôi muốn làm sạch và lấy mảng cặn."
+              },
+              {
+                  "MANS": "NS0006",
+                  "HOTENNS": "Hoàng Thị Ngọc Anh",
+                  "SODTKH": "0387654321",
+                  "HOTENKH": "Dương Văn Quyền",
+                  "SOTTLR": 1,
+                  "LYDOKHAM": "Người thân tôi nói rằng tôi kêu răng khi ngủ, và tôi muốn kiểm tra xem có vấn đề gì về nha khoa gây ra điều này."
+              }
+          ]
+      },
+      {
+          "MACA": "CA001",
+          "GIOBATDAU": "16:00:00",
+          "GIOKETTHUC": "18:00:00",
+          "NHASI": [
+              {
+                  "MANS": "NS0003",
+                  "HOTENNS": "Trần Thị Mai Loan",
+                  "SODTKH": "0987654321",
+                  "HOTENKH": "Dương Thị Thảo",
+                  "SOTTLR": 1,
+                  "LYDOKHAM": "Lợi của tôi thường bị sưng và chảy máu khi chải răng. Tôi lo lắng về tình trạng viêm nướu này và muốn tư vấn và điều trị."
+              },
+              {
+                  "MANS": "NS0004",
+                  "HOTENNS": "Trần Minh Tuấn",
+                  "SODTKH": "0301234567",
+                  "HOTENKH": "Hoàng Văn Tùng",
+                  "SOTTLR": 1,
+                  "LYDOKHAM": "Chiếc răng trước cửa đã bị nứt và tôi cảm thấy đau."
+              }
+          ]
+      },
+      {
+          "MACA": "CA004",
+          "GIOBATDAU": "22:00:00",
+          "GIOKETTHUC": "00:00:00",
+          "NHASI": [
+              {
+                  "MANS": "NS0003",
+                  "HOTENNS": "Trần Thị Mai Loan",
+                  "SODTKH": "0723456789",
+                  "HOTENKH": "Bùi Văn Thành",
+                  "SOTTLR": 2,
+                  "LYDOKHAM": "Răng xấu, cần được khám và tư vấn niềng răng."
+              },
+              {
+                  "MANS": "NS0004",
+                  "HOTENNS": "Trần Minh Tuấn",
+                  "SOTTLR": 2,
+                  "SODTKH": null
+              }
+          ]
+      },
+      {
+          "MACA": "CA006",
+          "GIOBATDAU": "02:00:00",
+          "GIOKETTHUC": "04:00:00",
+          "NHASI": [
+              {
+                  "MANS": "NS0003",
+                  "HOTENNS": "Trần Thị Mai Loan",
+                  "SOTTLR": 3,
+                  "SODTKH": null
+              },
+              {
+                  "MANS": "NS0006",
+                  "HOTENNS": "Hoàng Thị Ngọc Anh",
+                  "SOTTLR": 2,
+                  "SODTKH": null
+              }
+          ]
+      }
+  ]
+},
+{
+  "NGAY": "13/12/2023",
+  "CA": [
+      {
+          "MACA": "CA001",
+          "GIOBATDAU": "16:00:00",
+          "GIOKETTHUC": "18:00:00",
+          "NHASI": [
+              {
+                  "MANS": "NS0001",
+                  "HOTENNS": "Lê Văn Hòa",
+                  "SOTTLR": 4,
+                  "SODTKH": null
+              },
+              {
+                  "MANS": "NS0010",
+                  "HOTENNS": "Vũ Hoàng Anh",
+                  "SOTTLR": 2,
+                  "SODTKH": null
+              }
+          ]
+      },
+      {
+          "MACA": "CA005",
+          "GIOBATDAU": "00:00:00",
+          "GIOKETTHUC": "02:00:00",
+          "NHASI": [
+              {
+                  "MANS": "NS0004",
+                  "HOTENNS": "Trần Minh Tuấn",
+                  "SOTTLR": 3,
+                  "SODTKH": null
+              },
+              {
+                  "MANS": "NS0007",
+                  "HOTENNS": "Phạm Thị Minh Trang",
+                  "SOTTLR": 2,
                   "SODTKH": null
               }
           ]
@@ -1259,12 +1259,12 @@ const lichhen5 = [
               {
                   "MANS": "NS0005",
                   "HOTENNS": "Nguyễn Văn Đông",
-                  "SOTTLH": 5
+                  "SOTTLR": 5
               },
               {
                   "MANS": "NS0003",
                   "HOTENNS": "Trần Thị Mai Loan",
-                  "SOTTLH": 5
+                  "SOTTLR": 5
               }
           ]
       },
@@ -1276,12 +1276,12 @@ const lichhen5 = [
               {
                   "MANS": "NS0010",
                   "HOTENNS": "Vũ Hoàng Anh",
-                  "SOTTLH": 6
+                  "SOTTLR": 6
               },
               {
                   "MANS": "NS0007",
                   "HOTENNS": "Phạm Thị Minh Trang",
-                  "SOTTLH": 6
+                  "SOTTLR": 6
               }
           ]
       }
