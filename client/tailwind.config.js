@@ -55,6 +55,9 @@ export default {
       padding: {
         '2': '0.5rem',
       },
+      borderWidth: {
+        '2.4': '2.4px',
+      },
     },
   },
   plugins: [],
