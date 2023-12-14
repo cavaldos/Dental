@@ -1,7 +1,6 @@
 import express from "express";
 import qtvController from "../controllers/qtv.controller.js";
 import authMiddleware from "../middleware/auth.js";
-
 const router = express.Router();
 
 router.get("/getAllNhanVien",

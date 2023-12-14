@@ -354,7 +354,7 @@ const QuanLiNV = () => {
   const state = useSelector((state) => state.stateData.value);
   useEffect(() => {
     AdminService.getAllNhanVien().then((res) => {
-      setNhanvien(res || nhanviens);
+      setNhanvien(res);
     });
   }, [state]);
   return (

@@ -5,15 +5,27 @@ import { Form, Input, Button, message } from "antd";
 import OnlineService from "~/services/online";
 import { useState } from "react";
 import useCookie from "~/hooks/useCookie";
+import Hash from "~/hooks/Hash";
+
 const SignInPage = () => {
   const [cookie, setCookie] = useCookie("token", "");
+  const [password, setPassword] = useCookie("password", "");
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const hashPassword = new Hash(1);
 
   const onFinish = async (values) => {
-    await OnlineService.dangnhap(values).then((res) => {
+    console.log("Success:", values);
+
+    await OnlineService.dangnhap({
+      matk: "QTV0001", //values.matk,
+      matkhau: "21126054", // values.matkhau,
+    }).then((res) => {
       console.log(res);
       setCookie(res.accessToken);
+      const encodedpass = hashPassword.encode(values.matkhau);
+      setPassword(values.matkhau);
+
       dispatch(
         setRole({
           ...res.info,
@@ -46,7 +58,6 @@ const SignInPage = () => {
           >
             <Input.Password />
           </Form.Item>
-
           <Form.Item>
             <button
               htmlFor="submit"
