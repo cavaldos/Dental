@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 
 const Account = () => {
   const user = useSelector((state) => state.user);
+  console.log(user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -50,7 +51,7 @@ const Account = () => {
               icon={<UserOutlined />}
             />
           </Dropdown>
-          <h1 className="">Nguyen N Khanh</h1>
+          <h1 className="">{user.HOTEN}</h1>
         </Space>
       </div>
     </>

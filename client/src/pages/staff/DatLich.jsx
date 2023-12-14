@@ -1,10 +1,37 @@
-import { lichhen2 } from "../../fakedata/lhnv";
+import { lichhen5 } from "../../fakedata/lhnv";
+import ns from "~/fakedata/nhasi";
+import '../../assets/styles/staff.css'
 
-import React from "react";
-import { Form, Input, Button } from "antd";
+import React, { useState } from "react";
+import { Form, Input, Button, Select, InputNumber, Badge, Dropdown, Pagination } from "antd";
+import { ButtonGreen } from "../../components/button";
+const { Item } = Form;
+
+const NhaSi = ({ mans, tenns }) => {
+  return (
+    <>
+      <div className="flex w-[440px]  gap-6 ">
+        <Input className=" w-[300px]" value={mans} disabled />
+        <Input className="w-[130px]" value={tenns} disabled />
+      </div>
+    </>
+  );
+};
 
 const TaoLichHen = () => {
   const [form] = Form.useForm();
+  const [nhaSiList, setNhaSiList] = useState(ns);
+  const [chonNhaSi, setChonNhaSi] = useState("");
+
+  const inputNhaSi = () => {
+    const tenNS = nhaSiList.find((item) => item.MANS === MANS).HOTEN;
+    const newData = {
+      MANS,
+      HOTEN: tenNS,
+    };
+    setChonNhaSi([...chonNhaSi, newData]);
+    form.resetFields();
+  };
 
   const onFinish = (values) => {
     console.log("Submitted values:", values);
@@ -15,22 +42,28 @@ const TaoLichHen = () => {
   };
 
   return (
-    <div className="bg-[#FFFEFE] w-[650px] h-[600px] rounded-lg p-5">
-      <h1 className="text-2xl mb-4">Tạo lịch hẹn</h1>
+    <div className="bg-[#FFFFFF] w-[550px] h-fit rounded-2xl pt-8 pb-0 px-10">
+      <h1 className="text-xl mb-3 font-montserrat font-black">TẠO LỊCH HẸN</h1>
       <Form
         name="appointmentForm"
         form={form}
         onFinish={onFinish}
         labelCol={{ span: 24 }}
       >
-        <Form.Item
-          name="dentist"
-          label="Nha sĩ"
-          rules={[{ required: true, message: "Vui lòng nhập Nha sĩ!" }]}
-          wrapperCol={{ span: 24 }}
+        <Item name="dentist"
+              label="Nha sĩ"
+              rules={[{ required: true, message: "Vui lòng nhập Nha sĩ!" }]}
+              wrapperCol={{ span: 24 }}
         >
-          <Input />
-        </Form.Item>
+              <Select
+                className="w-72"
+                placeholder="Chọn một nha sĩ."
+                options={nhaSiList.map((item) => ({
+                  value: item.MANS,
+                  label: item.HOTEN,
+                }))}
+              />
+            </Item>
         <Form.Item
           name="appointmentNumber"
           label="Số thứ tự lịch hẹn"
@@ -39,7 +72,7 @@ const TaoLichHen = () => {
           ]}
           wrapperCol={{ span: 24 }}
         >
-          <Input />
+          <InputNumber placeholder="Số thứ tự lịch rảnh của nha sĩ." />
         </Form.Item>
         <Form.Item
           name="phoneNumber"
@@ -47,7 +80,7 @@ const TaoLichHen = () => {
           rules={[{ required: true, message: "Vui lòng nhập số điện thoại !" }]}
           wrapperCol={{ span: 24 }}
         >
-          <Input />
+          <Input placeholder="Nhập số điện thoại khách hàng." />
         </Form.Item>
         <Form.Item
           name="reason"
@@ -55,54 +88,168 @@ const TaoLichHen = () => {
           rules={[{ required: true, message: "Vui lòng nhập lý do khám!" }]}
           wrapperCol={{ span: 24 }}
         >
-          <Input.TextArea rows={4} />
+          <Input.TextArea minLength={10} maxLength={200} rows={4}
+                          placeholder="Mô tả tình trạng hiện tại và lý do khám." />
         </Form.Item>
-        <Form.Item wrapperCol={{ span: 24 }}>
-          <Button className="bg-green-600 " type="primary" htmlType="submit">
-            Tạo
+        <Form.Item 
+            style={{ display: "flex", justifyContent: "flex-end" }}>
+          <Button
+            onClick={handleCancel}
+            style={{ marginRight: 10, marginTop: 10 }}
+            type="danger"
+          >
+            ĐẶT LẠI
           </Button>
-          <Button className="ml-3" onClick={handleCancel}>
-            Hủy
-          </Button>
+          <ButtonGreen text="TẠO" func="" />
         </Form.Item>
       </Form>
     </div>
   );
 };
 
-const ListLichhen = () => {
+
+const OneWorkSchedule = ({ data }) => {
+  const detail = ({ mans, sott }) => {
+    return [
+      {
+        key: '1',
+        label: 'Mã NS: ' + mans,
+      },
+      {
+        key: '2',
+        label: 'STT lịch rảnh: ' + sott,
+      },
+    ];
+  };
+
   return (
     <>
-      <div className=" ">
-        <h1 className="text-blue-600">CA1 | 9:00 - 11:00</h1>
-        <div className=" border border-gray-400 ">sdfdsf</div>
-        <div className=" border border-gray-400 ">sdfdsf</div>
-        <div className=" border border-gray-400	">sdfdsf</div>
-      </div>
+      {data.SODTKH !== null ? (
+      <Badge.Ribbon text="Bận" color="#ACACAC">
+        <div className="border-2.4 border-[#b8b8b8] rounded-md h-[40px] flex items-center p-3" >
+        <Dropdown
+          menu={{
+            items: detail({ mans: data.MANS, sott: data.SOTTLH }),
+          }}
+        >
+          <div className="font-montserrat font-semibold text-base text-[#acacac]">NS. 
+            <span>
+              {data.HOTENNS}
+            </span>
+          </div>
+          </Dropdown>
+        </div>
+        </Badge.Ribbon>
+      ) : (
+        <Badge.Ribbon text="Rảnh" color="blue">
+        <div className="border-2.4 border-[#b8b8b8] rounded-md h-[40px] flex items-center p-3" >
+          <Dropdown
+            menu={{
+              items: detail({ mans: data.MANS, sott: data.SOTTLH }),
+            }}
+          >
+          <div className="font-montserrat font-semibold text-base">NS. 
+            <span>
+              {data.HOTENNS}
+            </span>
+          </div>
+          </Dropdown>
+        </div>
+        </Badge.Ribbon>
+      )}
     </>
   );
 };
-const XemLichTruc = () => {
+
+const TitleSchedule = ({ maca }) => {
+  let caContent = null;
+
+  switch (maca) {
+    case "CA001":
+      caContent = <span>CA 1 | 9:00 - 11:00</span>;
+      break;
+    case "CA002":
+      caContent = <span>CA 2 | 11:00 - 13:00</span>;
+      break;
+    case "CA003":
+      caContent = <span>CA 3 | 13:00 - 15:00</span>;
+      break;
+    case "CA004":
+      caContent = <span>CA 4 | 15:00 - 17:00</span>;
+      break;
+    case "CA005":
+      caContent = <span>CA 5 | 17:00 - 19:00</span>;
+      break;
+    case "CA006":
+      caContent = <span>CA 6 | 19:00 - 21:00</span>;
+      break;
+  };
+
+  return caContent;
+};
+
+const ListLichhen = ({ data }) => {
   return (
-    <>
-      <div className="bg-[#FFFEFE] w-[400px] rounded-lg">
-        <h1>Lich Truc Ngay</h1>
-        <div className=" mx-4  rounded-none p-2 flex flex-col gap-6 ">
-          <ListLichhen />
-          <ListLichhen />
-          <ListLichhen />
+    <div className="gap-0">
+      <h1 className="text-montserrat text-blue font-bold text-base pb-1">
+        <TitleSchedule maca={data.MACA} />
+      </h1>
+      <OneWorkSchedule data={data.NHASI[0]} />
+      <OneWorkSchedule data={data.NHASI[1]} />
+    </div>
+  );
+};
+
+const XemLichTruc = ( schedule ) => {
+
+  // ---------------------------------------
+  // Phân trang
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 1;
+
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const currentSchedule = (schedule.schedule).slice(startIndex, startIndex + itemsPerPage);
+
+  const onChange = (page) => {
+    setCurrentPage(page);
+  };
+
+  // ---------------------------------------
+  // Hàm sort Mã Ca
+  const sortByMACA = (a, b) => {
+    return a.MACA.localeCompare(b.MACA);
+  };
+  currentSchedule[0].CA.sort(sortByMACA);
+
+  return (
+    <div className="w-[480px]">
+      <div className="bg-[#FFFFFF] w-[480px] rounded-2xl py-8 px-10">
+        <h1 className="text-xl mb-4 font-montserrat font-black">LỊCH TRỰC NGÀY {currentSchedule[0].NGAY}</h1>
+        <div className="rounded-none flex flex-col gap-6">
+          {currentSchedule[0].CA.map((item, index) => (
+            <ListLichhen data={item} key={index} />
+          ))}
         </div>
       </div>
-    </>
+      <div className="flex justify-center mt-4">
+        <Pagination
+          simple
+          current={currentPage}
+          onChange={onChange}
+          total={schedule.schedule.length}
+          pageSize={itemsPerPage}
+        />
+    </div>
+    </div>
   );
 };
 
 const DatLich = () => {
   return (
     <>
-      <div className="  min-h-[700px] flex gap-10 justify-center">
+      <div className="  min-h-[700px] flex gap-6 justify-center">
         <TaoLichHen />
-        <XemLichTruc />
+        <XemLichTruc schedule={lichhen5} />
       </div>
     </>
   );

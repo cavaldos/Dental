@@ -6,16 +6,16 @@ import QtvRoutes from "./qtv.route.js";
 import authMiddleware from "../middleware/auth.js";
 
 const routers = (app) => {
-  app.use(
+  app.get(
     "/checklogin",
      authMiddleware.authenticateToken,
     (req, res) => {
-      res.json({ message: "OKdfgsdfgfdg" });
+      res.json({ message: "ok" });
     }
   );
   app.use(
     "/qtv",
-    // authMiddleware.authenticateToken,
+    authMiddleware.authenticateToken,
     // authMiddleware.protected("QTV"),
     QtvRoutes
   );

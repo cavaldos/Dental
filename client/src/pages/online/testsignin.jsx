@@ -1,40 +1,32 @@
-import { setRole, deleteRole } from "~/redux/features/userSlice";
+import { setRole, updateUserInfo } from "~/redux/features/userSlice";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Form, Input, Button, message } from "antd";
 import OnlineService from "~/services/online";
-import { useState } from "react";
-import useCookie from "~/hooks/useCookie";
-import Hash from "~/hooks/Hash";
 
+import useCookie from "~/hooks/useCookie";
 const SignInPage = () => {
   const [cookie, setCookie] = useCookie("token", "");
   const [password, setPassword] = useCookie("password", "");
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const hashPassword = new Hash(1);
 
   const onFinish = async (values) => {
-    console.log("Success:", values);
-
     await OnlineService.dangnhap({
-      matk: "QTV0001", //values.matk,
-      matkhau: "21126054", // values.matkhau,
-    }).then((res) => {
-      console.log(res);
-      setCookie(res.accessToken);
-      const encodedpass = hashPassword.encode(values.matkhau);
-      setPassword(values.matkhau);
-
-      dispatch(
-        setRole({
-          ...res.info,
-          ROLE: res.info.ROLE,
-        })
-      );
-    });
+      matk: values.matk, //"QTV0001"
+      matkhau: values.matkhau, //"21126054",
+    })
+      .then((res) => {
+        setCookie(res.accessToken);
+        setPassword(values.matkhau);
+        dispatch(setRole(res.info.ROLE));
+        dispatch(updateUserInfo(res.info));
+        navigate("/");
+      })
+      .catch((err) => {
+        message.error("Sai tài khoản hoặc mật khẩu");
+      });
   };
-
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
   };

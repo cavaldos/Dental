@@ -1,8 +1,8 @@
 import Axios from "../Axios";
 
 const OnlineService = {
-  checkLogin: async (data) => {
-    const res = await Axios.post("/online/dangnhap", data);
+  checkLogin: async () => {
+    const res = await Axios.get("/checklogin");
     return res;
   },
   taoTKKH: async (data) => {

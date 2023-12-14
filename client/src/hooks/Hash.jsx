@@ -1,6 +1,6 @@
 class Hash {
-  constructor(id) {
-    this.id = id;
+  constructor() {
+    this.id = 1;
   }
 
   encode(str) {
