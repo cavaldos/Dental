@@ -3,7 +3,7 @@ import ns from "~/fakedata/nhasi";
 import '../../assets/styles/staff.css'
 
 import React, { useState } from "react";
-import { Form, Input, Button, Select, InputNumber, Badge, Dropdown } from "antd";
+import { Form, Input, Button, Select, InputNumber, Badge, Dropdown, Pagination } from "antd";
 import { ButtonGreen } from "../../components/button";
 const { Item } = Form;
 
@@ -43,7 +43,7 @@ const TaoLichHen = () => {
 
   return (
     <div className="bg-[#FFFFFF] w-[550px] h-fit rounded-2xl pt-8 pb-0 px-10">
-      <h1 className="text-2xl mb-4 font-montserrat font-black">TẠO LỊCH HẸN</h1>
+      <h1 className="text-xl mb-3 font-montserrat font-black">TẠO LỊCH HẸN</h1>
       <Form
         name="appointmentForm"
         form={form}
@@ -126,17 +126,17 @@ const OneWorkSchedule = ({ data }) => {
 
   return (
     <>
-      {data.SODT !== null ? (
+      {data.SODTKH !== null ? (
       <Badge.Ribbon text="Bận" color="#ACACAC">
         <div className="border-2.4 border-[#b8b8b8] rounded-md h-[40px] flex items-center p-3" >
         <Dropdown
           menu={{
-            items: detail({ mans: data.MANS, sott: data.SOTT }),
+            items: detail({ mans: data.MANS, sott: data.SOTTLH }),
           }}
         >
           <div className="font-montserrat font-semibold text-base text-[#acacac]">NS. 
             <span>
-              {data.HOTEN}
+              {data.HOTENNS}
             </span>
           </div>
           </Dropdown>
@@ -147,12 +147,12 @@ const OneWorkSchedule = ({ data }) => {
         <div className="border-2.4 border-[#b8b8b8] rounded-md h-[40px] flex items-center p-3" >
           <Dropdown
             menu={{
-              items: detail({ mans: data.MANS, sott: data.SOTT }),
+              items: detail({ mans: data.MANS, sott: data.SOTTLH }),
             }}
           >
           <div className="font-montserrat font-semibold text-base">NS. 
             <span>
-              {data.HOTEN}
+              {data.HOTENNS}
             </span>
           </div>
           </Dropdown>
@@ -190,194 +190,59 @@ const TitleSchedule = ({ maca }) => {
   return caContent;
 };
 
-const ListLichhen = () => {
-  const data1 = 
-  {
-    "MACA": "CA002",
-    "NHASI": [
-      {
-        "MANS": "NS0001",
-        "HOTEN": "Lê Văn Hòa",
-        "SOTT": 1,
-        "GIOBATDAU": "1970-01-01T11:00:00.000Z",
-        "GIOKETTHUC": "1970-01-01T13:00:00.000Z",
-        "SODT": "0323456789",
-        "LYDOKHAM": "Người thân tôi nói rằng tôi kêu răng khi ngủ, và tôi muốn kiểm tra xem có vấn đề gì về nha khoa gây ra điều này\n."
-      },
-      {
-        "MANS": "NS0004",
-        "HOTEN": "Trần Thị Mai Loan",
-        "SOTT": 5,
-        "GIOBATDAU": "1970-01-01T19:00:00.000Z",
-        "GIOKETTHUC": "1970-01-01T21:00:00.000Z",
-        "SODT": null
-      }
-    ]
-  }; 
-
+const ListLichhen = ({ data }) => {
   return (
     <div className="gap-0">
       <h1 className="text-montserrat text-blue font-bold text-base pb-1">
-        <TitleSchedule maca={data1.MACA} />
+        <TitleSchedule maca={data.MACA} />
       </h1>
-      <OneWorkSchedule data={data1.NHASI[0]} />
-      <OneWorkSchedule data={data1.NHASI[1]} />
+      <OneWorkSchedule data={data.NHASI[0]} />
+      <OneWorkSchedule data={data.NHASI[1]} />
     </div>
   );
 };
 
 const XemLichTruc = ( schedule ) => {
-  const temp = 
-  {
-    "NGAY": "11/12/2023",
-    "CA": [
-        {
-            "MACA": "CA002",
-            "GIOBATDAU": "18:00:00",
-            "GIOKETTHUC": "20:00:00",
-            "NHASI": [
-                {
-                    "MANS": "NS0001",
-                    "HOTENNS": "Lê Văn Hòa",
-                    "SODTKH": "0323456789",
-                    "HOTENKH": "Lê Thị Thu Hà",
-                    "SOTTLH": 1,
-                    "LYDOKHAM": "Đau rát răng và nướu: Tôi đã cảm thấy đau rát và sưng nướu ở chiếc răng ở phía dưới bên trái trong vài ngày qua. Đau đớn khi chải răng và ăn."
-                },
-                {
-                    "MANS": "NS0010",
-                    "HOTENNS": "Vũ Hoàng Anh",
-                    "SODTKH": "0378236541",
-                    "HOTENKH": "Vũ Thị Hồng Loan",
-                    "SOTTLH": 1,
-                    "LYDOKHAM": "Răng của tôi lệch và tôi muốn tư vấn về cách chỉnh nha."
-                }
-            ]
-        },
-        {
-            "MACA": "CA003",
-            "GIOBATDAU": "20:00:00",
-            "GIOKETTHUC": "22:00:00",
-            "NHASI": [
-                {
-                    "MANS": "NS0001",
-                    "HOTENNS": "Lê Văn Hòa",
-                    "SODTKH": "0345678901",
-                    "HOTENKH": "Lê Minh Hoàng",
-                    "SOTTLH": 2,
-                    "LYDOKHAM": "Nhổ răng khôn"
-                },
-                {
-                    "MANS": "NS0007",
-                    "HOTENNS": "Phạm Thị Minh Trang",
-                    "SOTTLR": 1,
-                    "SODTKH": null
-                }
-            ]
-        },
-        {
-            "MACA": "CA005",
-            "GIOBATDAU": "00:00:00",
-            "GIOKETTHUC": "02:00:00",
-            "NHASI": [
-                {
-                    "MANS": "NS0002",
-                    "HOTENNS": "Phạm Xuân Thanh",
-                    "SODTKH": "0712345678",
-                    "HOTENKH": "Ngô Đình Quân",
-                    "SOTTLH": 1,
-                    "LYDOKHAM": "Tôi nhận thấy có một vết đen trên chiếc răng cửa sau bên trái và nghi ngờ răng bị hỏng. Tôi muốn làm sạch và lấy mảng cặn."
-                },
-                {
-                    "MANS": "NS0006",
-                    "HOTENNS": "Hoàng Thị Ngọc Anh",
-                    "SODTKH": "0387654321",
-                    "HOTENKH": "Dương Văn Quyền",
-                    "SOTTLH": 1,
-                    "LYDOKHAM": "Người thân tôi nói rằng tôi kêu răng khi ngủ, và tôi muốn kiểm tra xem có vấn đề gì về nha khoa gây ra điều này."
-                }
-            ]
-        },
-        {
-            "MACA": "CA001",
-            "GIOBATDAU": "16:00:00",
-            "GIOKETTHUC": "18:00:00",
-            "NHASI": [
-                {
-                    "MANS": "NS0003",
-                    "HOTENNS": "Trần Thị Mai Loan",
-                    "SODTKH": "0987654321",
-                    "HOTENKH": "Dương Thị Thảo",
-                    "SOTTLH": 1,
-                    "LYDOKHAM": "Lợi của tôi thường bị sưng và chảy máu khi chải răng. Tôi lo lắng về tình trạng viêm nướu này và muốn tư vấn và điều trị."
-                },
-                {
-                    "MANS": "NS0004",
-                    "HOTENNS": "Trần Minh Tuấn",
-                    "SODTKH": "0301234567",
-                    "HOTENKH": "Hoàng Văn Tùng",
-                    "SOTTLH": 1,
-                    "LYDOKHAM": "Chiếc răng trước cửa đã bị nứt và tôi cảm thấy đau."
-                }
-            ]
-        },
-        {
-            "MACA": "CA004",
-            "GIOBATDAU": "22:00:00",
-            "GIOKETTHUC": "00:00:00",
-            "NHASI": [
-                {
-                    "MANS": "NS0003",
-                    "HOTENNS": "Trần Thị Mai Loan",
-                    "SODTKH": "0723456789",
-                    "HOTENKH": "Bùi Văn Thành",
-                    "SOTTLH": 2,
-                    "LYDOKHAM": "Răng xấu, cần được khám và tư vấn niềng răng."
-                },
-                {
-                    "MANS": "NS0004",
-                    "HOTENNS": "Trần Minh Tuấn",
-                    "SOTTLR": 2,
-                    "SODTKH": null
-                }
-            ]
-        },
-        {
-            "MACA": "CA006",
-            "GIOBATDAU": "02:00:00",
-            "GIOKETTHUC": "04:00:00",
-            "NHASI": [
-                {
-                    "MANS": "NS0003",
-                    "HOTENNS": "Trần Thị Mai Loan",
-                    "SOTTLR": 3,
-                    "SODTKH": null
-                },
-                {
-                    "MANS": "NS0006",
-                    "HOTENNS": "Hoàng Thị Ngọc Anh",
-                    "SOTTLR": 2,
-                    "SODTKH": null
-                }
-            ]
-        }
-    ]
+
+  // ---------------------------------------
+  // Phân trang
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 1;
+
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const currentSchedule = (schedule.schedule).slice(startIndex, startIndex + itemsPerPage);
+
+  const onChange = (page) => {
+    setCurrentPage(page);
   };
 
+  // ---------------------------------------
+  // Hàm sort Mã Ca
+  const sortByMACA = (a, b) => {
+    return a.MACA.localeCompare(b.MACA);
+  };
+  currentSchedule[0].CA.sort(sortByMACA);
+
   return (
-    <>
-      <div className="bg-[#FFFFFF] w-[460px] rounded-2xl py-8 px-10">
-        <h1 className="text-2xl mb-5 font-montserrat font-black">LỊCH TRỰC</h1>
+    <div className="w-[480px]">
+      <div className="bg-[#FFFFFF] w-[480px] rounded-2xl py-8 px-10">
+        <h1 className="text-xl mb-4 font-montserrat font-black">LỊCH TRỰC NGÀY {currentSchedule[0].NGAY}</h1>
         <div className="rounded-none flex flex-col gap-6">
-          <ListLichhen />
-          <ListLichhen />
-          <ListLichhen />
-          <ListLichhen />
-          <ListLichhen />
-          <ListLichhen />
+          {currentSchedule[0].CA.map((item, index) => (
+            <ListLichhen data={item} key={index} />
+          ))}
         </div>
       </div>
-    </>
+      <div className="flex justify-center mt-4">
+        <Pagination
+          simple
+          current={currentPage}
+          onChange={onChange}
+          total={schedule.schedule.length}
+          pageSize={itemsPerPage}
+        />
+    </div>
+    </div>
   );
 };
 

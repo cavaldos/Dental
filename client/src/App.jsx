@@ -21,15 +21,15 @@ function App() {
   const VerifyRoure = () => {
     switch (user.ROLE) {
       case "admin":
-        return AdminRouter;
+        return StaffRouter;
       case "guest":
-        return GuestRouter;
+        return StaffRouter;
       case "staff":
         return StaffRouter;
       case "dentist":
-        return DentistRouter;
+        return StaffRouter;
       default:
-        return OnlineRouter;
+        return StaffRouter;
     }
   };
 

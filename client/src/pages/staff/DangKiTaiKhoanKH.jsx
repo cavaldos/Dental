@@ -32,7 +32,7 @@ const DangKiTaiKhoanKhachHang = () => {
   
   return (
     <div
-      className="bg-white p-10 mx-10 sm:px-15 md:px-25 lg:px-40"
+      className="bg-white w-[1000px] h-fit p-10 mx-10 sm:px-15 md:px-25 lg:px-40 pb-0"
       style={{
         borderRadius: "27px",
         boxShadow: "0px 3.111px 3.111px 0px rgba(0, 0, 0, 0.10)",
@@ -42,8 +42,6 @@ const DangKiTaiKhoanKhachHang = () => {
         {...layout}
         name="nest-messages"
         onFinish={onFinish}
-        style={{maxWidth:"95%"}}
-        // initialValues={initialValues}
       >
         <Form.Item
           name="SODT"

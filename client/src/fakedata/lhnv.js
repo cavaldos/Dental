@@ -951,7 +951,7 @@ const lichhen4 = [
   },
 ];
 
-const lichhen5 = (
+const lichhen5 = [
 {
   "NGAY": "11/12/2023",
   "CA": [
@@ -994,7 +994,7 @@ const lichhen5 = (
               {
                   "MANS": "NS0007",
                   "HOTENNS": "Phạm Thị Minh Trang",
-                  "SOTTLR": 1,
+                  "SOTTLH": 1,
                   "SODTKH": null
               }
           ]
@@ -1061,7 +1061,7 @@ const lichhen5 = (
               {
                   "MANS": "NS0004",
                   "HOTENNS": "Trần Minh Tuấn",
-                  "SOTTLR": 2,
+                  "SOTTLH": 2,
                   "SODTKH": null
               }
           ]
@@ -1074,13 +1074,13 @@ const lichhen5 = (
               {
                   "MANS": "NS0003",
                   "HOTENNS": "Trần Thị Mai Loan",
-                  "SOTTLR": 3,
+                  "SOTTLH": 3,
                   "SODTKH": null
               },
               {
                   "MANS": "NS0006",
                   "HOTENNS": "Hoàng Thị Ngọc Anh",
-                  "SOTTLR": 2,
+                  "SOTTLH": 2,
                   "SODTKH": null
               }
           ]
@@ -1106,7 +1106,7 @@ const lichhen5 = (
               {
                   "MANS": "NS0006",
                   "HOTENNS": "Hoàng Thị Ngọc Anh",
-                  "SOTTLR": 3,
+                  "SOTTLH": 3,
                   "SODTKH": null
               }
           ]
@@ -1119,13 +1119,13 @@ const lichhen5 = (
               {
                   "MANS": "NS0002",
                   "HOTENNS": "Phạm Xuân Thanh",
-                  "SOTTLR": 2,
+                  "SOTTLH": 2,
                   "SODTKH": null
               },
               {
                   "MANS": "NS0001",
                   "HOTENNS": "Lê Văn Hòa",
-                  "SOTTLR": 3,
+                  "SOTTLH": 3,
                   "SODTKH": null
               }
           ]
@@ -1143,13 +1143,13 @@ const lichhen5 = (
               {
                   "MANS": "NS0001",
                   "HOTENNS": "Lê Văn Hòa",
-                  "SOTTLR": 4,
+                  "SOTTLH": 4,
                   "SODTKH": null
               },
               {
                   "MANS": "NS0010",
                   "HOTENNS": "Vũ Hoàng Anh",
-                  "SOTTLR": 2,
+                  "SOTTLH": 2,
                   "SODTKH": null
               }
           ]
@@ -1162,13 +1162,13 @@ const lichhen5 = (
               {
                   "MANS": "NS0004",
                   "HOTENNS": "Trần Minh Tuấn",
-                  "SOTTLR": 3,
+                  "SOTTLH": 3,
                   "SODTKH": null
               },
               {
                   "MANS": "NS0007",
                   "HOTENNS": "Phạm Thị Minh Trang",
-                  "SOTTLR": 2,
+                  "SOTTLH": 2,
                   "SODTKH": null
               }
           ]
@@ -1217,7 +1217,7 @@ const lichhen5 = (
               {
                   "MANS": "NS0009",
                   "HOTENNS": "Đinh Quang Huy",
-                  "SOTTLR": 3,
+                  "SOTTLH": 3,
                   "SODTKH": null
               }
           ]
@@ -1235,13 +1235,13 @@ const lichhen5 = (
               {
                   "MANS": "NS0004",
                   "HOTENNS": "Trần Minh Tuấn",
-                  "SOTTLR": 4,
+                  "SOTTLH": 4,
                   "SODTKH": null
               },
               {
                   "MANS": "NS0005",
                   "HOTENNS": "Nguyễn Văn Đông",
-                  "SOTTLR": 2,
+                  "SOTTLH": 2,
                   "SODTKH": null
               }
           ]
@@ -1259,12 +1259,12 @@ const lichhen5 = (
               {
                   "MANS": "NS0005",
                   "HOTENNS": "Nguyễn Văn Đông",
-                  "SOTTLR": 5
+                  "SOTTLH": 5
               },
               {
                   "MANS": "NS0003",
                   "HOTENNS": "Trần Thị Mai Loan",
-                  "SOTTLR": 5
+                  "SOTTLH": 5
               }
           ]
       },
@@ -1276,18 +1276,16 @@ const lichhen5 = (
               {
                   "MANS": "NS0010",
                   "HOTENNS": "Vũ Hoàng Anh",
-                  "SOTTLR": 6
+                  "SOTTLH": 6
               },
               {
                   "MANS": "NS0007",
                   "HOTENNS": "Phạm Thị Minh Trang",
-                  "SOTTLR": 6
+                  "SOTTLH": 6
               }
           ]
       }
   ]
-})
-
-  
+}];
 
 export { lichhen, lichhen2, lichhen3, lichhen4, lichhen5 };
