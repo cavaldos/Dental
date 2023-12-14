@@ -15,8 +15,8 @@ router.get("/loaiDV/:madv",khachHangController.xemDV);
 router.get("/lichHen",khachHangController.xemLichHen);
 router.post("/lichHen",khachHangController.taoLichHen);
 router.get("/benhAn",khachHangController.xemBenhAn);
-router.delete("/lichHen",khachHangController.deleteLichHen);
-router.put("/",khachHangController.capNhanThongTin);
-router.get("/",khachHangController.xemThongTin);
+router.delete("/xoalichHen",khachHangController.deleteLichHen);
+router.put("/capnhatKH",khachHangController.capNhanThongTin);
+router.get("/xemthongtinKH",khachHangController.xemThongTin);
 
 export default router;

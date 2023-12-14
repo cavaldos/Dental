@@ -36,6 +36,7 @@ const onlineController = {
       const params = {};
       params.MATK = req.body.matk;
       params.MATKHAU = req.body.matkhau;
+      console.log(req.body);
       const result = await pool.executeSP(sp, params);
       // console.log(result[0]);
       if (result.error) {

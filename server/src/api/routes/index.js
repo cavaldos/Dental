@@ -21,21 +21,21 @@ const routers = (app) => {
   );
   app.use(
     "/khachhang",
-    authMiddleware.authenticateToken,
-    authMiddleware.protected("KH"),
+    // authMiddleware.authenticateToken,
+    // authMiddleware.protected("KH"),
     KhachHangRoutes
   );
   app.use(
     "/nhanvien",
-    authMiddleware.authenticateToken,
-    authMiddleware.protected("NV"),
+    // authMiddleware.authenticateToken,
+    // authMiddleware.protected("NV"),
     NhanVienRoutes
   );
   app.use("/online", OnlineRoutes);
   app.use(
     "/nhasi",
-    authMiddleware.authenticateToken,
-    authMiddleware.protected("NS"),
+    // authMiddleware.authenticateToken,
+    // authMiddleware.protected("NS"),
     NhasiRoutes
   );
 };

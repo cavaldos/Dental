@@ -2,16 +2,29 @@ import { useEffect } from "react";
 import { GetUserInfo } from "./redux/features/userSlice";
 import AdminService from "./services/admin/index";
 import StaffService from "./services/staff";
+import OnlineService from "./services/online";
+import GuestService from "./services/guest";
 import { useDispatch } from "react-redux";
 import { updateUserInfo } from "./redux/features/userSlice";
 import axios from "axios";
 import Axios from "./services/Axios";
+import useCookie from "~/hooks/useCookie";
+import Hash from "~/hooks/Hash";
+import Cookies from "js-cookie";
+
 const token =
   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJRVFYwMDAxIiwidXNlclJvbGUiOiJRVFYiLCJpYXQiOjE3MDI0NTYzMzEsImV4cCI6MTcwMjQ1NjM5MX0.jq6sWsZa1BPgRnjbyZsU1Gyg0eSeqOvU5NHGx5GuuYE";
 
 const Test = () => {
   const dispatch = useDispatch();
+  const [cookie, setCookie] = useCookie("token", "");
+  const [password, setPassword] = useCookie("password", "");
+  const pass = Cookies.get("password");
+  console.log(pass.length);
+  // const hashPassword = new Hash(1);
+  // const decodedpass = hashPassword.decode(password);
 
+  // console.log("passs", password);
   useEffect(() => {
     // dispatch(updateUserInfo({
     //   SODT: "123",
@@ -25,20 +38,39 @@ const Test = () => {
     // }));
     // console.log("Test");
     // dispatch(GetUserInfo({name:"adfads"}));
-
-    axios
-      .get("http://localhost:3000/checklogin", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then((res) => {
-        console.log("res", res);
-      })
-      .catch((err) => {
-        console.log("err", err);
-      });
-
+    // axios
+    //   .get("http://localhost:3000/checklogin", {
+    //     headers: {
+    //       Authorization: `Bearer ${token}`,
+    //     },
+    //   })
+    //   .then((res) => {
+    //     console.log("res", res);
+    //   })
+    //   .catch((err) => {
+    //     console.log("err", err);
+    //   });
+    // GuestService.deleteLichHen({
+    //   mans: "123",
+    //   sdt: "123ssdfsdfasfsdfd",
+    //   stt: "123",
+    // }).then((res) => {
+    //   console.log(res);
+    // });
+    // axios
+    //   .delete("http://localhost:3000/khachhang/xoalichHen", {
+    //     data: {
+    //       mans: "123",
+    //       sdt: "123sd",
+    //       stt: "123",
+    //     },
+    //   })
+    //   .then((res) => {
+    //     console.log(res);
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //   });
     // AdminService.getAllThuoc()
     //   .then((res) => {
     //     console.log(res);
