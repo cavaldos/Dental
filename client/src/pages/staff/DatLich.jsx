@@ -1,4 +1,4 @@
-import { lichhen2 } from "../../fakedata/lhnv";
+import { lichhen5 } from "../../fakedata/lhnv";
 import ns from "~/fakedata/nhasi";
 import '../../assets/styles/staff.css'
 
@@ -194,7 +194,7 @@ const ListLichhen = () => {
   const data1 = 
   {
     "MACA": "CA002",
-    "CHITIET": [
+    "NHASI": [
       {
         "MANS": "NS0001",
         "HOTEN": "Lê Văn Hòa",
@@ -220,13 +220,150 @@ const ListLichhen = () => {
       <h1 className="text-montserrat text-blue font-bold text-base pb-1">
         <TitleSchedule maca={data1.MACA} />
       </h1>
-      <OneWorkSchedule data={data1.CHITIET[0]} />
-      <OneWorkSchedule data={data1.CHITIET[1]} />
+      <OneWorkSchedule data={data1.NHASI[0]} />
+      <OneWorkSchedule data={data1.NHASI[1]} />
     </div>
   );
 };
 
 const XemLichTruc = ( schedule ) => {
+  const temp = 
+  {
+    "NGAY": "11/12/2023",
+    "CA": [
+        {
+            "MACA": "CA002",
+            "GIOBATDAU": "18:00:00",
+            "GIOKETTHUC": "20:00:00",
+            "NHASI": [
+                {
+                    "MANS": "NS0001",
+                    "HOTENNS": "Lê Văn Hòa",
+                    "SODTKH": "0323456789",
+                    "HOTENKH": "Lê Thị Thu Hà",
+                    "SOTTLH": 1,
+                    "LYDOKHAM": "Đau rát răng và nướu: Tôi đã cảm thấy đau rát và sưng nướu ở chiếc răng ở phía dưới bên trái trong vài ngày qua. Đau đớn khi chải răng và ăn."
+                },
+                {
+                    "MANS": "NS0010",
+                    "HOTENNS": "Vũ Hoàng Anh",
+                    "SODTKH": "0378236541",
+                    "HOTENKH": "Vũ Thị Hồng Loan",
+                    "SOTTLH": 1,
+                    "LYDOKHAM": "Răng của tôi lệch và tôi muốn tư vấn về cách chỉnh nha."
+                }
+            ]
+        },
+        {
+            "MACA": "CA003",
+            "GIOBATDAU": "20:00:00",
+            "GIOKETTHUC": "22:00:00",
+            "NHASI": [
+                {
+                    "MANS": "NS0001",
+                    "HOTENNS": "Lê Văn Hòa",
+                    "SODTKH": "0345678901",
+                    "HOTENKH": "Lê Minh Hoàng",
+                    "SOTTLH": 2,
+                    "LYDOKHAM": "Nhổ răng khôn"
+                },
+                {
+                    "MANS": "NS0007",
+                    "HOTENNS": "Phạm Thị Minh Trang",
+                    "SOTTLR": 1,
+                    "SODTKH": null
+                }
+            ]
+        },
+        {
+            "MACA": "CA005",
+            "GIOBATDAU": "00:00:00",
+            "GIOKETTHUC": "02:00:00",
+            "NHASI": [
+                {
+                    "MANS": "NS0002",
+                    "HOTENNS": "Phạm Xuân Thanh",
+                    "SODTKH": "0712345678",
+                    "HOTENKH": "Ngô Đình Quân",
+                    "SOTTLH": 1,
+                    "LYDOKHAM": "Tôi nhận thấy có một vết đen trên chiếc răng cửa sau bên trái và nghi ngờ răng bị hỏng. Tôi muốn làm sạch và lấy mảng cặn."
+                },
+                {
+                    "MANS": "NS0006",
+                    "HOTENNS": "Hoàng Thị Ngọc Anh",
+                    "SODTKH": "0387654321",
+                    "HOTENKH": "Dương Văn Quyền",
+                    "SOTTLH": 1,
+                    "LYDOKHAM": "Người thân tôi nói rằng tôi kêu răng khi ngủ, và tôi muốn kiểm tra xem có vấn đề gì về nha khoa gây ra điều này."
+                }
+            ]
+        },
+        {
+            "MACA": "CA001",
+            "GIOBATDAU": "16:00:00",
+            "GIOKETTHUC": "18:00:00",
+            "NHASI": [
+                {
+                    "MANS": "NS0003",
+                    "HOTENNS": "Trần Thị Mai Loan",
+                    "SODTKH": "0987654321",
+                    "HOTENKH": "Dương Thị Thảo",
+                    "SOTTLH": 1,
+                    "LYDOKHAM": "Lợi của tôi thường bị sưng và chảy máu khi chải răng. Tôi lo lắng về tình trạng viêm nướu này và muốn tư vấn và điều trị."
+                },
+                {
+                    "MANS": "NS0004",
+                    "HOTENNS": "Trần Minh Tuấn",
+                    "SODTKH": "0301234567",
+                    "HOTENKH": "Hoàng Văn Tùng",
+                    "SOTTLH": 1,
+                    "LYDOKHAM": "Chiếc răng trước cửa đã bị nứt và tôi cảm thấy đau."
+                }
+            ]
+        },
+        {
+            "MACA": "CA004",
+            "GIOBATDAU": "22:00:00",
+            "GIOKETTHUC": "00:00:00",
+            "NHASI": [
+                {
+                    "MANS": "NS0003",
+                    "HOTENNS": "Trần Thị Mai Loan",
+                    "SODTKH": "0723456789",
+                    "HOTENKH": "Bùi Văn Thành",
+                    "SOTTLH": 2,
+                    "LYDOKHAM": "Răng xấu, cần được khám và tư vấn niềng răng."
+                },
+                {
+                    "MANS": "NS0004",
+                    "HOTENNS": "Trần Minh Tuấn",
+                    "SOTTLR": 2,
+                    "SODTKH": null
+                }
+            ]
+        },
+        {
+            "MACA": "CA006",
+            "GIOBATDAU": "02:00:00",
+            "GIOKETTHUC": "04:00:00",
+            "NHASI": [
+                {
+                    "MANS": "NS0003",
+                    "HOTENNS": "Trần Thị Mai Loan",
+                    "SOTTLR": 3,
+                    "SODTKH": null
+                },
+                {
+                    "MANS": "NS0006",
+                    "HOTENNS": "Hoàng Thị Ngọc Anh",
+                    "SOTTLR": 2,
+                    "SODTKH": null
+                }
+            ]
+        }
+    ]
+  };
+
   return (
     <>
       <div className="bg-[#FFFFFF] w-[460px] rounded-2xl py-8 px-10">
@@ -249,7 +386,7 @@ const DatLich = () => {
     <>
       <div className="  min-h-[700px] flex gap-6 justify-center">
         <TaoLichHen />
-        <XemLichTruc schedule={lichhen2} />
+        <XemLichTruc schedule={lichhen5} />
       </div>
     </>
   );
