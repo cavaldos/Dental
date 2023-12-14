@@ -9,19 +9,20 @@ const SignInPage = () => {
 
   const onFinish = (values) => {
     if(values.email === "admin@gmail.com" && values.password === "admin"){
-      dispatch(setRole("admin"));
+      message.success("Đăng nhập thành công!");
+      dispatch(setRole("QTV"));
       navigate("/");
     }
     else if(values.email === "guest@gmail.com" && values.password === "guest"){
-      dispatch(setRole("guest"));
+      dispatch(setRole("KH"));
       navigate("/");
     }
     else if(values.email === "staff@gmail.com" && values.password === "staff"){
-      dispatch(setRole("staff"));
+      dispatch(setRole("NV"));
       navigate("/");
     }
     else if(values.email === "dentist@gmail.com" && values.password === "dentist"){
-      dispatch(setRole("dentist"));
+      dispatch(setRole("NS"));
       navigate("/");
     }
     else{
