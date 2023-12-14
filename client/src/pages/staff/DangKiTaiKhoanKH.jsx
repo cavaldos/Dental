@@ -6,10 +6,10 @@ import {ButtonGreen, ButtonPink} from "../../components/button";
 
 const layout = {
   labelCol: {
-    span: 8,
+    span: 5,
   },
   wrapperCol: {
-    span: 16,
+    span: 19,
   },
 };
 
@@ -56,7 +56,7 @@ const DangKiTaiKhoanKhachHang = () => {
             span: 5,
           }}
           wrapperCol={{
-            span: 19,
+            span: 21,
           }}
         >
           <Input placeholder="Số điện thoại khách hàng."/>
@@ -75,7 +75,7 @@ const DangKiTaiKhoanKhachHang = () => {
             span: 5,
           }}
           wrapperCol={{
-            span: 19,
+            span: 21,
           }}
         >
           <Input placeholder="Họ và tên khách hàng."/>
@@ -94,7 +94,7 @@ const DangKiTaiKhoanKhachHang = () => {
             span: 5,
           }}
           wrapperCol={{
-            span: 19,
+            span: 21,
           }}
         >
           <Select placeholder="Chọn giới tính.">
@@ -116,7 +116,7 @@ const DangKiTaiKhoanKhachHang = () => {
             span: 5,
           }}
           wrapperCol={{
-            span: 19,
+            span: 21,
           }}
         >
           <DatePicker placeholder="Chọn ngày sinh." />
@@ -135,7 +135,7 @@ const DangKiTaiKhoanKhachHang = () => {
             span: 5,
           }}
           wrapperCol={{
-            span: 19,
+            span: 21,
           }}
         >
           <Input placeholder="Địa chỉ thường trú."/>
