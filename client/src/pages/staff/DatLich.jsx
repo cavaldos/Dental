@@ -129,7 +129,7 @@ const OneWorkSchedule = ({ data }) => {
         <div className="border-2.4 border-[#b8b8b8] rounded-md h-[40px] flex items-center p-3" >
         <Dropdown
           menu={{
-            items: detail({ mans: data.MANS, sott: data.SOTTLH }),
+            items: detail({ mans: data.MANS, sott: data.SOTTLR }),
           }}
         >
           <div className="font-montserrat font-semibold text-base text-[#acacac]">NS. 
@@ -203,12 +203,25 @@ const ListLichhen = ({ data }) => {
 const XemLichTruc = ( schedule ) => {
 
   // ---------------------------------------
+  // Sort ngày
+  // Hàm so sánh ngày để sắp xếp
+  const compareDates = (a, b) => {
+    const dateA = new Date(a.NGAY.split('/').reverse().join('/'));
+    const dateB = new Date(b.NGAY.split('/').reverse().join('/'));
+    return dateA - dateB;
+  };
+
+// Sắp xếp mảng lichhen5 theo ngày
+  const sortedSchedule = (schedule.schedule).sort(compareDates);
+
+
+  // ---------------------------------------
   // Phân trang
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 1;
 
   const startIndex = (currentPage - 1) * itemsPerPage;
-  const currentSchedule = (schedule.schedule).slice(startIndex, startIndex + itemsPerPage);
+  const currentSchedule = sortedSchedule.slice(startIndex, startIndex + itemsPerPage);
 
   const onChange = (page) => {
     setCurrentPage(page);
