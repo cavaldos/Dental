@@ -1,15 +1,17 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-
+import ConvertRole from "~/hooks/ConvertRole";
+import OnlineService from "~/services/online";
 export const GetUserInfo = createAsyncThunk(
   "user/getUserInfo",
-  async ({ name }, { rejectWithValue }) => {
+  async ({ matk, matkhau }, { rejectWithValue }) => {
+    console.log(matk, matkhau);
     try {
-      console.log("name",name);
-      const res = await axios
-        .get(`http://localhost:3000/checklogin`)
-        .then((res) => res.data);
-      console.log(res);
+      const res = await OnlineService.dangnhap({
+        matk: matk,
+        matkhau: matkhau,
+      });
+
       return res;
     } catch (err) {
       return rejectWithValue(err.response.data);
@@ -23,6 +25,7 @@ export const userSlice = createSlice({
     ROLE: "online",
     SODT: "",
     MANS: "",
+    MAQTV: "",
     MANV: "",
     HOTEN: "",
     PHAI: "",
@@ -35,15 +38,25 @@ export const userSlice = createSlice({
   },
   reducers: {
     setRole: (state, action) => {
-      state.ROLE = action.payload;
+      state.ROLE = ConvertRole(action.payload);
     },
     deleteRole: (state) => {
       state.ROLE = "online";
+      state.SODT = "";
+      state.MANS = "";
+      state.MAQTV = "";
+      state.MANV = "";
+      state.HOTEN = "";
+      state.PHAI = "";
+      state.NGAYSINH = "";
+      state.DIACHI = "";
+      state.VITRICV = "";
     },
     updateUserInfo: (state, action) => {
       state.SODT = action.payload.SODT;
       state.MANS = action.payload.MANS;
       state.MANV = action.payload.MANV;
+      state.MAQTV = action.payload.MAQTV;
       state.HOTEN = action.payload.HOTEN;
       state.PHAI = action.payload.PHAI;
       state.NGAYSINH = action.payload.NGAYSINH;

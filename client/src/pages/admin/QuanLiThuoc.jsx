@@ -31,6 +31,7 @@ import { useSelector, useDispatch } from "react-redux";
 const { Option } = Select;
 
 const ModalHuyThuoc = ({ data }) => {
+  const dispatch = useDispatch();
   data.NGAYHETHAN = data.NGAYHETHAN
     ? moment(data.NGAYHETHAN).format("YYYY-MM-DD")
     : undefined;
@@ -56,7 +57,6 @@ const ModalHuyThuoc = ({ data }) => {
       <Form
         onSubmit={handleSubmit}
         form={form}
-        name="registration-form"
         layout="vertical"
         onFinish={handleSubmit}
         // initialValues={formValues}
@@ -100,6 +100,7 @@ const ModalNhapThuoc = ({ data }) => {
   const [formValues, setFormValues] = useState(data);
   const [date, setDate] = useState(null);
   const [form] = Form.useForm();
+  const dispatch =useDispatch();
   useEffect(() => {
     form.setFieldsValue(data);
   }, [data, form]);
@@ -127,7 +128,6 @@ const ModalNhapThuoc = ({ data }) => {
       <Form
         onSubmit={handleSubmit}
         form={form}
-        name="registration-form"
         layout="vertical"
         onFinish={handleSubmit}
         // initialValues={formValues}
@@ -304,7 +304,7 @@ const ThuocTable = ({ medicine }) => {
   const [data3, setData3] = useState({});
 
   const handleDelete = (record) => {
-    console.log("record", record);
+    // console.log("record", record);
     setOpenDeleteModal(true);
     setData1(record);
   };
@@ -568,6 +568,9 @@ const TaoThuocMoi = () => {
           <DatePicker
             placeholder="Ngày hết hạn của thuốc."
             format="YYYY-MM-DD"
+            disabledDate={(currentDate) =>
+              currentDate && currentDate <= moment().startOf("day")
+            }
             onChange={(date, dateString) => {
               setDate(dateString);
             }}

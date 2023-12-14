@@ -88,8 +88,8 @@ const TaoQTVMoi = () => {
           rules={[{ required: true, message: "Vui lòng chọn giới tính!" }]}
         >
           <Select placeholder="Chọn giới tính.">
-            <Select.Option value="nam">Nam</Select.Option>
-            <Select.Option value="nu">Nữ</Select.Option>
+            <Select.Option value="Nam">Nam</Select.Option>
+            <Select.Option value="Nữ">Nữ</Select.Option>
           </Select>
         </Form.Item>
         <Form.Item style={{ display: "flex", justifyContent: "flex-end" }}>

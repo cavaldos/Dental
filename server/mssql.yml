@@ -9,10 +9,8 @@ services:
       SA_PASSWORD: password123@
       ACCEPT_EULA: Y
       MSSQL_PID: "Developer"
-      MSSQL_CONFIG_CONNECTIVITY: "LOCAL"  
+      MSSQL_CONFIG_CONNECTIVITY: "LOCAL"
     ports:
       - "1444:1433"
-
-
-
+    
 # docker compose -f mssql.yml up -d

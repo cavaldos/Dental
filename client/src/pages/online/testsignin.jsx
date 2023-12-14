@@ -1,28 +1,32 @@
-import { setRole, deleteRole } from "~/redux/features/userSlice";
+import { setRole, updateUserInfo } from "~/redux/features/userSlice";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Form, Input, Button, message } from "antd";
 import OnlineService from "~/services/online";
-import { useState } from "react";
+
 import useCookie from "~/hooks/useCookie";
 const SignInPage = () => {
   const [cookie, setCookie] = useCookie("token", "");
+  const [password, setPassword] = useCookie("password", "");
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const onFinish = async (values) => {
-    await OnlineService.dangnhap(values).then((res) => {
-      console.log(res);
-      setCookie(res.accessToken);
-      dispatch(
-        setRole({
-          ...res.info,
-          ROLE: res.info.ROLE,
-        })
-      );
-    });
+    await OnlineService.dangnhap({
+      matk: values.matk, //"QTV0001"
+      matkhau: values.matkhau, //"21126054",
+    })
+      .then((res) => {
+        setCookie(res.accessToken);
+        setPassword(values.matkhau);
+        dispatch(setRole(res.info.ROLE));
+        dispatch(updateUserInfo(res.info));
+        navigate("/");
+      })
+      .catch((err) => {
+        message.error("Sai tài khoản hoặc mật khẩu");
+      });
   };
-
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
   };
@@ -46,7 +50,6 @@ const SignInPage = () => {
           >
             <Input.Password />
           </Form.Item>
-
           <Form.Item>
             <button
               htmlFor="submit"

@@ -29,11 +29,11 @@ const NotfoundError = () => {
         status="404"
         title={<h1 className=" text-6xl">404</h1>}
         subTitle={
-          <p className="mx-auto">
+          <div className="mx-auto">
             Redirecting to home in{" "}
             <p className="text-red-700 text-lg"> {countdown} </p>
             seconds...
-          </p>
+          </div>
         }
         extra={
           <Button

@@ -10,6 +10,7 @@ const nhanVienController = {
       }
       const params = null;
       const sp = 'SP_GETLICHRANHNS_NV';
+      
       const result = await pool.executeSP(sp, params);
       const lichNS = {
         lichHen: groupLich(result[0]),
@@ -224,6 +225,21 @@ const nhanVienController = {
       console.error('An error occurred:', error.message);
       return res.status(500).json({ error: 'An error occurred while processing the request' });
     }
-  }
+  },
+  getLichHenNS: async (req, res) => {
+    try {
+      if (!pool) {
+        return res.status(500).json({ error: 'Khong the ket noi db' });
+      }
+      const params = null;
+      const sp = 'SP_GETLICHRANHNS_NV';
+      
+      const result = await pool.executeSP(sp, params);
+      return res.status(200).json(result[1]);
+    } catch (error) {
+      console.error('An error occurred:', error.message);
+      return res.status(500).json({ error: 'An error occurred while processing the request' });
+    }
+  },
 };
 export default nhanVienController;

@@ -5,16 +5,11 @@ const Axios = {
   get: async (url) => {
     try {
       const res = await instance.get(url);
-      if (res.status === 200 || res.status === 201) {
-      } else if (res.status === 500) {
-      } else {
+      if (res.status === 500) {
         message.error("Thất bại");
       }
       return res.data;
-    } catch (err) {
-      message.error(err.message);
-      console.log(err);
-    }
+    } catch (err) {}
   },
   post: async (url, data) => {
     try {
@@ -22,7 +17,6 @@ const Axios = {
       if (res.status === 200 || res.status === 201) {
         message.success("Thành công");
       }
-
       return res.data;
     } catch (err) {
       message.error(err.message);
@@ -54,15 +48,17 @@ const Axios = {
     }
   },
 
-  delete: async (url) => {
+  delete: async (url, data) => {
     try {
-      const res = await instance.delete(url);
+      const res = await instance.delete(url, {
+        data: data,
+      });
       if (res.status === 200 || res.status === 201) {
         message.success("Thành công");
       }
       return res.data;
     } catch (err) {
-      message.error(err.message);
+      message.error(`ERR ${err.message}`);
       console.log(err);
     }
   },
