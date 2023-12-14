@@ -7,25 +7,34 @@ import GuestService from "./services/guest";
 import { useDispatch } from "react-redux";
 import { updateUserInfo } from "./redux/features/userSlice";
 import axios from "axios";
-import Axios from "./services/Axios";
-import useCookie from "~/hooks/useCookie";
+import Axios from "./services/axios.config";
+import GetCookie from "./hooks/GetCookie";
 import Hash from "~/hooks/Hash";
-import Cookies from "js-cookie";
 
 const token =
   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJRVFYwMDAxIiwidXNlclJvbGUiOiJRVFYiLCJpYXQiOjE3MDI0NTYzMzEsImV4cCI6MTcwMjQ1NjM5MX0.jq6sWsZa1BPgRnjbyZsU1Gyg0eSeqOvU5NHGx5GuuYE";
 
 const Test = () => {
   const dispatch = useDispatch();
-  const [cookie, setCookie] = useCookie("token", "");
-  const [password, setPassword] = useCookie("password", "");
-  const pass = Cookies.get("password");
-  console.log(pass.length);
+  // const [cookie, setCookie] = useCookie("token", "");
+  // const [password, setPassword] = useCookie("password", "");
+  const tokena = GetCookie("token");
+  // const pass = Cookies.get("password");
+  // console.log(pass.length);
   // const hashPassword = new Hash(1);
   // const decodedpass = hashPassword.decode(password);
 
   // console.log("passs", password);
+
   useEffect(() => {
+    // Axios.get("/checklogin")
+    //   .then((res) => {
+    //     console.log("resk", res);
+    //   })
+    //   .catch((err) => {
+    //     console.log("err", err);
+    //   });
+
     // dispatch(updateUserInfo({
     //   SODT: "123",
     //   MANS: "123",
