@@ -15,11 +15,6 @@ const layout = {
 };
 
 const dateFormatList = ['DD/MM/YYYY', 'DD/MM/YY', 'DD-MM-YYYY', 'DD-MM-YY'];
-const customFormat = (value) => `custom format: ${value.format(dateFormat)}`;
-const customWeekStartEndFormat = (value) =>
-  `${dayjs(value).startOf('week').format(weekFormat)} ~ ${dayjs(value)
-    .endOf('week')
-    .format(weekFormat)}`;
 
 const DangKyTaiKhoan = () => {
   const initialValues = {
