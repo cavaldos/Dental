@@ -71,7 +71,7 @@ const Menu = ({ name, path }) => {
 
 const Nav = () => {
   const user = useSelector((state) => state.user);
-  const menuItem = user.ROLE === "guest" ? KhachHangItem : OnlineItem;
+  const menuItem = user.ROLE === "KH" ? KhachHangItem : OnlineItem;
   return (
     <>
       <div className="bg-[#eee] w-full min-h-14 flex gap-1 justify-center align-middle items-center px-5 drop-shadow-lg py-2 z-50">

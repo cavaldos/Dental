@@ -14,6 +14,7 @@ router.get("/getAllCa", nhanVienController.getAllCa);
 router.get("/hoaDon/:sdt", nhanVienController.getHoaDon);
 router.get("/benhAn/:sdt", nhanVienController.xemBenhAn);
 router.get("/getAllDSNhaSi", nhanVienController.getAllDSNS);
+router.get("/lichHen", nhanVienController.getLichHenNS);
 router.delete("/lichHen", nhanVienController.deleteLichHen);
 
 export default router;

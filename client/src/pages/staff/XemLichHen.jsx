@@ -1,4 +1,4 @@
-// import {lichhen} from "../../fakedata/lhnv";
+import { lichhen } from "../../fakedata/lhnv";
 import "../../assets/styles/staff.css";
 import StaffService from "../../services/staff";
 
@@ -98,6 +98,41 @@ const LichhenTabble = ({ appointment }) => {
       ...ColumnSearch("MACA", "Mã ca"),
     },
     {
+      title: "Giờ Bắt Đầu",
+      dataIndex: "GIOBATDAU",
+      key: "GIOBATDAU",
+      width: "10%",
+      render: (text) => {
+        const time = new Date(text);
+        const formattedTime = time.toLocaleTimeString("en-US", options);
+        return formattedTime;
+      },
+      sorter: (a, b) => a.GIOBATDAU - b.GIOBATDAU,
+    },
+    {
+      title: "Giờ Kết Thúc",
+      dataIndex: "GIOKETTHUC",
+      key: "GIOKETTHUC",
+      width: "10%",
+      render: (text) => {
+        const time = new Date(text);
+        const formattedTime = time.toLocaleTimeString("en-US", options);
+        return formattedTime;
+      },
+      sorter: (a, b) => a.GIOKETTHUC - b.GIOKETTHUC,
+    },
+    {
+      title: "Tên nha sĩ",
+      dataIndex: "HOTENNS",
+      key: "HOTENNS",
+      ...ColumnSearch("NS_HOTEN", "Tên nha sĩ"),
+    },
+    {
+      title: "Mã NS",
+      dataIndex: "MANS",
+      key: "MANS",
+    },
+    {
       title: "Ngày khám",
       dataIndex: "NGAY",
       key: "NGAY",
@@ -107,64 +142,13 @@ const LichhenTabble = ({ appointment }) => {
         return formattedDate;
       },
     },
-    {
-      title: "Giờ khám",
-      dataIndex: "GIOBATDAU",
-      key: "GIOBATDAU",
-      render: (text) => {
-        const time = new Date(text);
-        const formattedTime = time.toLocaleTimeString("en-US", options);
-        return formattedTime;
-      },
-      sorter: (a, b) => a.GIOBATDAU - b.GIOBATDAU,
-    },
-    {
-      title: "Mã NS",
-      dataIndex: "MANS",
-      key: "MANS",
-    },
-    {
-      title: "Tên nha sĩ",
-      dataIndex: "NS_HOTEN",
-      key: "NS_HOTEN",
-      width: "14%",
-      ...ColumnSearch("NS_HOTEN", "Tên nha sĩ"),
-    },
-    {
-      title: "Số ĐT khách",
-      dataIndex: "SODT",
-      key: "SODT",
-      ...ColumnSearch("SODT", "Số điện thoại"),
-    },
-    {
-      title: "Tên khách hàng",
-      dataIndex: "KH_HOTEN",
-      key: "KH_HOTEN",
-      width: "14%",
-      sorter: (a, b) => a.KH_HOTEN - b.KH_HOTEN,
-      ...ColumnSearch("KH_HOTEN", "Tên khách hàng"),
-    },
-    {
-      title: "Lý do khám",
-      dataIndex: "LYDOKHAM",
-      key: "LYDOKHAM",
-    },
-    {
-      title: "Quản lí",
-      key: "action",
-      fixed: "right",
-      width: "9%",
 
-      render: (text, record) => (
-        <Space size="middle">
-          <button
-            className="text-orange font-montserrat hover:text-darkorange hover:underline mx-1"
-            onClick={() => handleDelete(record)}
-          >
-            <StopOutlined /> Hủy hẹn
-          </button>
-        </Space>
-      ),
+    {
+      title: "Số Thứ Tự Lịch Hẹn",
+      dataIndex: "SOTTLR",
+      key: "SOTTLR",
+      with: "10%",
+      ...ColumnSearch("SOTTLR", "Số điện thoại"),
     },
   ];
 
@@ -207,7 +191,7 @@ const XemLichHen = () => {
   return (
     <>
       <div className=" rounded-lg w-full">
-        <LichhenTabble appointment={ []} />
+        <LichhenTabble appointment={lichHen || []} />
       </div>
     </>
   );

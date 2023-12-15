@@ -22,7 +22,7 @@ export const GetUserInfo = createAsyncThunk(
 export const userSlice = createSlice({
   name: "user",
   initialState: {
-    ROLE: "online",
+    ROLE: "online" || "KH" || "NS" || "NV" || "QTV",
     SODT: "",
     MANS: "",
     MAQTV: "",
@@ -38,7 +38,7 @@ export const userSlice = createSlice({
   },
   reducers: {
     setRole: (state, action) => {
-      state.ROLE = ConvertRole(action.payload);
+      state.ROLE = action.payload;
     },
     deleteRole: (state) => {
       state.ROLE = "online";
