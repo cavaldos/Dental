@@ -172,7 +172,6 @@ const khachHangController = {
       params.NGAYSINH = req.body.ngaysinh;
       params.DIACHI = req.body.diachi;
       params.MATKHAU = req.body.matkhau;
-
       const sp = "SP_TAOTKKH_KH";
       const result = await pool.executeSP(sp, params);
       return res.status(200).json({ success: true });

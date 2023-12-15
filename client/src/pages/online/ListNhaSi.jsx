@@ -98,7 +98,7 @@ const DanhSachNS = () => {
   return (
     <>
       <div className=" w-full z-0">
-        <NhaSiTable data={nhasi} />
+        <NhaSiTable data={nhasi || []} />
       </div>
     </>
   );

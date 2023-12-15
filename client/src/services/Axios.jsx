@@ -19,7 +19,7 @@ const Axios = {
       }
       return res.data;
     } catch (err) {
-      message.error(err.message);
+      message.error("Error");
       console.log(err);
     }
   },
@@ -31,7 +31,7 @@ const Axios = {
       }
       return res.data;
     } catch (err) {
-      message.error(err.message);
+      message.error("Error");
       console.log(err);
     }
   },
@@ -43,7 +43,7 @@ const Axios = {
       }
       return res.data;
     } catch (err) {
-      message.error(err.message);
+      message.error("Error");
       console.log(err);
     }
   },
@@ -58,7 +58,7 @@ const Axios = {
       }
       return res.data;
     } catch (err) {
-      message.error(`ERR ${err.message}`);
+      message.error(`delete ${"Error"}`);
       console.log(err);
     }
   },

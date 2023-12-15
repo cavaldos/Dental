@@ -330,7 +330,7 @@ const QuanliDV = () => {
     <>
       <div className=" w-full">
         <ThemDichVuMoiButton />
-        <DichVuTable service={dv} />
+        <DichVuTable service={dv || []} />
       </div>
     </>
   );

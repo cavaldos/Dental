@@ -16,10 +16,20 @@ const onlineController = {
       params.NGAYSINH = req.body.ngaysinh;
       params.DIACHI = req.body.diachi;
       params.MATKHAU = req.body.matkhau;
-
-      const sp = "SP_TAOTKKH_KH";
-      const result = await pool.executeSP(sp, params);
-      return res.status(200).json({ success: true });
+      console.log(params);
+      try {
+        checkSoDTParams = {
+          SODT: req.body.sdt
+        }
+        const checkSoDT = await pool.executeSP("SP_KTTK_ALL", checkSoDTParams);
+        if (checkSoDT[0][0].ROLE) {
+          return res.status(400).json({ message: "The phone number is registered!" });
+        }
+      } catch (error) {
+        const sp = "SP_TAOTKKH_KH";
+        const result = await pool.executeSP(sp, params);
+        return res.status(200).json({ success: true });
+      }
     } catch (error) {
       console.error("An error occurred:", error.message);
       return res

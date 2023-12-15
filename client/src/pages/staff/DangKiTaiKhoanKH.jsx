@@ -1,25 +1,28 @@
 import "../../assets/styles/staff.css";
 import React, { useState, useEffect } from "react";
-import { Button, Form, Input, InputNumber, Select, DatePicker } from "antd";
-import dayjs from 'dayjs';
-import {ButtonGreen, ButtonPink} from "../../components/button";
-
-const layout = {
-  labelCol: {
-    span: 5,
-  },
-  wrapperCol: {
-    span: 19,
-  },
-};
+import StaffService from "../../services/staff";
+import {
+  Button,
+  Form,
+  Input,
+  InputNumber,
+  Select,
+  DatePicker,
+  message,
+} from "antd";
+import dayjs from "dayjs";
+import { ButtonGreen, ButtonPink } from "../../components/button";
+import moment from "moment";
 
 const DangKiTaiKhoanKhachHang = () => {
   const [formValues, setFormValues] = useState({}); // State để lưu giá trị của các trường đầu vào
   const [form] = Form.useForm(); // Sử dụng useForm() để tạo đối tượng form
-
-  const onFinish = (values) => {
-    console.log("Success:", values);
-    message.success("Đăng kí thành công!");
+  const [date, setDate] = useState("");
+  const handleSubmit = async (values) => {
+    const newValues = { ...values, ngaysinh: date };
+    await StaffService.taoTaiKhoanKH(newValues).then((res) => {
+      console.log(res);
+    });
     form.resetFields();
     setFormValues({});
   };
@@ -29,7 +32,7 @@ const DangKiTaiKhoanKhachHang = () => {
     setFormValues({});
     message.success("Đã xóa trường!");
   };
-  
+
   return (
     <div
       className="bg-white w-[1000px] h-fit p-10 mx-10 sm:px-15 md:px-25 lg:px-40 pb-0"
@@ -39,17 +42,23 @@ const DangKiTaiKhoanKhachHang = () => {
       }}
     >
       <Form
-        {...layout}
-        name="nest-messages"
-        onFinish={onFinish}
+        onSubmit={handleSubmit}
+        form={form}
+        name="registration-form"
+        layout="vertical"
+        onFinish={handleSubmit}
       >
         <Form.Item
-          name="SODT"
-          label="Số điện thoại: "
+          label="Số điện thoại"
+          name="sdt"
           rules={[
             {
+              pattern: /^(0\d{6,9})$/,
+              message: "Số điện thoại không hợp lệ",
+            },
+            {
               required: true,
-              message: "Vui lòng nhập số điện thoại!",
+              message: "Vui lòng nhập số điện thoại",
             },
           ]}
           labelCol={{
@@ -59,11 +68,11 @@ const DangKiTaiKhoanKhachHang = () => {
             span: 21,
           }}
         >
-          <Input placeholder="Số điện thoại khách hàng."/>
+          <Input placeholder="Số điện thoại khách hàng." />
         </Form.Item>
 
         <Form.Item
-          name="HOTEN"
+          name="hoten"
           label="Họ tên: "
           rules={[
             {
@@ -78,16 +87,16 @@ const DangKiTaiKhoanKhachHang = () => {
             span: 21,
           }}
         >
-          <Input placeholder="Họ và tên khách hàng."/>
+          <Input placeholder="Họ và tên khách hàng." />
         </Form.Item>
 
         <Form.Item
-          name="PHAI"
+          name="phai"
           label="Phái: "
           rules={[
             {
               required: true,
-              message:"Vui lòng chọn giới tính"
+              message: "Vui lòng chọn giới tính",
             },
           ]}
           labelCol={{
@@ -104,7 +113,7 @@ const DangKiTaiKhoanKhachHang = () => {
         </Form.Item>
 
         <Form.Item
-          name="NGAYSINH"
+          name="ngaysinh"
           label="Ngày sinh: "
           rules={[
             {
@@ -119,11 +128,20 @@ const DangKiTaiKhoanKhachHang = () => {
             span: 21,
           }}
         >
-          <DatePicker placeholder="Chọn ngày sinh." />
+          <DatePicker
+            placeholder="Chọn ngày sinh."
+            format="YYYY-MM-DD"
+            disabledDate={(currentDate) =>
+              currentDate && currentDate > moment().startOf("day")
+            }
+            onChange={(date, dateString) => {
+              setDate(dateString);
+            }}
+          />
         </Form.Item>
 
         <Form.Item
-          name="DIACHI"
+          name="diachi"
           label="Địa chỉ: "
           rules={[
             {
@@ -138,15 +156,15 @@ const DangKiTaiKhoanKhachHang = () => {
             span: 21,
           }}
         >
-          <Input placeholder="Địa chỉ thường trú."/>
+          <Input placeholder="Địa chỉ thường trú." />
         </Form.Item>
 
         <Form.Item wrapperCol={{ offset: 5, span: 19 }}>
-          <ButtonGreen text="ĐĂNG KÝ" func={""}/>
+          <ButtonGreen text="ĐĂNG KÝ" func={""} />
           <Button
-                onClick={handleReset}
-                style={{ marginLeft: 10 }}
-                type="danger"
+            onClick={handleReset}
+            style={{ marginLeft: 10 }}
+            type="danger"
           >
             ĐẶT LẠI
           </Button>

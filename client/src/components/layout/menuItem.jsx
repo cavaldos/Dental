@@ -1,6 +1,4 @@
-
 import { AiOutlineMenuFold } from "react-icons/ai";
-
 
 const menuDentist = [
   {
@@ -22,6 +20,11 @@ const menuDentist = [
     name: "Tạo bệnh án mới",
     icon: <AiOutlineMenuFold size={30} />,
     path: "/tao-benh-an-moi",
+  },
+  {
+    name: "Profile",
+    icon: <AiOutlineMenuFold size={30} />,
+    path: "/profile",
   },
 ];
 
@@ -55,6 +58,11 @@ const menuAdmin = [
     name: "Quản lí quản trị viên",
     icon: <AiOutlineMenuFold size={30} />,
     path: "/quan-li-quan-tri-vien",
+  },
+  {
+    name: "Profile",
+    icon: <AiOutlineMenuFold size={30} />,
+    path: "/profile",
   },
 ];
 
@@ -93,6 +101,11 @@ const menuStaff = [
     name: "Hóa đơn",
     icon: <AiOutlineMenuFold size={30} />,
     path: "/hoa-don",
+  },
+  {
+    name: "Profile",
+    icon: <AiOutlineMenuFold size={30} />,
+    path: "/profile",
   },
 ];
 
