@@ -167,7 +167,7 @@ const qtvController = {
       console.error("An error occurred:", error.message);
       return res
         .status(500)
-        .json({ error: "An error occurred while processing the request" });
+        .json({ error: error.message });
     }
   },
   suaThuoc: async (req, res) => {
@@ -207,7 +207,7 @@ const qtvController = {
       console.error("An error occurred:", error.message);
       return res
         .status(500)
-        .json({ error: "An error occurred while processing the request" });
+        .json({ error: error.message  });
     }
   },
   themDV: async (req, res) => {

@@ -59,8 +59,8 @@ router.put("/nhapThuoc",
     qtvController.nhapThuoc);
 
 router.delete("/xoaThuoc",
-    authMiddleware.authenticateToken,
-    authMiddleware.protected('QTV'),
+    // authMiddleware.authenticateToken,
+    // authMiddleware.protected('QTV'),
     qtvController.huyThuoc);
 
 router.put("/suaThuoc",
