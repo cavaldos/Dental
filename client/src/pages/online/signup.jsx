@@ -1,10 +1,8 @@
-import React, { useState, useEffect } from "react";
-import { Button, Form, Input, InputNumber, Select, DatePicker } from "antd";
-import dayjs from 'dayjs';
-import { ButtonGreen } from "../../components/button"
-import axios from "axios";
-
-
+import React, { useState } from "react";
+import { Form, Input, Select, DatePicker } from "antd";
+import moment from "moment";
+import OnlineService from "../../services/online";
+import { ButtonGreen } from "../../components/button";
 const layout = {
   labelCol: {
     span: 8,
@@ -14,20 +12,31 @@ const layout = {
   },
 };
 
-const dateFormatList = ['DD/MM/YYYY', 'DD/MM/YY', 'DD-MM-YYYY', 'DD-MM-YY'];
-
 const DangKyTaiKhoan = () => {
+  const [date, setDate] = useState("");
+  const { formValue, setFormValue } = useState({});
+  const [form] = Form.useForm();
   const initialValues = {
     user: {
-      phone: "0987654321", // Giá trị số điện thoại mặc định
-      name: "John Doe", // Giá trị họ tên mặc định
-      gender: "Nam", // Giá trị giới tính mặc định
-      address: "Trong tim ...", // Giá trị giới tính mặc định
-      date: dayjs('01/01/1990', dateFormatList[0]), // Giá trị ngày sinh mặc định
+      phone: "012345678",
+      name: "",
+      gender: "",
+      address: "",
+      date: "",
     },
   };
-  const onFinish = (values) => {
-    console.log(values);
+  const onFinish = async (values) => {
+    const newUser = {
+      ...values,
+      ngaysinh: date,
+    };
+    OnlineService.taoTKKH(newUser).then((res) => {
+      if (res.success === true) {
+        message.success("Đăng ký thành công!");
+      } else if (res.success === false) {
+        message.error("Đăng ký thất bại!");
+      }
+    });
   };
   return (
     <div
@@ -39,13 +48,12 @@ const DangKyTaiKhoan = () => {
     >
       <Form
         {...layout}
-        name="nest-messages"
         onFinish={onFinish}
         style={{ maxWidth: "95%" }}
         initialValues={initialValues}
       >
         <Form.Item
-          name={["user", "phone"]}
+          name="sdt"
           label="Số điện thoại:"
           rules={[
             {
@@ -54,8 +62,8 @@ const DangKyTaiKhoan = () => {
             },
             {
               pattern: /^[0-9]{10}$/,
-              message: "Số điện thoại không hợp lệ!"
-            }
+              message: "Số điện thoại không hợp lệ!",
+            },
           ]}
           labelCol={{
             span: 5,
@@ -63,13 +71,13 @@ const DangKyTaiKhoan = () => {
           wrapperCol={{
             span: 19,
           }}
-          validateTrigger={['onBlur']}
+          validateTrigger={["onBlur"]}
         >
           <Input />
         </Form.Item>
 
         <Form.Item
-          name={["user", "name"]}
+          name="hoten"
           label="Họ tên:"
           rules={[
             {
@@ -88,12 +96,12 @@ const DangKyTaiKhoan = () => {
         </Form.Item>
 
         <Form.Item
-          name={["user", "gender"]}
+          name="phai"
           label="Phái"
           rules={[
             {
               required: true,
-              message: "Vui lòng chọn giới tính"
+              message: "Vui lòng chọn giới tính",
             },
           ]}
           labelCol={{
@@ -110,7 +118,7 @@ const DangKyTaiKhoan = () => {
         </Form.Item>
 
         <Form.Item
-          name={["user", "date"]}
+          name="ngaysinh"
           label="Ngày sinh"
           rules={[
             {
@@ -125,11 +133,20 @@ const DangKyTaiKhoan = () => {
             span: 19,
           }}
         >
-          <DatePicker format={dateFormatList} placeholder="Chọn ngày" />
+          <DatePicker
+            placeholder="Ngày sinh."
+            format="YYYY-MM-DD"
+            disabledDate={(currentDate) =>
+              currentDate && currentDate >= moment().startOf("day")
+            }
+            onChange={(date, dateString) => {
+              setDate(dateString);
+            }}
+          />
         </Form.Item>
 
         <Form.Item
-          name={["user", "address"]}
+          name="diachi"
           label="Địa chỉ:"
           rules={[
             {
@@ -147,16 +164,18 @@ const DangKyTaiKhoan = () => {
           <Input />
         </Form.Item>
         <Form.Item
-          name={["user", "password"]}
+          name="matkhau"
           label="Mật khẩu"
-          rules={[{
-            required: true,
-            message: "Vui lòng nhập mật khẩu"
-          },
-          {
-            min: 6,
-            message: "Mật khẩu cần ít nhất 6 ký tự"
-          }]}
+          rules={[
+            {
+              required: true,
+              message: "Vui lòng nhập mật khẩu",
+            },
+            {
+              min: 6,
+              message: "Mật khẩu cần ít nhất 6 ký tự",
+            },
+          ]}
           labelCol={{ span: 5 }}
           wrapperCol={{ span: 19 }}
         >
@@ -164,7 +183,7 @@ const DangKyTaiKhoan = () => {
         </Form.Item>
 
         <Form.Item
-          name={["user", "verify-password"]}
+          name="xacnhanmatkhau"
           label="Xác nhận mật khẩu"
           rules={[
             {
@@ -173,7 +192,7 @@ const DangKyTaiKhoan = () => {
             },
             ({ getFieldValue }) => ({
               validator(_, value) {
-                if (!value || getFieldValue(["user", "password"]) === value) {
+                if (!value || getFieldValue("matkhau") === value) {
                   return Promise.resolve();
                 }
                 return Promise.reject("Mật khẩu xác nhận không khớp!");
@@ -186,7 +205,7 @@ const DangKyTaiKhoan = () => {
           wrapperCol={{
             span: 19,
           }}
-          validateTrigger={['onBlur']}
+          validateTrigger={["onBlur"]}
         >
           <Input.Password />
         </Form.Item>
@@ -198,10 +217,7 @@ const DangKyTaiKhoan = () => {
           }}
           style={{ marginBottom: 0 }}
         >
-          <button className="bg-grin font-montserrat font-bold text-base text-white py-2 
-            px-5 rounded-lg hover:bg-darkgrin active:bg-grin">
-            ĐĂNG KÝ
-          </button>
+          <ButtonGreen text={"Đăng Ký"} />
         </Form.Item>
       </Form>
     </div>
