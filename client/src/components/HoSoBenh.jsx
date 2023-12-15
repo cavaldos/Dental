@@ -179,7 +179,6 @@ const ThuocTable = memo(({ dataThuoc, openDrawer }) => {
 });
 
 const HoSoBenh = ({ sdt, isStaff }) => {
-  const _DAXUATHOADON = 0;
   const MANV = useSelector((state) => state.user.MANV);
   const [currentPage, setCurrentPage] = useState(1);
   const [medicalRecords, setMedicalRecords] = useState([]);
@@ -219,13 +218,21 @@ const HoSoBenh = ({ sdt, isStaff }) => {
   };
 
   useEffect(() => {
-    StaffService.xemBenhAn(sdt).then((res) => {
-      console.log(res);
-      if (res === undefined) {
-        message.info("Không tìm thấy thông tin hồ sơ bệnh!");
-      }
-      setMedicalRecords(res ? res : []);
-    });
+    if (isStaff === 1) {
+      StaffService.xemBenhAn(sdt).then((res) => {
+        if (res === undefined) {
+          message.info("Không tìm thấy thông tin hồ sơ bệnh!");
+        }
+        setMedicalRecords(res ? res : []);
+      });
+    } else {
+      GuestService.benhAn(sdt).then((res) => {
+        if (res === undefined) {
+          message.info("Không tìm thấy thông tin hồ sơ bệnh!");
+        }
+        setMedicalRecords(res ? res : []);
+      });
+    }
   }, [sdt]);
 
   const indexOfLastRecord = currentPage * recordsPerPage;
@@ -244,6 +251,8 @@ const HoSoBenh = ({ sdt, isStaff }) => {
       console.log(res);
     });
   };
+
+  const DAXUATHOADON = medicalRecords[0]?.DAXUATHOADON;
 
   return (
     <div>
@@ -297,7 +306,7 @@ const HoSoBenh = ({ sdt, isStaff }) => {
           <div>
             {isStaff === 1 ? (
               <div className="mt-6 flex justify-end">
-                {_DAXUATHOADON == 1 ? (
+                {DAXUATHOADON === true ? (
                   <p
                     className="font-montserrat font-black text-md text-grin py-2 
                       px-5 rounded-xl mb-3 border-4 border-grin"
