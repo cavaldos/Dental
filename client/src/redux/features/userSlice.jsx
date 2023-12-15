@@ -26,7 +26,7 @@ export const userSlice = createSlice({
     SODT: "",
     MANS: "",
     MAQTV: "",
-    MANV: "",
+    MANV: "1",
     HOTEN: "",
     PHAI: "",
     NGAYSINH: "",

@@ -5,7 +5,7 @@ const router = express.Router();
 
 router.get("/lichRanhNS", nhanVienController.getLichRanhNS);
 router.post("/khachHang", nhanVienController.taoTaiKhoanKH);
-router.post("/hoaDon", nhanVienController.taoHoaDon);
+router.post("/taohoaDon", nhanVienController.taoHoaDon);
 router.put("/xacNhanHoaDon", nhanVienController.xacNhanThanhToan);
 router.put("/matKhau", nhanVienController.doiMatKhau);
 router.get("/getAllThuoc", nhanVienController.getAllThuoc);

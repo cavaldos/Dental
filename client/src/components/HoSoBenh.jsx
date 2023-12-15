@@ -1,6 +1,5 @@
 import React, { useState, useEffect, memo } from "react";
 import { Table, Pagination, Drawer, Empty, message } from "antd";
-import hsb from "~/fakedata/hsb";
 import StaffService from "../services/staff";
 import "~/assets/styles/guest.css";
 import { ButtonGreen } from "~/components/button";
@@ -182,7 +181,6 @@ const ThuocTable = memo(({ dataThuoc, openDrawer }) => {
 const HoSoBenh = ({ sdt, isStaff }) => {
   const _DAXUATHOADON = 0;
   const MANV = useSelector((state) => state.user.MANV);
-  console.log("NV", MANV);
   const [currentPage, setCurrentPage] = useState(1);
   const [medicalRecords, setMedicalRecords] = useState([]);
   const recordsPerPage = 1; // Số hồ sơ bệnh hiển thị trên mỗi trang
@@ -238,17 +236,13 @@ const HoSoBenh = ({ sdt, isStaff }) => {
   );
 
   const createInvoice = async ({ sdt, sott, manv }) => {
-    console.log(sdt, sott, manv);
-    await StaffService.taoHoaDon({
-      sdt: "0301234567",
-      sott: "2",
-      manv: "NV0010",
+    StaffService.taoHoaDon({
+      sdt: sdt,
+      stt: sott,
+      manv: manv,
     }).then((res) => {
       console.log(res);
     });
-
-    // Khanh goi API trong nay nha
-    message.success("Đã tạo hóa đơn thành công!");
   };
 
   return (
@@ -314,7 +308,11 @@ const HoSoBenh = ({ sdt, isStaff }) => {
                   <ButtonGreen
                     text="XUẤT HÓA ĐƠN"
                     func={() =>
-                      createInvoice(sdt, currentRecords[0].SOTT, MANV)
+                      createInvoice({
+                        sdt,
+                        sott: currentRecords[0].SOTT,
+                        manv: MANV,
+                      })
                     }
                   />
                 )}
