@@ -194,7 +194,7 @@ const HoaDon = ({ sdt }) => {
       if (res === undefined) {
         message.info("Không tìm thấy thông tin hồ sơ bệnh!");
       }
-      setMedicalRecords(res);
+      setMedicalRecords(res ? res : []);
     });
   }, [currentPage]);
 
