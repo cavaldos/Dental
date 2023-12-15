@@ -191,6 +191,9 @@ const HoaDon = ({ sdt }) => {
   useEffect(() => {
     StaffService.getHoaDon(sdt).then((res) => {
       console.log(res);
+      if (res === undefined) {
+        message.info("Không tìm thấy thông tin hồ sơ bệnh!");
+      }
       setMedicalRecords(res);
     });
   }, [currentPage]);
