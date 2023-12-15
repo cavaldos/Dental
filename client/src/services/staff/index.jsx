@@ -10,11 +10,23 @@ const StaffService = {
     return res;
   },
   taoTaiKhoanKH: async (data) => {
-    const res = await Axios.post("/nhanvien/khachHang", data);
+    const res = await Axios.post("/nhanvien/khachHang", {
+      sdt: data.sdt,
+      hoten: data.hoten,
+      phai: data.phai,
+      ngaysinh: data.ngaysinh,
+      diachi: data.diachi,
+    });
+
     return res;
   },
   taoHoaDon: async (data) => {
-    const res = await Axios.post("/nhanvien/hoaDon", data);
+    console.log("test apio",data);
+    const res = await Axios.post("/nhanvien/hoaDon", {
+      sdt: data.sdt,
+      stt: data.stt,
+      manv: data.manv,
+    });
     return res;
   },
   xacNhanThanhToan: async (data) => {

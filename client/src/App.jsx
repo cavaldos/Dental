@@ -17,7 +17,6 @@ import Test from "./test";
 
 function App() {
   const user = useSelector((state) => state.user);
-  console.log("user", user);
 
   const VerifyRoure = () => {
     switch (user.ROLE) {
@@ -38,7 +37,7 @@ function App() {
   return (
     <>
       <Test />
-      <Auth />
+      {/* <Auth /> */}
       <Router>
         <Suspense fallback={<Loading />}>
           <Routes>
