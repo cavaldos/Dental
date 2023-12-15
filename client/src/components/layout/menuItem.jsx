@@ -24,7 +24,7 @@ const menuDentist = [
   {
     name: "Profile",
     icon: <AiOutlineMenuFold size={30} />,
-    path: "/profile",
+    path: "/cap-nhat-tai-khoan",
   },
 ];
 
@@ -62,7 +62,7 @@ const menuAdmin = [
   {
     name: "Profile",
     icon: <AiOutlineMenuFold size={30} />,
-    path: "/profile",
+    path: "/cap-nhat-tai-khoan",
   },
 ];
 
@@ -105,7 +105,7 @@ const menuStaff = [
   {
     name: "Profile",
     icon: <AiOutlineMenuFold size={30} />,
-    path: "/profile",
+    path: "/cap-nhat-tai-khoan",
   },
 ];
 
