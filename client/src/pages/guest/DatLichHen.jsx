@@ -46,9 +46,10 @@ const Ca = ({ MACA, MANS, NGAY, SOTT }) => {
       setCa(res);
     });
   }, []);
-  
+
+  console.log("ca", ca);
   const merge = ca.filter((item) => item.MACA === MACA);
-  console.log("merge",merge);
+  console.log("merge ca", merge);
   return (
     <>
       <Button
@@ -56,7 +57,7 @@ const Ca = ({ MACA, MANS, NGAY, SOTT }) => {
         className="p-4 rounded-lg border border-slate-400 h-16"
       >
         {
-          merge?.map((item, index) => (
+          ca?.map((item, index) => (
             <h1 key={index}>
               {formatDate(item.GIOBATDAU)} - {formatDate(item.GIOKETTHUC)}
             </h1>
@@ -71,6 +72,7 @@ const ChonNhaSi = () => {
   const [nhasi, setNhaSi] = useState([]);
   useEffect(() => {
     GuestService.getAllDSNS().then((res) => {
+      console.log("nha si",res);
       setNhaSi(res);
     });
   }, []);
@@ -99,7 +101,7 @@ const LyDoKham = () => {
   return (
     <>
       <div className="flex justify-center">
-        <div className=" bg-black w-[60%]">
+        <div className=" w-[60%]">
           <TextArea
             className=" w-full "
             rows={4}
@@ -127,21 +129,24 @@ const ChonCa = () => {
       setLichRanh(res);
     });
   }, []);
+  console.log("lich ranh",lichRanh);
   const new_lichRanh = lichRanh.filter((item) => item.MANS === order.mans);
-  console.log(new_lichRanh);
+  console.log("lich ranh cu nha si",new_lichRanh);
 
   return (
     <>
       <div className="flex justify-center">
-        {new_lichRanh?.map((item, index) => (
-          <Ca
-            key={index}
-            MACA={item.MACA}
-            MANS={item.MANS}
-            NGAY={item.NGAY}
-            SOTT={item.SOTT}
-          />
-        ))}
+        <div className=" grid grid-cols-3 grid-rows-3 gap-4">
+          {lichRanh?.map((item, index) => (
+            <Ca
+              key={index}
+              MACA={item.MACA}
+              MANS={item.MANS}
+              NGAY={item.NGAY}
+              SOTT={item.SOTT}
+            />
+          ))}
+        </div>
       </div>
     </>
   );

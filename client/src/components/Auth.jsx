@@ -10,6 +10,7 @@ import {
   deleteRole,
 } from "~/redux/features/userSlice";
 const Auth = () => {
+  const state = useSelector((state) => state.stateData);
   const user = useSelector((state) => state.user);
   console.log(user);
   const dispatch = useDispatch();
@@ -36,7 +37,7 @@ const Auth = () => {
 
         console.log(err);
       });
-  }, []);
+  }, [state]);
   return <></>;
 };
 
