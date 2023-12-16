@@ -16,4 +16,6 @@ router.get("/getAllCa",nhaSiController.getAllCa);
 router.get("/lichHen",nhaSiController.xemLichHen);
 router.get("/getAllDSNhaSi",nhaSiController.getAllDSNS);
 router.get("/benhAn/:sdt",nhaSiController.xemBenhAn);
+router.get("/tableLichNS/:mans",nhaSiController.xemTableLichNS);
+
 export default router;

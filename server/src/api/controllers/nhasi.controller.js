@@ -233,5 +233,30 @@ const nhaSiController = {
       return res.status(500).json({ error: 'An error occurred while processing the request' });
     }
   },
+  xemTableLichNS: async (req, res) => {
+    try {
+      if (!pool) {
+        return res.status(500).json({ error: 'Khong the ket noi db' });
+      }
+      const params = {};
+      params.MANS = req.params.mans;
+      const sp1 = 'SP_LICHRANHCHUADUOCDAT_NS';
+      const sp2 = 'SP_XEMLICHHENNS_NS';
+      const sp3 = 'SP_XEMCADU2NGTRUC_NS';
+
+      // waiting
+      const result1 = await pool.executeSP(sp1, params);
+      // orderd
+      const result2 = await pool.executeSP(sp2, params);
+      // full
+      const result3 = await pool.executeSP(sp3, params);
+      // empty những ca còn lại 
+
+      return res.status(200).json(result1[0]);
+    } catch (error) {
+      console.error('An error occurred:', error.message);
+      return res.status(500).json({ error: 'An error occurred while processing the request' });
+    }
+  },
 };
 export default nhaSiController;
