@@ -1,5 +1,5 @@
 import { poolConnect } from "../../config/db.mjs";
-import { groupHSB } from "../../utils/groupData.js";
+import { groupHSB, groupLich } from "../../utils/groupData.js";
 const pool = await poolConnect("KH");
 
 const khachHangController = {
@@ -238,6 +238,23 @@ const khachHangController = {
       const sp = "SP_DATLICHHEN_NV_KH";
       const result = await pool.executeSP(sp, params);
       return res.status(201).json({ succes: true });
+    } catch (error) {
+      console.error("An error occurred:", error.message);
+      return res
+        .status(500)
+        .json({ error: "An error occurred while processing the request" });
+    }
+  },
+  xemLRChuaDatTatCaNSTheoNgay: async (req, res) => {
+    try {
+      if (!pool) {
+        return res.status(500).json({ error: "Khong the ket noi db" });
+      }
+      const params = {};
+      const sp = "SP_LRCHUADATTATCANS_KH";
+      const result = await pool.executeSP(sp, params);
+      const lichRanhTheoNgay = groupLich(result[0])
+      return res.status(200).json(lichRanhTheoNgay);
     } catch (error) {
       console.error("An error occurred:", error.message);
       return res

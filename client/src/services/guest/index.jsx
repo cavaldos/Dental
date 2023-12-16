@@ -82,6 +82,10 @@ const GuestService = {
     const res = await Axios.get("/khachhang/xemthongtinKH");
     return res;
   },
+  xemLRChuaDatTatCaNSTheoNgay: async () => {
+    const res = await Axios.get("/khachhang/lichRanhTheoNgay");
+    return res;
+  },
 };
 
 export default GuestService;
