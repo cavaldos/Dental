@@ -47,17 +47,38 @@ const AdminService = {
   },
   nhapThuoc: async (data) => {
     const res = await Axios.put("/qtv/nhapThuoc", data);
+    if(res && res.response)
+    {
+      if (res.response.status === 422) {
+        message.error(res.response.data.error);
+      }
+      if (res.response.status === 400) {
+        message.error(res.response.data.error);
+      }
+    }
     return res;
   },
   xoaThuoc: async (data) => {
     const res = await Axios.delete("/qtv/xoaThuoc", data);
-    if (res.response.status === 405) {
-      message.error(res.response.data.error);
+    if(res && res.response)
+    {
+      if (res.response.status === 405) {
+        message.error(res.response.data.error);
+      }
     }
     return res;
   },
   suaThuoc: async (data) => {
     const res = await Axios.put("/qtv/suaThuoc", data);
+    if(res && res.response)
+    {
+      if (res.response.status === 304) {
+        message.error(res.response.data.error);
+      }
+      if (res.response.status === 400) {
+        message.error(res.response.data.error);
+      }
+    }
     return res;
   },
   suaDV: async (data) => {
