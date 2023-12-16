@@ -33,6 +33,7 @@ const khachHangController = {
       params.DIACHI = req.body.diachi;
       params.MAT_KHAU_CU = req.body.matkhaucu;
       params.MAT_KHAU_MOI = req.body.matkhaumoi;
+      console.log(params)
 
       const sp = "SP_CAPNHATTHONGTIN_KH";
       const result = await pool.executeSP(sp, params);
