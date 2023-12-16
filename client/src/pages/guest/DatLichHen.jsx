@@ -1,30 +1,67 @@
 import React, { useEffect, useState } from "react";
 import { Button, message, Steps } from "antd";
-import dv from "../../fakedata/dv";
-import ns from "../../fakedata/nhasi";
-
+import { Input } from "antd";
+const { TextArea } = Input;
+import GuestService from "../../services/guest";
+import { useDispatch, useSelector } from "react-redux";
+import { booking } from "../../redux/features/orderSlice";
 const NhaSi = ({ TENNS, MAND }) => {
+  const dispath = useDispatch();
   const handleOnClick = () => {
-    message.success("Processing complete!");
+    dispath(booking({ mans: MAND }));
+    message.success("Đã chọn nha sĩ");
   };
   return (
     <>
-      <Button className="p-4 rounded-lg border border-slate-400">
+      <Button
+        onClick={() => handleOnClick()}
+        className="p-4 rounded-lg border border-slate-400 h-16"
+      >
         <h1>{TENNS}</h1>
-        <h1>{MAND}</h1>
       </Button>
     </>
   );
 };
-const DichVu = ({ TENDV, MADV }) => {
-  const handleOnClick = () => {
-    message.success("Processing complete!");
+
+const Ca = ({ MACA, MANS, NGAY, SOTT }) => {
+  function formatDate(inputDate) {
+    const date = new Date(inputDate);
+    const day = date.getDate();
+    const month = date.getMonth() + 1;
+    const year = date.getFullYear();
+    const hours = date.getHours();
+    const minutes = date.getMinutes();
+
+    return `${day}/${month}/${year} ${hours}:${minutes}`;
+  }
+  const [ca, setCa] = useState([]);
+
+  const dispath = useDispatch();
+  const handleOnClick = (sott) => {
+    message.success(sott);
+    dispath(booking({ sott: sott }));
   };
+  useEffect(() => {
+    GuestService.getAllCa().then((res) => {
+      setCa(res);
+    });
+  }, []);
+  
+  const merge = ca.filter((item) => item.MACA === MACA);
+  console.log("merge",merge);
   return (
     <>
-      <Button className="p-4 rounded-lg border border-slate-400">
-        <h1>{TENDV}</h1>
-        <h1>{MADV}</h1>
+      <Button
+        onClick={() => handleOnClick(SOTT)}
+        className="p-4 rounded-lg border border-slate-400 h-16"
+      >
+        {
+          merge?.map((item, index) => (
+            <h1 key={index}>
+              {formatDate(item.GIOBATDAU)} - {formatDate(item.GIOKETTHUC)}
+            </h1>
+          ))[0]
+        }
       </Button>
     </>
   );
@@ -33,71 +70,98 @@ const DichVu = ({ TENDV, MADV }) => {
 const ChonNhaSi = () => {
   const [nhasi, setNhaSi] = useState([]);
   useEffect(() => {
-    setNhaSi(ns);
+    GuestService.getAllDSNS().then((res) => {
+      setNhaSi(res);
+    });
   }, []);
-
   return (
     <>
       <div className="flex justify-center ">
         <div className="grid grid-cols-3 grid-rows-3 gap-4">
-          {nhasi.map((item) => (
-            <NhaSi TENNS={item.HOTEN} MAND={item.MANS} />
+          {nhasi?.map((item, index) => (
+            <NhaSi key={index} TENNS={item.HOTEN} MAND={item.MANS} />
           ))}
         </div>
       </div>
     </>
   );
 };
-const ChonDichVu = () => {
-  const [dichvu, setDichVu] = useState([]);
+const LyDoKham = () => {
+  const [lydokham, setLyDoKham] = useState("");
+  console.log(lydokham);
+  const user = useSelector((state) => state.user);
+  const dispath = useDispatch();
+  const handleOnClick = () => {
+    dispath(booking({ lydokham: lydokham, sodt: user.SODT }));
+    message.success("Đã chọn lý do khám");
+  };
+
+  return (
+    <>
+      <div className="flex justify-center">
+        <div className=" bg-black w-[60%]">
+          <TextArea
+            className=" w-full "
+            rows={4}
+            value={lydokham}
+            onChange={(e) => setLyDoKham(e.target.value)}
+          />
+          <Button
+            onClick={() => handleOnClick()}
+            className="p-4 rounded-lg border border-slate-400 h-16"
+          >
+            <h1>Xác nhận</h1>
+          </Button>
+        </div>
+      </div>
+    </>
+  );
+};
+
+const ChonCa = () => {
+  const order = useSelector((state) => state.order);
+  const [lichRanh, setLichRanh] = useState([]);
+
   useEffect(() => {
-    setDichVu(dv);
+    GuestService.lichRanh().then((res) => {
+      setLichRanh(res);
+    });
   }, []);
-  console.log(dichvu);
+  const new_lichRanh = lichRanh.filter((item) => item.MANS === order.mans);
+  console.log(new_lichRanh);
 
   return (
     <>
       <div className="flex justify-center">
-        <div className="grid grid-cols-3 grid-rows-3 gap-4">
-          {dichvu.map((item) => (
-            <DichVu TENDV={item.TENDV} MADV={item.MADV} />
-          ))}
-        </div>
+        {new_lichRanh?.map((item, index) => (
+          <Ca
+            key={index}
+            MACA={item.MACA}
+            MANS={item.MANS}
+            NGAY={item.NGAY}
+            SOTT={item.SOTT}
+          />
+        ))}
       </div>
     </>
   );
 };
 
-const ChonNgay = () => {
-  return (
-    <>
-      <div className="flex justify-center">
-        <h1>Cho nay se hien thi lich cua nha si</h1>
-      </div>
-    </>
-  );
-};
-const ChonGio = () => {
-  return (
-    <>
-      <div className="flex justify-center">
-        <h1>Cho nay se hien thi lich cua nha si</h1>
-      </div>
-    </>
-  );
-};
 const XacNhan = () => {
+  const order = useSelector((state) => state.order);
+  const user = useSelector((state) => state.user);
+  const dispath = useDispatch();
+
   return (
     <>
-      <div className="flex justify-center">
-        <h1>
-          chỗ này m sẽ code 1 cái from hiển thị lại những thông tin đã chọn và
-          chuẩn bị gửi về data base
-        </h1>
-        <h1>nha si</h1>
-        <h1>dich vu</h1>
-        <h1>ngay</h1>
-        <h1>gio</h1>
+      <div className="flex justify-center flex-col text-neutral-900 ">
+        <div className="mx-auto ">
+          <h1>Thong tin dat lich</h1>
+          <h1>sdt: {order.sodt}</h1>
+          <h1>mans: {order.mans}</h1>
+          <h1>sott:{order.sott}</h1>
+          <h1> lydokham :{order.lydokham}</h1>
+        </div>
       </div>
     </>
   );
@@ -108,16 +172,12 @@ const steps = [
     content: <ChonNhaSi />,
   },
   {
-    title: "Chọn dịch vụ",
-    content: <ChonDichVu />,
-  },
-  {
     title: "Chọn Ngày",
-    content: <ChonNgay />,
+    content: <ChonCa />,
   },
   {
-    title: "Chọn Giờ",
-    content: <ChonGio />,
+    title: "Ly do khám",
+    content: <LyDoKham />,
   },
   {
     title: "Xác nhận",
@@ -138,6 +198,14 @@ const DatLichContainer = () => {
     title: item.title,
     content: item.content,
   }));
+  const order = useSelector((state) => state.order);
+
+  const handleBooking = async () => {
+    await GuestService.taoLichHen(order).then((res) => {
+      console.log(res);
+      message.success("Đặt lịch thành công");
+    });
+  };
 
   return (
     <>
@@ -165,7 +233,7 @@ const DatLichContainer = () => {
           <Button
             className="bg-green-600 ml-2"
             type="primary"
-            onClick={() => message.success("Processing complete!")}
+            onClick={() => handleBooking()}
           >
             Done
           </Button>
@@ -176,6 +244,20 @@ const DatLichContainer = () => {
 };
 
 const DatLichHen = () => {
+  // const { nhasi,setNhaSi } = useState([]);
+  // const { dichvu,setDichVu } = useState([]);
+  // useEffect(() => {
+  //   GuestService.getAllDSNS().then((res) => {
+  //     setNhaSi(res);
+  //     console.log(res);
+  //   });
+  //   GuestService.getAllDV().then((res) => {
+  //     // setDichVu(res);
+  //     console.log(res);
+  //   });
+  // }, []);
+  // console.log(nhasi);
+  // console.log(dichvu);
   return (
     <>
       <div className="">

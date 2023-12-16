@@ -4,7 +4,7 @@ import dayjs from 'dayjs';
 import {ButtonGreen} from "../../components/button"
 import axios from "axios";
 import GuestService from "../../services/guest";
-
+import { useSelector } from "react-redux"; 
 const layout = {
   labelCol: {
     span: 8,
@@ -22,6 +22,8 @@ const customWeekStartEndFormat = (value) =>
     .format(weekFormat)}`;
 
 const CapNhatTaiKhoan = () => {
+  const user = useSelector((state) => state.user);
+  console.log("user",user);
   const initialValues = {
     user: {
       phone: "0987654321", // Giá trị số điện thoại mặc định

@@ -233,6 +233,7 @@ const khachHangController = {
         SOTT: req.body.sott,
         LYDOKHAM: req.body.lydokham,
       };
+      console.log(params);
       const sp = "SP_DATLICHHEN_NV_KH";
       const result = await pool.executeSP(sp, params);
       return res.status(201).json({ succes: true });

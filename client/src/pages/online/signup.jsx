@@ -26,6 +26,7 @@ const DangKyTaiKhoan = () => {
     },
   };
   const onFinish = async (values) => {
+   
     const newUser = {
       ...values,
       ngaysinh: date,

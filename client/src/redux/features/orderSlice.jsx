@@ -3,19 +3,30 @@ import { createSlice } from "@reduxjs/toolkit";
 export const orderSlice = createSlice({
   name: "order",
   initialState: {
-     MaNS:"",
-     MaDV:"",
-     
+    sodt: "",
+    mans: "",
+    sott: "",
+    lydokham: "",
   },
   reducers: {
-    increment: (state) => {
-      state.value += 1;
-    },
-    decrement: (state) => {
-      state.value -= 1;
+    booking: (state, action) => {
+     const { sodt, mans, sott, lydokham } = action.payload;
+     if (sodt !== undefined) {
+       state.sodt = sodt;
+     }
+     if (mans !== undefined) {
+       state.mans = mans;
+     }
+     if (sott !== undefined) {
+       state.sott = sott;
+     }
+     if (lydokham !== undefined) {
+       state.lydokham = lydokham;
+     }
+
     },
   },
 });
 
-export const { increment, decrement } = orderSlice.actions;
+export const { booking } = orderSlice.actions;
 export default orderSlice.reducer;
