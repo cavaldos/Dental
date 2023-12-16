@@ -65,17 +65,18 @@ const CapNhatTaiKhoan = () => {
       }
     });
 
-    const response = await GuestService.capnhatKH({
+      GuestService.capnhatKH({
       userId: formData.get("phone"),
       hoten: formData.get("name"),
       phai: formData.get("gender"),
       ngaysinh: formData.get("date"),
       diachi: formData.get("address"),
       matkhaucu: formData.get("verify-password"),
-    });
-  
-    console.log(response);
-    dispatch(changeState());
+    }).then((res)=>{
+      console.log("here")
+      console.log(res);
+      dispatch(changeState());
+    })
   };
 
   return (
