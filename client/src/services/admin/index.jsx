@@ -39,10 +39,22 @@ const AdminService = {
   },
   themThuoc: async (data) => {
     const res = await Axios.post("/qtv/themThuoc", data);
+    if(res && res.response)
+    {
+      if (res.response.status === 422) {
+        message.error(res.response.data.error);
+      }
+    }
     return res;
   },
   themDV: async (data) => {
     const res = await Axios.post("/qtv/themDV", data);
+    if(res && res.response)
+    {
+      if (res.response.status === 400) {
+        message.error(res.response.data.error);
+      }
+    }
     return res;
   },
   nhapThuoc: async (data) => {

@@ -147,7 +147,10 @@ const qtvController = {
       const result = await pool.executeSP(sp, params);
       return res.status(201).json({ success: true });
     } catch (error) {
-      if (error.message === "Không được thêm thuốc đã hết hạn") {
+      if (error.message === "Không thể thêm thuốc đã hết hạn.") {
+        return res.status(422).json({ error: error.message });
+      }
+      if (error.message === "Số lượng nhập và đơn giá phải lớn hơn 0.") {
         return res.status(422).json({ error: error.message });
       }
       console.error("An error occurred:", error.message);
@@ -245,6 +248,9 @@ const qtvController = {
       const result = await pool.executeSP(sp, params);
       return res.status(201).json({ success: true });
     } catch (error) {
+      if (error.message === "đơn giá không được nhỏ hơn hoặc bằng 0") {
+        return res.status(400).json({ error: error.message });
+      }
       console.error("An error occurred:", error.message);
       return res
         .status(500)
