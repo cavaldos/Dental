@@ -1,4 +1,5 @@
 import Axios from "../Axios";
+import { message } from "antd";
 
 const AdminService = {
   getAllNhanVien: async () => {
@@ -50,6 +51,9 @@ const AdminService = {
   },
   xoaThuoc: async (data) => {
     const res = await Axios.delete("/qtv/xoaThuoc", data);
+    if (res.response.status === 405) {
+      message.error(res.response.data.error);
+    }
     return res;
   },
   suaThuoc: async (data) => {

@@ -164,6 +164,9 @@ const qtvController = {
       const result = await pool.executeSP(sp, params);
       return res.status(200).json({ success: true });
     } catch (error) {
+      if (error.message === "Không thể hủy thuốc vì chưa hết hạn.") {
+        return res.status(405).json({ error: error.message });
+      }
       console.error("An error occurred:", error.message);
       return res
         .status(500)

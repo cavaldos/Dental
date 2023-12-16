@@ -58,8 +58,9 @@ const Axios = {
       }
       return res.data;
     } catch (err) {
-      message.error(`delete ${"Error"}`);
+      // message.error(`delete ${"Error"}`);
       console.log(err);
+      return err;
     }
   },
 };
