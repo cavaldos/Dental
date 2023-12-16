@@ -31,8 +31,9 @@ const Axios = {
       }
       return res.data;
     } catch (err) {
-      message.error("Error");
+      // message.error("Error");
       console.log(err);
+      return err;
     }
   },
   patch: async (url, data) => {
@@ -58,8 +59,9 @@ const Axios = {
       }
       return res.data;
     } catch (err) {
-      message.error(`delete ${"Error"}`);
+      // message.error(`delete ${"Error"}`);
       console.log(err);
+      return err;
     }
   },
 };
