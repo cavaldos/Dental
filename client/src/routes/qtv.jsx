@@ -9,7 +9,7 @@ const QuanLiDV = lazy(() => import("~/pages/admin/QuanLiDV"));
 const QuanLiThuoc = lazy(() => import("~/pages/admin/QuanLiThuoc"));
 const QuanLiNV = lazy(() => import("~/pages/admin/QuanLiNV"));
 const QuanLiQTV = lazy(() => import("~/pages/admin/QuanLiQTV"));
-const Profile = lazy(() => import("../pages/admin/Profile"));
+const CapNhatTaiKhoan = lazy(() => import("../pages/admin/CapNhatTk"));
 const AdminRouter = [
   {
     path: "/",
@@ -47,8 +47,8 @@ const AdminRouter = [
     Layout: AdminLayout,
   },
   {
-    path: "/profile",
-    component: Profile,
+    path: "/cap-nhat-tai-khoan",
+    component: CapNhatTaiKhoan,
     Layout: AdminLayout,
   },
 ];

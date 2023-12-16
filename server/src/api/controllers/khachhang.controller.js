@@ -100,7 +100,8 @@ const khachHangController = {
         return res.status(500).json({ error: "Khong the ket noi db" });
       }
       const params = {};
-      params.SDT = req.userId;
+      params.SDT = req.params.sdt;
+      console.log(req.params.sdt);
       const sp = "SP_TRUYVANLICHHEN_KH";
       const result = await pool.executeSP(sp, params);
       return res.status(200).json(result[0]);
@@ -209,7 +210,7 @@ const khachHangController = {
         return res.status(500).json({ error: "Khong the ket noi db" });
       }
       const params = {};
-      params.SODT = req.userId;
+      params.SODT = req.params.sdt;
       const sp = "SP_GETHSB1KH_NV_NS_KH";
       const result = await pool.executeSP(sp, params);
       const groupedResult = groupHSB(result[0]);

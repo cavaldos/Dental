@@ -35,11 +35,7 @@ const GuestRouter = [
     component: XemLichHenKH,
     Layout: DefaultLayout,
   },
-  {
-    path: "/profile",
-    component: Profile,
-    Layout: DefaultLayout,
-  },
+
 ];
 
 export default GuestRouter;

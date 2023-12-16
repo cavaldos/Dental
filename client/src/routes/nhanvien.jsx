@@ -11,7 +11,7 @@ const XemDichVu = lazy(() => import("../pages/staff/XemDichVu"));
 const HoSoBenh = lazy(() => import("../pages/staff/HoSoBenh"));
 const HoaDon = lazy(() => import("../pages/staff/HoaDon"));
 const DatLich = lazy(() => import("../pages/staff/DatLich"));
-const Profile = lazy(() => import("../pages/staff/Profile"));
+const CapNhatTaiKhoan = lazy(() => import("../pages/staff/CapNhatTk"));
 
 const StaffRouter = [
   {
@@ -55,8 +55,8 @@ const StaffRouter = [
     Layout: AdminLayout,
   },
   {
-    path: "/profile",
-    component: Profile,
+    path: "/cap-nhat-tai-khoan",
+    component: CapNhatTaiKhoan,
     Layout: AdminLayout,
   },
 ];

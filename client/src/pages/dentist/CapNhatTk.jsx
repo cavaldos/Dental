@@ -3,7 +3,7 @@ import { Button, Form, Input, InputNumber, Select, DatePicker } from "antd";
 import dayjs from 'dayjs';
 import {ButtonGreen} from "../../components/button"
 import axios from "axios";
-import GuestService from "../../services/guest";
+
 
 const layout = {
   labelCol: {
@@ -25,7 +25,7 @@ const CapNhatTaiKhoan = () => {
   const initialValues = {
     user: {
       phone: "0987654321", // Giá trị số điện thoại mặc định
-      name: "John Doe", // Giá trị h  ọ tên mặc định
+      name: "John Doe", // Giá trị họ tên mặc định
       gender: "Nam", // Giá trị giới tính mặc định
       address: "Trong tim ...", // Giá trị giới tính mặc định
       date: dayjs('01/01/1990', dateFormatList[0]), // Giá trị ngày sinh mặc định

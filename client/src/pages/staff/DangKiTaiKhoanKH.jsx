@@ -61,12 +61,6 @@ const DangKiTaiKhoanKhachHang = () => {
               message: "Vui lòng nhập số điện thoại",
             },
           ]}
-          labelCol={{
-            span: 5,
-          }}
-          wrapperCol={{
-            span: 21,
-          }}
         >
           <Input placeholder="Số điện thoại khách hàng." />
         </Form.Item>
@@ -84,7 +78,7 @@ const DangKiTaiKhoanKhachHang = () => {
             span: 5,
           }}
           wrapperCol={{
-            span: 21,
+            span: 19,
           }}
         >
           <Input placeholder="Họ và tên khách hàng." />
@@ -103,7 +97,7 @@ const DangKiTaiKhoanKhachHang = () => {
             span: 5,
           }}
           wrapperCol={{
-            span: 21,
+            span: 19,
           }}
         >
           <Select placeholder="Chọn giới tính.">
@@ -125,7 +119,7 @@ const DangKiTaiKhoanKhachHang = () => {
             span: 5,
           }}
           wrapperCol={{
-            span: 21,
+            span: 19,
           }}
         >
           <DatePicker
@@ -153,7 +147,7 @@ const DangKiTaiKhoanKhachHang = () => {
             span: 5,
           }}
           wrapperCol={{
-            span: 21,
+            span: 19,
           }}
         >
           <Input placeholder="Địa chỉ thường trú." />
