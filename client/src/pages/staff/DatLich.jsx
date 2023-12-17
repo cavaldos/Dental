@@ -20,7 +20,7 @@ const NhaSi = ({ mans, tenns }) => {
   );
 };
 
-const TaoLichHen = () => {
+const TaoLichHen = ({handleTaoLichHen}) => {
   const [form] = Form.useForm();
   const [nhaSiList, setNhaSiList] = useState(ns);
   const [chonNhaSi, setChonNhaSi] = useState("");
@@ -37,6 +37,10 @@ const TaoLichHen = () => {
 
   const onFinish = (values) => {
     console.log("Submitted values:", values);
+    StaffService.taoLichHen(values).then((res)=>{
+      // load lại
+      handleTaoLichHen();
+    })
   };
 
   const handleCancel = () => {
@@ -196,8 +200,9 @@ const ListLichhen = ({ data }) => {
       <h1 className="text-montserrat text-blue font-bold text-base pb-1">
         <TitleSchedule maca={data.MACA} />
       </h1>
-      {/* <OneWorkSchedule data={data.NHASI[0]} /> */}
-      {/* <OneWorkSchedule data={data.NHASI[1]} /> */}
+      {data.NHASI.map((item, index) => (
+        <OneWorkSchedule key={index} data={item} />
+      ))}
     </div>
   );
 };
@@ -232,7 +237,6 @@ const XemLichTruc = ( schedule ) => {
     return a.MACA.localeCompare(b.MACA);
   };
   currentSchedule[0].CA.sort(sortByMACA);
-  console.log("o day",currentSchedule[0]);
 
   return (
     <div className="w-[480px]">
@@ -259,22 +263,27 @@ const XemLichTruc = ( schedule ) => {
 
 const DatLich = () => {
   const [lichHenData, setLichHenData] = useState(null);
+  const fetchData = async () => {
+    try {
+      const res = await StaffService.getLichRanhNS();
+      setLichHenData(res);
+    } catch (error) {
+      console.error('Lỗi khi lấy dữ liệu lịch hẹn:', error);
+    }
+  };
+
+  const handleTaoLichHen = () => {
+    fetchData(); // Gọi hàm fetchData để cập nhật lại dữ liệu lịch hẹn
+  };
+
   useEffect(() => {
-    // Sử dụng async/await để gọi API bất đồng bộ
-    const fetchData = async () => {
-      try {
-        const res = await StaffService.getLichRanhNS();
-        setLichHenData(res);
-      } catch (error) {
-        console.error('Lỗi khi lấy dữ liệu lịch hẹn:', error);
-      }
-    };
     fetchData(); // Gọi hàm fetchData để lấy dữ liệu khi component được tạo
   }, []);
+  
   return (
     <>
       <div className="  min-h-[700px] flex gap-6 justify-center">
-        <TaoLichHen />
+        <TaoLichHen handleTaoLichHen={handleTaoLichHen}/>
         {lichHenData !== null && <XemLichTruc schedule={lichHenData} />}
       </div>
     </>

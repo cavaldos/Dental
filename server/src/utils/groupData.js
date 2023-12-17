@@ -229,5 +229,57 @@ const groupTableLich = (data) => {
 
     return Object.entries(ketQua).map(([ngay, ca]) => ({ NGAY: ngay, CA: ca }));
 }
-export { groupHD, groupHSB, groupLich, groupTableLich };
+
+const mergeLich = (lichChuaDat, lichDaDat) => {
+    const mergedLich = [];
+  
+    // Duyệt qua mảng lịch chưa đặt
+    lichChuaDat.forEach(lichNgayChuaDat => {
+      // Tìm kiếm ngày tương ứng trong mảng lịch đã đặt
+      const lichNgayDaDat = lichDaDat.find(lichNgay => lichNgay.NGAY === lichNgayChuaDat.NGAY);
+  
+      if (lichNgayDaDat) {
+        // Nếu đã có lịch đã đặt trong ngày, gộp lại thành một mảng chung
+        const mergedNgay = {
+          NGAY: lichNgayChuaDat.NGAY,
+          CA: mergeCa(lichNgayChuaDat.CA, lichNgayDaDat.CA)
+        };
+  
+        mergedLich.push(mergedNgay);
+      } else {
+        // Nếu không có lịch đã đặt trong ngày, giữ nguyên lịch chưa đặt
+        mergedLich.push(lichNgayChuaDat);
+      }
+    });
+  
+    // Thêm vào mảng lịch đã đặt những ngày chưa có trong mảng lịch chưa đặt
+    lichDaDat.forEach(lichNgayDaDat => {
+      const ngayChuaDat = mergedLich.find(lichNgay => lichNgay.NGAY === lichNgayDaDat.NGAY);
+  
+      if (!ngayChuaDat) {
+        mergedLich.push(lichNgayDaDat);
+      }
+    });
+  
+    return mergedLich;
+  };
+  
+  const mergeCa = (caChuaDat, caDaDat) => {
+    const mergedCa = [...caChuaDat];
+  
+    caDaDat.forEach(caDaDatItem => {
+      const existingCa = mergedCa.find(caChuaDatItem => caChuaDatItem.MACA === caDaDatItem.MACA);
+  
+      if (existingCa) {
+        // Nếu đã có ca trong lịch chưa đặt, thêm thông tin nha sĩ vào mã ca đó
+        existingCa.NHASI.push(...caDaDatItem.NHASI);
+      } else {
+        // Nếu chưa có ca trong lịch chưa đặt, thêm mới ca đó vào lịch chưa đặt
+        mergedCa.push(caDaDatItem);
+      }
+    });
+  
+    return mergedCa;
+  };
+export { groupHD, groupHSB, groupLich, groupTableLich, mergeLich };
 

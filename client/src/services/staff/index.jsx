@@ -91,5 +91,19 @@ const StaffService = {
     });
     return res;
   },
+  taoLichHen: async (data) => {
+    const res = await Axios.post("/nhanvien/lichHen", {
+      sodt: data.phoneNumber,
+      mans: data.dentist,
+      sott: data.appointmentNumber,
+      lydokham: data.reason,
+    });
+    if (res && res.response) {
+      if (res.response.status === 422) {
+        message.error(res.response.data.error);
+      }
+    }
+    return res;
+  },
 };
 export default StaffService;
