@@ -240,15 +240,15 @@ const TaoDichVuMoi = () => {
         initialValues={formValues}
       >
         <Form.Item
-          label="Tên thuốc"
+          label="Tên dịch vụ"
           name="tendv"
           style={{ width: "100%" }}
           rules={[{ required: true, message: "Vui lòng nhập tên dịch vụ!" }]}
         >
-          <Input placeholder="Tên thuốc." />
+          <Input placeholder="Tên dịch vụ." />
         </Form.Item>
         <Form.Item
-          label="Chỉ định"
+          label="Mô tả"
           name="mota"
           style={{ width: "100%" }}
           rules={[{ required: true, message: "Vui lòng nhập mô tả!" }]}

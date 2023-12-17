@@ -145,7 +145,7 @@ const OneWorkSchedule = ({ data }) => {
         <div className="border-2.4 border-[#b8b8b8] rounded-md h-[40px] flex items-center p-3 mb-2" >
           <Dropdown
             menu={{
-              items: detail({ mans: data.MANS, sott: data.SOTTLH }),
+              items: detail({ mans: data.MANS, sott: data.SOTTLR }),
             }}
           >
           <div className="font-montserrat font-semibold text-base">NS. 
