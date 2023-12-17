@@ -61,6 +61,15 @@ const nhanVienController = {
       console.log(groupedResult);
       return res.status(201).json(groupedResult[0]);
     } catch (error) {
+      if (error.message === "Hồ sơ bệnh không tồn tại") {
+        return res.status(404).json({ error: error.message });
+      }
+      if (error.message === "Hồ sơ bệnh đã được xuất hóa đơn") {
+        return res.status(422).json({ error: error.message });
+      }
+      if (error.message === "Hồ sơ bệnh chưa được thêm dịch vụ vào") {
+        return res.status(422).json({ error: error.message });
+      }
       console.error('An error occurred:', error.message);
       return res.status(500).json({ error: 'An error occurred while processing the request' });
     }

@@ -24,7 +24,7 @@ const SignInPage = () => {
         navigate("/");
       })
       .catch((err) => {
-        message.error("Sai tài khoản hoặc mật khẩu");
+        // message.error("Sai tài khoản hoặc mật khẩu");
       });
   };
   const onFinishFailed = (errorInfo) => {
