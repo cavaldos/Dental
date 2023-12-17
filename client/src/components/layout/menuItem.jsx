@@ -21,6 +21,11 @@ const menuDentist = [
     icon: <AiOutlineMenuFold size={30} />,
     path: "/tao-benh-an-moi",
   },
+  {
+    name: "Profile",
+    icon: <AiOutlineMenuFold size={30} />,
+    path: "/cap-nhat-tai-khoan",
+  },
 ];
 
 const menuAdmin = [
@@ -53,6 +58,11 @@ const menuAdmin = [
     name: "Quản lí quản trị viên",
     icon: <AiOutlineMenuFold size={30} />,
     path: "/quan-li-quan-tri-vien",
+  },
+  {
+    name: "Profile",
+    icon: <AiOutlineMenuFold size={30} />,
+    path: "/cap-nhat-tai-khoan",
   },
 ];
 
@@ -91,6 +101,11 @@ const menuStaff = [
     name: "Hóa đơn",
     icon: <AiOutlineMenuFold size={30} />,
     path: "/hoa-don",
+  },
+  {
+    name: "Profile",
+    icon: <AiOutlineMenuFold size={30} />,
+    path: "/cap-nhat-tai-khoan",
   },
 ];
 

@@ -21,6 +21,10 @@ const KhachHangItem = [
     name: "Cập nhật tài khoản",
     path: "/cap-nhat-tai-khoan",
   },
+  {
+    name: "Cap nhật tài khoản",
+    path: "/profile",
+  },
 ];
 
 const OnlineItem = [

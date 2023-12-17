@@ -1,9 +1,8 @@
-import React, { useEffect, useState }  from "react";
-import { Form, Input, Select, DatePicker } from "antd";
-import GuestService from "../../services/guest";
+import React, { useState, useEffect } from "react";
+import { Button, Form, Input, InputNumber, Select, DatePicker } from "antd";
 import dayjs from 'dayjs';
-import { changeState } from "../../redux/features/dataSlice";
-import { useSelector, useDispatch } from "react-redux"; 
+import {ButtonGreen} from "../../components/button"
+import axios from "axios";
 
 
 const layout = {
@@ -15,70 +14,26 @@ const layout = {
   },
 };
 
-const convertBackToDate = (inputDate) => {
-  const dateObject = new Date(inputDate);
-  const day = dateObject.getDate();
-  const month = dateObject.getMonth() + 1;
-  const year = dateObject.getFullYear();
-
-  const formattedDate = `${day.toString().padStart(2, '0')}/${month.toString().padStart(2, '0')}/${year}`;
-
-  return formattedDate;
-};
-
 const dateFormatList = ['DD/MM/YYYY', 'DD/MM/YY', 'DD-MM-YYYY', 'DD-MM-YY'];
+const customFormat = (value) => `custom format: ${value.format(dateFormat)}`;
+const customWeekStartEndFormat = (value) =>
+  `${dayjs(value).startOf('week').format(weekFormat)} ~ ${dayjs(value)
+    .endOf('week')
+    .format(weekFormat)}`;
 
 const CapNhatTaiKhoan = () => {
-  const dispatch = useDispatch();
-  const user = useSelector((state) => state.user);
-  const [initialValues, setInitialValues] = useState({
+  const initialValues = {
     user: {
-      phone: user.SODT,
-      name: user.HOTEN,
-      gender: user.PHAI,
-      address: user.DIACHI,
-      date: dayjs(convertBackToDate(user.NGAYSINH), dateFormatList[0]),
+      phone: "0987654321", // Giá trị số điện thoại mặc định
+      name: "John Doe", // Giá trị họ tên mặc định
+      gender: "Nam", // Giá trị giới tính mặc định
+      address: "Trong tim ...", // Giá trị giới tính mặc định
+      date: dayjs('01/01/1990', dateFormatList[0]), // Giá trị ngày sinh mặc định
     },
-  });
-
-  useEffect(() => {
-    setInitialValues({
-      user: {
-        phone: user.SODT,
-        name: user.HOTEN,
-        gender: user.PHAI,
-        address: user.DIACHI,
-        date: dayjs(convertBackToDate(user.NGAYSINH), dateFormatList[0]),
-      },
-    });
-  }, [user]);
-
-  const onFinish = async (values) => {
-    const formData = new FormData();
-    const formattedDate = dayjs(values.user.date, dateFormatList[0]).format('YYYY-MM-DD');
-
-    Object.entries(values.user).forEach(([key, value]) => {
-      if (key === 'date') {
-        formData.append(key, formattedDate);
-      } else {
-        formData.append(key, value);
-      }
-    });
-
-      GuestService.capnhatKH({
-      userId: formData.get("phone"),
-      hoten: formData.get("name"),
-      phai: formData.get("gender"),
-      ngaysinh: formData.get("date"),
-      diachi: formData.get("address"),
-      matkhaucu: formData.get("verify-password"),
-    }).then((res)=>{
-      console.log("here")
-      console.log(res);
-      dispatch(changeState());
-    })
   };
-
+  const onFinish = (values) => {
+    console.log(values);
+  };
   return (
     <div
       className="bg-white p-10 mx-10 sm:px-15 md:px-25 lg:px-40"
@@ -91,7 +46,7 @@ const CapNhatTaiKhoan = () => {
         {...layout}
         name="nest-messages"
         onFinish={onFinish}
-        style={{ maxWidth: "95%" }}
+        style={{maxWidth:"95%"}}
         initialValues={initialValues}
       >
         <Form.Item
@@ -216,15 +171,15 @@ const CapNhatTaiKhoan = () => {
             ...layout.wrapperCol,
             offset: 5,
           }}
-          style={{ marginBottom: 0 }}
+          style={{marginBottom:0}}
         >
-          <button className="bg-grin font-montserrat font-bold text-base text-white py-2 px-5 rounded-lg hover:bg-darkgrin active:bg-grin">
-            CẬP NHẬT
-          </button>
+          <button className="bg-grin font-montserrat font-bold text-base text-white py-2 
+            px-5 rounded-lg hover:bg-darkgrin active:bg-grin">
+        CẬP NHẬT
+        </button>
         </Form.Item>
       </Form>
     </div>
   );
 };
-
 export default CapNhatTaiKhoan;

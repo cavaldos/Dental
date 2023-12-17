@@ -53,6 +53,11 @@ const StaffRouter = [
     component: HoaDon,
     Layout: AdminLayout,
   },
+  {
+    path: "/cap-nhat-tai-khoan",
+    component: CapNhatTaiKhoan,
+    Layout: AdminLayout,
+  },
 ];
 
 export default StaffRouter;

@@ -7,6 +7,7 @@ const CapNhatTaiKhoan = lazy(() => import("../pages/guest/CapNhatTk"));
 const DatLichHen = lazy(() => import("../pages/guest/DatLichHen"));
 const HoSoBenhKH = lazy(() => import("../pages/guest/HoSoBenh"));
 const XemLichHenKH = lazy(() => import("../pages/guest/XemLichHen"));
+const Profile = lazy(() => import("../pages/guest/Profile"));
 
 const GuestRouter = [
   {

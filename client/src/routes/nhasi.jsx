@@ -45,6 +45,11 @@ const DentistRouter = [
     component: ThemBenhAnMoi,
     Layout: AdminLayout,
   },
+  {
+    path: "/cap-nhat-tai-khoan",
+    component: CapNhatTaiKhoan,
+    Layout: AdminLayout,
+  }
 ];
 
 export default DentistRouter;
