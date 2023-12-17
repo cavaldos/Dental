@@ -173,6 +173,5 @@ const XemLichHen = () => {
       </Modal>
     </div>
   );
-  
 };
 export default XemLichHen;

@@ -38,7 +38,7 @@ const OnlineRouter = [
   {
     path: "/signup",
     component: SignUpPage,
-    Layout: null,
+    Layout: DefaultLayout,
   },
 ];
 

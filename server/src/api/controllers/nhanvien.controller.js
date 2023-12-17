@@ -30,7 +30,7 @@ const nhanVienController = {
       params.PHAI = req.body.phai;
       params.NGAYSINH = req.body.ngaysinh;
       params.DIACHI = req.body.diachi;
-
+      console.log(params);
       const sp = 'SP_TAOTKKH_NV';
       const result = await pool.executeSP(sp, params);
       return res.status(201).json({ success: true });
@@ -49,6 +49,7 @@ const nhanVienController = {
       params.SODT = req.body.sdt;
       params.SOTT = req.body.stt;
       params.MANV = req.body.manv;
+      console.log(params);
 
       const sp = 'SP_TAOHOADON_NV';
       const result = await pool.executeSP(sp, params);
@@ -232,7 +233,7 @@ const nhanVienController = {
       const sp = 'SP_GETLICHRANHNS_NV';
       
       const result = await pool.executeSP(sp, params);
-      return res.status(200).json(result[1]);
+      return res.status(200).json(result[0]);
     } catch (error) {
       console.error('An error occurred:', error.message);
       return res.status(500).json({ error: 'An error occurred while processing the request' });

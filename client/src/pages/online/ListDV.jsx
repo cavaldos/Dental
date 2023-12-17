@@ -61,7 +61,7 @@ const DanhSachDV = () => {
   return (
     <>
       <div className="w-full">
-        <DichVuTable data={dv} />
+        <DichVuTable data={dv || []} />
       </div>
     </>
   );

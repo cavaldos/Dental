@@ -70,7 +70,7 @@ const XemDichVu = () => {
   return (
     <>
       <div className=" w-full">
-        <DichVuTable service={dv} />
+        <DichVuTable service={dv || []} />
       </div>
     </>
   );

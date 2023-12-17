@@ -9,7 +9,6 @@ const QuanLiDV = lazy(() => import("~/pages/admin/QuanLiDV"));
 const QuanLiThuoc = lazy(() => import("~/pages/admin/QuanLiThuoc"));
 const QuanLiNV = lazy(() => import("~/pages/admin/QuanLiNV"));
 const QuanLiQTV = lazy(() => import("~/pages/admin/QuanLiQTV"));
-
 const AdminRouter = [
   {
     path: "/",

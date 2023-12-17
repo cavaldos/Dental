@@ -1,11 +1,10 @@
 import React, { useState, useEffect, memo } from "react";
 import { Table, Pagination, Drawer, Empty, message } from "antd";
-import hsb from "~/fakedata/hsb";
-
+import StaffService from "../services/staff";
 import "~/assets/styles/guest.css";
 import { ButtonGreen } from "~/components/button";
 import GuestService from "../services/guest";
-
+import { useSelector } from "react-redux";
 const escapedNewLineToLineBreakTag = (text) => {
   const replacedText = text.replace(/\\n/g, "\n");
   const lines = replacedText.split("\n");
@@ -62,6 +61,16 @@ const GuestInfo = ({ currentRecord }) => {
 };
 
 const DichVuTable = memo(({ dataDV, openDrawer }) => {
+  const formatDVData = (dvData) => {
+    if (!dvData || !Array.isArray(dvData) || dvData[0].MATHUOC === null) {
+      return [];
+    }
+    return dvData.map((item) => {
+      return {
+        ...item,
+      };
+    });
+  };
   const columnDV = [
     {
       title: "STT",
@@ -92,7 +101,10 @@ const DichVuTable = memo(({ dataDV, openDrawer }) => {
   return (
     <Table
       columns={columnDV}
-      dataSource={dataDV.map((item, index) => ({ ...item, key: index }))}
+      dataSource={formatDVData(dataDV).map((item, index) => ({
+        ...item,
+        key: index,
+      }))}
       pagination={false}
     />
   );
@@ -100,10 +112,13 @@ const DichVuTable = memo(({ dataDV, openDrawer }) => {
 
 const ThuocTable = memo(({ dataThuoc, openDrawer }) => {
   const formatThuocData = (thuocData) => {
-    if (!thuocData || !Array.isArray(thuocData)) {
+    if (
+      !thuocData ||
+      !Array.isArray(thuocData) ||
+      thuocData[0].MATHUOC === null
+    ) {
       return [];
     }
-
     return thuocData.map((item) => {
       const donViTinh = item.DONVITINH.trim();
       const formattedThoiDiemDung = escapedNewLineToLineBreakTag(
@@ -164,12 +179,10 @@ const ThuocTable = memo(({ dataThuoc, openDrawer }) => {
 });
 
 const HoSoBenh = ({ sdt, isStaff }) => {
-  const _DAXUATHOADON = 0;
-  const MANV = 'NV0001';
+  const MANV = useSelector((state) => state.user.MANV);
   const [currentPage, setCurrentPage] = useState(1);
   const [medicalRecords, setMedicalRecords] = useState([]);
   const recordsPerPage = 1; // Số hồ sơ bệnh hiển thị trên mỗi trang
-  const [sdts, setSdts] = useState(sdt);
 
   // Hiển thị chi tiết loại dịch vụ
   const [drawerVisible, setDrawerVisible] = useState(false);
@@ -196,7 +209,6 @@ const HoSoBenh = ({ sdt, isStaff }) => {
       console.log("Lỗi khi lấy thông tin:", error);
     }
   };
-  
 
   const closeDrawer = () => {
     setDrawerVisible(false);
@@ -206,9 +218,22 @@ const HoSoBenh = ({ sdt, isStaff }) => {
   };
 
   useEffect(() => {
-    setSdts(sdt);
-    setMedicalRecords(hsb);
-  });
+    if (isStaff === 1) {
+      StaffService.xemBenhAn(sdt).then((res) => {
+        if (res === undefined) {
+          message.info("Không tìm thấy thông tin hồ sơ bệnh!");
+        }
+        setMedicalRecords(res ? res : []);
+      });
+    } else {
+      GuestService.benhAn(sdt).then((res) => {
+        if (res === undefined) {
+          message.info("Không tìm thấy thông tin hồ sơ bệnh!");
+        }
+        setMedicalRecords(res ? res : []);
+      });
+    }
+  }, [sdt]);
 
   const indexOfLastRecord = currentPage * recordsPerPage;
   const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
@@ -217,10 +242,17 @@ const HoSoBenh = ({ sdt, isStaff }) => {
     indexOfLastRecord
   );
 
-  const createInvoice = ({ sdt, sott, manv }) => {
-    // Khanh goi API trong nay nha
-    message.success("Đã tạo hóa đơn thành công!");
+  const createInvoice = async ({ sdt, sott, manv }) => {
+    StaffService.taoHoaDon({
+      sdt: sdt,
+      stt: sott,
+      manv: manv,
+    }).then((res) => {
+      console.log(res);
+    });
   };
+
+  const DAXUATHOADON = medicalRecords[0]?.DAXUATHOADON;
 
   return (
     <div>
@@ -274,7 +306,7 @@ const HoSoBenh = ({ sdt, isStaff }) => {
           <div>
             {isStaff === 1 ? (
               <div className="mt-6 flex justify-end">
-                {_DAXUATHOADON == 1 ? (
+                {DAXUATHOADON === true ? (
                   <p
                     className="font-montserrat font-black text-md text-grin py-2 
                       px-5 rounded-xl mb-3 border-4 border-grin"
@@ -282,7 +314,16 @@ const HoSoBenh = ({ sdt, isStaff }) => {
                     ĐÃ XUẤT HÓA ĐƠN
                   </p>
                 ) : (
-                  <ButtonGreen text="XUẤT HÓA ĐƠN" func={() => createInvoice( sdt, currentRecords[0].SOTT, MANV)} />
+                  <ButtonGreen
+                    text="XUẤT HÓA ĐƠN"
+                    func={() =>
+                      createInvoice({
+                        sdt,
+                        sott: currentRecords[0].SOTT,
+                        manv: MANV,
+                      })
+                    }
+                  />
                 )}
               </div>
             ) : null}

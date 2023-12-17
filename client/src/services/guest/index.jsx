@@ -1,17 +1,4 @@
 import Axios from "../Axios";
-// router.post("/taoKH",khachHangController.taoTKKH);
-// router.get("/getAllCa",khachHangController.getAllCa);
-// router.get("/getAllDV",khachHangController.getAllDV);
-// router.get("/getAllDSNhaSi",khachHangController.getAllDSNS);
-// router.get("/lichRanh",khachHangController.xemLRChuaDatTatCaNS);
-// router.get("/loaiThuoc/:mathuoc",khachHangController.xemThuoc);
-// router.get("/loaiDV/:madv",khachHangController.xemDV);
-// router.get("/lichHen",khachHangController.xemLichHen);
-// router.post("/lichHen",khachHangController.taoLichHen);
-// router.get("/benhAn",khachHangController.xemBenhAn);
-// router.delete("/lichHen",khachHangController.deleteLichHen);
-// router.put("/capnhatKH",khachHangController.capNhanThongTin);
-// router.get("/xemthongtinKH",khachHangController.xemThongTin);
 
 const GuestService = {
   getAllDV: async () => {
@@ -59,11 +46,16 @@ const GuestService = {
     return res;
   },
   taoLichHen: async (data) => {
-    const res = await Axios.post("/khachhang/lichHen", data);
+    const res = await Axios.post("/khachhang/lichHen", {
+      sodt: data.sodt,
+      mans: data.mans,
+      sott: data.sott,
+      lydokham: data.lydokham,
+    });
     return res;
   },
-  benhAn: async () => {
-    const res = await Axios.get("/khachhang/benhAn");
+  benhAn: async (sdt) => {
+    const res = await Axios.get(`/khachhang/benhAn/${sdt}`);
     return res;
   },
   deleteLichHen: async (data) => {
@@ -88,6 +80,10 @@ const GuestService = {
   },
   xemthongtinKH: async () => {
     const res = await Axios.get("/khachhang/xemthongtinKH");
+    return res;
+  },
+  xemLRChuaDatTatCaNSTheoNgay: async () => {
+    const res = await Axios.get("/khachhang/lichRanhTheoNgay");
     return res;
   },
 };

@@ -20,18 +20,19 @@ function App() {
 
   const VerifyRoure = () => {
     switch (user.ROLE) {
-      case "admin":
+      case "QTV":
+        return AdminRouter;
+      case "KH":
+        return GuestRouter;
+      case "NV":
         return StaffRouter;
-      case "guest":
-        return StaffRouter;
-      case "staff":
-        return StaffRouter;
-      case "dentist":
-        return StaffRouter;
+      case "NS":
+        return DentistRouter;
       default:
-        return StaffRouter;
+        return OnlineRouter;
     }
   };
+  // console.log("khanh", VerifyRoure());
 
   return (
     <>

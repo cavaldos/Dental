@@ -3,7 +3,7 @@ import { AudioOutlined } from "@ant-design/icons";
 import { Input, Space } from "antd";
 import { useState, Suspense, lazy } from "react";
 import { useLocation } from "react-router-dom";
-import '../../assets/styles/staff.css'
+import "../../assets/styles/staff.css";
 
 const HoaDon = lazy(() => import("~/components/HoaDon"));
 const { Search } = Input;

@@ -99,7 +99,7 @@ const XemThuoc = () => {
   return (
     <>
       <div className="w-full">
-        <ThuocTable medicine={thuoc} />
+        <ThuocTable medicine={thuoc || []} />
       </div>
     </>
   );

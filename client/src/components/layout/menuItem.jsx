@@ -1,6 +1,4 @@
-
 import { AiOutlineMenuFold } from "react-icons/ai";
-
 
 const menuDentist = [
   {

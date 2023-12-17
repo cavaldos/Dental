@@ -1,4 +1,5 @@
 import Axios from "../Axios";
+import { message } from "antd";
 
 const AdminService = {
   getAllNhanVien: async () => {
@@ -38,22 +39,58 @@ const AdminService = {
   },
   themThuoc: async (data) => {
     const res = await Axios.post("/qtv/themThuoc", data);
+    if(res && res.response)
+    {
+      if (res.response.status === 422) {
+        message.error(res.response.data.error);
+      }
+    }
     return res;
   },
   themDV: async (data) => {
     const res = await Axios.post("/qtv/themDV", data);
+    if(res && res.response)
+    {
+      if (res.response.status === 400) {
+        message.error(res.response.data.error);
+      }
+    }
     return res;
   },
   nhapThuoc: async (data) => {
     const res = await Axios.put("/qtv/nhapThuoc", data);
+    if(res && res.response)
+    {
+      if (res.response.status === 422) {
+        message.error(res.response.data.error);
+      }
+      if (res.response.status === 400) {
+        message.error(res.response.data.error);
+      }
+    }
     return res;
   },
   xoaThuoc: async (data) => {
     const res = await Axios.delete("/qtv/xoaThuoc", data);
+    if(res && res.response)
+    {
+      if (res.response.status === 405) {
+        message.error(res.response.data.error);
+      }
+    }
     return res;
   },
   suaThuoc: async (data) => {
     const res = await Axios.put("/qtv/suaThuoc", data);
+    if(res && res.response)
+    {
+      if (res.response.status === 304) {
+        message.error(res.response.data.error);
+      }
+      if (res.response.status === 400) {
+        message.error(res.response.data.error);
+      }
+    }
     return res;
   },
   suaDV: async (data) => {

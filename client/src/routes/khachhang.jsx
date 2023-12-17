@@ -34,6 +34,7 @@ const GuestRouter = [
     component: XemLichHenKH,
     Layout: DefaultLayout,
   },
+
 ];
 
 export default GuestRouter;
