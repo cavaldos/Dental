@@ -39,8 +39,7 @@ const AdminService = {
   },
   themThuoc: async (data) => {
     const res = await Axios.post("/qtv/themThuoc", data);
-    if(res && res.response)
-    {
+    if (res && res.response) {
       if (res.response.status === 422) {
         message.error(res.response.data.error);
       }
@@ -49,8 +48,7 @@ const AdminService = {
   },
   themDV: async (data) => {
     const res = await Axios.post("/qtv/themDV", data);
-    if(res && res.response)
-    {
+    if (res && res.response) {
       if (res.response.status === 400) {
         message.error(res.response.data.error);
       }
@@ -59,8 +57,7 @@ const AdminService = {
   },
   nhapThuoc: async (data) => {
     const res = await Axios.put("/qtv/nhapThuoc", data);
-    if(res && res.response)
-    {
+    if (res && res.response) {
       if (res.response.status === 422) {
         message.error(res.response.data.error);
       }
@@ -72,8 +69,7 @@ const AdminService = {
   },
   xoaThuoc: async (data) => {
     const res = await Axios.delete("/qtv/xoaThuoc", data);
-    if(res && res.response)
-    {
+    if (res && res.response) {
       if (res.response.status === 405) {
         message.error(res.response.data.error);
       }
@@ -82,8 +78,7 @@ const AdminService = {
   },
   suaThuoc: async (data) => {
     const res = await Axios.put("/qtv/suaThuoc", data);
-    if(res && res.response)
-    {
+    if (res && res.response) {
       if (res.response.status === 304) {
         message.error(res.response.data.error);
       }
@@ -142,7 +137,12 @@ const AdminService = {
     return res;
   },
   matKhau: async (data) => {
-    const res = await Axios.put("/qtv/matKhau", data);
+    const res = await Axios.put("/qtv/matKhau", {
+      maqtv: data.maqtv,
+      matkhaucu: data.matkhaucu,
+      matkhaumoi: data.matkhaumoi,
+    });
+
     return res;
   },
 };
