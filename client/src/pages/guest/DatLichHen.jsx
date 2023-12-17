@@ -9,7 +9,7 @@ const NhaSi = ({ TENNS, MAND }) => {
   const dispath = useDispatch();
   const handleOnClick = () => {
     dispath(booking({ mans: MAND }));
-    message.success("Đã chọn nha sĩ");
+    message.success(`Đã chọn nha sĩ ${TENNS}`);
   };
   return (
     <>
@@ -31,8 +31,7 @@ const Ca = ({ MACA, MANS, NGAY, SOTT }) => {
     const year = date.getFullYear();
     const hours = date.getHours();
     const minutes = date.getMinutes();
-
-    return `${day}/${month}/${year} ${hours}:${minutes}`;
+    return `  ${hours}:${minutes}  ${day}-${month}`;
   }
   const [ca, setCa] = useState([]);
 
@@ -46,10 +45,7 @@ const Ca = ({ MACA, MANS, NGAY, SOTT }) => {
       setCa(res);
     });
   }, []);
-
-  console.log("ca", ca);
   const merge = ca.filter((item) => item.MACA === MACA);
-  console.log("merge ca", merge);
   return (
     <>
       <Button
@@ -57,7 +53,7 @@ const Ca = ({ MACA, MANS, NGAY, SOTT }) => {
         className="p-4 rounded-lg border border-slate-400 h-16"
       >
         {
-          ca?.map((item, index) => (
+          merge?.map((item, index) => (
             <h1 key={index}>
               {formatDate(item.GIOBATDAU)} - {formatDate(item.GIOKETTHUC)}
             </h1>
@@ -72,7 +68,6 @@ const ChonNhaSi = () => {
   const [nhasi, setNhaSi] = useState([]);
   useEffect(() => {
     GuestService.getAllDSNS().then((res) => {
-      console.log("nha si",res);
       setNhaSi(res);
     });
   }, []);
@@ -80,6 +75,7 @@ const ChonNhaSi = () => {
     <>
       <div className="flex justify-center ">
         <div className="grid grid-cols-3 grid-rows-3 gap-4">
+          <NhaSi TENNS="Nha Si Bất Kỳ" MAND="" />
           {nhasi?.map((item, index) => (
             <NhaSi key={index} TENNS={item.HOTEN} MAND={item.MANS} />
           ))}
@@ -88,6 +84,67 @@ const ChonNhaSi = () => {
     </>
   );
 };
+function convertDate(inputDate) {
+  let date = new Date(inputDate);
+  let day = date.getDate();
+  let month = date.getMonth() + 1;
+  let year = date.getFullYear();
+
+  day = day < 10 ? "0" + day : day;
+  month = month < 10 ? "0" + month : month;
+
+  return day + "/" + month + "/" + year;
+}
+const ChonCa = () => {
+  const order = useSelector((state) => state.order);
+  const [lichRanh, setLichRanh] = useState([]);
+  const [lichRanhTheoNgay, setLichRanhTheoNgay] = useState([]);
+
+  useEffect(() => {
+    GuestService.lichRanh().then((res) => {
+      setLichRanh(res);
+    });
+    GuestService.xemLRChuaDatTatCaNSTheoNgay().then((res) => {
+      console.log(res);
+      setLichRanhTheoNgay(res);
+    });
+  }, []);
+  // // console.log("lich ranh cu nha si", new_lichRanh);
+
+  console.log("lich ranh", lichRanh);
+  console.log("lich ranh theo ngay", lichRanhTheoNgay);
+
+  const formatlich = lichRanhTheoNgay.map((item, index) => ({
+    ...item,
+    NGAY: item.NGAY,
+    SOTT: item.CA.map((item,index) => index+1),
+    // // MANS:item.CA.NHASI[0].MANS,
+    MACA: item.CA[0].MACA,
+    // GIOBATDAU:item.CA.GIOBATDAU,
+    // GIOKETTHUC:item.CA.GIOKETTHUC,
+  }));
+
+  console.log("lich ranh theo ngayssssss", formatlich);
+  const new_lichRanh = lichRanh.filter((item) => item.MANS === order.mans);
+  return (
+    <>
+      <div className="flex justify-center">
+        <div className=" grid grid-cols-3 grid-rows-3 gap-4">
+          {new_lichRanh?.map((item, index) => (
+            <Ca
+              key={index}
+              MACA={item.MACA}
+              MANS={item.MANS}
+              NGAY={item.NGAY}
+              SOTT={item.SOTT}
+            />
+          ))}
+        </div>
+      </div>
+    </>
+  );
+};
+
 const LyDoKham = () => {
   const [lydokham, setLyDoKham] = useState("");
   console.log(lydokham);
@@ -114,38 +171,6 @@ const LyDoKham = () => {
           >
             <h1>Xác nhận</h1>
           </Button>
-        </div>
-      </div>
-    </>
-  );
-};
-
-const ChonCa = () => {
-  const order = useSelector((state) => state.order);
-  const [lichRanh, setLichRanh] = useState([]);
-
-  useEffect(() => {
-    GuestService.lichRanh().then((res) => {
-      setLichRanh(res);
-    });
-  }, []);
-  console.log("lich ranh",lichRanh);
-  const new_lichRanh = lichRanh.filter((item) => item.MANS === order.mans);
-  console.log("lich ranh cu nha si",new_lichRanh);
-
-  return (
-    <>
-      <div className="flex justify-center">
-        <div className=" grid grid-cols-3 grid-rows-3 gap-4">
-          {lichRanh?.map((item, index) => (
-            <Ca
-              key={index}
-              MACA={item.MACA}
-              MANS={item.MANS}
-              NGAY={item.NGAY}
-              SOTT={item.SOTT}
-            />
-          ))}
         </div>
       </div>
     </>
@@ -249,20 +274,6 @@ const DatLichContainer = () => {
 };
 
 const DatLichHen = () => {
-  // const { nhasi,setNhaSi } = useState([]);
-  // const { dichvu,setDichVu } = useState([]);
-  // useEffect(() => {
-  //   GuestService.getAllDSNS().then((res) => {
-  //     setNhaSi(res);
-  //     console.log(res);
-  //   });
-  //   GuestService.getAllDV().then((res) => {
-  //     // setDichVu(res);
-  //     console.log(res);
-  //   });
-  // }, []);
-  // console.log(nhasi);
-  // console.log(dichvu);
   return (
     <>
       <div className="">
