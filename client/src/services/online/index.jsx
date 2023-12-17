@@ -1,4 +1,5 @@
 import Axios from "../Axios";
+import { message } from "antd";
 
 const OnlineService = {
   checkLogin: async () => {
@@ -21,6 +22,15 @@ const OnlineService = {
       matk: data.matk,
       matkhau: data.matkhau,
     });
+    if(res && res.response)
+    {
+      if (res.response.status === 401) {
+        message.error(res.response.data.error);
+      }
+      if (res.response.status === 403) {
+        message.error(res.response.data.error);
+      }
+    }
     return res;
   },
   getAllDV: async () => {

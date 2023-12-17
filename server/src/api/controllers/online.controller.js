@@ -19,11 +19,13 @@ const onlineController = {
       console.log(params);
       try {
         checkSoDTParams = {
-          SODT: req.body.sdt
-        }
+          SODT: req.body.sdt,
+        };
         const checkSoDT = await pool.executeSP("SP_KTTK_ALL", checkSoDTParams);
         if (checkSoDT[0][0].ROLE) {
-          return res.status(400).json({ message: "The phone number is registered!" });
+          return res
+            .status(400)
+            .json({ message: "The phone number is registered!" });
         }
       } catch (error) {
         const sp = "SP_TAOTKKH_KH";
@@ -49,10 +51,19 @@ const onlineController = {
       console.log(req.body);
       const result = await pool.executeSP(sp, params);
       if (result.error) {
-        return res.status(401).json(result.error);
+        if (result.error.message === "Tài khoản đăng nhập không hợp lệ.") {
+          return res.status(401).json({ error: error.message });
+        }
+        if (result.error.message === "Tài khoản hoặc mật khẩu không đúng.") {
+          return res.status(401).json({ error: error.message });
+        }
+        if (result.error.message === "Tài khoản đã bị khóa.") {
+          return res.status(403).json({ error: error.message });
+        }
+        // return res.status(401).json(result.error);
       } else {
         if (result[0]._DAKHOA) {
-          return res.status(400).json("Tai khoan bi khoa!");
+          return res.status(403).json("Tài khoản đã bị khóa.");
         }
         const accessToken = jwt.sign(
           {
@@ -62,16 +73,23 @@ const onlineController = {
           process.env.ACCESS_TOKEN_SECRET_KEY,
           { expiresIn: process.env.ACCESS_TOKEN_LIFE }
         );
-        return res
-          .status(200)
-          .json({
-            success: true,
-            accessToken: accessToken,
-            info: result[0][0],
-            accessokenExpirationTime: process.env.ACCESS_TOKEN_LIFE,
-          });
+        return res.status(200).json({
+          success: true,
+          accessToken: accessToken,
+          info: result[0][0],
+          accessokenExpirationTime: process.env.ACCESS_TOKEN_LIFE,
+        });
       }
     } catch (error) {
+      if (error.message === "Tài khoản đăng nhập không hợp lệ.") {
+        return res.status(401).json({ error: error.message });
+      }
+      if (error.message === "Tài khoản hoặc mật khẩu không đúng.") {
+        return res.status(401).json({ error: error.message });
+      }
+      if (error.message === "Tài khoản đã bị khóa.") {
+        return res.status(403).json({ error: error.message });
+      }
       console.error("An error occurred:", error.message);
       return res
         .status(500)
