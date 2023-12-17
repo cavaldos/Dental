@@ -19,10 +19,13 @@
 }
 
 .ant-input-number {
-    width: 100% !important;
+    width: 140px;
 }
 .ant-select-selector {
     height: 117% !important;
+}
+.ant-input-disabled {
+    margin-bottom: 0.75em !important;
 }
 .ant-picker {
     width: 100% !important;
@@ -88,6 +91,6 @@
     /* padding-top: 0.5rem;
     padding-bottom: 0.5rem;
     margin-bottom: 1rem;*/
-    margin-top: 0.5rem; 
+    margin-top: 0.25rem; 
     height: 35.5px !important;
 }

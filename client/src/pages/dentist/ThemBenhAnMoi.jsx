@@ -1,37 +1,82 @@
 import { useEffect, useState } from "react";
 import { Input, Select, message, Button, Form, InputNumber } from "antd";
+import {
+  DeleteOutlined 
+} from "@ant-design/icons";
 import dv from "~/fakedata/dv";
 import thuoc from "~/fakedata/thuoc";
 const { TextArea } = Input;
+import moment from 'moment';
+import { ButtonGreen } from "../../components/button";
+import '../../assets/styles/dentist.css'
 
 const { Item } = Form;
+
+const ThongTinLichHen = ({ info }) => {
+  if (!info) {
+    return null;
+  }
+
+  const { HOTENKH, SODT, NGAYKHAM, HOTENNS } = info;
+  return (
+    <div>
+      <p className="leading-9 font-montserrat font-semibold text-base text-#4B4B4B">
+        <span className="text-grey">Họ tên: </span>
+        {HOTENKH}
+      </p>
+      <p className="leading-9 font-montserrat font-semibold text-base text-#4B4B4B">
+        <span className="text-grey">Số điện thoại: </span>
+        {SODT}
+      </p>
+      <p className="leading-9 font-montserrat font-semibold text-base text-#4B4B4B">
+        <span className="text-grey">Ngày khám: </span>
+        {NGAYKHAM}
+      </p>
+      <p className="leading-9 font-montserrat font-semibold text-base text-#4B4B4B">
+        <span className="text-grey">Tên nha sĩ: </span>
+        {HOTENNS}
+      </p>
+    </div>
+  );
+};
 
 const DichVuDaChon = ({ ten, soLuong, madv, onClickXoa }) => {
   return (
     <>
-      <div className="flex w-[440px]  gap-6 ">
-        <Input className=" w-[300px]" value={ten} disabled />
-        <Input className="w-[130px]" value={soLuong} disabled />
-        <Button onClick={() => onClickXoa(madv)}>Xóa</Button>
+      <div className="flex w-[840px]">
+        <Input className="w-[300px]" value={ten} disabled />
+        <Input className="w-[137px] ml-5" value={soLuong} disabled />
+        <Button 
+          className="w-[90px] font-montserrat text-base font-semibold text-pinkk 
+                      text-center border-0 hover:text-darkpinkk" 
+          onClick={() => onClickXoa(madv)}>
+          <DeleteOutlined />
+        </Button>
       </div>
     </>
   );
 };
 
-const ThuocDaChon = ({ ten, soLuong, mathuoc, onClickXoa }) => {
+const ThuocDaChon = ({ ten, soLuong, mathuoc, thoidiemdung, onClickXoa }) => {
 
   return (
     <>
-      <div className="flex w-[440px]  gap-6 ">
-        <Input className=" w-[300px]" value={ten} disabled />
-        <Input className="w-[130px]" value={soLuong} disabled />
-        <Button onClick={() => onClickXoa(mathuoc)}>Xóa</Button>
+      <div className="flex w-[990px]">
+        <Input className="w-[300px]" value={ten} disabled />
+        <Input className="w-[137px] ml-5" value={soLuong} disabled />
+        <Input className="w-[360px] h-fit ml-5" value={thoidiemdung} disabled />
+        <Button 
+          className="w-[90px] font-montserrat text-base font-semibold text-pinkk 
+                      text-center border-0 hover:text-darkpinkk" 
+          onClick={() => onClickXoa(mathuoc)}>
+          <DeleteOutlined />
+        </Button>
       </div>
     </>
   );
 };
 
-const ThemBenhAnMoi = ({}) => {
+const FormDienThongTin = ({}) => {
   const [form] = Form.useForm();
   const [dichVuList, setDichVuList] = useState(dv);
   const [chonDichVu, setChonDichVu] = useState([]);
@@ -103,33 +148,21 @@ const ThemBenhAnMoi = ({}) => {
 
   return (
     <>
-      <div className="bg-gray-300 min-h-[500px]  min-w-[70%] p-3">
-        <h1 className="text-2xl mb-5 font-bold">
-          Them benh an moi cho khach hang
-        </h1>
-        <div className="flex">
-          <h1 className="text-gray-600 mr-3">So Thu Tu Ho So:</h1>
-          <p>{"6"}</p>
-        </div>
-        <div className="flex ">
-          <h1 className="text-gray-600 mr-3">Ngay Kham:</h1>
-          <p>{"5-1-2024"}</p>
-        </div>
-        <div className="flex">
-          <h1 className="text-gray-600 mr-3">Nha Si:</h1>
-          <p>{"Hoang Thi Ngoc Anh"}</p>
-        </div>
-        <div className="mb-5">
-          <h1 className="text-gray-600 mr-3">Dan Do</h1>
+        <div className="my-1">
+        <p className="leading-9 font-montserrat font-semibold text-base text-#4B4B4B">
+          <span className="text-grey">Dặn dò: </span>
+        </p>
           <TextArea
             className="border border-spacing-2"
-            rows={6}
-            placeholder="maxLength is 6"
-            maxLength={5}
+            rows={3}
+            placeholder="Nhập các chẩn đoán và lời dặn cho bệnh nhân."
+            maxLength={500}
           />
         </div>
-        <div className="text-gray-600 mr-3 my-5">
-          <h1 className="text-gray-600 mr-3">Dich Vu:</h1>
+        <div>
+        <p className="leading-9 font-montserrat font-semibold text-base text-#4B4B4B">
+          <span className="text-grey">Dịch vụ: </span>
+        </p>
           <div className="flex flex-col gap-1">
             {chonDichVu.map((item, index) => {
               return (
@@ -143,11 +176,10 @@ const ThemBenhAnMoi = ({}) => {
               );
             })}
           </div>
-          <Form form={form} layout="inline">
+          <Form form={form} layout="inline" >
             <Item name="MADV">
               <Select
-                className="w-72"
-                placeholder="Chon dich vu"
+                placeholder="Chọn loại dịch vụ"
                 style={{
                   width: 300,
                 }}
@@ -159,24 +191,27 @@ const ThemBenhAnMoi = ({}) => {
             </Item>
             <Item name="SOLUONG">
               <InputNumber
-                className="border border-spacing-2 w-32 ml-3"
-                placeholder="So luong"
+                className="border border-spacing-2 ml-1"
+                placeholder="Số lượng"
                 min={1}
                 inputMode="numeric"
               />
             </Item>
             <Item>
               <Button
-                className="ml-3 bg-blue-500 text-white px-3 py-1 rounded-md"
+                className="ml-2 bg-white border-blue border-2 border-dashed 
+                         text-blue font-montserrat text-sm h-[37px] rounded-lg"
                 onClick={handleThemDichVu}
               >
-                Them
+                Thêm
               </Button>
             </Item>
           </Form>
         </div>
-        <div className="text-gray-600 mr-3 my-5">
-          <h1 className="text-gray-600 mr-3">Thuoc:</h1>
+        <div>
+        <p className="leading-9 font-montserrat font-semibold text-base text-#4B4B4B">
+          <span className="text-grey">Thuốc: </span>
+        </p>
           <div className="flex flex-col gap-1">
             {chonThuoc.map((item, index) => {
               return (
@@ -190,11 +225,10 @@ const ThemBenhAnMoi = ({}) => {
               );
             })}
           </div>
-          <Form form={form} layout="inline">
+          <Form form={form} layout="inline" >
             <Item name="MATHUOC">
               <Select
-                className="w-72"
-                placeholder="Chon thuoc"
+                placeholder="Chọn loại thuốc"
                 style={{
                   width: 300,
                 }}
@@ -206,24 +240,84 @@ const ThemBenhAnMoi = ({}) => {
             </Item>
             <Item name="SLTHUOC">
               <InputNumber
-                className="border border-spacing-2 w-32 ml-3"
-                placeholder="So luong"
+                className="border border-spacing-2 ml-1"
+                placeholder="Số lượng"
                 min={1}
                 inputMode="numeric"
               />
             </Item>
+            <Item name="THOIDIEMDUNG"
+                  rules={[
+                    {
+                      required: true,
+                      message: 'Vui lòng nhập thời điểm dùng',
+                    },
+                    {
+                      max: 200,
+                      message: 'Không quá 200 ký tự',
+                    },
+                  ]}
+            >
+              <TextArea
+                className="border border-spacing-2 ml-1"
+                placeholder="Thời điểm dùng"
+                showCount
+                minLength={10}
+                maxLength={200}
+                rows={1}
+                style={{
+                  width: 360,
+                }}
+              />
+            </Item>
             <Item>
               <Button
-                className="ml-3 bg-blue-500 text-white px-3 py-1 rounded-md"
+                className="ml-2 bg-white border-blue border-2 border-dashed 
+                        text-blue font-montserrat text-sm h-[37px] rounded-lg"
                 onClick={handleThemThuoc}
               >
-                Them
+                Thêm
               </Button>
             </Item>
           </Form>
         </div>
-      </div>
+        <div className="flex justify-start mt-5">
+              <ButtonGreen text="HOÀN TẤT HỒ SƠ" func=""/>
+              <Button
+                // onClick={handleReset}
+                style={{ marginLeft: 20, marginBottom: "14px" }}
+                type="danger"
+            
+              >
+                ĐẶT LẠI
+              </Button>
+            </div>
     </>
+  );
+};
+
+const ThemBenhAnMoi = () => {
+
+  const infos = {
+    HOTENKH: "Vũ Nguyễn Xuân Uyên",
+    SODT: "0932312908",
+    NGAYKHAM: moment(),
+    HOTENNS: "",
+  }
+  infos.NGAYKHAM = infos.NGAYKHAM.format('DD/MM/YYYY');
+
+  return (
+    <div className="w-[1160px] flex flex-col gap-5 mt-1">
+      <div className="bg-white p-10 mx-10 pb-8"
+          style={{
+            borderRadius: "35px",
+            boxShadow: "0px 4px 4px 0px rgba(0, 0, 0, 0.10)",
+          }}
+      >
+            <ThongTinLichHen info={infos}/>
+            <FormDienThongTin />
+      </div>
+    </div>
   );
 };
 
