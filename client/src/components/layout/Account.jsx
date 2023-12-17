@@ -6,7 +6,6 @@ import { useNavigate } from "react-router-dom";
 
 const Account = () => {
   const user = useSelector((state) => state.user);
-  console.log(user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 

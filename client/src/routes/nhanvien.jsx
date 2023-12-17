@@ -1,16 +1,17 @@
-
 import { lazy } from "react";
 const AdminLayout = lazy(() => import("~/components/layout/adminLayout"));
 
 const StaffPage = lazy(() => import("../pages/staff"));
-const DangKiTaiKhoanKhachHang = lazy(() => import("../pages/staff/DangKiTaiKhoanKH"));
+const DangKiTaiKhoanKhachHang = lazy(() =>
+  import("../pages/staff/DangKiTaiKhoanKH")
+);
 const XemLichHen = lazy(() => import("../pages/staff/XemLichHen"));
 const XemThuoc = lazy(() => import("../pages/staff/XemThuoc"));
 const XemDichVu = lazy(() => import("../pages/staff/XemDichVu"));
 const HoSoBenh = lazy(() => import("../pages/staff/HoSoBenh"));
 const HoaDon = lazy(() => import("../pages/staff/HoaDon"));
 const DatLich = lazy(() => import("../pages/staff/DatLich"));
-
+const CapNhatTaiKhoan = lazy(() => import("../pages/staff/CapNhatTk"));
 
 const StaffRouter = [
   {
@@ -51,6 +52,11 @@ const StaffRouter = [
   {
     path: "/hoa-don",
     component: HoaDon,
+    Layout: AdminLayout,
+  },
+  {
+    path: "/cap-nhat-tai-khoan",
+    component: CapNhatTaiKhoan,
     Layout: AdminLayout,
   },
 ];

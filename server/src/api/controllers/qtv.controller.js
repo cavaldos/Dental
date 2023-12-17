@@ -147,6 +147,12 @@ const qtvController = {
       const result = await pool.executeSP(sp, params);
       return res.status(201).json({ success: true });
     } catch (error) {
+      if (error.message === "Không thể thêm thuốc đã hết hạn.") {
+        return res.status(422).json({ error: error.message });
+      }
+      if (error.message === "Số lượng nhập và đơn giá phải lớn hơn 0.") {
+        return res.status(422).json({ error: error.message });
+      }
       console.error("An error occurred:", error.message);
       return res
         .status(500)
@@ -164,10 +170,13 @@ const qtvController = {
       const result = await pool.executeSP(sp, params);
       return res.status(200).json({ success: true });
     } catch (error) {
+      if (error.message === "Không thể hủy thuốc vì chưa hết hạn.") {
+        return res.status(405).json({ error: error.message });
+      }
       console.error("An error occurred:", error.message);
       return res
         .status(500)
-        .json({ error: "An error occurred while processing the request" });
+        .json({ error: error.message });
     }
   },
   suaThuoc: async (req, res) => {
@@ -185,6 +194,12 @@ const qtvController = {
       const result = await pool.executeSP(sp, params);
       return res.status(200).json({ success: true });
     } catch (error) {
+      if (error.message === "Đơn giá không được nhỏ hơn hoặc bằng 0") {
+        return res.status(400).json({ error: error.message });
+      }
+      if (error.message === "Không có thông tin mới để cập nhật.") {
+        return res.status(304).json({ error: error.message });
+      }
       console.error("An error occurred:", error.message);
       return res
         .status(500)
@@ -204,10 +219,19 @@ const qtvController = {
       const result = await pool.executeSP(sp, params);
       return res.status(200).json({ success: true });
     } catch (error) {
+      if (error.message === "Không thể nhập vì thuốc chưa hết hạn hoặc chưa hết số lượng.") {
+        return res.status(422).json({ error: error.message });
+      }
+      if (error.message === "Ngày hết hạn không hợp lệ") {
+        return res.status(400).json({ error: error.message });
+      }
+      if (error.message === "Số lượng nhập phải lớn hơn 0") {
+        return res.status(400).json({ error: error.message });
+      }
       console.error("An error occurred:", error.message);
       return res
         .status(500)
-        .json({ error: "An error occurred while processing the request" });
+        .json({ error: error.message  });
     }
   },
   themDV: async (req, res) => {
@@ -224,6 +248,9 @@ const qtvController = {
       const result = await pool.executeSP(sp, params);
       return res.status(201).json({ success: true });
     } catch (error) {
+      if (error.message === "đơn giá không được nhỏ hơn hoặc bằng 0") {
+        return res.status(400).json({ error: error.message });
+      }
       console.error("An error occurred:", error.message);
       return res
         .status(500)

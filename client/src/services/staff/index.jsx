@@ -10,19 +10,39 @@ const StaffService = {
     return res;
   },
   taoTaiKhoanKH: async (data) => {
-    const res = await Axios.post("/nhanvien/khachHang", data);
+    const res = await Axios.post("/nhanvien/khachHang", {
+      sdt: data.sdt,
+      hoten: data.hoten,
+      phai: data.phai,
+      ngaysinh: data.ngaysinh,
+      diachi: data.diachi,
+    });
+
     return res;
   },
   taoHoaDon: async (data) => {
-    const res = await Axios.post("/nhanvien/hoaDon", data);
+    console.log("test apio", data);
+    const res = await Axios.post("/nhanvien/taohoaDon", {
+      sdt: data.sdt,
+      stt: data.stt,
+      manv: data.manv,
+    });
     return res;
   },
   xacNhanThanhToan: async (data) => {
-    const res = await Axios.put("/nhanvien/xacNhanHoaDon", data);
+    const res = await Axios.put("/nhanvien/xacNhanHoaDon", {
+      sdt: data.sdt,
+      stt: data.stt,
+      manv: data.manv,
+    });
     return res;
   },
   doiMatKhau: async (data) => {
-    const res = await Axios.put("/nhanvien/matKhau", data);
+    const res = await Axios.put("/nhanvien/matKhau", {
+      manv: data.manv,
+      matkhaucu: data.matkhaucu,
+      matkhaumoi: data.matkhaumoi,
+    });
     return res;
   },
   getAllThuoc: async () => {
@@ -50,7 +70,11 @@ const StaffService = {
     return res;
   },
   deleteLichHen: async (data) => {
-    const res = await Axios.delete("/nhanvien/lichHen", data);
+    const res = await Axios.delete("/nhanvien/lichHen", {
+      mans: data.mans,
+      sdt: data.sdt,
+      stt: data.stt,
+    });
     return res;
   },
 };

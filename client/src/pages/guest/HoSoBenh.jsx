@@ -1,15 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, lazy, Suspense } from "react";
 import hsb from "../../fakedata/hsb";
 import "../../assets/styles/guest.css";
 const HoSoBenh = lazy(() => import("~/components/HoSoBenh"));
-
+import { useSelector } from "react-redux";
 const XemHoSoBenh_KH = () => {
-  const [phone, setPhone] = useState("");
-
+  const usersdt = useSelector((state) => state.user.SODT);
   return (
     <Suspense fallback={<div>Loading...</div>}>
       <div className="w-[1200px] flex flex-col gap-5 mt-5">
-            <HoSoBenh sdt={phone} isStaff={0} />
+        <HoSoBenh sdt={usersdt} isStaff={0} />
       </div>
     </Suspense>
   );

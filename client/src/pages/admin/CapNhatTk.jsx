@@ -1,8 +1,10 @@
-import React, { useState } from "react";
-import { Form, Input, Select, DatePicker } from "antd";
-import moment from "moment";
-import OnlineService from "../../services/online";
-import { ButtonGreen } from "../../components/button";
+import React, { useState, useEffect } from "react";
+import { Button, Form, Input, InputNumber, Select, DatePicker } from "antd";
+import dayjs from 'dayjs';
+import {ButtonGreen} from "../../components/button"
+import axios from "axios";
+
+
 const layout = {
   labelCol: {
     span: 8,
@@ -12,32 +14,25 @@ const layout = {
   },
 };
 
-const DangKyTaiKhoan = () => {
-  const [date, setDate] = useState("");
-  const { formValue, setFormValue } = useState({});
-  const [form] = Form.useForm();
+const dateFormatList = ['DD/MM/YYYY', 'DD/MM/YY', 'DD-MM-YYYY', 'DD-MM-YY'];
+const customFormat = (value) => `custom format: ${value.format(dateFormat)}`;
+const customWeekStartEndFormat = (value) =>
+  `${dayjs(value).startOf('week').format(weekFormat)} ~ ${dayjs(value)
+    .endOf('week')
+    .format(weekFormat)}`;
+
+const CapNhatTaiKhoan = () => {
   const initialValues = {
     user: {
-      phone: "012345678",
-      name: "",
-      gender: "",
-      address: "",
-      date: "",
+      phone: "0987654321", // Giá trị số điện thoại mặc định
+      name: "John Doe", // Giá trị họ tên mặc định
+      gender: "Nam", // Giá trị giới tính mặc định
+      address: "Trong tim ...", // Giá trị giới tính mặc định
+      date: dayjs('01/01/1990', dateFormatList[0]), // Giá trị ngày sinh mặc định
     },
   };
-  const onFinish = async (values) => {
-   
-    const newUser = {
-      ...values,
-      ngaysinh: date,
-    };
-    OnlineService.taoTKKH(newUser).then((res) => {
-      if (res.success === true) {
-        message.success("Đăng ký thành công!");
-      } else if (res.success === false) {
-        message.error("Đăng ký thất bại!");
-      }
-    });
+  const onFinish = (values) => {
+    console.log(values);
   };
   return (
     <div
@@ -49,21 +44,18 @@ const DangKyTaiKhoan = () => {
     >
       <Form
         {...layout}
+        name="nest-messages"
         onFinish={onFinish}
-        style={{ maxWidth: "95%" }}
+        style={{maxWidth:"95%"}}
         initialValues={initialValues}
       >
         <Form.Item
-          name="sdt"
+          name={["user", "phone"]}
           label="Số điện thoại:"
           rules={[
             {
               required: true,
               message: "Vui lòng nhập số điện thoại!",
-            },
-            {
-              pattern: /^[0-9]{10}$/,
-              message: "Số điện thoại không hợp lệ!",
             },
           ]}
           labelCol={{
@@ -72,13 +64,12 @@ const DangKyTaiKhoan = () => {
           wrapperCol={{
             span: 19,
           }}
-          validateTrigger={["onBlur"]}
         >
-          <Input />
+          <Input disabled={true} />
         </Form.Item>
 
         <Form.Item
-          name="hoten"
+          name={["user", "name"]}
           label="Họ tên:"
           rules={[
             {
@@ -97,12 +88,12 @@ const DangKyTaiKhoan = () => {
         </Form.Item>
 
         <Form.Item
-          name="phai"
+          name={["user", "gender"]}
           label="Phái"
           rules={[
             {
               required: true,
-              message: "Vui lòng chọn giới tính",
+              message:"Vui lòng chọn giới tính"
             },
           ]}
           labelCol={{
@@ -119,7 +110,7 @@ const DangKyTaiKhoan = () => {
         </Form.Item>
 
         <Form.Item
-          name="ngaysinh"
+          name={["user", "date"]}
           label="Ngày sinh"
           rules={[
             {
@@ -134,20 +125,11 @@ const DangKyTaiKhoan = () => {
             span: 19,
           }}
         >
-          <DatePicker
-            placeholder="Ngày sinh."
-            format="YYYY-MM-DD"
-            disabledDate={(currentDate) =>
-              currentDate && currentDate >= moment().startOf("day")
-            }
-            onChange={(date, dateString) => {
-              setDate(dateString);
-            }}
-          />
+          <DatePicker format={dateFormatList} placeholder="Chọn ngày" />
         </Form.Item>
 
         <Form.Item
-          name="diachi"
+          name={["user", "address"]}
           label="Địa chỉ:"
           rules={[
             {
@@ -164,41 +146,15 @@ const DangKyTaiKhoan = () => {
         >
           <Input />
         </Form.Item>
-        <Form.Item
-          name="matkhau"
-          label="Mật khẩu"
-          rules={[
-            {
-              required: true,
-              message: "Vui lòng nhập mật khẩu",
-            },
-            {
-              min: 6,
-              message: "Mật khẩu cần ít nhất 6 ký tự",
-            },
-          ]}
-          labelCol={{ span: 5 }}
-          wrapperCol={{ span: 19 }}
-        >
-          <Input.Password />
-        </Form.Item>
 
         <Form.Item
-          name="xacnhanmatkhau"
+          name={["user", "verify-password"]}
           label="Xác nhận mật khẩu"
           rules={[
             {
               required: true,
               message: "Vui lòng xác nhận mật khẩu!",
             },
-            ({ getFieldValue }) => ({
-              validator(_, value) {
-                if (!value || getFieldValue("matkhau") === value) {
-                  return Promise.resolve();
-                }
-                return Promise.reject("Mật khẩu xác nhận không khớp!");
-              },
-            }),
           ]}
           labelCol={{
             span: 5,
@@ -206,7 +162,6 @@ const DangKyTaiKhoan = () => {
           wrapperCol={{
             span: 19,
           }}
-          validateTrigger={["onBlur"]}
         >
           <Input.Password />
         </Form.Item>
@@ -216,12 +171,15 @@ const DangKyTaiKhoan = () => {
             ...layout.wrapperCol,
             offset: 5,
           }}
-          style={{ marginBottom: 0 }}
+          style={{marginBottom:0}}
         >
-          <ButtonGreen text={"Đăng Ký"} />
+          <button className="bg-grin font-montserrat font-bold text-base text-white py-2 
+            px-5 rounded-lg hover:bg-darkgrin active:bg-grin">
+        CẬP NHẬT
+        </button>
         </Form.Item>
       </Form>
     </div>
   );
 };
-export default DangKyTaiKhoan;
+export default CapNhatTaiKhoan;

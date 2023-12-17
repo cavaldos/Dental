@@ -47,11 +47,11 @@ const Sidebar = (props) => {
   const Veryrole = () => {
     const role = user.ROLE;
     switch (role) {
-      case "admin":
+      case "QTV":
         return menuAdmin;
-      case "dentist":
+      case "NS":
         return menuDentist;
-      case "staff":
+      case "NV":
         return menuStaff;
       default:
         return menuStaff;
