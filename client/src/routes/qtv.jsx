@@ -45,11 +45,6 @@ const AdminRouter = [
     component: QuanLiQTV,
     Layout: AdminLayout,
   },
-  {
-    path: "/cap-nhat-tai-khoan",
-    component: CapNhatTaiKhoan,
-    Layout: AdminLayout,
-  },
 ];
 
 export default AdminRouter;
