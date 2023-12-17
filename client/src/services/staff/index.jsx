@@ -1,4 +1,5 @@
 import Axios from "../Axios";
+import { message } from "antd";
 
 const StaffService = {
   getLichRanhNS: async () => {
@@ -17,7 +18,11 @@ const StaffService = {
       ngaysinh: data.ngaysinh,
       diachi: data.diachi,
     });
-
+    if (res && res.response) {
+      if (res.response.status === 409) {
+        message.error(res.response.data.error);
+      }
+    }
     return res;
   },
   taoHoaDon: async (data) => {

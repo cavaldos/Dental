@@ -1,4 +1,5 @@
 import Axios from "../Axios";
+import { message } from "antd";
 
 const GuestService = {
   getAllDV: async () => {
@@ -41,8 +42,8 @@ const GuestService = {
     const res = await Axios.get(`/khachhang/${type}/${id}`);
     return res;
   },
-  lichHen: async () => {
-    const res = await Axios.get("/khachhang/lichHen");
+  lichHen: async (sdt) => {
+    const res = await Axios.get(`/khachhang/lichHen/${sdt}`);
     return res;
   },
   taoLichHen: async (data) => {
@@ -64,6 +65,14 @@ const GuestService = {
       sdt: data.sdt,
       stt: data.stt,
     });
+    if (res && res.response) {
+      if (res.response.status === 422) {
+        message.error(res.response.data.error);
+      }
+      if (res.response.status === 404) {
+        message.error(res.response.data.error);
+      }
+    }
     return res;
   },
   capnhatKH: async (data) => {
@@ -76,6 +85,12 @@ const GuestService = {
       matkhaucu: data.matkhaucu,
       matkhaumoi: data.matkhaumoi,
     });
+    console.log(res);
+    if (res && res.response) {
+      if (res.response.status === 400) {
+        message.error(res.response.data.error);
+      }
+    }
     return res;
   },
   xemthongtinKH: async () => {
