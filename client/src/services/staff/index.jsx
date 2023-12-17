@@ -77,5 +77,9 @@ const StaffService = {
     });
     return res;
   },
+  matKhau: async (data) => {
+    const res = await Axios.put("/nhanvien/matKhau", data);
+    return res;
+  },
 };
 export default StaffService;

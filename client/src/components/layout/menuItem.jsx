@@ -22,9 +22,9 @@ const menuDentist = [
     path: "/tao-benh-an-moi",
   },
   {
-    name: "Profile",
+    name: "Đổi mật khẩu",
     icon: <AiOutlineMenuFold size={30} />,
-    path: "/cap-nhat-tai-khoan",
+    path: "/doi-mat-khau",
   },
 ];
 
@@ -60,9 +60,9 @@ const menuAdmin = [
     path: "/quan-li-quan-tri-vien",
   },
   {
-    name: "Profile",
+    name: "Đổi mật khẩu",
     icon: <AiOutlineMenuFold size={30} />,
-    path: "/cap-nhat-tai-khoan",
+    path: "/doi-mat-khau",
   },
 ];
 
@@ -103,9 +103,9 @@ const menuStaff = [
     path: "/hoa-don",
   },
   {
-    name: "Profile",
+    name: "Đổi mật khẩu",
     icon: <AiOutlineMenuFold size={30} />,
-    path: "/cap-nhat-tai-khoan",
+    path: "/doi-mat-khau",
   },
 ];
 

@@ -7,7 +7,7 @@ const CapNhatTaiKhoan = lazy(() => import("../pages/guest/CapNhatTk"));
 const DatLichHen = lazy(() => import("../pages/guest/DatLichHen"));
 const HoSoBenhKH = lazy(() => import("../pages/guest/HoSoBenh"));
 const XemLichHenKH = lazy(() => import("../pages/guest/XemLichHen"));
-const Profile = lazy(() => import("../pages/guest/Profile"));
+const DoiMatKhau = lazy(() => import("../pages/guest/DoiMatKhau"));
 
 const GuestRouter = [
   {
@@ -35,6 +35,11 @@ const GuestRouter = [
     component: XemLichHenKH,
     Layout: DefaultLayout,
   },
+  {
+    path: "doi-mat-khau",
+    component:  DoiMatKhau,
+    Layout: DefaultLayout
+  }
 
 ];
 

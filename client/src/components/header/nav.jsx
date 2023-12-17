@@ -22,8 +22,8 @@ const KhachHangItem = [
     path: "/cap-nhat-tai-khoan",
   },
   {
-    name: "Cap nhật tài khoản",
-    path: "/profile",
+    name: "Đổi mật khẩu",
+    path: "/doi-mat-khau",
   },
 ];
 
