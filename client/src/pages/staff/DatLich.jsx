@@ -1,8 +1,10 @@
 import { lichhen5 } from "../../fakedata/lhnv";
 import ns from "~/fakedata/nhasi";
 import '../../assets/styles/staff.css'
+import StaffService from "../../services/staff";
 
-import React, { useState } from "react";
+
+import React, { useState, useEffect } from "react";
 import { Form, Input, Button, Select, InputNumber, Badge, Dropdown, Pagination } from "antd";
 import { ButtonGreen } from "../../components/button";
 const { Item } = Form;
@@ -194,14 +196,13 @@ const ListLichhen = ({ data }) => {
       <h1 className="text-montserrat text-blue font-bold text-base pb-1">
         <TitleSchedule maca={data.MACA} />
       </h1>
-      <OneWorkSchedule data={data.NHASI[0]} />
-      <OneWorkSchedule data={data.NHASI[1]} />
+      {/* <OneWorkSchedule data={data.NHASI[0]} /> */}
+      {/* <OneWorkSchedule data={data.NHASI[1]} /> */}
     </div>
   );
 };
 
 const XemLichTruc = ( schedule ) => {
-
   // ---------------------------------------
   // Sort ngày
   // Hàm so sánh ngày để sắp xếp
@@ -210,10 +211,8 @@ const XemLichTruc = ( schedule ) => {
     const dateB = new Date(b.NGAY.split('/').reverse().join('/'));
     return dateA - dateB;
   };
-
 // Sắp xếp mảng lichhen5 theo ngày
   const sortedSchedule = (schedule.schedule).sort(compareDates);
-
 
   // ---------------------------------------
   // Phân trang
@@ -233,6 +232,7 @@ const XemLichTruc = ( schedule ) => {
     return a.MACA.localeCompare(b.MACA);
   };
   currentSchedule[0].CA.sort(sortByMACA);
+  console.log("o day",currentSchedule[0]);
 
   return (
     <div className="w-[480px]">
@@ -258,11 +258,24 @@ const XemLichTruc = ( schedule ) => {
 };
 
 const DatLich = () => {
+  const [lichHenData, setLichHenData] = useState(null);
+  useEffect(() => {
+    // Sử dụng async/await để gọi API bất đồng bộ
+    const fetchData = async () => {
+      try {
+        const res = await StaffService.getLichRanhNS();
+        setLichHenData(res);
+      } catch (error) {
+        console.error('Lỗi khi lấy dữ liệu lịch hẹn:', error);
+      }
+    };
+    fetchData(); // Gọi hàm fetchData để lấy dữ liệu khi component được tạo
+  }, []);
   return (
     <>
       <div className="  min-h-[700px] flex gap-6 justify-center">
         <TaoLichHen />
-        <XemLichTruc schedule={lichhen5} />
+        {lichHenData !== null && <XemLichTruc schedule={lichHenData} />}
       </div>
     </>
   );
