@@ -75,8 +75,7 @@ const CapNhatTaiKhoan = () => {
       ngaysinh: formData.get("date"),
       diachi: formData.get("address"),
       matkhaucu: formData.get("verify-password"),
-    }).then((res) => {
-      console.log(res);
+    }).then((res)=>{
       dispatch(changeState());
     });
   };

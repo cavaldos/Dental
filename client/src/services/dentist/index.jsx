@@ -84,5 +84,9 @@ const DentistService = {
     const res = await Axios.get(`/nhasi/benhAn/${sdt}`);
     return res;
   },
+  xemTableLichNS: async (mans) => {
+    const res = await Axios.get(`/nhasi/tableLichNS/${mans}`);
+    return res;
+  },
 };
 export default DentistService;

@@ -3,26 +3,33 @@ import "../../assets/styles/staff.css";
 import StaffService from "../../services/staff";
 
 import React, { useState, useCallback, useEffect } from "react";
-import { Table, message, Modal, Form, Input, Select, Space } from "antd";
+import { Table, message, Modal, Form, Input, Space } from "antd";
+import moment from 'moment';
 
 import { StopOutlined } from "@ant-design/icons";
 import ColumnSearch from "~/hooks/useSortTable";
 
 import { ButtonGreen, ButtonPink } from "../../components/button";
 
-const ModalHuyThuoc = ({ data }) => {
+const ModalHuyHen = ({ data }) => {
   const [formValues, setFormValues] = useState(data);
   const [form] = Form.useForm();
   const [formattedTime, setFormattedTime] = useState("");
 
   useEffect(() => {
     form.setFieldsValue(data);
-    if (data && data.GIOBATDAU && !formattedTime) {
-      const time = new Date(data.GIOBATDAU);
-      const options = { hour: "numeric", minute: "numeric" };
-      const formattedTime = time.toLocaleTimeString("en-US", options);
+    if (data && data.GIOBATDAU) {
+      const time = moment.utc(data.GIOBATDAU);
+      const formattedTime = time.format("HH:mm");
       setFormattedTime(formattedTime);
+      console.log(formattedTime);
     }
+
+    // Set giá trị mặc định cho NGAY và GIOBATDAU
+    form.setFieldsValue({
+      GIOBATDAU: formattedTime,
+      NGAY: moment(data.NGAY).format("DD/MM/YYYY"),
+    });
   }, [data, form, formattedTime]);
 
   const handleSubmit = (values) => {
@@ -41,22 +48,19 @@ const ModalHuyThuoc = ({ data }) => {
         name="registration-form"
         layout="vertical"
         onFinish={handleSubmit}
-        initialValues={{
-          GIOBATDAU: formattedTime,
-        }}
       >
-        <Form.Item label="Khách hàng" name="KH_HOTEN" style={{ width: "100%" }}>
+        <Form.Item label="Khách hàng" name="HOTENKH" style={{ width: "100%" }}>
           <Input disabled />
         </Form.Item>
         <Form.Item label="Ngày hẹn" name="NGAY" style={{ width: "100%" }}>
           <Input disabled />
         </Form.Item>
         <Form.Item label="Giờ hẹn" name="GIOBATDAU" style={{ width: "100%" }}>
-          <Input value={formattedTime} disabled />
+          <Input disabled />
         </Form.Item>
         <Form.Item
           label="Nha sĩ đã hẹn"
-          name="NS_HOTEN"
+          name="HOTENNS"
           style={{ width: "100%" }}
         >
           <Input disabled />
@@ -90,18 +94,34 @@ const LichhenTabble = ({ appointment }) => {
     setOpenDeleteModal(false);
   }, []);
 
+
+  console.log(appointment);
+
   const columns = [
     {
       title: "Mã ca",
       dataIndex: "MACA",
       key: "MACA",
+      width: "5%",
       ...ColumnSearch("MACA", "Mã ca"),
+    },
+    {
+      title: "Ngày khám",
+      dataIndex: "NGAY",
+      key: "NGAY",
+      width: "6%",
+      render: (text) => {
+        const date = new Date(text);
+        const formattedDate = date.toLocaleDateString();
+        return formattedDate;
+      },
+      sorter: (a, b) => a.NGAY - b.NGAY,
     },
     {
       title: "Giờ Bắt Đầu",
       dataIndex: "GIOBATDAU",
       key: "GIOBATDAU",
-      width: "10%",
+      width: "6%",
       render: (text) => {
         const time = new Date(text);
         const formattedTime = time.toLocaleTimeString("en-US", options);
@@ -113,7 +133,7 @@ const LichhenTabble = ({ appointment }) => {
       title: "Giờ Kết Thúc",
       dataIndex: "GIOKETTHUC",
       key: "GIOKETTHUC",
-      width: "10%",
+      width: "7%",
       render: (text) => {
         const time = new Date(text);
         const formattedTime = time.toLocaleTimeString("en-US", options);
@@ -122,10 +142,17 @@ const LichhenTabble = ({ appointment }) => {
       sorter: (a, b) => a.GIOKETTHUC - b.GIOKETTHUC,
     },
     {
+      title: "Mã NS",
+      dataIndex: "MANS",
+      key: "MANS",
+      width: "7%",
+      ...ColumnSearch("MANS", "Mã nha sĩ"),
+    },
+    {
       title: "Tên nha sĩ",
       dataIndex: "HOTENNS",
       key: "HOTENNS",
-      ...ColumnSearch("NS_HOTEN", "Tên nha sĩ"),
+      width: "11%",
     },
     {
       title: "Mã NS",
@@ -133,22 +160,49 @@ const LichhenTabble = ({ appointment }) => {
       key: "MANS",
     },
     {
-      title: "Ngày khám",
-      dataIndex: "NGAY",
-      key: "NGAY",
-      render: (text) => {
-        const date = new Date(text);
-        const formattedDate = date.toLocaleDateString();
-        return formattedDate;
-      },
+      title: "Số TT",
+      dataIndex: "SOTTLH",
+      key: "SOTTLH",
+      width: "4%",
+      sorter: (a, b) => a.SOTTLH - b.SOTTLH,
+    },
+    {
+      title: "Số ĐT khách",
+      dataIndex: "SODTKH",
+      key: "SODTKH",
+      width: "7%",
+      ...ColumnSearch("SODTKH", "Số điện thoại"),
+    },
+    {
+      title: "Tên khách hàng",
+      dataIndex: "HOTENKH",
+      key: "HOTENKH",
+      width: "11%",
+      ...ColumnSearch("HOTENKH", "Tên khách hàng"),
+    },
+    {
+      title: "Lý do khám",
+      dataIndex: "LYDOKHAM",
+      key: "LYDOKHAM",
+      // with: "50%",
     },
 
     {
-      title: "Số Thứ Tự Lịch Hẹn",
-      dataIndex: "SOTTLR",
-      key: "SOTTLR",
-      with: "10%",
-      ...ColumnSearch("SOTTLR", "Số điện thoại"),
+      title: "Quản lí",
+      key: "action",
+      fixed: "right",
+      width: "7%",
+
+      render: (text, record) => (
+        <Space size="middle">
+          <button
+            className="text-orange font-montserrat hover:text-darkorange hover:underline mx-1"
+            onClick={() => handleDelete(record)}
+          >
+            <StopOutlined /> Hủy hẹn
+          </button>
+        </Space>
+      ),
     },
   ];
 
@@ -161,7 +215,7 @@ const LichhenTabble = ({ appointment }) => {
         bordered
         size="middle"
         tableLayout="auto"
-        scroll={{ x: "calc(900px + 50%)" }}
+        scroll={{ x: "calc(1600px + 50%)" }}
       />
 
       <Modal
@@ -174,7 +228,7 @@ const LichhenTabble = ({ appointment }) => {
         onCancel={handleCancelDelete}
         footer={[]}
       >
-        <ModalHuyThuoc data={data1} />
+        <ModalHuyHen data={data1} />
       </Modal>
     </>
   );

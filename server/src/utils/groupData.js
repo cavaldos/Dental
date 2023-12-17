@@ -171,5 +171,63 @@ const groupLich = (data) => {
     return Object.entries(ketQua).map(([ngay, ca]) => ({ NGAY: ngay, CA: ca }));
 }
 
-export { groupHD, groupHSB, groupLich };
+const groupTableLich = (data) => {
+    const ketQua = {};
+    const allMaca = ["CA001", "CA002", "CA003", "CA004", "CA005", "CA006"];
+    const gioBatDau = ["09:00:00", "11:00:00", "13:00:00", "15:00:00", "17:00:00", "19:00:00"];
+    const gioKetThuc = ["11:00:00", "13:00:00", "15:00:00", "17:00:00", "19:00:00", "21:00:00"];
+
+    data.forEach(item => {
+        const ngay = convertBackToDate(item.NGAY);
+
+        if (!ketQua[ngay]) {
+            ketQua[ngay] = [];
+        }
+
+        // Tìm kiếm nếu đã tồn tại ca với mã ca
+        const existingCa = ketQua[ngay].find(ca => ca.MACA === item.MACA);
+
+        // Nếu chưa tồn tại, thêm mới
+        if (!existingCa) {
+            const macaIndex = allMaca.indexOf(item.MACA);
+
+            ketQua[ngay].push({
+                MACA: item.MACA,
+                GIOBATDAU: gioBatDau[macaIndex],
+                GIOKETTHUC: gioKetThuc[macaIndex],
+                STATUS: item.STATUS,
+                MANS: item.MANS,
+                HOTENNS: item.TEN_KHACH,
+                SODTKH: item.SDT_KHACH,
+                HOTENKH: item.HOTENKH,
+                SOTTLH: item.SOTT,
+                LYDOKHAM: item.LYDOKHAM,
+                SOTTLR: item.SOTTLR
+            });
+        }
+    });
+
+    // Thêm các ca "empty" cho những ca còn thiếu
+    Object.keys(ketQua).forEach(ngay => {
+        const existingMaca = ketQua[ngay].map(ca => ca.MACA);
+        const missingMaca = allMaca.filter(maca => !existingMaca.includes(maca));
+
+        missingMaca.forEach(maca => {
+            const macaIndex = allMaca.indexOf(maca);
+
+            ketQua[ngay].push({
+                MACA: maca,
+                GIOBATDAU: gioBatDau[macaIndex],
+                GIOKETTHUC: gioKetThuc[macaIndex],
+                STATUS: "empty",
+            });
+        });
+
+        // Sắp xếp mảng CA theo thứ tự mã ca
+        ketQua[ngay].sort((ca1, ca2) => allMaca.indexOf(ca1.MACA) - allMaca.indexOf(ca2.MACA));
+    });
+
+    return Object.entries(ketQua).map(([ngay, ca]) => ({ NGAY: ngay, CA: ca }));
+}
+export { groupHD, groupHSB, groupLich, groupTableLich };
 

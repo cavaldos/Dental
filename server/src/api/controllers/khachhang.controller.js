@@ -33,12 +33,16 @@ const khachHangController = {
       params.DIACHI = req.body.diachi;
       params.MAT_KHAU_CU = req.body.matkhaucu;
       params.MAT_KHAU_MOI = req.body.matkhaumoi;
-      console.log(params)
-
       const sp = "SP_CAPNHATTHONGTIN_KH";
       const result = await pool.executeSP(sp, params);
       return res.status(200).json({ success: true });
     } catch (error) {
+      if (error.message === "Mật khẩu xác nhận không chính xác") {
+        return res.status(400).json({ error: error.message });
+      }
+      if (error.message === "Tài khoản không tồn tại trong hệ thống") {
+        return res.status(400).json({ error: error.message });
+      }
       console.error("An error occurred:", error.message);
       return res
         .status(500)
@@ -199,6 +203,12 @@ const khachHangController = {
       const result = await pool.executeSP(sp, params);
       return res.status(201).json({ success: true });
     } catch (error) {
+      if (error.message === "Lịch hẹn này không tồn tại") {
+        return res.status(404).json({ error: error.message });
+      }
+      if (error.message === "Không thể hủy lịch hẹn trước 1 ngày") {
+        return res.status(422).json({ error: error.message });
+      }
       console.error("An error occurred:", error.message);
       return res
         .status(500)

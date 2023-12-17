@@ -19,6 +19,4 @@ router.delete("/xoalichHen",khachHangController.deleteLichHen);
 router.put("/capnhatKH",khachHangController.capNhanThongTin);
 router.get("/xemthongtinKH",khachHangController.xemThongTin);
 router.get("/lichRanhTheoNgay",khachHangController.xemLRChuaDatTatCaNSTheoNgay);
-
-
 export default router;
