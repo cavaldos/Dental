@@ -183,7 +183,6 @@ const ThuocTable = memo(({ dataThuoc, openDrawer }) => {
 });
 
 const HoaDon = ({ sdt }) => {
-  const _DATHANHTOAN = 0;
   const [currentPage, setCurrentPage] = useState(1);
   const [medicalRecords, setMedicalRecords] = useState([]);
   const recordsPerPage = 1;
@@ -246,7 +245,7 @@ const HoaDon = ({ sdt }) => {
           <div className="mt-5">
             <p>Nhân viên phụ trách: {currentRecords[0].HOTENNV} </p>
 
-            {_DATHANHTOAN === 0 ? (
+            {currentRecords[0].DATHANHTOAN == false ? (
               <p className="text-pinkk italic">*Hóa đơn chưa được thanh toán</p>
             ) : (
               <p className="text-pinkk italic">*Hóa đơn đã được thanh toán</p>
@@ -257,6 +256,7 @@ const HoaDon = ({ sdt }) => {
         <Empty />
       )}
       <div className="grid grid-cols-[2fr,1fr] gap-4 mt-6">
+      {medicalRecords.length > 0 ? (
         <div className="flex justify-start">
           <p className="me-4">
             <ButtonGrey
@@ -268,7 +268,7 @@ const HoaDon = ({ sdt }) => {
               func={() => print()}
             />
           </p>
-          {_DATHANHTOAN === 0 ? (
+          {currentRecords[0].DATHANHTOAN == false ? (
             <p>
               <ButtonGreen
                 text="XÁC NHẬN THANH TOÁN"
@@ -277,6 +277,7 @@ const HoaDon = ({ sdt }) => {
             </p>
           ) : null}
         </div>
+        ) : null}
         <div className="flex justify-end py-3">
           {medicalRecords.length > 0 && (
             <Pagination
