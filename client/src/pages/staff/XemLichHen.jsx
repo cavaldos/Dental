@@ -4,7 +4,7 @@ import StaffService from "../../services/staff";
 
 import React, { useState, useCallback, useEffect } from "react";
 import { Table, message, Modal, Form, Input, Space } from "antd";
-import moment from 'moment';
+import moment from "moment";
 
 import { StopOutlined } from "@ant-design/icons";
 import ColumnSearch from "~/hooks/useSortTable";
@@ -93,7 +93,6 @@ const LichhenTabble = ({ appointment }) => {
   const handleCancelDelete = useCallback(() => {
     setOpenDeleteModal(false);
   }, []);
-
 
   console.log(appointment);
 

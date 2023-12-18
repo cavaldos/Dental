@@ -1,7 +1,8 @@
 import { lichhen5 } from "../../fakedata/lhnv";
 import ns from "~/fakedata/nhasi";
-
 import "../../assets/styles/staff.css";
+import StaffService from "../../services/staff";
+
 import React, { useState, useEffect } from "react";
 import {
   Form,
@@ -14,7 +15,6 @@ import {
   Pagination,
 } from "antd";
 import { ButtonGreen } from "../../components/button";
-import StaffService from "../../services/staff";
 const { Item } = Form;
 
 const NhaSi = ({ mans, tenns }) => {
@@ -28,7 +28,7 @@ const NhaSi = ({ mans, tenns }) => {
   );
 };
 
-const TaoLichHen = () => {
+const TaoLichHen = ({ handleTaoLichHen }) => {
   const [form] = Form.useForm();
   const [nhaSiList, setNhaSiList] = useState(ns);
   const [chonNhaSi, setChonNhaSi] = useState("");
@@ -45,6 +45,10 @@ const TaoLichHen = () => {
 
   const onFinish = (values) => {
     console.log("Submitted values:", values);
+    StaffService.taoLichHen(values).then((res) => {
+      // load lại
+      handleTaoLichHen();
+    });
   };
 
   const handleCancel = () => {
@@ -154,19 +158,18 @@ const OneWorkSchedule = ({ data }) => {
         </Badge.Ribbon>
       ) : (
         <Badge.Ribbon text="Rảnh" color="blue">
-        <div className="border-2.4 border-[#b8b8b8] rounded-md h-[40px] flex items-center p-3 mb-2" >
-          <Dropdown
-            menu={{
-              items: detail({ mans: data.MANS, sott: data.SOTTLR }),
-            }}
-          >
-          <div className="font-montserrat font-semibold text-base">NS. 
-            <span>
-              {data.HOTENNS}
-            </span>
+          <div className="border-2.4 border-[#b8b8b8] rounded-md h-[40px] flex items-center p-3 mb-2">
+            <Dropdown
+              menu={{
+                items: detail({ mans: data.MANS, sott: data.SOTTLR }),
+              }}
+            >
+              <div className="font-montserrat font-semibold text-base">
+                NS.
+                <span>{data.HOTENNS}</span>
+              </div>
+            </Dropdown>
           </div>
-          </Dropdown>
-        </div>
         </Badge.Ribbon>
       )}
     </>
@@ -206,26 +209,24 @@ const ListLichhen = ({ data }) => {
       <h1 className="text-montserrat text-blue font-bold text-base pb-1">
         <TitleSchedule maca={data.MACA} />
       </h1>
-      <OneWorkSchedule data={data.NHASI[0]} />
-      <OneWorkSchedule data={data.NHASI[1]} />
+      {data.NHASI.map((item, index) => (
+        <OneWorkSchedule key={index} data={item} />
+      ))}
     </div>
   );
 };
 
-const XemLichTruc = ({ schedule }) => {
-  console.log("schedule", schedule);
+const XemLichTruc = (schedule) => {
   // ---------------------------------------
   // Sort ngày
-  // // Hàm so sánh ngày để sắp xếp
+  // Hàm so sánh ngày để sắp xếp
   const compareDates = (a, b) => {
     const dateA = new Date(a.NGAY.split("/").reverse().join("/"));
     const dateB = new Date(b.NGAY.split("/").reverse().join("/"));
     return dateA - dateB;
   };
-
-  // // Sắp xếp mảng lichhen5 theo ngày
-  const sortedSchedule = schedule.sort(compareDates);
-  console.log("sortedSchedule", sortedSchedule);
+  // Sắp xếp mảng lichhen5 theo ngày
+  const sortedSchedule = schedule.schedule.sort(compareDates);
 
   // ---------------------------------------
   // Phân trang
@@ -251,7 +252,7 @@ const XemLichTruc = ({ schedule }) => {
 
   return (
     <div className="w-[480px]">
-      {/* <div className="bg-[#FFFFFF] w-[480px] rounded-2xl py-8 px-10">
+      <div className="bg-[#FFFFFF] w-[480px] rounded-2xl py-8 px-10">
         <h1 className="text-xl mb-4 font-montserrat font-black">
           LỊCH TRỰC NGÀY {currentSchedule[0].NGAY}
         </h1>
@@ -269,24 +270,35 @@ const XemLichTruc = ({ schedule }) => {
           total={schedule.schedule.length}
           pageSize={itemsPerPage}
         />
-      </div> */}
+      </div>
     </div>
   );
 };
 
 const DatLich = () => {
-  const [lichHen, setLichHen] = useState([]);
+  const [lichHenData, setLichHenData] = useState(null);
+  const fetchData = async () => {
+    try {
+      const res = await StaffService.getLichRanhNS();
+      setLichHenData(res);
+    } catch (error) {
+      console.error("Lỗi khi lấy dữ liệu lịch hẹn:", error);
+    }
+  };
+
+  const handleTaoLichHen = () => {
+    fetchData(); // Gọi hàm fetchData để cập nhật lại dữ liệu lịch hẹn
+  };
+
   useEffect(() => {
-    StaffService.getLichRanhNS().then((res) => {
-      setLichHen(res);
-    });
+    fetchData(); // Gọi hàm fetchData để lấy dữ liệu khi component được tạo
   }, []);
-  // console.log("lh",lichHen);
+
   return (
     <>
       <div className="  min-h-[700px] flex gap-6 justify-center">
-        <TaoLichHen />
-        <XemLichTruc schedule={lichHen || []} />
+        <TaoLichHen handleTaoLichHen={handleTaoLichHen} />
+        {lichHenData !== null && <XemLichTruc schedule={lichHenData || []} />}
       </div>
     </>
   );

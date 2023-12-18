@@ -33,8 +33,7 @@ const Auth = () => {
         }
       })
       .catch((err) => {
-        // dispatch(deleteRole());
-        console.log("Delete role")
+        dispatch(deleteRole());
         console.log(err);
       });
   }, [state]);

@@ -3,6 +3,7 @@ import { AudioOutlined } from "@ant-design/icons";
 import { Input, Space } from "antd";
 import { useState, Suspense, lazy } from "react";
 import { useLocation } from "react-router-dom";
+import '../../assets/styles/dentist.css'
 
 const HoSoBenh = lazy(() => import("~/components/HoSoBenh"));
 const { Search } = Input;
@@ -17,11 +18,11 @@ const XemBenhAnCu = () => {
   
   return (
     <Suspense fallback={<div>Loading...</div>}>
-      <div className=" bg-white rounded-lg p-5 flex flex-col w-full  ">
-        <div className=" mx-2">
+      <div>
+        <div className="text-center">
           <Search
-            className="w-[600px]"
-            placeholder="Tim Kiem Ho So Benh An (theo so dien thoai), nhap so bat ki vo day"
+            className="w-[1100px] rounded-2xl font-montserrat text-base"
+            placeholder="Tìm kiếm hồ sơ bệnh án bằng số điện thoại khách hàng"
             allowClear
             onSearch={onSearch}
             suffix={<AudioOutlined />}
@@ -31,10 +32,10 @@ const XemBenhAnCu = () => {
         </div>
 
         {searchResults === "" ? (
-          <Empty className=" mt-3 rounded-md border border-spacing-4" />
+          <Empty className="w-[1100px] mt-6 rounded-3xl border border-spacing-4" />
         ) : (
-          <div className="flex flex-col gap-5 mt-5">
-            <HoSoBenh sdt={searchResults} />
+          <div className="w-[1200px] flex flex-col gap-5 mt-5">
+            <HoSoBenh sdt={searchResults} isStaff={0}/>
           </div>
         )}
       </div>

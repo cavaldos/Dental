@@ -1,10 +1,9 @@
-import React, { useEffect, useState }  from "react";
-import { Form, Input, Select, DatePicker } from "antd";
+import React, { useEffect, useState } from "react";
+import { Form, Input, Select, DatePicker, message } from "antd";
 import GuestService from "../../services/guest";
-import dayjs from 'dayjs';
+import dayjs from "dayjs";
 import { changeState } from "../../redux/features/dataSlice";
-import { useSelector, useDispatch } from "react-redux"; 
-
+import { useSelector, useDispatch } from "react-redux";
 
 const layout = {
   labelCol: {
@@ -21,12 +20,14 @@ const convertBackToDate = (inputDate) => {
   const month = dateObject.getMonth() + 1;
   const year = dateObject.getFullYear();
 
-  const formattedDate = `${day.toString().padStart(2, '0')}/${month.toString().padStart(2, '0')}/${year}`;
+  const formattedDate = `${day.toString().padStart(2, "0")}/${month
+    .toString()
+    .padStart(2, "0")}/${year}`;
 
   return formattedDate;
 };
 
-const dateFormatList = ['DD/MM/YYYY', 'DD/MM/YY', 'DD-MM-YYYY', 'DD-MM-YY'];
+const dateFormatList = ["DD/MM/YYYY", "DD/MM/YY", "DD-MM-YYYY", "DD-MM-YY"];
 
 const CapNhatTaiKhoan = () => {
   const dispatch = useDispatch();
@@ -55,17 +56,19 @@ const CapNhatTaiKhoan = () => {
 
   const onFinish = async (values) => {
     const formData = new FormData();
-    const formattedDate = dayjs(values.user.date, dateFormatList[0]).format('YYYY-MM-DD');
+    const formattedDate = dayjs(values.user.date, dateFormatList[0]).format(
+      "YYYY-MM-DD"
+    );
 
     Object.entries(values.user).forEach(([key, value]) => {
-      if (key === 'date') {
+      if (key === "date") {
         formData.append(key, formattedDate);
       } else {
         formData.append(key, value);
       }
     });
 
-      GuestService.capnhatKH({
+    GuestService.capnhatKH({
       userId: formData.get("phone"),
       hoten: formData.get("name"),
       phai: formData.get("gender"),
@@ -73,10 +76,8 @@ const CapNhatTaiKhoan = () => {
       diachi: formData.get("address"),
       matkhaucu: formData.get("verify-password"),
     }).then((res)=>{
-      console.log("here")
-      console.log(res);
       dispatch(changeState());
-    })
+    });
   };
 
   return (
@@ -138,7 +139,7 @@ const CapNhatTaiKhoan = () => {
           rules={[
             {
               required: true,
-              message:"Vui lòng chọn giới tính"
+              message: "Vui lòng chọn giới tính",
             },
           ]}
           labelCol={{

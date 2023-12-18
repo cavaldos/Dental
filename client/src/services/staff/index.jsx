@@ -1,4 +1,5 @@
 import Axios from "../Axios";
+import { message } from "antd";
 
 const StaffService = {
   getLichRanhNS: async () => {
@@ -17,16 +18,28 @@ const StaffService = {
       ngaysinh: data.ngaysinh,
       diachi: data.diachi,
     });
-
+    if (res && res.response) {
+      if (res.response.status === 409) {
+        message.error(res.response.data.error);
+      }
+    }
     return res;
   },
   taoHoaDon: async (data) => {
-    console.log("test apio", data);
     const res = await Axios.post("/nhanvien/taohoaDon", {
       sdt: data.sdt,
       stt: data.stt,
       manv: data.manv,
     });
+    if(res && res.response)
+    {
+      if (res.response.status === 422) {
+        message.error(res.response.data.error);
+      }
+      if (res.response.status === 404) {
+        message.error(res.response.data.error);
+      }
+    }
     return res;
   },
   xacNhanThanhToan: async (data) => {

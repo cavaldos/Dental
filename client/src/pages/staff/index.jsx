@@ -1,4 +1,3 @@
-import "../../assets/styles/test.css";
 
 
 const StaffPage = () => {

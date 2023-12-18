@@ -19,8 +19,9 @@ const Axios = {
       }
       return res.data;
     } catch (err) {
-      message.error("Error");
+      // message.error("Error");
       console.log(err);
+      return err
     }
   },
   put: async (url, data) => {

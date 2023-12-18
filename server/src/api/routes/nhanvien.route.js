@@ -16,5 +16,6 @@ router.get("/benhAn/:sdt", nhanVienController.xemBenhAn);
 router.get("/getAllDSNhaSi", nhanVienController.getAllDSNS);
 router.get("/lichHen", nhanVienController.getLichHenNS);
 router.delete("/lichHen", nhanVienController.deleteLichHen);
+router.post("/lichHen",nhanVienController.taoLichHen);
 
 export default router;

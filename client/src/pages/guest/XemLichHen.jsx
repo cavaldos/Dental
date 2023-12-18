@@ -1,13 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { Card, Pagination, Modal, Button, Empty } from "antd";
+import { useSelector, useDispatch } from "react-redux";
 import moment from "moment";
 import lichhen from "../../fakedata/lichhen";
+import GuestService from "../../services/guest";
+
 import "../../assets/styles/guest.css";
 
 const isDaKham = (gioKetThuc) => {
   const gioHienTai = new Date();
   const gioKetThucDate = new Date(gioKetThuc);
-  return gioKetThucDate > gioHienTai;
+  console.log("here:", gioKetThuc);
+  return gioKetThuc > gioHienTai;
 };
 
 function isoDateToLocalDate(ISOTimeString, offsetInMinutes) {
@@ -31,13 +35,17 @@ const XemLichHen = () => {
   const [cancelModalVisible, setCancelModalVisible] = useState(false);
   const [cancelingAppointment, setCancelingAppointment] = useState(null);
   const appointmentsPerPage = 6;
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.user);
 
   useEffect(() => {
-    setFetchedAppointment(lichhen);
-  }, []);
+    GuestService.lichHen(user.SODT).then((res) => {
+      setFetchedAppointment(res || []);
+    });
+  }, [currentPage]);
 
   // Sắp xếp lịch hẹn chưa khám lên trước
-  const sortedAppointments = fetchedAppointment.sort((a, b) => {
+  const sortedAppointments = fetchedAppointment?.sort((a, b) => {
     const isDaKhamA = isDaKham(a.NGAY);
     const isDaKhamB = isDaKham(b.NGAY);
 
@@ -63,13 +71,18 @@ const XemLichHen = () => {
     try {
       // Lấy thông tin MANS và SOTT từ lịch đang hủy
       const { MANS, SOTT } = cancelingAppointment;
+      const data = {
+        sdt: user.SODT,
+        stt: SOTT,
+        mans: MANS,
+      };
 
-      // Gọi API hủy lịch với thông tin MANS và SOTT
-      // await apiCallToCancelAppointment(MANS, SOTT);
+      await GuestService.deleteLichHen(data);
 
-      // Sau khi thành công, cập nhật lại danh sách lịch hẹn
-      // const updatedList = await fetchUpdatedAppointmentList(); // Gọi lại API hoặc cập nhật danh sách từ state nếu cần
-      // setFetchedAppointment(updatedList);
+      // Cập nhật lại state sau khi xóa
+      setFetchedAppointment((prevAppointments) =>
+        prevAppointments.filter((appointment) => appointment.SOTT !== SOTT)
+      );
 
       // Đóng modal
       setCancelModalVisible(false);
@@ -108,7 +121,7 @@ const XemLichHen = () => {
                 </p>
                 <p className="leading-7 font-montserrat font-semibold text-base text-#4B4B4B mb-3 break-words">
                   <span className="text-grey">Họ tên khách: </span>
-                  Lấy từ header
+                  {user.HOTEN}
                 </p>
                 <p className="leading-7 font-montserrat font-semibold text-base text-#4B4B4B mb-14 break-words">
                   <span className="text-grey">

@@ -1,6 +1,6 @@
 import { poolConnect } from "../../config/db.mjs";
 const pool = await poolConnect('NV');
-import { groupHD, groupHSB, groupLich } from "../../utils/groupData.js"
+import { groupHD, groupHSB, groupLich, mergeLich } from "../../utils/groupData.js"
 
 const nhanVienController = {
   getLichRanhNS: async (req, res) => {
@@ -12,7 +12,7 @@ const nhanVienController = {
       const sp = 'SP_GETLICHRANHNS_NV';
       
       const result = await pool.executeSP(sp, params);
-      const lichNS = [...groupLich(result[0]), ...groupLich(result[1])];
+      const lichNS = mergeLich(groupLich(result[1]), groupLich(result[0]));
       return res.status(200).json(lichNS);
     } catch (error) {
       console.error('An error occurred:', error.message);
@@ -35,6 +35,9 @@ const nhanVienController = {
       const result = await pool.executeSP(sp, params);
       return res.status(201).json({ success: true });
     } catch (error) {
+      if (error.message === "Tài khoản đã tồn tại trong hệ thống") {
+        return res.status(409).json({ error: error.message });
+      }
       console.error('An error occurred:', error.message);
       return res.status(500).json({ error: 'An error occurred while processing the request' });
     }
@@ -58,6 +61,15 @@ const nhanVienController = {
       console.log(groupedResult);
       return res.status(201).json(groupedResult[0]);
     } catch (error) {
+      if (error.message === "Hồ sơ bệnh không tồn tại") {
+        return res.status(404).json({ error: error.message });
+      }
+      if (error.message === "Hồ sơ bệnh đã được xuất hóa đơn") {
+        return res.status(422).json({ error: error.message });
+      }
+      if (error.message === "Hồ sơ bệnh chưa được thêm dịch vụ vào") {
+        return res.status(422).json({ error: error.message });
+      }
       console.error('An error occurred:', error.message);
       return res.status(500).json({ error: 'An error occurred while processing the request' });
     }
@@ -237,6 +249,34 @@ const nhanVienController = {
     } catch (error) {
       console.error('An error occurred:', error.message);
       return res.status(500).json({ error: 'An error occurred while processing the request' });
+    }
+  },
+  taoLichHen: async (req, res) => {
+    try {
+      if (!pool) {
+        return res.status(500).json({ error: "Khong the ket noi db" });
+      }
+      const params = {
+        SODT: req.body.sodt,
+        MANS: req.body.mans,
+        SOTT: req.body.sott,
+        LYDOKHAM: req.body.lydokham,
+      };
+      console.log(params);
+      const sp = "SP_DATLICHHEN_NV_KH";
+      const result = await pool.executeSP(sp, params);
+      return res.status(201).json({ succes: true });
+    } catch (error) {
+      if (error.message === "Lỗi: Đã có khách hàng đặt lịch hẹn này.") {
+        return res.status(422).json({ error: error.message });
+      }
+      if (error.message === "Lỗi: Các lịch hẹn của cùng một khách hàng không được trùng ca nhau.") {
+        return res.status(422).json({ error: error.message });
+      }
+      console.error("An error occurred:", error.message);
+      return res
+        .status(500)
+        .json({ error: "An error occurred while processing the request" });
     }
   },
 };
