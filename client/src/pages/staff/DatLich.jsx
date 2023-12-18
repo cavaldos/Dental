@@ -2,6 +2,7 @@ import { lichhen5 } from "../../fakedata/lhnv";
 import ns from "~/fakedata/nhasi";
 import "../../assets/styles/staff.css";
 import StaffService from "../../services/staff";
+import { Empty } from "antd";
 
 import React, { useState, useEffect } from "react";
 import {
@@ -217,7 +218,6 @@ const ListLichhen = ({ data }) => {
 };
 
 const XemLichTruc = (schedule) => {
-  console.log("schedule", schedule);
   // ---------------------------------------
   // Sort ngày
   // Hàm so sánh ngày để sắp xếp
@@ -249,9 +249,15 @@ const XemLichTruc = (schedule) => {
   const sortByMACA = (a, b) => {
     return a.MACA.localeCompare(b.MACA);
   };
-  if (currentSchedule[0].hasOwnProperty("CA")) {
-    currentSchedule[0].CA.sort(sortByMACA);
+  if (!currentSchedule[0] || !currentSchedule[0].CA) {
+    // Viết gì đó vô đây đi
+    return (
+      <div>
+        <Empty />
+      </div>
+    );
   }
+  currentSchedule[0].CA.sort(sortByMACA);
 
   return (
     <div className="w-[480px]">
