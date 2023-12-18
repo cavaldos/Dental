@@ -1,30 +1,36 @@
 import { AiOutlineMenuFold } from "react-icons/ai";
+import { FaCalendarAlt } from "react-icons/fa";
+import { FaCalendarDays } from "react-icons/fa6";
+import { FaBookMedical } from "react-icons/fa";
+import { FaFileMedical } from "react-icons/fa";
+import { ImProfile } from "react-icons/im";
+import { BsCalendar2PlusFill } from "react-icons/bs";
 
 const menuDentist = [
   {
     name: "Đăng kí lịch rảnh",
-    icon: <AiOutlineMenuFold size={30} />,
+    icon: <BsCalendar2PlusFill size={30} />,
     path: "/dang-ki-lich-ranh",
   },
   {
     name: "Xem lịch trực",
-    icon: <AiOutlineMenuFold size={30} />,
+    icon: <FaCalendarDays size={30} />,
     path: "/xem-lich-truc",
   },
   {
     name: "Xem bệnh án cũ",
-    icon: <AiOutlineMenuFold size={30} />,
+    icon: <FaBookMedical size={30} />,
     path: "/xem-benh-an-cu",
   },
   {
     name: "Tạo bệnh án mới",
-    icon: <AiOutlineMenuFold size={30} />,
+    icon: <FaFileMedical size={30} />,
     path: "/tao-benh-an-moi",
   },
   {
-    name: "Profile",
-    icon: <AiOutlineMenuFold size={30} />,
-    path: "/cap-nhat-tai-khoan",
+    name: "Thông tin cá nhân",
+    icon: <ImProfile size={30} />,
+    path: "/thong-tin-ca-nhan",
   },
 ];
 
@@ -60,9 +66,9 @@ const menuAdmin = [
     path: "/quan-li-quan-tri-vien",
   },
   {
-    name: "Profile",
+    name: "Thông tin cá nhân",
     icon: <AiOutlineMenuFold size={30} />,
-    path: "/cap-nhat-tai-khoan",
+    path: "/thong-tin-ca-nhan",
   },
 ];
 
@@ -103,9 +109,9 @@ const menuStaff = [
     path: "/hoa-don",
   },
   {
-    name: "Profile",
+    name: "Thông tin cá nhân",
     icon: <AiOutlineMenuFold size={30} />,
-    path: "/cap-nhat-tai-khoan",
+    path: "/thong-tin-ca-nhan",
   },
 ];
 

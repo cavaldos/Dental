@@ -1,4 +1,4 @@
-import React, {  memo } from "react";
+import React, { memo } from "react";
 
 const ButtonGreen = memo(({ text, func }) => {
   return (
@@ -35,5 +35,16 @@ const ButtonGrey = memo(({ text, func }) => {
     </button>
   );
 });
+const ButtonBlue = memo(({ text, func }) => {
+  return (
+    <button
+      className="bg-blue font-montserrat font-bold text-md text-white py-2 
+            px-5 rounded-lg mb-3 border-0 hover:bg-darkblue active:bg-blue"
+      onClick={!func ? null : func}
+    >
+      {text}
+    </button>
+  );
+});
 
-export { ButtonGreen, ButtonPink, ButtonGrey };
+export { ButtonGreen, ButtonPink, ButtonGrey, ButtonBlue };

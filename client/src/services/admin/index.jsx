@@ -136,7 +136,7 @@ const AdminService = {
     const res = await Axios.put("/qtv/unblockKH", data);
     return res;
   },
-  matKhau: async (data) => {
+  doimatKhau: async (data) => {
     const res = await Axios.put("/qtv/matKhau", {
       maqtv: data.maqtv,
       matkhaucu: data.matkhaucu,

@@ -23,18 +23,14 @@ const NhaSi = ({ TENNS, MAND }) => {
   );
 };
 
-const Ca = ({ MACA, MANS, NGAY, SOTT }) => {
+const Ca = ({ MACA, NGAY, SOTT }) => {
   function formatDate(inputDate) {
     const date = new Date(inputDate);
-    const day = date.getDate();
-    const month = date.getMonth() + 1;
-    const year = date.getFullYear();
     const hours = date.getHours();
     const minutes = date.getMinutes();
-    return `  ${hours}:${minutes}  ${day}-${month}`;
+    return `${hours}:${minutes} `;
   }
   const [ca, setCa] = useState([]);
-
   const dispath = useDispatch();
   const handleOnClick = (sott) => {
     message.success(sott);
@@ -54,9 +50,12 @@ const Ca = ({ MACA, MANS, NGAY, SOTT }) => {
       >
         {
           merge?.map((item, index) => (
-            <h1 key={index}>
-              {formatDate(item.GIOBATDAU)} - {formatDate(item.GIOKETTHUC)}
-            </h1>
+            <>
+              <h1 key={index}>
+                {formatDate(item.GIOBATDAU)} - {formatDate(item.GIOKETTHUC)}
+              </h1>
+              <h1>{NGAY}</h1>
+            </>
           ))[0]
         }
       </Button>
@@ -117,7 +116,7 @@ const ChonCa = () => {
   const formatlich = lichRanhTheoNgay.map((item, index) => ({
     ...item,
     NGAY: item.NGAY,
-    SOTT: item.CA.map((item,index) => index+1),
+    SOTT: item.CA.map((item, index) => index + 1),
     // // MANS:item.CA.NHASI[0].MANS,
     MACA: item.CA[0].MACA,
     // GIOBATDAU:item.CA.GIOBATDAU,
