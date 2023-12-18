@@ -57,6 +57,14 @@ const StaffService = {
       matkhaucu: data.matkhaucu,
       matkhaumoi: data.matkhaumoi,
     });
+    if (res && res.response) {
+      if (res.response.status === 422) {
+        message.error(res.response.data.error);
+      }
+      if (res.response.status === 404) {
+        message.error(res.response.data.error);
+      }
+    }
     return res;
   },
   getAllThuoc: async () => {
