@@ -3,6 +3,14 @@ import { Form, Input } from "antd";
 import AdminService from "../../services/admin";
 import { useSelector } from "react-redux";
 import { ButtonBlue } from "~/components/button";
+const layout = {
+  labelCol: {
+    span: 8,
+  },
+  wrapperCol: {
+    span: 16,
+  },
+};
 const DoiMatKhauNS = () => {
   const user = useSelector((state) => state.user);
   const { ROLE, HOTEN, PHAI, MAQTV } = user;
@@ -26,10 +34,11 @@ const DoiMatKhauNS = () => {
     console.log("Failed:", errorInfo);
   };
   return (
-    <div className="bg-[#dddddd] w-[800px] h-[500px] rounded-lg p-2">
-      <h1 className="text-2xl">Đổi mật khẩu </h1>
+    <div className="bg-white w-[800px] h-[500px] shadow-xl rounded-lg p-2">
+      <h1 className="text-2xl mb-5">Đổi mật khẩu quản trị viên</h1>
       <div className="flex flex-col  min-h-[400px]">
         <Form
+          {...layout}
           name="basic"
           form={form}
           onFinish={onFinish}
@@ -89,8 +98,12 @@ const DoiMatKhauNS = () => {
           >
             <Input.Password />
           </Form.Item>
-          <Form.Item>
-            <ButtonBlue text="Đổi mật khẩu" htmlType="submit" />
+          <Form.Item className="flex justify-end">
+            <ButtonBlue
+              text="Đổi mật khẩu"
+              htmlType="submit"
+              className=" h-[50px] w-[150px]"
+            />
           </Form.Item>
         </Form>
       </div>

@@ -81,13 +81,7 @@ const CapNhatTaiKhoan = () => {
   };
 
   return (
-    <div
-      className="bg-white p-10 mx-10 sm:px-15 md:px-25 lg:px-40"
-      style={{
-        borderRadius: "27px",
-        boxShadow: "0px 3.111px 3.111px 0px rgba(0, 0, 0, 0.10)",
-      }}
-    >
+    <div className="bg-white p-10 mx-10 sm:px-15 md:px-25 lg:px-40 shadow-2xl rounded-lg">
       <Form
         {...layout}
         name="nest-messages"

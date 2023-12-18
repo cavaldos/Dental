@@ -12,6 +12,8 @@ const HoSoBenh = lazy(() => import("../pages/staff/HoSoBenh"));
 const HoaDon = lazy(() => import("../pages/staff/HoaDon"));
 const DatLich = lazy(() => import("../pages/staff/DatLich"));
 const DoiMatKhau = lazy(() => import("../pages/staff/DoiMatKhau"));
+const PrintHoaDon = lazy(() => import("../pages/staff/Print"));
+const PrintLayout = lazy(() => import("../components/layout/PrintLayout"));
 
 const StaffRouter = [
   {
@@ -53,6 +55,11 @@ const StaffRouter = [
     path: "/hoa-don",
     component: HoaDon,
     Layout: AdminLayout,
+  },
+  {
+    path: "/print-hoa-don/:sdt",
+    component: PrintHoaDon,
+    Layout: PrintLayout,
   },
   {
     path: "/doi-mat-khau",
