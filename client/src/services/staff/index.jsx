@@ -26,7 +26,6 @@ const StaffService = {
     return res;
   },
   taoHoaDon: async (data) => {
-    console.log("test apio", data);
     const res = await Axios.post("/nhanvien/taohoaDon", {
       sdt: data.sdt,
       stt: data.stt,
