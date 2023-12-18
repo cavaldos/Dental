@@ -46,5 +46,19 @@ const ButtonBlue = memo(({ text, func }) => {
     </button>
   );
 });
+const Button = memo(({ text, onClick, color, colorHover, colortext }) => {
+  const textColor = colortext ? colortext : "black";
+  return (
+    <button
+      className={`bg-${color} font-montserrat font-bold text-md text-${textColor} py-2 
+            px-5 rounded-lg mb-3 border-0 hover:${colorHover} active:bg-red`}
+      onClick={!onClick ? null : onClick}
+    >
+      {text}
+    </button>
+  );
+});
 
 export { ButtonGreen, ButtonPink, ButtonGrey, ButtonBlue };
+
+export default Button;

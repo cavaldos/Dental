@@ -40,12 +40,12 @@ const XemLichHen = () => {
 
   useEffect(() => {
     GuestService.lichHen(user.SODT).then((res) => {
-      setFetchedAppointment(res);
+      setFetchedAppointment(res || []);
     });
   }, [currentPage]);
 
   // Sắp xếp lịch hẹn chưa khám lên trước
-  const sortedAppointments = fetchedAppointment.sort((a, b) => {
+  const sortedAppointments = fetchedAppointment?.sort((a, b) => {
     const isDaKhamA = isDaKham(a.NGAY);
     const isDaKhamB = isDaKham(b.NGAY);
 

@@ -15,7 +15,7 @@ const NhaSi = ({ TENNS, MAND }) => {
     <>
       <Button
         onClick={() => handleOnClick()}
-        className="p-4 rounded-lg border border-slate-400 h-16"
+        className="p-4 rounded-md border border-slate-400 h-16"
       >
         <h1>{TENNS}</h1>
       </Button>
@@ -23,41 +23,22 @@ const NhaSi = ({ TENNS, MAND }) => {
   );
 };
 
-const Ca = ({ MACA, NGAY, SOTT }) => {
-  function formatDate(inputDate) {
-    const date = new Date(inputDate);
-    const hours = date.getHours();
-    const minutes = date.getMinutes();
-    return `${hours}:${minutes} `;
-  }
-  const [ca, setCa] = useState([]);
+const Ca = ({ GIOBD, GIOKT, NGAY, SOTT }) => {
   const dispath = useDispatch();
   const handleOnClick = (sott) => {
-    message.success(sott);
     dispath(booking({ sott: sott }));
   };
-  useEffect(() => {
-    GuestService.getAllCa().then((res) => {
-      setCa(res);
-    });
-  }, []);
-  const merge = ca.filter((item) => item.MACA === MACA);
+
   return (
     <>
       <Button
         onClick={() => handleOnClick(SOTT)}
         className="p-4 rounded-lg border border-slate-400 h-16"
       >
-        {
-          merge?.map((item, index) => (
-            <>
-              <h1 key={index}>
-                {formatDate(item.GIOBATDAU)} - {formatDate(item.GIOKETTHUC)}
-              </h1>
-              <h1>{NGAY}</h1>
-            </>
-          ))[0]
-        }
+        <h1>{NGAY}</h1>
+        <h1>
+          {GIOBD} - {GIOKT}
+        </h1>
       </Button>
     </>
   );
@@ -83,58 +64,72 @@ const ChonNhaSi = () => {
     </>
   );
 };
-function convertDate(inputDate) {
-  let date = new Date(inputDate);
-  let day = date.getDate();
-  let month = date.getMonth() + 1;
-  let year = date.getFullYear();
 
-  day = day < 10 ? "0" + day : day;
-  month = month < 10 ? "0" + month : month;
-
-  return day + "/" + month + "/" + year;
-}
 const ChonCa = () => {
   const order = useSelector((state) => state.order);
   const [lichRanh, setLichRanh] = useState([]);
-  const [lichRanhTheoNgay, setLichRanhTheoNgay] = useState([]);
+  function formatTime(inputDate) {
+    const date = new Date(inputDate);
+    const hours = date.getHours();
+    const minutes = date.getMinutes();
+    return `${hours}:${minutes} `;
+  }
 
   useEffect(() => {
-    GuestService.lichRanh().then((res) => {
-      setLichRanh(res);
-    });
-    GuestService.xemLRChuaDatTatCaNSTheoNgay().then((res) => {
-      console.log(res);
-      setLichRanhTheoNgay(res);
-    });
+    if (order.mans === "") {
+      GuestService.xemLRChuaDatTatCaNSTheoNgay().then((res) => {
+        const output = [];
+        res.forEach((day) => {
+          day.CA.forEach((shift) => {
+            shift.NHASI.forEach((nurse) => {
+              output.push({
+                MANS: nurse.MANS,
+                SOTT: nurse.SOTTLH || 0,
+                MACA: shift.MACA,
+                NGAY: day.NGAY,
+                GIOBATDAU: shift.GIOBATDAU,
+                GIOKETTHUC: shift.GIOKETTHUC,
+              });
+            });
+          });
+        });
+        setLichRanh(
+          output.map((item) => ({
+            ...item,
+            GIOBATDAU: item.GIOBATDAU,
+            GIOKETTHUC: item.GIOKETTHUC,
+          }))
+        );
+      });
+    } else {
+      GuestService.lichRanh().then((res) => {
+        const new_lichRanh = res.filter((item) => {
+          return item.MANS === order.mans;
+        });
+        const new_lichRanhformat = new_lichRanh.map((item) => {
+          return {
+            ...item,
+            NGAY: new Date(item.NGAY).toLocaleDateString(),
+            GIOBATDAU: formatTime(item.GIOBATDAU),
+            GIOKETTHUC: formatTime(item.GIOKETTHUC),
+          };
+        });
+        setLichRanh(new_lichRanhformat);
+      });
+    }
   }, []);
-  // // console.log("lich ranh cu nha si", new_lichRanh);
 
-  console.log("lich ranh", lichRanh);
-  console.log("lich ranh theo ngay", lichRanhTheoNgay);
-
-  const formatlich = lichRanhTheoNgay.map((item, index) => ({
-    ...item,
-    NGAY: item.NGAY,
-    SOTT: item.CA.map((item, index) => index + 1),
-    // // MANS:item.CA.NHASI[0].MANS,
-    MACA: item.CA[0].MACA,
-    // GIOBATDAU:item.CA.GIOBATDAU,
-    // GIOKETTHUC:item.CA.GIOKETTHUC,
-  }));
-
-  console.log("lich ranh theo ngayssssss", formatlich);
-  const new_lichRanh = lichRanh.filter((item) => item.MANS === order.mans);
   return (
     <>
       <div className="flex justify-center">
         <div className=" grid grid-cols-3 grid-rows-3 gap-4">
-          {new_lichRanh?.map((item, index) => (
+          {lichRanh?.map((item, index) => (
             <Ca
               key={index}
-              MACA={item.MACA}
-              MANS={item.MANS}
               NGAY={item.NGAY}
+              GIOBD={item.GIOBATDAU}
+              GIOKT={item.GIOKETTHUC}
+              MANS={item.MANS}
               SOTT={item.SOTT}
             />
           ))}
@@ -178,18 +173,15 @@ const LyDoKham = () => {
 
 const XacNhan = () => {
   const order = useSelector((state) => state.order);
-  const user = useSelector((state) => state.user);
-  const dispath = useDispatch();
-
   return (
     <>
-      <div className="flex justify-center flex-col text-neutral-900 ">
-        <div className="mx-auto ">
-          <h1>Thong tin dat lich</h1>
-          <h1>sdt: {order.sodt}</h1>
-          <h1>mans: {order.mans}</h1>
-          <h1>sott:{order.sott}</h1>
-          <h1> lydokham :{order.lydokham}</h1>
+      <div class="flex justify-center flex-col text-neutral-900">
+        <div class="mx-auto">
+          <h1 class="text-2xl font-bold">Thong tin dat lich</h1>
+          <h1 class="text-lg font-medium">sdt: {order.sodt}</h1>
+          <h1 class="text-lg font-medium">mans: {order.mans}</h1>
+          <h1 class="text-lg font-medium">sott:{order.sott}</h1>
+          <h1 class="text-lg font-medium">lydokham :{order.lydokham}</h1>
         </div>
       </div>
     </>
@@ -230,6 +222,19 @@ const DatLichContainer = () => {
   const order = useSelector((state) => state.order);
 
   const handleBooking = async () => {
+    if (order.mans === "") {
+      message.error("Vui lòng chọn nha sĩ");
+      return;
+    }
+    if (order.sott === "") {
+      message.error("Vui lòng chọn ca khám");
+      return;
+    }
+    if (order.lydokham === "") {
+      message.error("Vui lòng nhập lý do khám");
+      return;
+    }
+    
     await GuestService.taoLichHen(order).then((res) => {
       console.log(res);
       message.success("Đặt lịch thành công");
@@ -239,7 +244,7 @@ const DatLichContainer = () => {
   return (
     <>
       <Steps current={current} items={items} />
-      <div className=" min-h-[300px] bg-slate-300 mt-4 p-4 rounded-lg border border-slate-400">
+      <div className=" min-h-[300px] bg-[#FEFFFE] mt-4 p-4 rounded-lg border">
         {steps[current].content}
       </div>
       <div className="flex justify-center mt-6">
