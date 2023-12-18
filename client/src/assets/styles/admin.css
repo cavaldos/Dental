@@ -31,6 +31,9 @@
 .ant-input-number {
     width: 100% !important;
 }
+.ant-select-selector {
+    height: 117% !important;
+}
 .ant-picker {
     width: 100% !important;
 }
