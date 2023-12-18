@@ -217,6 +217,7 @@ const ListLichhen = ({ data }) => {
 };
 
 const XemLichTruc = (schedule) => {
+  
   // ---------------------------------------
   // Sort ngày
   // Hàm so sánh ngày để sắp xếp
@@ -238,6 +239,7 @@ const XemLichTruc = (schedule) => {
     startIndex,
     startIndex + itemsPerPage
   );
+  
 
   const onChange = (page) => {
     setCurrentPage(page);
@@ -248,6 +250,14 @@ const XemLichTruc = (schedule) => {
   const sortByMACA = (a, b) => {
     return a.MACA.localeCompare(b.MACA);
   };
+  if (!currentSchedule[0] || !currentSchedule[0].CA) {
+    // Viết gì đó vô đây đi
+    return (
+      <div>
+        Ko có lịch.........
+      </div>
+    );
+  }
   currentSchedule[0].CA.sort(sortByMACA);
 
   return (
