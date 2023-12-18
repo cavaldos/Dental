@@ -217,6 +217,7 @@ const ListLichhen = ({ data }) => {
 };
 
 const XemLichTruc = (schedule) => {
+  console.log("schedule", schedule);
   // ---------------------------------------
   // Sort ngày
   // Hàm so sánh ngày để sắp xếp
@@ -248,7 +249,9 @@ const XemLichTruc = (schedule) => {
   const sortByMACA = (a, b) => {
     return a.MACA.localeCompare(b.MACA);
   };
-  currentSchedule[0].CA.sort(sortByMACA);
+  if (currentSchedule[0].hasOwnProperty("CA")) {
+    currentSchedule[0].CA.sort(sortByMACA);
+  }
 
   return (
     <div className="w-[480px]">
