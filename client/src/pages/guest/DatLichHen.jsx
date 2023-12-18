@@ -70,9 +70,9 @@ const ChonCa = () => {
   const [lichRanh, setLichRanh] = useState([]);
   function formatTime(inputDate) {
     const date = new Date(inputDate);
-    const hours = date.getHours();
-    const minutes = date.getMinutes();
-    return `${hours}:${minutes} `;
+    const hours = date.getUTCHours().toString().padStart(2, '0'); // Lấy giờ theo múi giờ UTC
+    const minutes = date.getUTCMinutes().toString().padStart(2, '0');
+    return `${hours}:${minutes}`;
   }
 
   useEffect(() => {
@@ -107,13 +107,15 @@ const ChonCa = () => {
           return item.MANS === order.mans;
         });
         const new_lichRanhformat = new_lichRanh.map((item) => {
+          console.log("func", item)
           return {
             ...item,
             NGAY: new Date(item.NGAY).toLocaleDateString(),
-            GIOBATDAU: formatTime(item.GIOBATDAU),
-            GIOKETTHUC: formatTime(item.GIOKETTHUC),
+            GIOBATDAU: formatTime(new Date(item.GIOBATDAU)),
+            GIOKETTHUC: formatTime(new Date(item.GIOKETTHUC)),
           };
         });
+        console.log("lichRanh:", new_lichRanhformat)
         setLichRanh(new_lichRanhformat);
       });
     }
