@@ -1,4 +1,5 @@
 import Axios from "../Axios";
+import { message } from "antd";
 
 const DentistService = {
   dangKyLichRanh: async (data) => {
@@ -50,6 +51,14 @@ const DentistService = {
       matkhaucu: data.matkhaucu,
       matkhaumoi: data.matkhaumoi,
     });
+    if (res && res.response) {
+      if (res.response.status === 422) {
+        message.error(res.response.data.error);
+      }
+      if (res.response.status === 404) {
+        message.error(res.response.data.error);
+      }
+    }
     return res;
   },
   xemCaDu2NguoiTruc: async (mans) => {
