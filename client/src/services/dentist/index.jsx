@@ -88,5 +88,9 @@ const DentistService = {
     const res = await Axios.get(`/nhasi/tableLichNS/${mans}`);
     return res;
   },
+  matKhau: async (data) => {
+    const res = await Axios.put("/nhasi/matKhau", data);
+    return res;
+  },
 };
 export default DentistService;

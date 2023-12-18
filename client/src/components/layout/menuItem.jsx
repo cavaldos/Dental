@@ -27,9 +27,9 @@ const menuDentist = [
     path: "/tao-benh-an-moi",
   },
   {
-    name: "Thông tin cá nhân",
-    icon: <ImProfile size={30} />,
-    path: "/thong-tin-ca-nhan",
+    name: "Đổi mật khẩu",
+    icon: <AiOutlineMenuFold size={30} />,
+    path: "/doi-mat-khau",
   },
 ];
 import { GiMedicines } from "react-icons/gi";
@@ -72,9 +72,9 @@ const menuAdmin = [
     path: "/quan-li-quan-tri-vien",
   },
   {
-    name: "Thông tin cá nhân",
-    icon: <TbPasswordUser size={30} />,
-    path: "/thong-tin-ca-nhan",
+    name: "Đổi mật khẩu",
+    icon: <AiOutlineMenuFold size={30} />,
+    path: "/doi-mat-khau",
   },
 ];
 import { RiShoppingCartFill } from "react-icons/ri";
@@ -117,9 +117,9 @@ const menuStaff = [
     path: "/hoa-don",
   },
   {
-    name: "Thông tin cá nhân",
-    icon: <TbPasswordUser size={30} />,
-    path: "/thong-tin-ca-nhan",
+    name: "Đổi mật khẩu",
+    icon: <AiOutlineMenuFold size={30} />,
+    path: "/doi-mat-khau",
   },
 ];
 

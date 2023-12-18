@@ -35,9 +35,9 @@ const GuestRouter = [
     Layout: DefaultLayout,
   },
   {
-    path: "/doi-mat-khau",
-    component: DoiMatKhau,
-    Layout: DefaultLayout,
+    path: "doi-mat-khau",
+    component:  DoiMatKhau,
+    Layout: DefaultLayout
   }
 
 ];
