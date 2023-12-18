@@ -204,7 +204,7 @@ const HoaDon = ({ sdt }) => {
     indexOfLastRecord
   );
 
-  const paying =async ({ sdt, sott }) => {
+  const paying = async ({ sdt, sott }) => {
     const newData = {
       sdt,
       sott,
@@ -240,7 +240,7 @@ const HoaDon = ({ sdt }) => {
           </div>
           <div className="grid grid-cols-[2.3fr,0.7fr] gap-5">
             <p className="text-right">TỔNG CỘNG: </p>
-            <p>{currentRecords[0].TONGCHIPHI}</p>
+            <p>{formatCurrency(currentRecords[0].TONGCHIPHI)}</p>
           </div>
           <div className="mt-5">
             <p>Nhân viên phụ trách: {currentRecords[0].HOTENNV} </p>
@@ -256,27 +256,27 @@ const HoaDon = ({ sdt }) => {
         <Empty />
       )}
       <div className="grid grid-cols-[2fr,1fr] gap-4 mt-6">
-      {medicalRecords.length > 0 ? (
-        <div className="flex justify-start">
-          <p className="me-4">
-            <ButtonGrey
-              text={
-                <>
-                  <PrinterOutlined /> IN HÓA ĐƠN
-                </>
-              }
-              func={() => print()}
-            />
-          </p>
-          {currentRecords[0].DATHANHTOAN == false ? (
-            <p>
-              <ButtonGreen
-                text="XÁC NHẬN THANH TOÁN"
-                func={() => paying({ sdt, sott: currentRecords[0].SOTTHD })}
+        {medicalRecords.length > 0 ? (
+          <div className="flex justify-start">
+            <p className="me-4">
+              <ButtonGrey
+                text={
+                  <>
+                    <PrinterOutlined /> IN HÓA ĐƠN
+                  </>
+                }
+                func={() => print()}
               />
             </p>
-          ) : null}
-        </div>
+            {currentRecords[0].DATHANHTOAN == false ? (
+              <p>
+                <ButtonGreen
+                  text="XÁC NHẬN THANH TOÁN"
+                  func={() => paying({ sdt, sott: currentRecords[0].SOTTHD })}
+                />
+              </p>
+            ) : null}
+          </div>
         ) : null}
         <div className="flex justify-end py-3">
           {medicalRecords.length > 0 && (

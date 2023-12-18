@@ -7,8 +7,7 @@ const DangKiLichRanh = lazy(() => import("~/pages/dentist/DkLichRanh"));
 const XemBenhAnCu = lazy(() => import("~/pages/dentist/XemBenhAnCu"));
 const ThemBenhAnMoi = lazy(() => import("~/pages/dentist/ThemBenhAnMoi"));
 const XemLichTruc = lazy(() => import("~/pages/dentist/XemLichTruc"));
-const Profile = lazy(() => import("~/pages/dentist/Profile"));
-
+const DoiMatKhau = lazy(() => import("../pages/dentist/DoiMatKhau"));
 const DentistRouter = [
   {
     path: "/",
@@ -48,8 +47,8 @@ const DentistRouter = [
     Layout: AdminLayout,
   },
   {
-    path: "/thong-tin-ca-nhan",
-    component: Profile,
+    path: "/doi-mat-khau",
+    component: DoiMatKhau,
     Layout: AdminLayout,
   }
 ];

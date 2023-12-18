@@ -309,7 +309,7 @@ const HoSoBenh = ({ sdt, isStaff }) => {
                 {DAXUATHOADON === true ? (
                   <p
                     className="font-montserrat font-black text-md text-grin py-2 
-                      px-5 rounded-xl mb-3 border-4 border-grin"
+                      px-5 rounded-xl mb-3 border-4 border-grin hover:cursor-not-allowed	"
                   >
                     ĐÃ XUẤT HÓA ĐƠN
                   </p>

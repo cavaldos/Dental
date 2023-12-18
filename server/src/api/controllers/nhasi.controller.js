@@ -163,7 +163,7 @@ const nhaSiController = {
         return res.status(500).json({ error: "Khong the ket noi db" });
       }
       const params = {};
-      params.MANS = req.body.mans;
+      params.MANS = req.userId;
       params.MATKHAUCU = req.body.matkhaucu;
       params.MATKHAUMOI = req.body.matkhaumoi;
 

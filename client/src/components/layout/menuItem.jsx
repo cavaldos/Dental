@@ -1,5 +1,4 @@
 import { AiOutlineMenuFold } from "react-icons/ai";
-import { FaCalendarAlt } from "react-icons/fa";
 import { FaCalendarDays } from "react-icons/fa6";
 import { FaBookMedical } from "react-icons/fa";
 import { FaFileMedical } from "react-icons/fa";
@@ -28,90 +27,99 @@ const menuDentist = [
     path: "/tao-benh-an-moi",
   },
   {
-    name: "Thông tin cá nhân",
-    icon: <ImProfile size={30} />,
-    path: "/thong-tin-ca-nhan",
+    name: "Đổi mật khẩu",
+    icon: <AiOutlineMenuFold size={30} />,
+    path: "/doi-mat-khau",
   },
 ];
+import { GiMedicines } from "react-icons/gi";
+import { FaHospital } from "react-icons/fa";
+import { HiUserGroup } from "react-icons/hi";
+import { FaUserDoctor } from "react-icons/fa6";
+import { MdShoppingCart } from "react-icons/md";
+import { GrUserAdmin } from "react-icons/gr";
+import { TbPasswordUser } from "react-icons/tb";
 
 const menuAdmin = [
   {
     name: "Quản lí thuốc",
-    icon: <AiOutlineMenuFold size={30} />,
+    icon: <GiMedicines size={30} />,
     path: "/quan-li-thuoc",
   },
   {
     name: "Quản lí dịch vụ",
-    icon: <AiOutlineMenuFold size={30} />,
+    icon: <FaHospital size={30} />,
     path: "/quan-li-dich-vu",
   },
   {
     name: "Quản lí nhân viên",
-    icon: <AiOutlineMenuFold size={30} />,
+    icon: <HiUserGroup size={30} />,
     path: "/quan-li-nhan-vien",
   },
   {
     name: "Quản lí nha sĩ",
-    icon: <AiOutlineMenuFold size={30} />,
+    icon: <FaUserDoctor size={30} />,
     path: "/quan-li-nha-si",
   },
   {
     name: "Quản lí khách hàng",
-    icon: <AiOutlineMenuFold size={30} />,
+    icon: <MdShoppingCart size={30} />,
     path: "/quan-li-khach-hang",
   },
   {
     name: "Quản lí quản trị viên",
-    icon: <AiOutlineMenuFold size={30} />,
+    icon: <GrUserAdmin size={30} />,
     path: "/quan-li-quan-tri-vien",
   },
   {
-    name: "Thông tin cá nhân",
+    name: "Đổi mật khẩu",
     icon: <AiOutlineMenuFold size={30} />,
-    path: "/thong-tin-ca-nhan",
+    path: "/doi-mat-khau",
   },
 ];
+import { RiShoppingCartFill } from "react-icons/ri";
+import { FaMoneyBillWheat } from "react-icons/fa6";
 
 const menuStaff = [
   {
     name: "Đăng kí tài khoản KH",
-    icon: <AiOutlineMenuFold size={30} />,
+    icon: <RiShoppingCartFill size={30} />,
     path: "/dang-ki-tk-kh",
   },
   {
     name: "Đặt lịch hẹn",
-    icon: <AiOutlineMenuFold size={30} />,
+    icon: <BsCalendar2PlusFill size={30} />,
     path: "/dat-lich-hen",
   },
   {
     name: "Xem lịch hẹn",
-    icon: <AiOutlineMenuFold size={30} />,
+    icon: <FaCalendarDays size={30} />,
     path: "/xem-lich-hen",
   },
   {
     name: "Xem thuốc",
-    icon: <AiOutlineMenuFold size={30} />,
+    icon: <GiMedicines size={30} />,
     path: "/xem-thuoc",
   },
   {
     name: "Xem dịch vụ",
-    icon: <AiOutlineMenuFold size={30} />,
+    icon: <FaHospital size={30} />,
     path: "/xem-dich-vu",
   },
   {
     name: "Hồ sơ bệnh án",
-    icon: <AiOutlineMenuFold size={30} />,
+    icon: <ImProfile size={30} />,
     path: "/ho-so-benh-an",
   },
   {
     name: "Hóa đơn",
-    icon: <AiOutlineMenuFold size={30} />,
+    icon: <FaMoneyBillWheat size={30} />,
     path: "/hoa-don",
   },
   {
-    name: "Thông tin cá nhân",
+    name: "Đổi mật khẩu",
     icon: <AiOutlineMenuFold size={30} />,
-    path: "/thong-tin-ca-nhan",
+    path: "/doi-mat-khau",
   },
 ];
 
