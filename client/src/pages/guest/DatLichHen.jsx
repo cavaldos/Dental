@@ -109,12 +109,14 @@ const ChonCa = () => {
   useEffect(() => {
     if (order.mans === "") {
       GuestService.xemLRChuaDatTatCaNSTheoNgay().then((res) => {
+        console.log("mang ban dau",res);
         const output = [];
         res.forEach((day) => {
           day.CA.forEach((shift) => {
             shift.NHASI.forEach((nurse) => {
+              console.log(nurse);
               output.push({
-                MANS: nurse.MANS,
+                MANS: shift.MANS,
                 SOTT: nurse.SOTTLH || 0,
                 MACA: shift.MACA,
                 NGAY: day.NGAY,
@@ -132,6 +134,7 @@ const ChonCa = () => {
           }))
         );
       });
+      console.log("mang sau khi set",lichRanh);
     } else {
       GuestService.lichRanh().then((res) => {
         const new_lichRanh = res.filter((item) => {

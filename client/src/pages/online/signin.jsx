@@ -68,6 +68,12 @@ const SignInPage = () => {
 
           <Form.Item>
             <button
+              onClick={() => navigate(-1)}
+              className="flex w-[100px] justify-center rounded-md  px-3 py-1.5 text-sm font-semibold leading-6 bg-gray-400 hover:bg-gray-300 hover:text-gray-900 text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 "
+            >
+              Huỷ
+            </button>
+            <button
               htmlFor="submit"
               className=" bg-blue-400 h-9 w-24 rounded-lg"
             >

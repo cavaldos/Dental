@@ -1,0 +1,184 @@
+const test = [
+  {
+    NGAY: "28/12/2023",
+    CA: [
+      {
+        MACA: "CA004",
+        GIOBATDAU: "15:00",
+        GIOKETTHUC: "17:00",
+        NHASI: [
+          {
+            MANS: "NS0004",
+            SODTKH: null,
+            SOTTLH: 2,
+          },
+        ],
+      },
+      {
+        MACA: "CA006",
+        GIOBATDAU: "19:00",
+        GIOKETTHUC: "21:00",
+        NHASI: [
+          {
+            MANS: "NS0003",
+            SODTKH: null,
+            SOTTLH: 3,
+          },
+          {
+            MANS: "NS0006",
+            SODTKH: null,
+          },
+        ],
+      },
+      {
+        MACA: "CA003",
+        GIOBATDAU: "13:00",
+        GIOKETTHUC: "15:00",
+        NHASI: [
+          {
+            MANS: "NS0007",
+            SODTKH: null,
+            SOTTLH: 1,
+          },
+        ],
+      },
+    ],
+  },
+  {
+    NGAY: "29/12/2023",
+    CA: [
+      {
+        MACA: "CA004",
+        GIOBATDAU: "15:00",
+        GIOKETTHUC: "17:00",
+        NHASI: [
+          {
+            MANS: "NS0001",
+            SODTKH: null,
+            SOTTLH: 3,
+          },
+        ],
+      },
+      {
+        MACA: "CA002",
+        GIOBATDAU: "11:00",
+        GIOKETTHUC: "13:00",
+        NHASI: [
+          {
+            MANS: "NS0006",
+            SODTKH: null,
+            SOTTLH: 3,
+          },
+        ],
+      },
+    ],
+  },
+  {
+    NGAY: "30/12/2023",
+    CA: [
+      {
+        MACA: "CA005",
+        GIOBATDAU: "17:00",
+        GIOKETTHUC: "19:00",
+        NHASI: [
+          {
+            MANS: "NS0004",
+            SODTKH: null,
+            SOTTLH: 3,
+          },
+          {
+            MANS: "NS0007",
+            SODTKH: null,
+          },
+        ],
+      },
+      {
+        MACA: "CA001",
+        GIOBATDAU: "09:00",
+        GIOKETTHUC: "11:00",
+        NHASI: [
+          {
+            MANS: "NS0010",
+            SODTKH: null,
+            SOTTLH: 2,
+          },
+        ],
+      },
+    ],
+  },
+  {
+    NGAY: "31/12/2023",
+    CA: [
+      {
+        MACA: "CA006",
+        GIOBATDAU: "19:00",
+        GIOKETTHUC: "21:00",
+        NHASI: [
+          {
+            MANS: "NS0009",
+            SODTKH: null,
+            SOTTLH: 3,
+          },
+        ],
+      },
+    ],
+  },
+  {
+    NGAY: "01/01/2024",
+    CA: [
+      {
+        MACA: "CA002",
+        GIOBATDAU: "11:00",
+        GIOKETTHUC: "13:00",
+        NHASI: [
+          {
+            MANS: "NS0004",
+            SODTKH: null,
+            SOTTLH: 4,
+          },
+          {
+            MANS: "NS0005",
+            SODTKH: null,
+          },
+        ],
+      },
+    ],
+  },
+  {
+    NGAY: "02/01/2024",
+    CA: [
+      {
+        MACA: "CA005",
+        GIOBATDAU: "17:00",
+        GIOKETTHUC: "19:00",
+        NHASI: [
+          {
+            MANS: "NS0005",
+            SODTKH: null,
+            SOTTLH: 5,
+          },
+          {
+            MANS: "NS0003",
+            SODTKH: null,
+          },
+        ],
+      },
+      {
+        MACA: "CA006",
+        GIOBATDAU: "19:00",
+        GIOKETTHUC: "21:00",
+        NHASI: [
+          {
+            MANS: "NS0007",
+            SODTKH: null,
+            SOTTLH: 6,
+          },
+          {
+            MANS: "NS0010",
+            SODTKH: null,
+          },
+        ],
+      },
+    ],
+  },
+];

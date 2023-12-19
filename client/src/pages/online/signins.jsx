@@ -65,13 +65,20 @@ const SignInPage = () => {
           >
             <Input.Password />
           </Form.Item>
-          <Form.Item className=" flex justify-center mt-6">
-            <button
-              htmlFor="submit"
-              className="flex w-[100px] justify-center rounded-md bg-sky-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-sky-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-700 "
-            >
-              Đăng nhập
-            </button>
+          <Form.Item className=" flex justify-center mt-6 ">
+            <div className="flex w-[300px] justify-center gap-7">
+              <button
+                onClick={() => navigate(-1)}
+               className="flex w-[100px] justify-center rounded-md  px-3 py-1.5 text-sm font-semibold leading-6 bg-gray-400 hover:bg-gray-300 hover:text-gray-900 text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 ">
+                Huỷ
+              </button>
+              <button
+                htmlFor="submit"
+                className="flex w-[100px] justify-center rounded-md bg-sky-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-sky-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-700 "
+              >
+                Đăng nhập
+              </button>
+            </div>
           </Form.Item>
         </Form>
       </div>
