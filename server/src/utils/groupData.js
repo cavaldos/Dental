@@ -310,4 +310,4 @@ const mergeCa = (caChuaDat, caDaDat) => {
 
   return mergedCa;
 };
-export { groupHD, groupHSB, groupLich, groupTableLich, mergeLich };
+export { groupHD, groupHSB, groupLich, groupTableLich, mergeLich, formatTime, convertBackToDate };
