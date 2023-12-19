@@ -489,7 +489,7 @@ const qtvController = {
         return res.status(500).json({ error: "Khong the ket noi db" });
       }
       const params = {};
-      params.MAQTV = req.userId;
+      params.MAQTV = req.body.maqtv;
       params.MATKHAUCU = req.body.matkhaucu;
       params.MATKHAUMOI = req.body.matkhaumoi;
 

@@ -51,6 +51,7 @@ const StaffService = {
     return res;
   },
   doiMatKhau: async (data) => {
+    console.log("oday: ", data)
     const res = await Axios.put("/nhanvien/matKhau", {
       manv: data.manv,
       matkhaucu: data.matkhaucu,
