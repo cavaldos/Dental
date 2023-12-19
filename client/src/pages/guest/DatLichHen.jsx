@@ -264,7 +264,7 @@ const steps = [
     content: <ChonCa />,
   },
   {
-    title: "Ly do khám",
+    title: "Lý do khám",
     content: <LyDoKham />,
   },
   {
