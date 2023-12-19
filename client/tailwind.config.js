@@ -57,6 +57,7 @@ export default {
       },
       borderWidth: {
         '2.4': '2.4px',
+        '3': '3.7px',
       },
     },
   },

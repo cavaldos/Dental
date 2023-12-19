@@ -3,40 +3,36 @@ import { lichhen4 } from "~/fakedata/lhnv";
 import React, { useState } from "react";
 import TableLichHen from "~/components/dentist/TableLichHen";
 
-// import { ButtonGreen } from "~/components/buttonTwoState";
 import { TwoStateBlue, StatePink, StateGrey } from "~/components/buttonTwoState";
+
+function formatDate(date) {
+  const day = date.getDate().toString().padStart(2, '0');
+  const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Lưu ý: Tháng bắt đầu từ 0
+  const year = date.getFullYear();
+  
+  return `${day}/${month}/${year}`;
+}
+
+function selectWeekDays(date) {
+  const week = Array(7).fill(new Date(date)).map((el, idx) =>
+    new Date(el.setDate(el.getDate() - el.getDay() + idx)));
+
+  // Lấy từ thứ 2 đến thứ 6
+  const weekdays = week.slice(1, 6);
+  const formattedWeekdays = weekdays.map(formatDate);
+  return formattedWeekdays;
+}
+
+const date = new Date();
+const formattedWeekdays = selectWeekDays(date);
+console.log(formattedWeekdays);
 
 const DangKiLichRanh = () => {
   return (
     <>
       <div className="">
         <TableLichHen data={lichhen4} />
-        <div className="flex bg-blue-400">
-          <div className=" h-[150px] w-[200px] flex flex-col gap-1">
-            <div className=" flex  items-center  gap-4">
-              <TwoStateBlue text="CA 1"/>
-              
-              {/* <Button className="bg-red-300" type="primary" loading /> */}
-              <p>sdafsdf</p>
-            </div>
-            <div className=" flex  items-center  gap-4">
-            <StatePink text="CA 1"/>
-              <p>sdafsdf</p>
-            </div>{" "}
-            <div className=" flex  items-center  gap-4">
-            <StateGrey text="CA 1"/>
-              <p>sdafsdf</p>
-            </div>{" "}
-            <div className=" flex  items-center  gap-4">
-              <Button className="bg-red-300" type="primary" loading />
-              <p>sdafsdf</p>
-            </div>
-          </div>
-          <div className="ml-auto w-[300px] flex justify-center items-center gap-4">
-            <Button>Hoan  Tac</Button>
-            <Button>Dang Ki</Button>
-          </div>
-        </div>
+        
       </div>
     </>
   );

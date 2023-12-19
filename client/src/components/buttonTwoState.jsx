@@ -41,7 +41,7 @@ const StatePink = ({text, func, info}) => {
 const StateGrey = ({text, func, info}) => {
   return (
     <button
-      className="input-full"
+      className="input-full2"
       onClick={!func ? null : func}
     >
       {text}

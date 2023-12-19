@@ -97,7 +97,7 @@ const OneDay = () => {
   );
 };
 
-const TableLichHen = ({ data }) => {
+const WorkSchedule = ({ data }) => {
   const [day, setDay] = useState(data.map((item) => item.NGAY));
   const [lichhen, setLichHen] = useState(data);
 
@@ -142,4 +142,4 @@ const TableLichHen = ({ data }) => {
   );
 };
 
-export default TableLichHen;
+export default WorkSchedule;
