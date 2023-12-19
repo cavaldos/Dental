@@ -12,19 +12,12 @@ const convertBackToDate = (inputDate) => {
   return formattedDate;
 };
 
-const convertToTime = (inputDate) => {
-  const dateObject = new Date(inputDate);
-  const hours = dateObject.getHours();
-  const minutes = dateObject.getMinutes();
-  const seconds = dateObject.getSeconds();
-
-  // Định dạng giờ
-  const formattedTime = `${hours.toString().padStart(2, "0")}:${minutes
-    .toString()
-    .padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
-
-  return formattedTime;
-};
+function formatTime(inputDate) {
+  const date = new Date(inputDate);
+  const hours = date.getUTCHours().toString().padStart(2, '0'); // Lấy giờ theo múi giờ UTC
+  const minutes = date.getUTCMinutes().toString().padStart(2, '0');
+  return `${hours}:${minutes}`;
+}
 
 const groupHD = (data) => {
   const ketQua = {};
@@ -152,8 +145,10 @@ const groupLich = (data) => {
     if (!existingCa) {
       ketQua[ngay].push({
         MACA: item.MACA,
-        GIOBATDAU: convertToTime(item.GIOBATDAU),
-        GIOKETTHUC: convertToTime(item.GIOKETTHUC),
+        // GIOBATDAU: convertToTime(item.GIOBATDAU),
+        // GIOKETTHUC: convertToTime(item.GIOKETTHUC),
+        GIOBATDAU: formatTime(new Date(item.GIOBATDAU)),
+        GIOKETTHUC: formatTime(new Date(item.GIOKETTHUC)),
         NHASI: [
           {
             MANS: item.MANS,
