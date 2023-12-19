@@ -1,16 +1,62 @@
 .input-check{
-    display:inline-block;
-    height:20px;
-    padding:5px 8px;
-    background:green;
-    width:70px;
-    color:white
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.3rem;
+    background: white;
+
+    border: 2.8px dashed #1577FF;
+    border-radius: 0.75rem;
+    width: 110px;
+    color: #1577FF;
+
+    font-family: 'Montserrat';
+    font-size: 1rem;
+    font-weight: 900;
+
+    cursor: pointer;
 }
 .input-check.checked{
-    background:red;
-    color:black;
-    font-weight:bold
+    background: #1577FF;
+    color: white;
+    font-weight: 900;
 }
 .input-check input{
     display:none
+}
+
+.input-planned {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.3rem;
+    background: #ff6a6d;
+
+    border-radius: 0.75rem;
+    width: 110px;
+    color: white;
+
+    font-family: 'Montserrat';
+    font-size: 1rem;
+    font-weight: 900;
+
+    cursor: pointer;
+}
+
+.input-full {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.3rem;
+    background: #b8b8b8;
+
+    border-radius: 0.75rem;
+    width: 110px;
+    color: #5D5D5D;
+
+    font-family: 'Montserrat';
+    font-size: 1rem;
+    font-weight: 900;
+
+    cursor: pointer;
 }

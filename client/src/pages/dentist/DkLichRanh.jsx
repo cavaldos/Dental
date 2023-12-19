@@ -3,6 +3,9 @@ import { lichhen4 } from "~/fakedata/lhnv";
 import React, { useState } from "react";
 import TableLichHen from "~/components/dentist/TableLichHen";
 
+// import { ButtonGreen } from "~/components/buttonTwoState";
+import { TwoStateBlue, StatePink, StateGrey } from "~/components/buttonTwoState";
+
 const DangKiLichRanh = () => {
   return (
     <>
@@ -11,15 +14,17 @@ const DangKiLichRanh = () => {
         <div className="flex bg-blue-400">
           <div className=" h-[150px] w-[200px] flex flex-col gap-1">
             <div className=" flex  items-center  gap-4">
-              <Button className="bg-red-300" type="primary" loading />
+              <TwoStateBlue text="CA 1"/>
+              
+              {/* <Button className="bg-red-300" type="primary" loading /> */}
               <p>sdafsdf</p>
             </div>
             <div className=" flex  items-center  gap-4">
-              <Button className="bg-red-300" type="primary" loading />
+            <StatePink text="CA 1"/>
               <p>sdafsdf</p>
             </div>{" "}
             <div className=" flex  items-center  gap-4">
-              <Button className="bg-red-300" type="primary" loading />
+            <StateGrey text="CA 1"/>
               <p>sdafsdf</p>
             </div>{" "}
             <div className=" flex  items-center  gap-4">

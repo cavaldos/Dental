@@ -1,6 +1,7 @@
 import React from 'react';
+import "~/assets/styles/buttonTwoState.css";
 
-const Button2SBlue = () => {
+const TwoStateBlue = ({text, func}) => {
   const changeState = (event) => {
     const checkbox = event.target;
     const label = checkbox.parentElement;
@@ -21,9 +22,31 @@ const Button2SBlue = () => {
         name="test"
         className="hidden"
       />
-      Click me
+      {text}
     </label>
   );
 };
 
-export default Button2SBlue;
+const StatePink = ({text, func, info}) => {
+  return (
+    <button
+      className="input-planned"
+      onClick={!func ? null : func}
+    >
+      {text}
+    </button>
+  );
+};
+
+const StateGrey = ({text, func, info}) => {
+  return (
+    <button
+      className="input-full"
+      onClick={!func ? null : func}
+    >
+      {text}
+    </button>
+  );
+};
+
+export { TwoStateBlue, StatePink, StateGrey };
