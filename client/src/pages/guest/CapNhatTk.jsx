@@ -81,7 +81,7 @@ const CapNhatTaiKhoan = () => {
   };
 
   return (
-    <div className="bg-white p-10 mx-10 sm:px-15 md:px-25 lg:px-40 shadow-2xl rounded-lg">
+    <div className="bg-white p-10 mx-10 sm:px-15 md:px-25 lg:px-40 shadow-xl rounded-2xl pb-3">
       <Form
         {...layout}
         name="nest-messages"
@@ -99,10 +99,10 @@ const CapNhatTaiKhoan = () => {
             },
           ]}
           labelCol={{
-            span: 5,
+            span: 6,
           }}
           wrapperCol={{
-            span: 19,
+            span: 17,
           }}
         >
           <Input disabled={true} />
@@ -118,10 +118,10 @@ const CapNhatTaiKhoan = () => {
             },
           ]}
           labelCol={{
-            span: 5,
+            span: 6,
           }}
           wrapperCol={{
-            span: 19,
+            span: 17,
           }}
         >
           <Input />
@@ -137,10 +137,10 @@ const CapNhatTaiKhoan = () => {
             },
           ]}
           labelCol={{
-            span: 5,
+            span: 6,
           }}
           wrapperCol={{
-            span: 19,
+            span: 17,
           }}
         >
           <Select>
@@ -159,10 +159,10 @@ const CapNhatTaiKhoan = () => {
             },
           ]}
           labelCol={{
-            span: 5,
+            span: 6,
           }}
           wrapperCol={{
-            span: 19,
+            span: 17,
           }}
         >
           <DatePicker format={dateFormatList} placeholder="Chọn ngày" />
@@ -178,10 +178,10 @@ const CapNhatTaiKhoan = () => {
             },
           ]}
           labelCol={{
-            span: 5,
+            span: 6,
           }}
           wrapperCol={{
-            span: 19,
+            span: 17,
           }}
         >
           <Input />
@@ -197,10 +197,10 @@ const CapNhatTaiKhoan = () => {
             },
           ]}
           labelCol={{
-            span: 5,
+            span: 6,
           }}
           wrapperCol={{
-            span: 19,
+            span: 17,
           }}
         >
           <Input.Password />
@@ -209,11 +209,11 @@ const CapNhatTaiKhoan = () => {
         <Form.Item
           wrapperCol={{
             ...layout.wrapperCol,
-            offset: 5,
+            offset: 6,
           }}
           style={{ marginBottom: 0 }}
         >
-          <button className="bg-grin font-montserrat font-bold text-base text-white py-2 px-5 rounded-lg hover:bg-darkgrin active:bg-grin">
+          <button className="bg-grin font-montserrat font-bold text-base text-white py-2 px-5 rounded-lg hover:bg-darkgrin active:bg-grin mt-2">
             CẬP NHẬT
           </button>
         </Form.Item>

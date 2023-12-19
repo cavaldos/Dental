@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import { Form, Input, message, Space } from "antd";
 import { useSelector } from "react-redux";
 import { ButtonGreen } from "~/components/button";
-import StaffService from "../../services/staff";
 
 const DoiMatKhauNS = () => {
   const user = useSelector((state) => state.user);
@@ -83,6 +82,10 @@ const DoiMatKhauNS = () => {
             label="Xác Nhận Mật Khẩu Mới"
             name="xacnhanmatkhaumoi"
             rules={[
+              {
+                required: true,
+                message: "Vui lòng xác nhận mật khẩu!",
+              },
               ({ getFieldValue }) => ({
                 validator(_, value) {
                   if (!value || getFieldValue("matkhaumoi") === value) {

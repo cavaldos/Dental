@@ -89,6 +89,10 @@ const ProfileNV = () => {
             label="Xác Nhận Mật Khẩu Mới"
             name="xacnhanmatkhaumoi"
             rules={[
+              {
+                required: true,
+                message: "Vui lòng xác nhận mật khẩu!",
+              },
               ({ getFieldValue }) => ({
                 validator(_, value) {
                   if (!value || getFieldValue("matkhaumoi") === value) {
