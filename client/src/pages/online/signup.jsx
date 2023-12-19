@@ -41,9 +41,9 @@ const DangKyTaiKhoan = () => {
   };
   return (
     <div
-      className="bg-white p-10 mx-10 sm:px-15 md:px-25 lg:px-40"
+      className="bg-white p-10 mx-10 sm:px-15 md:px-25 lg:px-40 shadow-xl "
       style={{
-        borderRadius: "27px",
+        borderRadius: "10px",
         boxShadow: "0px 3.111px 3.111px 0px rgba(0, 0, 0, 0.10)",
       }}
     >
