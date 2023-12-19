@@ -222,7 +222,7 @@ const XacNhan = () => {
   return (
     <>
       <div class="flex justify-center flex-col text-neutral-900">
-        <div class="mx-auto bg-slate-500 w-[900px] p-4">
+        <div class="mx-auto  w-[900px] p-4">
           <h1 class="text-2xl font-bold mb-5">Đây là thông tin của bạn:</h1>
 
           <h1 class="text-lg font-medium">
