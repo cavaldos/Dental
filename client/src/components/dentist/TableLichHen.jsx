@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { Select, Space, message } from "antd";
 import moment from 'moment';
 
-import { TwoStateBlue, StatePink, StateGrey } from "~/components/buttonTwoState";
+import { TwoStateBlue, StatePink, StateGrey, TwoStateBorder } from "~/components/buttonTwoState";
 import { ButtonGreen } from "~/components/button";
 import { CloseCircleOutlined } from "@ant-design/icons";
 
@@ -90,17 +90,18 @@ const CreateAShift = ({ data, isPassDay }) => {
   {isPassDay === 1 ? (
     (() => {
       switch (data.LOAI) {
-        case 0:
-          shiftContent = <TwoStateBlue text={caContent} />;
+        case 'waiting':
+          shiftContent = <TwoStateBorder text={caContent}/>;
           break;
-        case 1:
+        case 'ordered':
           shiftContent = <StatePink text={caContent} />;
           break;
-        case 2:
+        case 'full':
           shiftContent = <StateGrey text={caContent} />;
           break;
-        default:
-          shiftContent = null;
+        case 'empty':
+          shiftContent = <TwoStateBlue text={caContent} />;
+          break;
       }
     })()
   ) : (
@@ -121,12 +122,12 @@ const OneDay = () => {
   
 
   const temp = [
-    {MACA: 'CA001', LOAI: 2}, 
-    {MACA: 'CA002', LOAI: 0},
-    {MACA: 'CA003', LOAI: 0},
-    {MACA: 'CA004', LOAI: 2},
-    {MACA: 'CA006', LOAI: 1},
-    {MACA: 'CA003', LOAI: 0},
+    {MACA: 'CA001', LOAI: 'full'}, 
+    {MACA: 'CA002', LOAI: 'empty'},
+    {MACA: 'CA003', LOAI: 'waiting'},
+    {MACA: 'CA004', LOAI: 'full'},
+    {MACA: 'CA006', LOAI: 'ordered'},
+    {MACA: 'CA003', LOAI: 'waiting'},
   ];
   
   return (
@@ -150,7 +151,9 @@ const OneDay = () => {
           {element.NGAY.slice(0, 5)}</div>
           <span>
             {temp.map((shift, index2) => (
-              <CreateAShift data={shift} isPassDay={1}/>
+              <div key={index2}> 
+                <CreateAShift data={shift} isPassDay={1}/>
+              </div>
             ))}
           </span>
         </div>
