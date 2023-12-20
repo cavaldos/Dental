@@ -115,7 +115,23 @@ const ChonCa = () => {
   useEffect(() => {
     if (order.mans === "") {
       GuestService.xemLRChuaDatTatCaNSTheoNgay().then((res) => {
-        setLichRanh(res);
+        const newres=res.map((item) => {
+           return {
+            ...item,
+            code: item.MACA + item.NGAY,
+           }
+
+        });
+        console.log(newres);
+        let uniqueObjects = [];
+        newres.forEach((item) => {
+          if (!uniqueObjects.some((uniqueItem) => uniqueItem.code === item.code)) {
+            uniqueObjects.push(item);
+          }
+        }
+        );
+
+        setLichRanh(uniqueObjects);
       });
     } else {
       GuestService.lichRanh().then((res) => {
