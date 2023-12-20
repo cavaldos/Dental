@@ -155,52 +155,53 @@ const ChonCa = () => {
   );
 };
 
-const LyDoKham = () => {
-  const [lydokham, setLyDoKham] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
-  const user = useSelector((state) => state.user);
-  const dispatch = useDispatch();
-  const timeoutRef = React.useRef(null);
+  const LyDoKham = () => {
+    const order = useSelector((state) => state.order);
+    const [lydokham, setLyDoKham] = useState(order.lydokham);
+    const [isLoading, setIsLoading] = useState(false);
+    const user = useSelector((state) => state.user);
+    const dispatch = useDispatch();
+    const timeoutRef = React.useRef(null);
 
-  useEffect(() => {
-    clearTimeout(timeoutRef.current);
-    if (lydokham !== "") {
-      setIsLoading(true);
+    useEffect(() => {
+      clearTimeout(timeoutRef.current);
+      if (lydokham !== "") {
+        setIsLoading(true);
 
-      timeoutRef.current = setTimeout(() => {
-        dispatch(booking({ lydokham: lydokham, sodt: user.SODT }));
-        setIsLoading(false);
-      }, 2000);
-    }
-  }, [lydokham, dispatch, user.SODT]);
+        timeoutRef.current = setTimeout(() => {
+          dispatch(booking({ lydokham: lydokham, sodt: user.SODT }));
+          setIsLoading(false);
+        }, 2000);
+      }
+    }, [lydokham, dispatch, user.SODT]);
 
-  return (
-    <>
-      <div className=" flex justify-center mb-3">
-        <h1 className=" ">Xin vui lòng nhập lý do khám</h1>
-        {isLoading ? (
-          <Spin
-            indicator={
-              <LoadingOutlined className="text-sm ml-3 text-gray-600" spin />
-            }
-          />
-        ) : (
-          <></>
-        )}
-      </div>
-      <div className="flex justify-center">
-        <div className="w-[60%]">
-          <TextArea
-            className="w-full"
-            rows={4}
-            value={lydokham}
-            onChange={(e) => setLyDoKham(e.target.value)}
-          />
+    return (
+      <>
+        <div className=" flex justify-center mb-3">
+          <h1 className=" ">Xin vui lòng nhập lý do khám</h1>
+          {isLoading ? (
+            <Spin
+              indicator={
+                <LoadingOutlined className="text-sm ml-3 text-gray-600" spin />
+              }
+            />
+          ) : (
+            <></>
+          )}
         </div>
-      </div>
-    </>
-  );
-};
+        <div className="flex justify-center">
+          <div className="w-[60%]">
+            <TextArea
+              className="w-full"
+              rows={4}
+              value={lydokham}
+              onChange={(e) => setLyDoKham(e.target.value)}
+            />
+          </div>
+        </div>
+      </>
+    );
+  };
 
 const MenuItem = ({ text, content }) => {
   return (
