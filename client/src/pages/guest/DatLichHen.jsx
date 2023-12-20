@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Button, message, Steps } from "antd";
+import { Button, message, Steps, Tag } from "antd";
 import { Input } from "antd";
 const { TextArea } = Input;
 import GuestService from "../../services/guest";
@@ -24,7 +24,7 @@ const NhaSi = ({ TENNS, MAND }) => {
           transition: "all 0.4s ",
         }}
         onClick={() => handleOnClick()}
-        className="p-4 border hover:border-[#86b6f8] hover:text-[17px] border-slate-400 h-16 min-w-[220px] rounded-sm hover:bg-slate-200  "
+        className="p-4 border hover:border-[#86b6f8] hover:text-[17px] border-slate-400 h-16 min-w-[220px] rounded-sm hover:bg-slate-200 focus:bg-slate-400  "
       >
         <h1>{TENNS}</h1>
       </button>
@@ -32,11 +32,17 @@ const NhaSi = ({ TENNS, MAND }) => {
   );
 };
 
-const Ca = ({ GIOBD, GIOKT, NGAY, SOTT }) => {
+const Ca = ({ GIOBD, GIOKT, NGAY, SOTT, MANS }) => {
   const dispath = useDispatch();
   const handleOnClick = (sott) => {
     dispath(
-      booking({ sott: sott, GIOBATDAU: GIOBD, GIOKETTHUC: GIOKT, NGAY: NGAY })
+      booking({
+        sott: sott,
+        GIOBATDAU: GIOBD,
+        GIOKETTHUC: GIOKT,
+        NGAY: NGAY,
+        mans: MANS,
+      })
     );
     message.success(`Đã chọn ca bắt đầu lúc ${GIOBD} ngày ${NGAY}`, 4);
   };
@@ -50,10 +56,12 @@ const Ca = ({ GIOBD, GIOKT, NGAY, SOTT }) => {
           min-w-[20px] rounded-sm  
          hover:bg-slate-200 
          hover:border-[#86b6f8]
+          focus:bg-slate-200
+ 
             "
       >
-        <div className="flex flex-col text-gray-400">
-          <div className="flex gap-3 mb-3">
+        <div className="flex flex-col text-gray-600">
+          <div className="flex gap-3 mb-3 ">
             Ngày : <h1 className="ml-auto text-black">{NGAY}</h1>
           </div>
           <div className="flex gap-3 ">
@@ -109,32 +117,8 @@ const ChonCa = () => {
   useEffect(() => {
     if (order.mans === "") {
       GuestService.xemLRChuaDatTatCaNSTheoNgay().then((res) => {
-        console.log("mang ban dau",res);
-        const output = [];
-        res.forEach((day) => {
-          day.CA.forEach((shift) => {
-            shift.NHASI.forEach((nurse) => {
-              console.log(nurse);
-              output.push({
-                MANS: shift.MANS,
-                SOTT: nurse.SOTTLH || 0,
-                MACA: shift.MACA,
-                NGAY: day.NGAY,
-                GIOBATDAU: shift.GIOBATDAU,
-                GIOKETTHUC: shift.GIOKETTHUC,
-              });
-            });
-          });
-        });
-        setLichRanh(
-          output.map((item) => ({
-            ...item,
-            GIOBATDAU: item.GIOBATDAU,
-            GIOKETTHUC: item.GIOKETTHUC,
-          }))
-        );
+        setLichRanh(res);
       });
-      console.log("mang sau khi set",lichRanh);
     } else {
       GuestService.lichRanh().then((res) => {
         const new_lichRanh = res.filter((item) => {
@@ -174,7 +158,8 @@ const ChonCa = () => {
 };
 
 const LyDoKham = () => {
-  const [lydokham, setLyDoKham] = useState("");
+  const order = useSelector((state) => state.order);
+  const [lydokham, setLyDoKham] = useState(order.lydokham);
   const [isLoading, setIsLoading] = useState(false);
   const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
@@ -188,7 +173,7 @@ const LyDoKham = () => {
       timeoutRef.current = setTimeout(() => {
         dispatch(booking({ lydokham: lydokham, sodt: user.SODT }));
         setIsLoading(false);
-      }, 2000);
+      }, 1000);
     }
   }, [lydokham, dispatch, user.SODT]);
 
@@ -220,38 +205,43 @@ const LyDoKham = () => {
   );
 };
 
-const XacNhan = () => {
-  const order = useSelector((state) => state.order);
+const MenuItem = ({ text, content }) => {
   return (
     <>
-      <div class="flex justify-center flex-col text-neutral-900">
-        <div class="mx-auto  w-[900px] p-4">
-          <h1 class="text-2xl font-bold mb-5">Đây là thông tin của bạn:</h1>
+      <div className="flex gap-4">
+        <div className="w-[210px]">
+          <h1 className="text-lg font-medium text-gray-600">{text}: </h1>
+        </div>
+        <div className=" w-[650px]">
+          <h1 className="text-lg font-semibold text-black">{content} </h1>
+        </div>
+      </div>
+    </>
+  );
+};
 
-          <h1 class="text-lg font-medium">
-            Số điện thoại của bạn: {order.sodt}
-          </h1>
-          <div className="flex">
-            <h1 class="text-lg font-medium">Tên nha sĩ: </h1>
-            <h1 class="text-lg font-medium">{order.tenns} </h1>
-          </div>
-
-          <div className="flex">
-            <h1 class="text-lg font-medium">Ngày khám: </h1>
-            <h1 class="text-lg font-medium"> {order.CA.NGAY}</h1>
-          </div>
-          <div className="flex">
-            <h1 class="text-lg font-medium">Bắt đầu: </h1>
-            <h1 class="text-lg font-medium"> {order.CA.GIOBATDAU}</h1>
-          </div>
-          <div className="flex">
-            <h1 class="text-lg font-medium">Kết thúc: </h1>
-            <h1 class="text-lg font-medium"> {order.CA.GIOKETTHUC}</h1>
-          </div>
-          <div className="flex">
-            <h1 class="text-lg font-medium">Lý do khám: </h1>
-            <h1 class="text-lg font-medium"> {order.lydokham}</h1>
-          </div>
+const XacNhan = () => {
+  const order = useSelector((state) => state.order);
+  const [nhasi, setNhaSi] = useState([]);
+  useEffect(() => {
+    GuestService.getAllDSNS().then((res) => {
+      setNhaSi(res);
+    });
+  }, []);
+  let result = nhasi.filter((item) => item.MANS === order.mans);
+  const newHoten = result[0]?.HOTEN;
+  return (
+    <>  
+      <div className="flex justify-center flex-col text-neutral-900">
+        <div className="mx-auto  w-[900px] p-4">
+          <h1 className="text-2xl font-bold mb-5">Đây là thông tin của bạn:</h1>
+          <MenuItem text="Số  điên thoại của bạn" content={order.sodt} />
+          <MenuItem text="Tên nha sĩ" content={newHoten} />
+          <MenuItem text="Mã nha sĩ" content={order.mans} />
+          <MenuItem text="Ngày khám" content={order.CA.NGAY} />
+          <MenuItem text="Bắt đầu" content={order.CA.GIOBATDAU} />
+          <MenuItem text="Kết thúc" content={order.CA.GIOKETTHUC} />
+          <MenuItem text="Lý do khám" content={order.lydokham} />
         </div>
       </div>
     </>
@@ -304,6 +294,10 @@ const DatLichContainer = () => {
     }
     if (order.lydokham === "") {
       message.error("Vui lòng nhập lý do khám");
+      return;
+    }
+    if (order.sodt === "") {
+      message.error("Vui lòng nhập số điện thoại");
       return;
     }
 

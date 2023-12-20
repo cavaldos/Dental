@@ -1,5 +1,5 @@
 import { poolConnect } from "../../config/db.mjs";
-import { groupHSB, groupLich, formatTime, convertBackToDate } from "../../utils/groupData.js";
+import { groupHSB, formatTime, convertBackToDate, filterRandomDentist } from "../../utils/groupData.js";
 const pool = await poolConnect("KH");
 
 const khachHangController = {
@@ -265,13 +265,15 @@ const khachHangController = {
       const result = await pool.executeSP(sp, params);
       const formattedResult = result[0].map(item => ({
         MANS: item.MANS,
+        HOTEN: item.HOTEN,
         SOTT: item.SOTT,
         MACA: item.MACA,
         NGAY: convertBackToDate(item.NGAY),
         GIOBATDAU: formatTime(item.GIOBATDAU),
         GIOKETTHUC: formatTime(item.GIOKETTHUC),
       }));
-      return res.status(200).json(formattedResult);
+      const resultFiltered = filterRandomDentist(formattedResult);
+      return res.status(200).json(resultFiltered);
     } catch (error) {
       console.error("An error occurred:", error.message);
       return res
