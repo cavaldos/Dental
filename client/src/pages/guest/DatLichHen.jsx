@@ -12,6 +12,11 @@ import { LoadingOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 
 const NhaSi = ({ TENNS, MAND }) => {
+  let color = "green";
+  const order = useSelector((state) => state.order);
+  if (order.mans === MAND) {
+    color = "blue";
+  }
   const dispath = useDispatch();
   const handleOnClick = () => {
     dispath(booking({ mans: MAND, tenns: TENNS }));
@@ -24,7 +29,7 @@ const NhaSi = ({ TENNS, MAND }) => {
           transition: "all 0.4s ",
         }}
         onClick={() => handleOnClick()}
-        className="p-4 border hover:border-[#86b6f8] hover:text-[17px] border-slate-400 h-16 min-w-[220px] rounded-sm hover:bg-slate-200 focus:bg-slate-400  "
+        className={`p-4 border bg-${color} hover:border-[#86b6f8] hover:text-[17px] border-slate-400 h-16 min-w-[220px] rounded-sm hover:bg-slate-200 focus:bg-slate-400 `}
       >
         <h1>{TENNS}</h1>
       </button>
@@ -33,6 +38,12 @@ const NhaSi = ({ TENNS, MAND }) => {
 };
 
 const Ca = ({ GIOBD, GIOKT, NGAY, SOTT, MANS }) => {
+  const order = useSelector((state) => state.order);
+  let color = "green";
+  if (order.sott + order.mans === SOTT + MANS) {
+    color = "blue";
+  }
+
   const dispath = useDispatch();
   const handleOnClick = (sott) => {
     dispath(
@@ -51,14 +62,14 @@ const Ca = ({ GIOBD, GIOKT, NGAY, SOTT, MANS }) => {
     <>
       <button
         onClick={() => handleOnClick(SOTT)}
-        className="p-2 border
+        className={`p-2 border
          border-slate-400 min-h-16
           min-w-[20px] rounded-sm  
          hover:bg-slate-200 
          hover:border-[#86b6f8]
           focus:bg-slate-200
- 
-            "
+            bg-${color}
+          `}
       >
         <div className="flex flex-col text-gray-600">
           <div className="flex gap-3 mb-3 ">
@@ -231,7 +242,7 @@ const XacNhan = () => {
   let result = nhasi.filter((item) => item.MANS === order.mans);
   const newHoten = result[0]?.HOTEN;
   return (
-    <>  
+    <>
       <div className="flex justify-center flex-col text-neutral-900">
         <div className="mx-auto  w-[900px] p-4">
           <h1 className="text-2xl font-bold mb-5">Đây là thông tin của bạn:</h1>
@@ -270,7 +281,15 @@ const DatLichContainer = () => {
   const [current, setCurrent] = useState(0);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const order = useSelector((state) => state.order);
   const next = () => {
+    if (current === 0 && order.mans === "") {
+      message.info("Bạn đã chọn nha sĩ bất kỳ");
+    }
+    if (current === 1 && order.sott === "") {
+      message.error("Vui lòng chọn ca khám");
+      return;
+    }
     setCurrent(current + 1);
   };
   const prev = () => {
@@ -281,7 +300,6 @@ const DatLichContainer = () => {
     title: item.title,
     content: item.content,
   }));
-  const order = useSelector((state) => state.order);
 
   const handleBooking = async () => {
     if (order.mans === "") {
