@@ -265,6 +265,7 @@ const khachHangController = {
       const result = await pool.executeSP(sp, params);
       const formattedResult = result[0].map(item => ({
         MANS: item.MANS,
+        HOTEN: item.HOTEN,
         SOTT: item.SOTT,
         MACA: item.MACA,
         NGAY: convertBackToDate(item.NGAY),
