@@ -299,7 +299,7 @@ const DatLichContainer = () => {
     }
 
     await GuestService.taoLichHen(order).then((res) => {
-      message.success("Đặt lịch thành công");
+      // message.success("Đặt lịch thành công");
       setTimeout(() => {
         dispatch(deleteOder());
       }, 500);

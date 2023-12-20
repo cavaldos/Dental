@@ -198,7 +198,7 @@ const khachHangController = {
       params.MANS = req.body.mans;
       params.SODT = req.body.sdt;
       params.SOTT = req.body.stt;
-
+      console.log(params)
       const sp = "SP_DELETELICHHEN_NV_KH";
       const result = await pool.executeSP(sp, params);
       return res.status(201).json({ success: true });

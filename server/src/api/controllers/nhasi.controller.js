@@ -279,7 +279,7 @@ const nhaSiController = {
 
       // waiting
       const result1 = await pool.executeSP(sp1, params);
-      // orderd
+      // ordered
       const result2 = await pool.executeSP(sp2, params);
       // full
       const result3 = await pool.executeSP(sp3, params);

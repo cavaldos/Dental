@@ -289,7 +289,7 @@ const DatLich = () => {
   const fetchData = async () => {
     try {
       const res = await StaffService.getLichRanhNS();
-      setLichHenData(null);
+      setLichHenData(res);
     } catch (error) {
       console.error("Lỗi khi lấy dữ liệu lịch hẹn:", error);
     }
