@@ -106,7 +106,6 @@ const khachHangController = {
       }
       const params = {};
       params.SDT = req.params.sdt;
-      console.log(req.params.sdt);
       const sp = "SP_TRUYVANLICHHEN_KH";
       const result = await pool.executeSP(sp, params);
       return res.status(200).json(result[0]);

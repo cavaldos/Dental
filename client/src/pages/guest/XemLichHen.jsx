@@ -18,14 +18,11 @@ function isoDateToLocalDate(ISOTimeString, offsetInMinutes) {
   return new Date(newTime.getTime() - offsetInMinutes * 60000);
 }
 
-function formatTime(localIsoDate) {
-  function z(n) {
-    return (n < 10 ? "0" : "") + n;
-  }
-  var hh = localIsoDate.getUTCHours();
-  var mm = localIsoDate.getUTCMinutes();
-  var ss = localIsoDate.getUTCSeconds();
-  return z(hh) + ":" + z(mm) + ":" + z(ss);
+function formatTime(inputDate) {
+  const date = new Date(inputDate);
+  const hours = date.getUTCHours().toString().padStart(2, '0'); // Lấy giờ theo múi giờ UTC
+  const minutes = date.getUTCMinutes().toString().padStart(2, '0');
+  return `${hours}:${minutes}`;
 }
 
 const XemLichHen = () => {
