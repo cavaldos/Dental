@@ -7,6 +7,20 @@ import { TwoStateBlue, StatePink, StateGrey } from "~/components/buttonTwoState"
 import { ButtonGreen } from "~/components/button";
 import { CloseCircleOutlined } from "@ant-design/icons";
 
+function compareDates(dateA, dateB) {
+  const date1 = new Date(dateA);
+  const date2 = new Date(dateB);
+
+  if (date1.getTime() === date2.getTime()) {
+    return 0; // A = B
+  } else if (date1.getTime() < date2.getTime()) {
+    return -1; // A < B
+  } else {
+    return 1; // B > A
+  }
+  // Note hàm getTime() chuyển thành ký tự số theo mili giây tính từ 1/1/1970
+}
+
 function selectWeekDays(date) {
   const week = Array(7).fill(new Date(date)).map((el, idx) =>
     new Date(el.setDate(el.getDate() - el.getDay() + idx)));
@@ -16,10 +30,40 @@ function selectWeekDays(date) {
   return weekdays;
 }
 
-const dateNow = new Date();
-const formattedWeekdays = selectWeekDays(dateNow);
+function separateDaysByComparison(date) {
+  const weekdays = selectWeekDays(date);
+  const dayNow = moment(date).format('YYYY-MM-DD');
 
-const CreateAShift = ({ data }) => {
+  const pastDays = [];
+  const futureDays = [];
+  const weekDayNames = ['THỨ HAI', 'THỨ BA', 'THỨ TƯ', 
+                        'THỨ NĂM', 'THỨ SÁU', 'THỨ BẢY'];
+  let temp;
+
+  weekdays.forEach((day, index) => {
+    const formattedDay = moment(day).format('YYYY-MM-DD');
+    if (moment(formattedDay, 'YYYY-MM-DD', true).isValid() && compareDates(formattedDay, dayNow) <= 0) {
+      temp = convertDateFormat(formattedDay);
+      pastDays.push({ THU: weekDayNames[index], NGAY: temp });
+    } else {
+      temp = convertDateFormat(formattedDay);
+      futureDays.push({ THU: weekDayNames[index], NGAY: temp });
+    }
+  });
+
+  return [pastDays, futureDays];
+}
+
+const today = new Date(); 
+const result = separateDaysByComparison(today);
+console.log('re ', result);
+
+// Hàm chuyển đổi từ 'YYYY-MM-DD' sang 'DD/MM/YYYY'
+function convertDateFormat(dateString) {
+  return moment(dateString, 'YYYY-MM-DD').format('DD/MM/YYYY');
+}
+
+const CreateAShift = ({ data, isPassDay }) => {
   let shiftContent, caContent;
 
   switch (data.MACA) {
@@ -43,19 +87,27 @@ const CreateAShift = ({ data }) => {
       break;
   }
 
-  switch (data.LOAI) {
-    case 0:
-      shiftContent = <TwoStateBlue text={caContent} />;
-      break;
-    case 1:
-      shiftContent = <StatePink text={caContent} />;
-      break;
-    case 2:
-      shiftContent = <StateGrey text={caContent} />;
-      break;
-    default:
-      shiftContent = null; 
-  }
+  {isPassDay === 1 ? (
+    (() => {
+      switch (data.LOAI) {
+        case 0:
+          shiftContent = <TwoStateBlue text={caContent} />;
+          break;
+        case 1:
+          shiftContent = <StatePink text={caContent} />;
+          break;
+        case 2:
+          shiftContent = <StateGrey text={caContent} />;
+          break;
+        default:
+          shiftContent = null;
+      }
+    })()
+  ) : (
+    shiftContent = <StateGrey text={caContent} />
+  )};
+  
+  
 
   return (
     <div className="mb-3">
@@ -66,8 +118,7 @@ const CreateAShift = ({ data }) => {
 
 
 const OneDay = () => {
-  const weekDayNames = ['THỨ HAI', 'THỨ BA', 'THỨ TƯ', 
-                        'THỨ NĂM', 'THỨ SÁU', 'THỨ BẢY'];
+  
 
   const temp = [
     {MACA: 'CA001', LOAI: 2}, 
@@ -78,17 +129,28 @@ const OneDay = () => {
     {MACA: 'CA003', LOAI: 0},
   ];
   
-
   return (
     <div className="grid grid-cols-6 col-span-2 gap-2 text-center">
-      {formattedWeekdays.map((date, index) => (
+      {result[0].map((element, index) => (
         <div key={index}> 
-          <h5 className="font-montserrat text-md">{weekDayNames[index]}</h5>
+          <h5 className="font-montserrat text-md">{element.THU}</h5>
           <div className="font-montserrat text-md mb-5">
-          {moment(date).format('DD/MM')}</div>
+          {element.NGAY.slice(0, 5)}</div>
           <span>
             {temp.map((shift, index2) => (
-              <CreateAShift data={shift}/>
+              <CreateAShift data={shift} isPassDay={0}/>
+            ))}
+          </span>
+        </div>
+      ))}
+      {result[1].map((element, index) => (
+        <div key={index}> 
+          <h5 className="font-montserrat text-md">{element.THU}</h5>
+          <div className="font-montserrat text-md mb-5">
+          {element.NGAY.slice(0, 5)}</div>
+          <span>
+            {temp.map((shift, index2) => (
+              <CreateAShift data={shift} isPassDay={1}/>
             ))}
           </span>
         </div>
