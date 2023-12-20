@@ -24,7 +24,7 @@ const NhaSi = ({ TENNS, MAND }) => {
           transition: "all 0.4s ",
         }}
         onClick={() => handleOnClick()}
-        className="p-4 border hover:border-[#86b6f8] hover:text-[17px] border-slate-400 h-16 min-w-[220px] rounded-sm hover:bg-slate-200  "
+        className="p-4 border hover:border-[#86b6f8] hover:text-[17px] border-slate-400 h-16 min-w-[220px] rounded-sm hover:bg-slate-200 focus:bg-slate-400  "
       >
         <h1>{TENNS}</h1>
       </button>
@@ -56,10 +56,12 @@ const Ca = ({ GIOBD, GIOKT, NGAY, SOTT, MANS }) => {
           min-w-[20px] rounded-sm  
          hover:bg-slate-200 
          hover:border-[#86b6f8]
+          focus:bg-slate-200
+ 
             "
       >
-        <div className="flex flex-col text-gray-400">
-          <div className="flex gap-3 mb-3">
+        <div className="flex flex-col text-gray-600">
+          <div className="flex gap-3 mb-3 ">
             Ngày : <h1 className="ml-auto text-black">{NGAY}</h1>
           </div>
           <div className="flex gap-3 ">
@@ -155,62 +157,62 @@ const ChonCa = () => {
   );
 };
 
-  const LyDoKham = () => {
-    const order = useSelector((state) => state.order);
-    const [lydokham, setLyDoKham] = useState(order.lydokham);
-    const [isLoading, setIsLoading] = useState(false);
-    const user = useSelector((state) => state.user);
-    const dispatch = useDispatch();
-    const timeoutRef = React.useRef(null);
+const LyDoKham = () => {
+  const order = useSelector((state) => state.order);
+  const [lydokham, setLyDoKham] = useState(order.lydokham);
+  const [isLoading, setIsLoading] = useState(false);
+  const user = useSelector((state) => state.user);
+  const dispatch = useDispatch();
+  const timeoutRef = React.useRef(null);
 
-    useEffect(() => {
-      clearTimeout(timeoutRef.current);
-      if (lydokham !== "") {
-        setIsLoading(true);
+  useEffect(() => {
+    clearTimeout(timeoutRef.current);
+    if (lydokham !== "") {
+      setIsLoading(true);
 
-        timeoutRef.current = setTimeout(() => {
-          dispatch(booking({ lydokham: lydokham, sodt: user.SODT }));
-          setIsLoading(false);
-        }, 2000);
-      }
-    }, [lydokham, dispatch, user.SODT]);
+      timeoutRef.current = setTimeout(() => {
+        dispatch(booking({ lydokham: lydokham, sodt: user.SODT }));
+        setIsLoading(false);
+      }, 1000);
+    }
+  }, [lydokham, dispatch, user.SODT]);
 
-    return (
-      <>
-        <div className=" flex justify-center mb-3">
-          <h1 className=" ">Xin vui lòng nhập lý do khám</h1>
-          {isLoading ? (
-            <Spin
-              indicator={
-                <LoadingOutlined className="text-sm ml-3 text-gray-600" spin />
-              }
-            />
-          ) : (
-            <></>
-          )}
+  return (
+    <>
+      <div className=" flex justify-center mb-3">
+        <h1 className=" ">Xin vui lòng nhập lý do khám</h1>
+        {isLoading ? (
+          <Spin
+            indicator={
+              <LoadingOutlined className="text-sm ml-3 text-gray-600" spin />
+            }
+          />
+        ) : (
+          <></>
+        )}
+      </div>
+      <div className="flex justify-center">
+        <div className="w-[60%]">
+          <TextArea
+            className="w-full"
+            rows={4}
+            value={lydokham}
+            onChange={(e) => setLyDoKham(e.target.value)}
+          />
         </div>
-        <div className="flex justify-center">
-          <div className="w-[60%]">
-            <TextArea
-              className="w-full"
-              rows={4}
-              value={lydokham}
-              onChange={(e) => setLyDoKham(e.target.value)}
-            />
-          </div>
-        </div>
-      </>
-    );
-  };
+      </div>
+    </>
+  );
+};
 
 const MenuItem = ({ text, content }) => {
   return (
     <>
-      <div className="flex gap-1">
+      <div className="flex gap-4">
         <div className="w-[210px]">
           <h1 className="text-lg font-medium text-gray-600">{text}: </h1>
         </div>
-        <div>
+        <div className=" w-[650px]">
           <h1 className="text-lg font-semibold text-black">{content} </h1>
         </div>
       </div>
@@ -229,7 +231,7 @@ const XacNhan = () => {
   let result = nhasi.filter((item) => item.MANS === order.mans);
   const newHoten = result[0]?.HOTEN;
   return (
-    <>
+    <>  
       <div className="flex justify-center flex-col text-neutral-900">
         <div className="mx-auto  w-[900px] p-4">
           <h1 className="text-2xl font-bold mb-5">Đây là thông tin của bạn:</h1>
