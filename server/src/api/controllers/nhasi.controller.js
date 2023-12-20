@@ -1,6 +1,6 @@
 import { groupHSB, groupTableLich } from "../../utils/groupData.js";
-import { poolConnect } from "../../config/db.mjs";
-const pool = await poolConnect("NS");
+import { getPool } from "../../config/db.mjs";
+const pool =  getPool("NS");
 
 const nhaSiController = {
   xemCaDu2NguoiTruc: async (req, res) => {

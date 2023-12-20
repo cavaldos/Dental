@@ -1,6 +1,6 @@
-import { poolConnect } from "../../config/db.mjs";
+import { getPool } from "../../config/db.mjs";
 import { groupHSB, groupLich } from "../../utils/groupData.js";
-const pool = await poolConnect("KH");
+const pool =  getPool("KH");
 
 const khachHangController = {
   xemThongTin: async (req, res) => {

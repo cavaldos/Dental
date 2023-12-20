@@ -1,8 +1,9 @@
 import sql from "mssql-plus";
 import dotenv from "dotenv";
 dotenv.config();
-const PORT = Number(process.env.MSSQL_PORT);
 
+const PORT = Number(process.env.MSSQL_PORT);
+let pools = {};
 const config = {
   server: process.env.MSSQL_SERVER,
   port: PORT,
@@ -18,7 +19,8 @@ const config = {
   },
 };
 
-const poolConnect = async (loginType) => {
+
+const createPool = async (loginType) => {
   try {
     let user, password, database, logMessage;
 
@@ -43,13 +45,13 @@ const poolConnect = async (loginType) => {
         break;
       case 'QTV':
         user = process.env.MSSQL_USERNAME_QTV;
-        password = process.env.MSSQL_PASSWORD_QTV
+        password = process.env.MSSQL_PASSWORD_QTV;
         database = process.env.MSSQL_DATABASE;
         logMessage = 'Login as QTV';
         break;
       case 'KHONLINE':
         user = process.env.MSSQL_USERNAME_KHONLINE;
-        password = process.env.MSSQL_PASSWORD_KHONLINE
+        password = process.env.MSSQL_PASSWORD_KHONLINE;
         database = process.env.MSSQL_DATABASE;
         logMessage = 'Login as KHONLINE';
         break;
@@ -67,33 +69,30 @@ const poolConnect = async (loginType) => {
 
     let pool = new sql.ConnectionPool(connectionConfig);
     await pool.connect();
-    pool.queryRecordset = async (queryString) => {
-      const result = await pool.query(queryString);
-      return result.recordset;
-    };
-    pool.executeSP = async (procedureName, params) => {
-      const request = pool.request();
-      for (const paramName in params) {
-        if (params.hasOwnProperty(paramName)) {
-          request.input(paramName, params[paramName]);
-        }
-      }
-      try {
-        const result = await request.execute(procedureName);
-        return result.recordsets;
-      } catch (error) {
-        throw error;
-      }
-    };
+    pool.Request = sql.Request;
 
     console.log(`🔥 SQL Server pool connection successful!!! ${logMessage}\n`);
 
     return pool;
   } catch (error) {
     console.log(error);
-    console.error(`🔥 poolConnect connection error !!!!!\n`);
+    console.error(`🔥 createPool connection error !!!!!\n`);
     return null;
   }
 };
 
-export { poolConnect };
+const getPool = (loginType) => {
+  let dbVar = 'MSSQL_USERNAME_' + loginType;
+  const pool = pools.find((p) => p.config.user === process.env[dbVar]);
+
+  if (!pool) {
+    console.error(`No pool found for login type: ${loginType}`);
+    return null;
+  }
+  return pool;
+};
+
+
+pools = await Promise.all(['KH', 'NV', 'NS', 'QTV', 'KHONLINE'].map(createPool));
+
+export { getPool };

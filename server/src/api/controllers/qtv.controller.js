@@ -1,5 +1,5 @@
-import { poolConnect } from "../../config/db.mjs";
-const pool = await poolConnect("QTV");
+import { getPool } from "../../config/db.mjs";
+const pool = await getPool("QTV");
 
 const qtvController = {
   getNV: async (req, res) => {
