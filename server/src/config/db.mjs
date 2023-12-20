@@ -67,7 +67,14 @@ const createPool = async (loginType) => {
     };
 
     let pool = new sql.ConnectionPool(connectionConfig);
-    await pool.connect();
+    if (!pool.connected) {
+      try {
+        await pool.connect();
+      } catch (error) {
+        console.error(`Error connecting to SQL Server: ${error.message}`);
+        return null; 
+      }
+    }
     pool.executeSP = async (procedureName, params) => {
       const request = pool.request();
       for (const paramName in params) {
