@@ -310,4 +310,25 @@ const mergeCa = (caChuaDat, caDaDat) => {
 
   return mergedCa;
 };
-export { groupHD, groupHSB, groupLich, groupTableLich, mergeLich, formatTime, convertBackToDate };
+
+function filterRandomDentist(schedule) {
+  const result = [];
+  const dentistMap = {};
+
+  schedule.forEach(item => {
+    const key = `${item.NGAY}-${item.MACA}`;
+    if (!dentistMap[key]) {
+      dentistMap[key] = [];
+    }
+    dentistMap[key].push(item);
+  });
+
+  Object.keys(dentistMap).forEach(key => {
+    const dentists = dentistMap[key];
+    const randomIndex = Math.floor(Math.random() * dentists.length);
+    result.push(dentists[randomIndex]);
+  });
+
+  return result;
+}
+export { groupHD, groupHSB, groupLich, groupTableLich, mergeLich, formatTime, convertBackToDate, filterRandomDentist };
