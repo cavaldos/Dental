@@ -1,0 +1,65 @@
+.input-check{
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.4rem 0.3rem;
+    background: white;
+
+    border: 2.8px dashed #1577FF;
+    border-radius: 0.95rem;
+    width: 136px;
+    color: #1577FF;
+
+    font-family: 'Montserrat';
+    font-size: 1rem;
+    font-weight: 900;
+
+    cursor: pointer;
+    user-select: none;
+}
+.input-check.checked{
+    background: #1577FF;
+    color: white;
+    font-weight: 900;
+}
+.input-check input{
+    display:none
+}
+
+.input-planned {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.4rem 0.3rem;
+    background: #ff6a6d;
+
+    border: 2.8px solid #ff6a6d;
+    border-radius: 0.95rem;
+    width: 136px;
+    color: white;
+
+    font-family: 'Montserrat';
+    font-size: 1rem;
+    font-weight: 900;
+
+    cursor: alias;
+}
+
+.input-full2 {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.4rem 0.3rem;
+    background: white;
+
+    border: 2.8px solid #A1A1A1;
+    border-radius: 0.95rem;
+    width: 136px;
+    color: #A1A1A1;
+
+    font-family: 'Montserrat';
+    font-size: 1rem;
+    font-weight: 900;
+
+    cursor: alias;
+}

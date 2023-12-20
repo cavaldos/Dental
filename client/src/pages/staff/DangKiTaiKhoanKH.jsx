@@ -14,6 +14,15 @@ import dayjs from "dayjs";
 import { ButtonGreen, ButtonPink } from "../../components/button";
 import moment from "moment";
 
+const layout = {
+  labelCol: {
+    span: 8,
+  },
+  wrapperCol: {
+    span: 16,
+  },
+};
+
 const DangKiTaiKhoanKhachHang = () => {
   const [formValues, setFormValues] = useState({}); // State để lưu giá trị của các trường đầu vào
   const [form] = Form.useForm(); // Sử dụng useForm() để tạo đối tượng form
@@ -35,17 +44,18 @@ const DangKiTaiKhoanKhachHang = () => {
 
   return (
     <div
-      className="bg-white w-[1000px] h-fit p-10 mx-10 sm:px-15 md:px-25 lg:px-40 pb-0"
+      className="bg-white w-[1000px] h-fit pt-10 pl-8 pr-9 mx-10 sm:px-15 md:px-25 lg:px-40 shadow-2xl rounded-lg pb-0"
       style={{
         borderRadius: "27px",
         boxShadow: "0px 3.111px 3.111px 0px rgba(0, 0, 0, 0.10)",
       }}
-    >
+    > 
+      <h1 className="font-montserrat text-2xl mb-9 text-center font-black">TẠO TÀI KHOẢN KHÁCH HÀNG MỚI</h1>
       <Form
+        {...layout}
         onSubmit={handleSubmit}
         form={form}
         name="registration-form"
-        layout="vertical"
         onFinish={handleSubmit}
       >
         <Form.Item
@@ -61,6 +71,12 @@ const DangKiTaiKhoanKhachHang = () => {
               message: "Vui lòng nhập số điện thoại",
             },
           ]}
+          labelCol={{
+            span: 6,
+          }}
+          wrapperCol={{
+            span: 18,
+          }}
         >
           <Input placeholder="Số điện thoại khách hàng." />
         </Form.Item>
@@ -75,10 +91,10 @@ const DangKiTaiKhoanKhachHang = () => {
             },
           ]}
           labelCol={{
-            span: 5,
+            span: 6,
           }}
           wrapperCol={{
-            span: 19,
+            span: 18,
           }}
         >
           <Input placeholder="Họ và tên khách hàng." />
@@ -94,10 +110,10 @@ const DangKiTaiKhoanKhachHang = () => {
             },
           ]}
           labelCol={{
-            span: 5,
+            span: 6,
           }}
           wrapperCol={{
-            span: 19,
+            span: 18,
           }}
         >
           <Select placeholder="Chọn giới tính.">
@@ -116,10 +132,10 @@ const DangKiTaiKhoanKhachHang = () => {
             },
           ]}
           labelCol={{
-            span: 5,
+            span: 6,
           }}
           wrapperCol={{
-            span: 19,
+            span: 18,
           }}
         >
           <DatePicker
@@ -144,16 +160,16 @@ const DangKiTaiKhoanKhachHang = () => {
             },
           ]}
           labelCol={{
-            span: 5,
+            span: 6,
           }}
           wrapperCol={{
-            span: 19,
+            span: 18,
           }}
         >
           <Input placeholder="Địa chỉ thường trú." />
         </Form.Item>
 
-        <Form.Item wrapperCol={{ offset: 5, span: 19 }}>
+        <Form.Item wrapperCol={{ offset: 6, span: 18 }}>
           <ButtonGreen text="ĐĂNG KÝ" func={""} />
           <Button
             onClick={handleReset}

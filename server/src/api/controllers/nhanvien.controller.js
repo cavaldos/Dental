@@ -113,7 +113,7 @@ const nhanVienController = {
         return res.status(500).json({ error: 'Khong the ket noi db' });
       }
       const params = {};
-      params.MANV = req.userId;
+      params.MANV = req.body.manv;
       params.MATKHAUCU = req.body.matkhaucu;
       params.MATKHAUMOI = req.body.matkhaumoi;
 

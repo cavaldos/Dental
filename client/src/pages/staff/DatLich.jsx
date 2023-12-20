@@ -2,6 +2,7 @@ import { lichhen5 } from "../../fakedata/lhnv";
 import ns from "~/fakedata/nhasi";
 import "../../assets/styles/staff.css";
 import StaffService from "../../services/staff";
+import { Empty } from "antd";
 
 import React, { useState, useEffect } from "react";
 import {
@@ -134,7 +135,7 @@ const OneWorkSchedule = ({ data }) => {
       },
       {
         key: "2",
-        label: "STT lịch rảnh: " + sott,
+        label: "STT lịch: " + sott,
       },
     ];
   };
@@ -146,7 +147,7 @@ const OneWorkSchedule = ({ data }) => {
           <div className="border-2.4 border-[#b8b8b8] rounded-md h-[40px] flex items-center p-3 mb-2">
             <Dropdown
               menu={{
-                items: detail({ mans: data.MANS, sott: data.SOTTLR }),
+                items: detail({ mans: data.MANS, sott: data.SOTTLH }),
               }}
             >
               <div className="font-montserrat font-semibold text-base text-[#acacac]">
@@ -217,7 +218,6 @@ const ListLichhen = ({ data }) => {
 };
 
 const XemLichTruc = (schedule) => {
-  
   // ---------------------------------------
   // Sort ngày
   // Hàm so sánh ngày để sắp xếp
@@ -239,7 +239,6 @@ const XemLichTruc = (schedule) => {
     startIndex,
     startIndex + itemsPerPage
   );
-  
 
   const onChange = (page) => {
     setCurrentPage(page);
@@ -254,7 +253,7 @@ const XemLichTruc = (schedule) => {
     // Viết gì đó vô đây đi
     return (
       <div>
-        Ko có lịch.........
+        <Empty />
       </div>
     );
   }
@@ -290,7 +289,7 @@ const DatLich = () => {
   const fetchData = async () => {
     try {
       const res = await StaffService.getLichRanhNS();
-      setLichHenData(res);
+      setLichHenData(null);
     } catch (error) {
       console.error("Lỗi khi lấy dữ liệu lịch hẹn:", error);
     }
@@ -308,7 +307,16 @@ const DatLich = () => {
     <>
       <div className="  min-h-[700px] flex gap-6 justify-center">
         <TaoLichHen handleTaoLichHen={handleTaoLichHen} />
-        {lichHenData !== null && <XemLichTruc schedule={lichHenData || []} />}
+        {lichHenData !== null ? (
+          <XemLichTruc schedule={lichHenData || []} />
+        ) : (
+          <div className="w-[480px]">
+            <div className="bg-[#FFFFFF] w-[480px] rounded-2xl py-8 px-10">
+              <Empty />
+            </div>
+          </div>
+        )}
+
       </div>
     </>
   );

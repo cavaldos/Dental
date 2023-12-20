@@ -24,6 +24,9 @@
 .ant-select-selector {
     height: 117% !important;
 }
+.ant-input-disabled {
+    margin-bottom: 0.75em !important;
+}
 .ant-picker {
     width: 100% !important;
 }
@@ -50,7 +53,12 @@
     font-size: medium !important;
     font-weight: 640 !important;
 }
-.ant-form-item-label, .ant-form-item-required {
+.ant-form-item-label, .ant-form-item-required, .ant-form-item {
+    font-family: Montserrat !important;
+    font-size: medium !important;
+    font-weight: 640 !important;
+}
+:where(.css-dev-only-do-not-override-p7e5j5).ant-form-item .ant-form-item-label >label {
     font-family: Montserrat !important;
     font-size: medium !important;
     font-weight: 640 !important;

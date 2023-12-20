@@ -5,6 +5,7 @@ export const orderSlice = createSlice({
   initialState: {
     sodt: "",
     mans: "",
+    tenns: "",
     sott: "",
     lydokham: "",
     CA: {
@@ -16,9 +17,20 @@ export const orderSlice = createSlice({
   },
   reducers: {
     booking: (state, action) => {
-      console.log(action.payload);
-      const { sodt, mans, sott, lydokham, MACA, NGAY, GIOBATDAU, GIOKETTHUC } =
-        action.payload;
+      const {
+        sodt,
+        mans,
+        sott,
+        lydokham,
+        tenns,
+        MACA,
+        NGAY,
+        GIOBATDAU,
+        GIOKETTHUC,
+      } = action.payload;
+      if (tenns !== undefined) {
+        state.tenns = tenns;
+      }
       if (sodt !== undefined) {
         state.sodt = sodt;
       }
@@ -44,8 +56,21 @@ export const orderSlice = createSlice({
         state.CA.GIOKETTHUC = GIOKETTHUC;
       }
     },
+    deleteOder: (state) => {
+      state.sodt = "";
+      state.mans = "";
+      state.tenns = "";
+      state.sott = "";
+      state.lydokham = "";
+      state.CA = {
+        NGAY: "",
+        MACA: "",
+        GIOBATDAU: "",
+        GIOKETTHUC: "",
+      };
+    },
   },
 });
 
-export const { booking } = orderSlice.actions;
+export const { booking, deleteOder } = orderSlice.actions;
 export default orderSlice.reducer;

@@ -8,7 +8,6 @@ const DatLichHen = lazy(() => import("../pages/guest/DatLichHen"));
 const HoSoBenhKH = lazy(() => import("../pages/guest/HoSoBenh"));
 const XemLichHenKH = lazy(() => import("../pages/guest/XemLichHen"));
 const DoiMatKhau = lazy(() => import("../pages/guest/DoiMatKhau"));
-
 const GuestRouter = [
   {
     path: "/",

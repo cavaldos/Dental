@@ -93,6 +93,20 @@ const GuestService = {
     }
     return res;
   },
+  doiMatKhau: async (data) => {
+   const res = await Axios.put("/khachhang/capnhatKH", {
+     userId: data.sdt,
+     matkhaucu: data.matkhaucu,
+     matkhaumoi: data.matkhaumoi,
+   });
+   console.log(res);
+   if (res && res.response) {
+     if (res.response.status === 400) {
+       message.error(res.response.data.error);
+     }
+   }
+   return res;
+  },
   xemthongtinKH: async () => {
     const res = await Axios.get("/khachhang/xemthongtinKH");
     return res;

@@ -10,7 +10,6 @@ import axios from "axios";
 import Axios from "./services/axios.config";
 import GetCookie from "./hooks/GetCookie";
 import Hash from "~/hooks/Hash";
-import Print from "./components/print";
 const token =
   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJRVFYwMDAxIiwidXNlclJvbGUiOiJRVFYiLCJpYXQiOjE3MDI0NTYzMzEsImV4cCI6MTcwMjQ1NjM5MX0.jq6sWsZa1BPgRnjbyZsU1Gyg0eSeqOvU5NHGx5GuuYE";
 

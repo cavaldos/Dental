@@ -3,23 +3,9 @@ import React, { useState } from "react";
 import { Select, Space, message } from "antd";
 import moment from 'moment';
 
-import { TwoStateBlue, StatePink, StateGrey, TwoStateBorder } from "~/components/buttonTwoState";
+import { TwoStateBlue, StatePink, StateGrey } from "~/components/buttonTwoState";
 import { ButtonGreen } from "~/components/button";
 import { CloseCircleOutlined } from "@ant-design/icons";
-
-function compareDates(dateA, dateB) {
-  const date1 = new Date(dateA);
-  const date2 = new Date(dateB);
-
-  if (date1.getTime() === date2.getTime()) {
-    return 0; // A = B
-  } else if (date1.getTime() < date2.getTime()) {
-    return -1; // A < B
-  } else {
-    return 1; // B > A
-  }
-  // Note hàm getTime() chuyển thành ký tự số theo mili giây tính từ 1/1/1970
-}
 
 function selectWeekDays(date) {
   const week = Array(7).fill(new Date(date)).map((el, idx) =>
@@ -30,40 +16,10 @@ function selectWeekDays(date) {
   return weekdays;
 }
 
-function separateDaysByComparison(date) {
-  const weekdays = selectWeekDays(date);
-  const dayNow = moment(date).format('YYYY-MM-DD');
+const dateNow = new Date();
+const formattedWeekdays = selectWeekDays(dateNow);
 
-  const pastDays = [];
-  const futureDays = [];
-  const weekDayNames = ['THỨ HAI', 'THỨ BA', 'THỨ TƯ', 
-                        'THỨ NĂM', 'THỨ SÁU', 'THỨ BẢY'];
-  let temp;
-
-  weekdays.forEach((day, index) => {
-    const formattedDay = moment(day).format('YYYY-MM-DD');
-    if (moment(formattedDay, 'YYYY-MM-DD', true).isValid() && compareDates(formattedDay, dayNow) <= 0) {
-      temp = convertDateFormat(formattedDay);
-      pastDays.push({ THU: weekDayNames[index], NGAY: temp });
-    } else {
-      temp = convertDateFormat(formattedDay);
-      futureDays.push({ THU: weekDayNames[index], NGAY: temp });
-    }
-  });
-
-  return [pastDays, futureDays];
-}
-
-const today = new Date(); 
-const result = separateDaysByComparison(today);
-console.log('re ', result);
-
-// Hàm chuyển đổi từ 'YYYY-MM-DD' sang 'DD/MM/YYYY'
-function convertDateFormat(dateString) {
-  return moment(dateString, 'YYYY-MM-DD').format('DD/MM/YYYY');
-}
-
-const CreateAShift = ({ data, isPassDay }) => {
+const CreateAShift = ({ data }) => {
   let shiftContent, caContent;
 
   switch (data.MACA) {
@@ -87,28 +43,19 @@ const CreateAShift = ({ data, isPassDay }) => {
       break;
   }
 
-  {isPassDay === 1 ? (
-    (() => {
-      switch (data.LOAI) {
-        case 'waiting':
-          shiftContent = <TwoStateBorder text={caContent}/>;
-          break;
-        case 'ordered':
-          shiftContent = <StatePink text={caContent} />;
-          break;
-        case 'full':
-          shiftContent = <StateGrey text={caContent} />;
-          break;
-        case 'empty':
-          shiftContent = <TwoStateBlue text={caContent} />;
-          break;
-      }
-    })()
-  ) : (
-    shiftContent = <StateGrey text={caContent} />
-  )};
-  
-  
+  switch (data.LOAI) {
+    case 0:
+      shiftContent = <TwoStateBlue text={caContent} />;
+      break;
+    case 1:
+      shiftContent = <StatePink text={caContent} />;
+      break;
+    case 2:
+      shiftContent = <StateGrey text={caContent} />;
+      break;
+    default:
+      shiftContent = null; 
+  }
 
   return (
     <div className="mb-3">
@@ -119,41 +66,29 @@ const CreateAShift = ({ data, isPassDay }) => {
 
 
 const OneDay = () => {
-  
+  const weekDayNames = ['THỨ HAI', 'THỨ BA', 'THỨ TƯ', 
+                        'THỨ NĂM', 'THỨ SÁU', 'THỨ BẢY'];
 
   const temp = [
-    {MACA: 'CA001', LOAI: 'full'}, 
-    {MACA: 'CA002', LOAI: 'empty'},
-    {MACA: 'CA003', LOAI: 'waiting'},
-    {MACA: 'CA004', LOAI: 'full'},
-    {MACA: 'CA006', LOAI: 'ordered'},
-    {MACA: 'CA003', LOAI: 'waiting'},
+    {MACA: 'CA001', LOAI: 2}, 
+    {MACA: 'CA002', LOAI: 0},
+    {MACA: 'CA003', LOAI: 0},
+    {MACA: 'CA004', LOAI: 2},
+    {MACA: 'CA006', LOAI: 1},
+    {MACA: 'CA003', LOAI: 0},
   ];
   
+
   return (
     <div className="grid grid-cols-6 col-span-2 gap-2 text-center">
-      {result[0].map((element, index) => (
+      {formattedWeekdays.map((date, index) => (
         <div key={index}> 
-          <h5 className="font-montserrat text-md">{element.THU}</h5>
+          <h5 className="font-montserrat text-md">{weekDayNames[index]}</h5>
           <div className="font-montserrat text-md mb-5">
-          {element.NGAY.slice(0, 5)}</div>
+          {moment(date).format('DD/MM')}</div>
           <span>
             {temp.map((shift, index2) => (
-              <CreateAShift data={shift} isPassDay={0}/>
-            ))}
-          </span>
-        </div>
-      ))}
-      {result[1].map((element, index) => (
-        <div key={index}> 
-          <h5 className="font-montserrat text-md">{element.THU}</h5>
-          <div className="font-montserrat text-md mb-5">
-          {element.NGAY.slice(0, 5)}</div>
-          <span>
-            {temp.map((shift, index2) => (
-              <div key={index2}> 
-                <CreateAShift data={shift} isPassDay={1}/>
-              </div>
+              <CreateAShift data={shift}/>
             ))}
           </span>
         </div>
@@ -162,7 +97,7 @@ const OneDay = () => {
   );
 };
 
-const TableLichHen = ({ data }) => {
+const WorkSchedule = ({ data }) => {
   const [day, setDay] = useState(data.map((item) => item.NGAY));
   const [lichhen, setLichHen] = useState(data);
 
@@ -207,4 +142,4 @@ const TableLichHen = ({ data }) => {
   );
 };
 
-export default TableLichHen;
+export default WorkSchedule;

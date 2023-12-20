@@ -1,13 +1,13 @@
 import { Empty } from "antd";
 import { AudioOutlined } from "@ant-design/icons";
-import { Input } from "antd";
-import { useState, Suspense, lazy } from "react";
+import { Input, Space } from "antd";
+import { useEffect, useState, Suspense, lazy } from "react";
 import { useLocation } from "react-router-dom";
 import "../../assets/styles/staff.css";
 
 const HoaDon = lazy(() => import("~/components/HoaDon"));
 const { Search } = Input;
-const XemHoaDon = () => {
+const PrintHoaDon = () => {
   const location = useLocation();
   const currentPath = location.pathname;
   const lastPath = currentPath.substring(currentPath.lastIndexOf("/") + 1);
@@ -15,13 +15,16 @@ const XemHoaDon = () => {
   const onSearch = (value) => {
     setSearchResults(value);
   };
-
+  useEffect(() => {
+    setSearchResults(lastPath);
+  }, [lastPath]);
   return (
     <Suspense fallback={<div>Loading...</div>}>
       <div>
         <div className="text-center">
           <Search
-            className="w-[820px] rounded-2xl font-montserrat text-base"
+            style={{ display: "disable" }}
+            className="w-[820px] rounded-2xl font-montserrat text-base "
             placeholder="Tìm kiếm hóa đơn bằng số điện thoại khách hàng"
             allowClear
             onSearch={onSearch}
@@ -43,4 +46,4 @@ const XemHoaDon = () => {
   );
 };
 
-export default XemHoaDon;
+export default PrintHoaDon;

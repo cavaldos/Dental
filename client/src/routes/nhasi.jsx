@@ -8,6 +8,7 @@ const XemBenhAnCu = lazy(() => import("~/pages/dentist/XemBenhAnCu"));
 const ThemBenhAnMoi = lazy(() => import("~/pages/dentist/ThemBenhAnMoi"));
 const XemLichTruc = lazy(() => import("~/pages/dentist/XemLichTruc"));
 const DoiMatKhau = lazy(() => import("../pages/dentist/DoiMatKhau"));
+
 const DentistRouter = [
   {
     path: "/",

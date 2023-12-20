@@ -6,6 +6,7 @@ import { ButtonGreen, ButtonGrey } from "~/components/button";
 import { PrinterOutlined } from "@ant-design/icons";
 import StaffService from "../services/staff";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const formatCurrency = (amount) => {
   const formattedAmount = new Intl.NumberFormat("vi-VN", {
@@ -16,7 +17,7 @@ const formatCurrency = (amount) => {
 };
 
 const GuestInfo = ({ currentRecord }) => {
-  console.log(currentRecord);
+  // console.log(currentRecord);
   if (!currentRecord) {
     return null;
   }
@@ -187,6 +188,7 @@ const HoaDon = ({ sdt }) => {
   const [medicalRecords, setMedicalRecords] = useState([]);
   const recordsPerPage = 1;
   const user = useSelector((state) => state.user);
+  const naviate = useNavigate();
   useEffect(() => {
     StaffService.getHoaDon(sdt).then((res) => {
       console.log(res);
@@ -216,11 +218,11 @@ const HoaDon = ({ sdt }) => {
   };
 
   const print = () => {
-    window.print();
+    naviate(`/print-hoa-don/${sdt}`);
   };
 
   return (
-    <div>
+    <div className="">
       {medicalRecords.length > 0 ? (
         <div
           className="bg-white p-10"
@@ -255,7 +257,7 @@ const HoaDon = ({ sdt }) => {
       ) : (
         <Empty />
       )}
-      <div className="grid grid-cols-[2fr,1fr] gap-4 mt-6">
+      <div className="grid grid-cols-[2fr,1fr] gap-4 mt-6 ">
         {medicalRecords.length > 0 ? (
           <div className="flex justify-start">
             <p className="me-4">
