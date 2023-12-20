@@ -12,10 +12,10 @@ import { LoadingOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 
 const NhaSi = ({ TENNS, MAND }) => {
-  let color = "green";
+  let init = "";
   const order = useSelector((state) => state.order);
   if (order.mans === MAND) {
-    color = "blue";
+    init = "bg-[#1783D2] text-white";
   }
   const dispath = useDispatch();
   const handleOnClick = () => {
@@ -29,7 +29,7 @@ const NhaSi = ({ TENNS, MAND }) => {
           transition: "all 0.4s ",
         }}
         onClick={() => handleOnClick()}
-        className={`p-4 border bg-${color} hover:border-[#86b6f8] hover:text-[17px] border-slate-400 h-16 min-w-[220px] rounded-sm hover:bg-slate-200 focus:bg-slate-400 `}
+        className={`p-4 border ${init} hover:border-[#86b6f8] hover:text-[17px] border-slate-400 h-16 min-w-[220px] rounded-sm hover:bg-sky-500  focus:bg-[#1783D2] focus:text-white   `}
       >
         <h1>{TENNS}</h1>
       </button>
@@ -39,9 +39,9 @@ const NhaSi = ({ TENNS, MAND }) => {
 
 const Ca = ({ GIOBD, GIOKT, NGAY, SOTT, MANS }) => {
   const order = useSelector((state) => state.order);
-  let color = "green";
+  let color = "";
   if (order.sott + order.mans === SOTT + MANS) {
-    color = "blue";
+    color = "bg-[#1783D2] text-white";
   }
 
   const dispath = useDispatch();
@@ -61,25 +61,28 @@ const Ca = ({ GIOBD, GIOKT, NGAY, SOTT, MANS }) => {
   return (
     <>
       <button
+        style={{
+          transition: "all 0.4s ",
+        }}
         onClick={() => handleOnClick(SOTT)}
-        className={`p-2 border
+        className={`p-2 border      
          border-slate-400 min-h-16
           min-w-[20px] rounded-sm  
-         hover:bg-slate-200 
-         hover:border-[#86b6f8]
-          focus:bg-slate-200
-            bg-${color}
+         hover:bg-sky-500
+         hover:border-[#5184cc]
+          focus:bg-[#1783D2]
+            ${color}
           `}
       >
-        <div className="flex flex-col text-gray-600">
+        <div className="flex flex-col ">
           <div className="flex gap-3 mb-3 ">
-            Ngày : <h1 className="ml-auto text-black">{NGAY}</h1>
+            Ngày : <h1 className="ml-auto ">{NGAY}</h1>
           </div>
           <div className="flex gap-3 ">
-            Bắt đầu : <h1 className="ml-auto text-black">{GIOBD}</h1>
+            Bắt đầu : <h1 className="ml-auto ">{GIOBD}</h1>
           </div>{" "}
           <div className="flex gap-3 ">
-            Kết thúc : <h1 className="ml-auto text-black">{GIOKT}</h1>
+            Kết thúc : <h1 className="ml-auto ">{GIOKT}</h1>
           </div>
         </div>
       </button>
