@@ -102,7 +102,7 @@ const createPool = async (loginType) => {
 
 const getPool = (loginType) => {
   let dbVar = 'MSSQL_USERNAME_' + loginType;
-  const pool = pools.find((p) => p.config.user === process.env[dbVar]);
+  const pool = pools.find((p) =>p&& p.config.user === process.env[dbVar]);
 
   if (!pool) {
     console.error(`No pool found for login type: ${loginType}`);
