@@ -1,6 +1,6 @@
 import { getPool } from "../../config/db.mjs";
 import { groupHSB, formatTime, convertBackToDate, filterRandomDentist } from "../../utils/groupData.js";
-const pool = await getPool("KH");
+const pool =  getPool("KH");
 
 const khachHangController = {
   xemThongTin: async (req, res) => {

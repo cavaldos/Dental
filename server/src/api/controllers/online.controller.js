@@ -1,7 +1,7 @@
 import { getPool } from "../../config/db.mjs";
 import jwt from "jsonwebtoken";
 
-const pool = await getPool("KHONLINE");
+const pool =  getPool("KHONLINE");
 
 const onlineController = {
   taoTKKH: async (req, res) => {
