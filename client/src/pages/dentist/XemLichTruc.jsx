@@ -1,7 +1,7 @@
 import React, { memo } from "react";
 import { Button, message } from "antd";
 import { lichhen4 } from "~/fakedata/lhnv";
-import TableLichHen from "~/components/dentist/TableLichHen";
+import WorkSchedule from "~/components/dentist/OwnWorkSchedule";
 import { useNavigate } from "react-router-dom";
 const ThongTinLichHen = memo(({ props }) => {
   // const { thoigian, sdt, hoten, ly_do_kham } = props;
@@ -76,7 +76,7 @@ const XemLichTruc = () => {
     <>
       <div className="flex flex-col">
         <div className="flex flex-row gap-4">
-          <TableLichHen data={lichhen4} />
+          <WorkSchedule data={lichhen4} />
           <ThongTinLichHen props={data} />
         </div>
       </div>
