@@ -25,11 +25,9 @@
    * gradient color
    */
 
-  --gradient: linear-gradient(
-    90deg,
-    var(--carolina-blue) 0%,
-    var(--royal-blue-light) 100%
-  );
+  --gradient: linear-gradient(90deg,
+      var(--carolina-blue) 0%,
+      var(--royal-blue-light) 100%);
 
   /**
    * typography
@@ -95,6 +93,7 @@
 }
 
 #index {
+
   li {
     list-style: none;
   }
@@ -139,6 +138,24 @@
   address {
     font-style: normal;
   }
+
+
+
+  font-family: var(--ff-roboto);
+  font-size: 10px;
+  scroll-behavior: smooth;
+
+
+
+  .body {
+    background-color: var(--white);
+    color: var(--sonic-silver);
+    font-size: 1.5rem;
+  }
+
+
+
+
 
   /*-----------------------------------*\
   #REUSED STYLE
@@ -187,11 +204,7 @@
   }
 
   .btn {
-    background-image: linear-gradient(
-      var(--deg, 90deg),
-      var(--carolina-blue) 0%,
-      var(--royal-blue-light) 100%
-    );
+    background-image: linear-gradient(var(--deg, 90deg), var(--carolina-blue) 0%, var(--royal-blue-light) 100%);
     color: var(--white);
     font-size: var(--fs-7);
     text-transform: uppercase;
@@ -228,6 +241,113 @@
     height: 100%;
     object-fit: cover;
   }
+
+
+
+
+
+  /*-----------------------------------*\
+  #HEDER
+\*-----------------------------------*/
+
+  .header-top,
+  .header-bottom .btn {
+    display: none;
+  }
+
+  .header-bottom {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding-block: 15px;
+    z-index: 4;
+  }
+
+  .header-bottom.active {
+    position: fixed;
+    top: -81px;
+    background-color: var(--white);
+    box-shadow: var(--shadow-2);
+    animation: slideIn 0.5s var(--cubic-out) forwards;
+  }
+
+  @keyframes slideIn {
+    0% {
+      transform: translateY(0);
+    }
+
+    100% {
+      transform: translateY(100%);
+    }
+  }
+
+  .header-bottom>.container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .logo {
+    color: var(--oxford-blue-1);
+    font-family: var(--ff-poppins);
+    font-size: 3.4rem;
+    font-weight: var(--fw-800);
+  }
+
+  .nav-toggle-btn {
+    color: var(--black);
+    font-size: 30px;
+    border: 1px solid var(--black);
+    padding: 5px;
+  }
+
+  .nav-toggle-btn.active .menu-icon,
+  .nav-toggle-btn .close-icon {
+    display: none;
+  }
+
+  .nav-toggle-btn .menu-icon,
+  .nav-toggle-btn.active .close-icon {
+    display: block;
+  }
+
+  .navbar {
+    position: absolute;
+    top: calc(100% + 5px);
+    left: 25px;
+    right: 25px;
+    background-color: var(--white);
+    padding-inline: 0;
+    box-shadow: var(--shadow-1);
+    max-height: 0;
+    visibility: hidden;
+    overflow: hidden;
+    transition: 0.25s var(--cubic-out);
+  }
+
+  .navbar.active {
+    visibility: visible;
+    max-height: 244px;
+    transition-duration: 0.5s;
+  }
+
+  .navbar-list>li:not(:last-child) {
+    border-block-end: 1px solid var(--gainsboro_50);
+  }
+
+  .navbar-link {
+    color: var(--jet);
+    text-transform: uppercase;
+    font-weight: var(--fw-600);
+    padding: 15px;
+  }
+
+
+
+
+
   /*-----------------------------------*\
   #HERO
 \*-----------------------------------*/
@@ -274,6 +394,10 @@
     width: 100%;
   }
 
+
+
+
+
   /*-----------------------------------*\
   #SERVICE
 \*-----------------------------------*/
@@ -314,6 +438,10 @@
     margin-block-end: 8px;
   }
 
+
+
+
+
   /*-----------------------------------*\
   #ABOUT
 \*-----------------------------------*/
@@ -336,6 +464,10 @@
     margin-block-start: 30px;
     padding-inline: 15px;
   }
+
+
+
+
 
   /*-----------------------------------*\
   #DOCTOR
@@ -427,6 +559,10 @@
     width: calc(25% - 30px);
   }
 
+
+
+
+
   /*-----------------------------------*\
   #CTA
 \*-----------------------------------*/
@@ -452,6 +588,10 @@
   .cta .btn {
     max-width: max-content;
   }
+
+
+
+
 
   /*-----------------------------------*\
   #BLOG
@@ -540,6 +680,10 @@
   .blog-card .card-link:is(:hover, :focus)::after {
     background-color: var(--oxford-blue-1);
   }
+
+
+
+
 
   /*-----------------------------------*\
   #FOOTER
@@ -650,6 +794,10 @@
     background-image: var(--gradient);
   }
 
+
+
+
+
   /*-----------------------------------*\
   #BACK TO TOP
 \*-----------------------------------*/
@@ -674,6 +822,10 @@
     opacity: 1;
   }
 
+
+
+
+
   /*-----------------------------------*\
   #MEDIA QUERIES
 \*-----------------------------------*/
@@ -683,17 +835,22 @@
  */
 
   @media (min-width: 575px) {
+
     /**
    * CUSTOM PROPERTY
    */
 
     :root {
+
       /**
      * typography
      */
 
       --fs-1: 4.2rem;
+
     }
+
+
 
     /**
    * REUSED STYLE
@@ -705,6 +862,8 @@
       margin-inline: auto;
     }
 
+
+
     /**
    * BLOG
    */
@@ -713,6 +872,8 @@
       --fs-5: 2.6rem;
     }
 
+
+
     /**
    * FOOTER
    */
@@ -720,24 +881,34 @@
     .footer-top .container {
       grid-template-columns: 1fr 1fr;
     }
+
   }
+
+
+
+
 
   /**
  * responsive for larger than 768px screen
  */
 
   @media (min-width: 768px) {
+
     /**
    * CUSTOM PROPERTY
    */
 
     :root {
+
       /**
      * typography
      */
 
       --fs-2: 4.8rem;
+
     }
+
+
 
     /**
    * RESET
@@ -746,6 +917,8 @@
     body {
       font-size: 1.6rem;
     }
+
+
 
     /**
    * REUSED STYLE
@@ -758,6 +931,8 @@
     .section-subtitle {
       --fs-6: 2.2rem;
     }
+
+
 
     /**
    * HERO
@@ -799,6 +974,8 @@
       margin-inline-end: -60px;
     }
 
+
+
     /**
    * SERVICE
    */
@@ -808,6 +985,8 @@
       column-gap: 30px;
     }
 
+
+
     /**
    * DOCTOR
    */
@@ -815,6 +994,8 @@
     .scrollbar-item {
       min-width: calc(50% - 15px);
     }
+
+
 
     /**
    * CTA
@@ -839,6 +1020,8 @@
       padding-block: 60px;
     }
 
+
+
     /**
    * BLOG
    */
@@ -846,6 +1029,8 @@
     .blog-list {
       grid-template-columns: 1fr 1fr;
     }
+
+
 
     /**
    * FOOTER
@@ -865,6 +1050,8 @@
       margin-block-end: 0;
     }
 
+
+
     /**
    * BACK TO TOP
    */
@@ -873,18 +1060,25 @@
       bottom: 70px;
       right: 50px;
     }
+
   }
+
+
+
+
 
   /**
  * responsive for larger than 992px screen
  */
 
   @media (min-width: 992px) {
+
     /**
    * CUSTOM PROPERTY
    */
 
     :root {
+
       /**
      * typography
      */
@@ -892,7 +1086,10 @@
       --fs-2: 6rem;
       --fs-1: 4.6rem;
       --fs-3: 4.6rem;
+
     }
+
+
 
     /**
    * REUSED STYLE
@@ -901,6 +1098,8 @@
     .container {
       max-width: 980px;
     }
+
+
 
     /**
    * HEADER
@@ -978,7 +1177,7 @@
       align-items: center;
     }
 
-    .navbar-list > li:not(:last-child) {
+    .navbar-list>li:not(:last-child) {
       border-block-end: none;
     }
 
@@ -998,6 +1197,8 @@
       padding: 15px 20px;
     }
 
+
+
     /**
    * SERVICE
    */
@@ -1012,6 +1213,8 @@
       grid-row: 1 / 4;
       align-self: center;
     }
+
+
 
     /**
    * ABOUT
@@ -1028,6 +1231,8 @@
       margin-block-end: 0;
     }
 
+
+
     /**
    * DOCTOR
    */
@@ -1035,6 +1240,8 @@
     .scrollbar-item {
       min-width: calc(33.33% - 20px);
     }
+
+
 
     /**
    * CTA
@@ -1044,6 +1251,8 @@
       padding-block: 80px;
     }
 
+
+
     /**
    * BLOG
    */
@@ -1052,6 +1261,8 @@
       grid-template-columns: repeat(3, 1fr);
     }
 
+
+
     /**
    * FOOTER
    */
@@ -1059,18 +1270,25 @@
     .footer-top .container {
       grid-template-columns: 1fr 0.5fr 0.6fr 0.75fr;
     }
+
   }
+
+
+
+
 
   /**
  * responsive for larger than 1200px screen
  */
 
   @media (min-width: 1200px) {
+
     /**
    * CUSTOM PROPERTY
    */
 
     :root {
+
       /**
      * typography
      */
@@ -1078,7 +1296,10 @@
       --fs-2: 8rem;
       --fs-1: 5.5rem;
       --fs-3: 4.8rem;
+
     }
+
+
 
     /**
    * REUSED STYLE
@@ -1087,6 +1308,8 @@
     .container {
       max-width: 1180px;
     }
+
+
 
     /**
    * HEADER
@@ -1100,13 +1323,15 @@
       padding: 18px 30px;
     }
 
-    .header-bottom > .container {
+    .header-bottom>.container {
       gap: 40px;
     }
 
     .navbar-list {
       gap: 15px;
     }
+
+
 
     /**
    * ABOUT
@@ -1116,6 +1341,8 @@
       grid-template-columns: 0.85fr 1fr;
       gap: 100px;
     }
+
+
 
     /**
    * DOCTOR
@@ -1134,6 +1361,8 @@
       margin-block-end: 0;
     }
 
+
+
     /**
    * CTA
    */
@@ -1145,5 +1374,6 @@
     .cta-banner {
       margin-block-start: -120px;
     }
+
   }
 }
