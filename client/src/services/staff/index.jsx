@@ -29,15 +29,13 @@ const StaffService = {
     const res = await Axios.post("/nhanvien/taohoaDon", {
       sdt: data.sdt,
       stt: data.stt,
-      manv: data.manv,
     });
-    console
     if(res && res.response)
     {
-      if (res.response.status === 422) {
+      if (res.response?.status === 422) {
         message.error(res.response.data.error);
       }
-      if (res.response.status === 404) {
+      if (res.response?.status === 404) {
         message.error(res.response.data.error);
       }
     }
