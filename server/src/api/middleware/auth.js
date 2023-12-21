@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken";
-import { poolConnect } from "../../config/db.mjs";
-const pool = await poolConnect("KHONLINE");
+import { getPool } from "../../config/db.mjs";
+const pool =  getPool("KHONLINE");
 const authMiddleware = {
   authenticateToken: async (req, res, next) => {
     const authorizationHeader = req.header("Authorization");

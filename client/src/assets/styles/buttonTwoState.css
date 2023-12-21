@@ -15,6 +15,7 @@
     font-weight: 900;
 
     cursor: pointer;
+    user-select: none;
 }
 .input-check.checked{
     background: #1577FF;
@@ -41,7 +42,7 @@
     font-size: 1rem;
     font-weight: 900;
 
-    cursor: pointer;
+    cursor: alias;
 }
 
 .input-full2 {
@@ -60,5 +61,5 @@
     font-size: 1rem;
     font-weight: 900;
 
-    cursor: pointer;
+    cursor: alias;
 }

@@ -27,6 +27,33 @@ const TwoStateBlue = ({text, func}) => {
   );
 };
 
+const TwoStateBorder = ({ text, func }) => {
+  const changeState = (event) => {
+    const checkbox = event.target;
+    const label = checkbox.parentElement;
+
+    if (checkbox.checked) {
+      label.classList.remove('checked');
+    } else {
+      label.classList.add('checked');
+    }
+  };
+
+  return (
+    <label className="input-check checked">
+      <input
+        onChange={changeState}
+        type="checkbox"
+        value="something"
+        name="test"
+        className="hidden"
+        // defaultChecked  // Thêm thuộc tính defaultChecked để đặt giá trị mặc định là checked
+      />
+      {text}
+    </label>
+  );
+};
+
 const StatePink = ({text, func, info}) => {
   return (
     <button
@@ -49,4 +76,4 @@ const StateGrey = ({text, func, info}) => {
   );
 };
 
-export { TwoStateBlue, StatePink, StateGrey };
+export { TwoStateBlue, StatePink, StateGrey, TwoStateBorder };

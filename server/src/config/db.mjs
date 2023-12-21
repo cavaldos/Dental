@@ -1,8 +1,9 @@
 import sql from "mssql-plus";
 import dotenv from "dotenv";
 dotenv.config();
-const PORT = Number(process.env.MSSQL_PORT);
 
+const PORT = Number(process.env.MSSQL_PORT);
+let pools = {};
 const config = {
   server: process.env.MSSQL_SERVER,
   port: PORT,
@@ -18,40 +19,40 @@ const config = {
   },
 };
 
-const poolConnect = async (loginType) => {
+const createPool = async (loginType) => {
   try {
     let user, password, database, logMessage;
 
     switch (loginType) {
-      case 'KH':
+      case "KH":
         user = process.env.MSSQL_USERNAME_KH;
         password = process.env.MSSQL_PASSWORD_KH;
         database = process.env.MSSQL_DATABASE;
-        logMessage = 'Login as KH';
+        logMessage = "Login as KH";
         break;
-      case 'NV':
+      case "NV":
         user = process.env.MSSQL_USERNAME_NV;
         password = process.env.MSSQL_PASSWORD_NV;
         database = process.env.MSSQL_DATABASE;
-        logMessage = 'Login as NV';
+        logMessage = "Login as NV";
         break;
-      case 'NS':
+      case "NS":
         user = process.env.MSSQL_USERNAME_NS;
         password = process.env.MSSQL_PASSWORD_NS;
         database = process.env.MSSQL_DATABASE;
-        logMessage = 'Login as NS';
+        logMessage = "Login as NS";
         break;
-      case 'QTV':
+      case "QTV":
         user = process.env.MSSQL_USERNAME_QTV;
-        password = process.env.MSSQL_PASSWORD_QTV
+        password = process.env.MSSQL_PASSWORD_QTV;
         database = process.env.MSSQL_DATABASE;
-        logMessage = 'Login as QTV';
+        logMessage = "Login as QTV";
         break;
-      case 'KHONLINE':
+      case "KHONLINE":
         user = process.env.MSSQL_USERNAME_KHONLINE;
-        password = process.env.MSSQL_PASSWORD_KHONLINE
+        password = process.env.MSSQL_PASSWORD_KHONLINE;
         database = process.env.MSSQL_DATABASE;
-        logMessage = 'Login as KHONLINE';
+        logMessage = "Login as KHONLINE";
         break;
       default:
         console.error(`Unsupported login type: ${loginType}`);
@@ -66,11 +67,14 @@ const poolConnect = async (loginType) => {
     };
 
     let pool = new sql.ConnectionPool(connectionConfig);
-    await pool.connect();
-    pool.queryRecordset = async (queryString) => {
-      const result = await pool.query(queryString);
-      return result.recordset;
-    };
+    if (!pool.connected) {
+      try {
+        await pool.connect();
+      } catch (error) {
+        console.error(`Error connecting to SQL Server: ${error.message}`);
+        return null;
+      }
+    }
     pool.executeSP = async (procedureName, params) => {
       const request = pool.request();
       for (const paramName in params) {
@@ -91,9 +95,24 @@ const poolConnect = async (loginType) => {
     return pool;
   } catch (error) {
     console.log(error);
-    console.error(`🔥 poolConnect connection error !!!!!\n`);
+    console.error(`🔥 createPool connection error !!!!!\n`);
     return null;
   }
 };
 
-export { poolConnect };
+const getPool = (loginType) => {
+  let dbVar = "MSSQL_USERNAME_" + loginType;
+  const pool = pools.find((p) => p && p.config.user === process.env[dbVar]);
+
+  if (!pool) {
+    console.error(`No pool found for login type: ${loginType}`);
+    return null;
+  }
+  return pool;
+};
+
+pools = await Promise.all(
+  ["KH", "NV", "NS", "QTV", "KHONLINE"].map(createPool)
+);
+
+export { getPool };

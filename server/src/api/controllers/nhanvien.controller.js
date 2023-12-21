@@ -1,5 +1,5 @@
-import { poolConnect } from "../../config/db.mjs";
-const pool = await poolConnect('NV');
+import { getPool } from "../../config/db.mjs";
+const pool =  getPool('NV');
 import { groupHD, groupHSB, groupLich, mergeLich } from "../../utils/groupData.js"
 
 const nhanVienController = {

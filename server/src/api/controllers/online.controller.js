@@ -1,7 +1,7 @@
-import { poolConnect } from "../../config/db.mjs";
+import { getPool } from "../../config/db.mjs";
 import jwt from "jsonwebtoken";
 
-const pool = await poolConnect("KHONLINE");
+const pool =  getPool("KHONLINE");
 
 const onlineController = {
   taoTKKH: async (req, res) => {
@@ -104,6 +104,7 @@ const onlineController = {
       const params = null;
       const sp = "SP_XEMDANHSACHDICHVU_ALL";
       const result = await pool.executeSP(sp, params);
+
       return res.status(200).json(result[0]);
     } catch (error) {
       console.error("An error occurred:", error.message);

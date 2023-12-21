@@ -12,6 +12,11 @@ import { LoadingOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 
 const NhaSi = ({ TENNS, MAND }) => {
+  let init = "";
+  const order = useSelector((state) => state.order);
+  if (order.mans === MAND) {
+    init = "bg-[#1783D2] text-white";
+  }
   const dispath = useDispatch();
   const handleOnClick = () => {
     dispath(booking({ mans: MAND, tenns: TENNS }));
@@ -24,7 +29,7 @@ const NhaSi = ({ TENNS, MAND }) => {
           transition: "all 0.4s ",
         }}
         onClick={() => handleOnClick()}
-        className="p-4 border hover:border-[#86b6f8] hover:text-[17px] border-slate-400 h-16 min-w-[220px] rounded-sm hover:bg-slate-200 focus:bg-slate-400  "
+        className={`p-4 border ${init} hover:border-[#86b6f8] hover:text-[17px] border-slate-400 h-16 min-w-[220px] rounded-sm hover:bg-sky-500  focus:bg-[#1783D2] focus:text-white   `}
       >
         <h1>{TENNS}</h1>
       </button>
@@ -33,6 +38,12 @@ const NhaSi = ({ TENNS, MAND }) => {
 };
 
 const Ca = ({ GIOBD, GIOKT, NGAY, SOTT, MANS }) => {
+  const order = useSelector((state) => state.order);
+  let color = "";
+  if (order.sott + order.mans === SOTT + MANS) {
+    color = "bg-[#1783D2] text-white";
+  }
+
   const dispath = useDispatch();
   const handleOnClick = (sott) => {
     dispath(
@@ -50,25 +61,28 @@ const Ca = ({ GIOBD, GIOKT, NGAY, SOTT, MANS }) => {
   return (
     <>
       <button
+        style={{
+          transition: "all 0.4s ",
+        }}
         onClick={() => handleOnClick(SOTT)}
-        className="p-2 border
+        className={`p-2 border      
          border-slate-400 min-h-16
           min-w-[20px] rounded-sm  
-         hover:bg-slate-200 
-         hover:border-[#86b6f8]
-          focus:bg-slate-200
- 
-            "
+         hover:bg-sky-500
+         hover:border-[#5184cc]
+          focus:bg-[#1783D2]
+            ${color}
+          `}
       >
-        <div className="flex flex-col text-gray-600">
+        <div className="flex flex-col ">
           <div className="flex gap-3 mb-3 ">
-            Ngày : <h1 className="ml-auto text-black">{NGAY}</h1>
+            Ngày : <h1 className="ml-auto ">{NGAY}</h1>
           </div>
           <div className="flex gap-3 ">
-            Bắt đầu : <h1 className="ml-auto text-black">{GIOBD}</h1>
+            Bắt đầu : <h1 className="ml-auto ">{GIOBD}</h1>
           </div>{" "}
           <div className="flex gap-3 ">
-            Kết thúc : <h1 className="ml-auto text-black">{GIOKT}</h1>
+            Kết thúc : <h1 className="ml-auto ">{GIOKT}</h1>
           </div>
         </div>
       </button>
@@ -231,7 +245,7 @@ const XacNhan = () => {
   let result = nhasi.filter((item) => item.MANS === order.mans);
   const newHoten = result[0]?.HOTEN;
   return (
-    <>  
+    <>
       <div className="flex justify-center flex-col text-neutral-900">
         <div className="mx-auto  w-[900px] p-4">
           <h1 className="text-2xl font-bold mb-5">Đây là thông tin của bạn:</h1>
@@ -270,7 +284,15 @@ const DatLichContainer = () => {
   const [current, setCurrent] = useState(0);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const order = useSelector((state) => state.order);
   const next = () => {
+    if (current === 0 && order.mans === "") {
+      message.info("Bạn đã chọn nha sĩ bất kỳ");
+    }
+    if (current === 1 && order.sott === "") {
+      message.error("Vui lòng chọn ca khám");
+      return;
+    }
     setCurrent(current + 1);
   };
   const prev = () => {
@@ -281,7 +303,6 @@ const DatLichContainer = () => {
     title: item.title,
     content: item.content,
   }));
-  const order = useSelector((state) => state.order);
 
   const handleBooking = async () => {
     if (order.mans === "") {
