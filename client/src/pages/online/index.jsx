@@ -1,9 +1,4 @@
-import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
-import axios from "axios";
-
 import "../../assets/styles/index.scss";
-import { AiOutlineClockCircle, AiOutlineEnvironment, AiOutlinePhone, AiOutlineMail, AiOutlinePlus, AiFillFacebook, AiFillTwitterCircle, AiFillInstagram, AiOutlineArrowUp } from "react-icons/ai";
 
 const HomePage = () => {
   return (
@@ -249,9 +244,7 @@ const HomePage = () => {
                       volutpat ex, a accumsan nunc lectus eu lectus.
                     </p>
 
-                    <a href="#" className="btn">
-                      Read more
-                    </a>
+
                   </div>
                 </div>
               </section>
@@ -388,205 +381,21 @@ const HomePage = () => {
                       We Are open And Welcoming Patients
                     </h2>
 
-                    <a href="#" className="btn">
+                    <a href="/dat-lich-hen" className="btn">
                       Book appointment
                     </a>
+
                   </div>
                 </div>
               </section>
 
             </article>
           </main>
+         
 
-          <footer className="footer">
-            <div className="footer-top section">
-              <div className="container">
-                <div className="footer-brand">
-                  <a href="#" className="logo">
-                    Tsitned.
-                  </a>
 
-                  <p className="footer-text">
-                    Mauris non nisi semper, lacinia neque in, dapibus leo.
-                    Curabitur sagittis libero tincidunt tempor finibus. Mauris
-                    at dignissim ligula, nec tristique orci.Quisque vitae
-                    metus.
-                  </p>
-
-                  <div className="schedule">
-                    <div className="schedule-icon">
-                      <AiOutlineClockCircle />
-                    </div>
-
-                    <span className="span">
-                      Monday - Saturday: 9:00am - 10:00pm
-                    </span>
-                  </div>
-                </div>
-
-                <ul className="footer-list">
-                  <li>
-                    <p className="footer-list-title">Other Links</p>
-                  </li>
-
-                  <li>
-                    <a href="#" className="footer-link">
-                      <AiOutlinePlus />
-                      <span className="span">Home</span>
-                    </a>
-                  </li>
-
-                  <li>
-                    <a href="#" className="footer-link">
-                      <AiOutlinePlus />
-                      <span className="span">About Us</span>
-                    </a>
-                  </li>
-
-                  <li>
-                    <a href="#" className="footer-link">
-                      <AiOutlinePlus />
-                      <span className="span">Services</span>
-                    </a>
-                  </li>
-
-                  <li>
-                    <a href="#" className="footer-link">
-                      <AiOutlinePlus />
-                      <span className="span">Project</span>
-                    </a>
-                  </li>
-
-                  <li>
-                    <a href="#" className="footer-link">
-                      <AiOutlinePlus />
-                      <span className="span">Our Team</span>
-                    </a>
-                  </li>
-
-                  <li>
-                    <a href="#" className="footer-link">
-                      <AiOutlinePlus />
-                      <span className="span">Latest Blog</span>
-                    </a>
-                  </li>
-                </ul>
-
-                <ul className="footer-list">
-                  <li>
-                    <p className="footer-list-title">Our Services</p>
-                  </li>
-
-                  <li>
-                    <a href="#" className="footer-link">
-                      <AiOutlinePlus />
-                      <span className="span">Root Canal</span>
-                    </a>
-                  </li>
-
-                  <li>
-                    <a href="#" className="footer-link">
-                      <AiOutlinePlus />
-                      <span className="span">Alignment Teeth</span>
-                    </a>
-                  </li>
-
-                  <li>
-                    <a href="#" className="footer-link">
-                      <AiOutlinePlus />
-                      <span className="span">Cosmetic Teeth</span>
-                    </a>
-                  </li>
-
-                  <li>
-                    <a href="#" className="footer-link">
-                      <AiOutlinePlus />
-                      <span className="span">Oral Hygiene</span>
-                    </a>
-                  </li>
-
-                  <li>
-                    <a href="#" className="footer-link">
-                      <AiOutlinePlus />
-                      <span className="span">Live Advisory</span>
-                    </a>
-                  </li>
-
-                  <li>
-                    <a href="#" className="footer-link">
-                      <AiOutlinePlus />
-                      <span className="span">Cavity Inspection</span>
-                    </a>
-                  </li>
-                </ul>
-
-                <ul className="footer-list">
-                  <li>
-                    <p className="footer-list-title">Contact Us</p>
-                  </li>
-
-                  <li className="footer-item">
-                    <div className="item-icon">
-                      <AiOutlineEnvironment />
-                    </div>
-
-                    <address className="item-text">
-                      227 Nguyen Van Cu, District 5, Ho Chi Minh, Vietnam
-                    </address>
-                  </li>
-
-                  <li className="footer-item">
-                    <div className="item-icon">
-                      <AiOutlinePhone />
-                    </div>
-
-                    <a href="tel:+917052101786" className="footer-link">
-                      +84-7052-101-786
-                    </a>
-                  </li>
-
-                  <li className="footer-item">
-                    <div className="item-icon">
-                      <AiOutlineMail />
-                    </div>
-
-                    <a href="mailto:help@example.com" className="footer-link">
-                      help@example.com
-                    </a>
-                  </li>
-                </ul>
-              </div>
-            </div>
-
-            <div className="footer-bottom">
-              <div className="container">
-                <p className="copyright">
-                  &copy; 2023 All Rights Reserved by codewithsadee.
-                </p>
-
-                <ul className="social-list">
-                  <li>
-                    <a href="#" className="social-link">
-                      <AiFillFacebook />
-                    </a>
-                  </li>
-
-                  <li>
-                    <a href="#" className="social-link">
-                      <AiFillTwitterCircle />                    </a>
-                  </li>
-
-                  <li>
-                    <a href="#" className="social-link">
-                      <AiFillInstagram />                    </a>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </footer>
-          <a href="#body" className="back-top-btn" aria-label="back to top" data-back-top-btn>
-            <AiOutlineArrowUp />          </a>
         </div>
+
       </div>
     </>
   );

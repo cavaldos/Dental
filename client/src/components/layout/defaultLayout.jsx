@@ -4,6 +4,7 @@ import { Suspense, lazy } from "react";
 // import Nav from "~/components/header/nav";
 const Header = lazy(() => import("~/components/header/header"));
 const Nav = lazy(() => import("~/components/header/nav"));
+const Footer = lazy(() => import("~/components/footer/footer"));
 
 const DefaultLayout = ({ children }) => {
   return (
@@ -19,6 +20,7 @@ const DefaultLayout = ({ children }) => {
           <Suspense fallback={<div>Loading...</div>}>{children}</Suspense>
         </div>
       </div>
+      <Footer/>
     </>
   );
 };
