@@ -220,6 +220,7 @@ const HoaDon = ({ sdt }) => {
     const newData = {
       sdt,
       stt: sott,
+      manv: user.MANV
     };
     try {
       const res = await StaffService.xacNhanThanhToan(newData);

@@ -31,6 +31,7 @@ const StaffService = {
       stt: data.stt,
       manv: data.manv,
     });
+    console
     if(res && res.response)
     {
       if (res.response.status === 422) {
@@ -50,10 +51,10 @@ const StaffService = {
         manv: data.manv,
       });
   
-      if (res?.response?.status === 422) {
+      if (res?.response.status === 422) {
         message.error(res?.response?.data?.error);
       }
-      if (res?.response?.status === 404) {
+      if (res?.response.status === 404) {
         message.error(res?.response?.data?.error);
       }
   
