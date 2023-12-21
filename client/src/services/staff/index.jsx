@@ -43,15 +43,27 @@ const StaffService = {
     return res;
   },
   xacNhanThanhToan: async (data) => {
-    const res = await Axios.put("/nhanvien/xacNhanHoaDon", {
-      sdt: data.sdt,
-      stt: data.stt,
-      manv: data.manv,
-    });
-    return res;
+    try {
+      const res = await Axios.put("/nhanvien/xacNhanHoaDon", {
+        sdt: data.sdt,
+        stt: data.stt,
+        manv: data.manv,
+      });
+  
+      if (res?.response?.status === 422) {
+        message.error(res?.response?.data?.error);
+      }
+      if (res?.response?.status === 404) {
+        message.error(res?.response?.data?.error);
+      }
+  
+      return res;
+    } catch (error) {
+      console.error("Lỗi khi xác nhận thanh toán:", error);
+      throw error; // Ném lỗi để bắt ở nơi gọi hàm nếu cần
+    }
   },
   doiMatKhau: async (data) => {
-    console.log("oday: ", data)
     const res = await Axios.put("/nhanvien/matKhau", {
       manv: data.manv,
       matkhaucu: data.matkhaucu,

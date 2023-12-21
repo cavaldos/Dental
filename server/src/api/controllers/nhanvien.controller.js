@@ -82,11 +82,17 @@ const nhanVienController = {
       const params = {};
       params.SODT = req.body.sdt;
       params.SOTT = req.body.stt;
-
+      console.log(params)
       const sp = 'SP_THANHTOANHOADON_NV';
       const result = await pool.executeSP(sp, params);
       return res.status(200).json({ success: true });
     } catch (error) {
+      if (error.message === "Hoá đơn này không tồn tại") {
+        return res.status(404).json({ error: error.message });
+      }
+      if (error.message === "Hoá đơn này đã được thanh toán") {
+        return res.status(422).json({ error: error.message });
+      }
       console.error('An error occurred:', error.message);
       return res.status(500).json({ error: 'An error occurred while processing the request' });
     }
