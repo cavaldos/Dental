@@ -24,35 +24,35 @@ const createPool = async (loginType) => {
     let user, password, database, logMessage;
 
     switch (loginType) {
-      case 'KH':
+      case "KH":
         user = process.env.MSSQL_USERNAME_KH;
         password = process.env.MSSQL_PASSWORD_KH;
         database = process.env.MSSQL_DATABASE;
-        logMessage = 'Login as KH';
+        logMessage = "Login as KH";
         break;
-      case 'NV':
+      case "NV":
         user = process.env.MSSQL_USERNAME_NV;
         password = process.env.MSSQL_PASSWORD_NV;
         database = process.env.MSSQL_DATABASE;
-        logMessage = 'Login as NV';
+        logMessage = "Login as NV";
         break;
-      case 'NS':
+      case "NS":
         user = process.env.MSSQL_USERNAME_NS;
         password = process.env.MSSQL_PASSWORD_NS;
         database = process.env.MSSQL_DATABASE;
-        logMessage = 'Login as NS';
+        logMessage = "Login as NS";
         break;
-      case 'QTV':
+      case "QTV":
         user = process.env.MSSQL_USERNAME_QTV;
         password = process.env.MSSQL_PASSWORD_QTV;
         database = process.env.MSSQL_DATABASE;
-        logMessage = 'Login as QTV';
+        logMessage = "Login as QTV";
         break;
-      case 'KHONLINE':
+      case "KHONLINE":
         user = process.env.MSSQL_USERNAME_KHONLINE;
         password = process.env.MSSQL_PASSWORD_KHONLINE;
         database = process.env.MSSQL_DATABASE;
-        logMessage = 'Login as KHONLINE';
+        logMessage = "Login as KHONLINE";
         break;
       default:
         console.error(`Unsupported login type: ${loginType}`);
@@ -67,7 +67,14 @@ const createPool = async (loginType) => {
     };
 
     let pool = new sql.ConnectionPool(connectionConfig);
-    await pool.connect();
+    if (!pool.connected) {
+      try {
+        await pool.connect();
+      } catch (error) {
+        console.error(`Error connecting to SQL Server: ${error.message}`);
+        return null;
+      }
+    }
     pool.executeSP = async (procedureName, params) => {
       const request = pool.request();
       for (const paramName in params) {
@@ -94,8 +101,8 @@ const createPool = async (loginType) => {
 };
 
 const getPool = (loginType) => {
-  let dbVar = 'MSSQL_USERNAME_' + loginType;
-  const pool = pools.find((p) => p.config.user === process.env[dbVar]);
+  let dbVar = "MSSQL_USERNAME_" + loginType;
+  const pool = pools.find((p) => p && p.config.user === process.env[dbVar]);
 
   if (!pool) {
     console.error(`No pool found for login type: ${loginType}`);
@@ -104,7 +111,8 @@ const getPool = (loginType) => {
   return pool;
 };
 
-
-pools = await Promise.all(['KH', 'NV', 'NS', 'QTV', 'KHONLINE'].map(createPool));
+pools = await Promise.all(
+  ["KH", "NV", "NS", "QTV", "KHONLINE"].map(createPool)
+);
 
 export { getPool };
