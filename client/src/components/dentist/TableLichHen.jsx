@@ -6,6 +6,9 @@ import moment from 'moment';
 import { TwoStateBlue, StatePink, StateGrey, TwoStateBorder } from "~/components/buttonTwoState";
 import { ButtonGreen } from "~/components/button";
 import { CloseCircleOutlined } from "@ant-design/icons";
+import { lichhen4 } from "../../fakedata/lhnv";
+
+// import { lichhen4 } from "~/components/fakedata/lhnv";
 
 function compareDates(dateA, dateB) {
   const date1 = new Date(dateA);
@@ -54,44 +57,57 @@ function separateDaysByComparison(date) {
   return [pastDays, futureDays];
 }
 
-const today = new Date(); 
+const today = new Date('2023-12-17'); 
 const result = separateDaysByComparison(today);
-console.log('re ', result);
+const weekdays = selectWeekDays(today);
+const weekdays2 = weekdays.map(date => moment(date).format('DD/MM/YYYY'));
+console.log('w ', weekdays2);
 
 // Hàm chuyển đổi từ 'YYYY-MM-DD' sang 'DD/MM/YYYY'
 function convertDateFormat(dateString) {
   return moment(dateString, 'YYYY-MM-DD').format('DD/MM/YYYY');
 }
 
-const CreateAShift = ({ data, isPassDay }) => {
-  let shiftContent, caContent;
-
-  switch (data.MACA) {
-    case "CA001":
-      caContent = <span>9:00</span>;
-      break;
-    case "CA002":
-      caContent = <span>11:00</span>;
-      break;
-    case "CA003":
-      caContent = <span>13:00</span>;
-      break;
-    case "CA004":
-      caContent = <span>15:00</span>;
-      break;
-    case "CA005":
-      caContent = <span>17:00</span>;
-      break;
-    case "CA006":
-      caContent = <span>19:00</span>;
-      break;
+function findIndexByDate(caMotNgayArray, targetDate) {
+  for (let i = 0; i < caMotNgayArray.length; i++) {
+    if (caMotNgayArray[i].NGAY === targetDate) {
+      return i; // Trả về chỉ số của phần tử nếu tìm thấy
+    }
   }
 
-  {isPassDay === 1 ? (
-    (() => {
-      switch (data.LOAI) {
+  return -1; // Trả về -1 nếu không tìm thấy
+}
+
+
+const CreateAShift = ({ data, isPassDay, index }) => {
+  let shiftContent, caContent;
+
+  if (data != null && index == null) {
+    switch (data.MACA) {
+      case "CA001":
+        caContent = <span>9:00</span>;
+        break;
+      case "CA002":
+        caContent = <span>11:00</span>;
+        break;
+      case "CA003":
+        caContent = <span>13:00</span>;
+        break;
+      case "CA004":
+        caContent = <span>15:00</span>;
+        break;
+      case "CA005":
+        caContent = <span>17:00</span>;
+        break;
+      case "CA006":
+        caContent = <span>19:00</span>;
+        break;
+    }
+
+    if (isPassDay === 1) {
+      switch (data.STATUS) {
         case 'waiting':
-          shiftContent = <TwoStateBorder text={caContent}/>;
+          shiftContent = <TwoStateBorder text={caContent} />;
           break;
         case 'ordered':
           shiftContent = <StatePink text={caContent} />;
@@ -102,13 +118,38 @@ const CreateAShift = ({ data, isPassDay }) => {
         case 'empty':
           shiftContent = <TwoStateBlue text={caContent} />;
           break;
+        default:
+          shiftContent = null;
       }
-    })()
-  ) : (
-    shiftContent = <StateGrey text={caContent} />
-  )};
-  
-  
+    } else {
+      shiftContent = <StateGrey text={caContent} />;
+    }
+
+  } else if (index != null) {
+    switch (index) {
+      case 1:
+        caContent = <span>9:00</span>;
+        break;
+      case 2:
+        caContent = <span>11:00</span>;
+        break;
+      case 3:
+        caContent = <span>13:00</span>;
+        break;
+      case 4:
+        caContent = <span>15:00</span>;
+        break;
+      case 5:
+        caContent = <span>17:00</span>;
+        break;
+      case 6:
+        caContent = <span>19:00</span>;
+        break;
+    }
+
+    shiftContent = <TwoStateBlue text={caContent} />;
+  }
+
 
   return (
     <div className="mb-3">
@@ -117,50 +158,74 @@ const CreateAShift = ({ data, isPassDay }) => {
   );
 };
 
+// const mangChuoi = ["chuoi1", "chuoi2", "chuoi3"];
+// const chuoiCanTim = "chuoi3";
 
-const OneDay = () => {
-  
+// const index3 = mangChuoi.indexOf(chuoiCanTim);
+
+// console.log('i: ', index3); // Nếu chuỗi tồn tại, trả về index của nó trong mảng, ngược lại trả về -1
+
+
+const OneDay = ({ caMotNgay }) => {
 
   const temp = [
-    {MACA: 'CA001', LOAI: 'full'}, 
-    {MACA: 'CA002', LOAI: 'empty'},
-    {MACA: 'CA003', LOAI: 'waiting'},
-    {MACA: 'CA004', LOAI: 'full'},
-    {MACA: 'CA006', LOAI: 'ordered'},
-    {MACA: 'CA003', LOAI: 'waiting'},
+    {MACA: 'CA001', STATUS: ''}, 
+    {MACA: 'CA002', STATUS: ''},
+    {MACA: 'CA003', STATUS: ''},
+    {MACA: 'CA004', STATUS: ''},
+    {MACA: 'CA006', STATUS: ''},
+    {MACA: 'CA003', STATUS: ''},
   ];
-  
+
   return (
     <div className="grid grid-cols-6 col-span-2 gap-2 text-center">
       {result[0].map((element, index) => (
-        <div key={index}> 
+        <div key={index}>
           <h5 className="font-montserrat text-md">{element.THU}</h5>
           <div className="font-montserrat text-md mb-5">
-          {element.NGAY.slice(0, 5)}</div>
+            {element.NGAY.slice(0, 5)}
+          </div>
           <span>
             {temp.map((shift, index2) => (
-              <CreateAShift data={shift} isPassDay={0}/>
+              <CreateAShift key={index2} data={shift} isPassDay={0} />
             ))}
           </span>
         </div>
       ))}
       {result[1].map((element, index) => (
-        <div key={index}> 
+        <div key={index}>
           <h5 className="font-montserrat text-md">{element.THU}</h5>
           <div className="font-montserrat text-md mb-5">
-          {element.NGAY.slice(0, 5)}</div>
+            {element.NGAY.slice(0, 5)}
+          </div>
           <span>
-            {temp.map((shift, index2) => (
-              <div key={index2}> 
-                <CreateAShift data={shift} isPassDay={1}/>
-              </div>
-            ))}
+            {(() => {
+              let index3 = findIndexByDate(caMotNgay, element.NGAY);
+              if (index3 == -1) {
+                let divs = [];
+                for (let k = 1; k < 7; k++) {
+                  divs.push(
+                    <div key={k}>
+                      <CreateAShift data={null} isPassDay={1} index={k} />
+                    </div>
+                  );
+                }
+                return divs;
+              } else {
+                return caMotNgay[index3].CA.map((shift, index2) => (
+                  <div key={index2}>
+                    <CreateAShift data={shift} isPassDay={1} />
+                  </div>
+                ));
+              }
+            })()}
           </span>
         </div>
       ))}
     </div>
   );
 };
+
 
 const TableLichHen = ({ data }) => {
   const [day, setDay] = useState(data.map((item) => item.NGAY));
@@ -170,11 +235,12 @@ const TableLichHen = ({ data }) => {
     message.info(`selected ${value}`);
     setLichHen(get7DaysFrom(data, value));
   };
+
   return (
     <>
       <div className=" bg-white rounded-2xl h-fit w-[1030px] mx-2 py-8 px-12">
-        <h1 className="text-2xl font-montserrat mb-8 text-center">ĐĂNG KÝ LỊCH TRỰC </h1>
-        <OneDay/>
+        <h1 className="text-xl font-montserrat mb-8 text-center">ĐĂNG KÝ LỊCH TRỰC {weekdays2[0]} - {weekdays2[5]}</h1>
+        <OneDay caMotNgay={lichhen4}/>
         <div className="mt-9 grid grid-cols-2 gap-0">
           {/* left */}
           <div className="col-span-1">

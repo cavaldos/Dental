@@ -144,7 +144,7 @@ const OneWorkSchedule = ({ data }) => {
     <>
       {data.SODTKH !== null ? (
         <Badge.Ribbon text="Bận" color="#ACACAC">
-          <div className="border-2.4 border-[#b8b8b8] rounded-md h-[40px] flex items-center p-3 mb-2">
+          <div className="border-2.4 border-[#b8b8b8] rounded-md h-[40px] flex items-center p-3 mb-2 cursor-alias">
             <Dropdown
               menu={{
                 items: detail({ mans: data.MANS, sott: data.SOTTLH }),
@@ -159,7 +159,7 @@ const OneWorkSchedule = ({ data }) => {
         </Badge.Ribbon>
       ) : (
         <Badge.Ribbon text="Rảnh" color="blue">
-          <div className="border-2.4 border-[#b8b8b8] rounded-md h-[40px] flex items-center p-3 mb-2">
+          <div className="border-2.4 border-[#b8b8b8] rounded-md h-[40px] flex items-center p-3 mb-2 cursor-alias">
             <Dropdown
               menu={{
                 items: detail({ mans: data.MANS, sott: data.SOTTLR }),
@@ -289,7 +289,7 @@ const DatLich = () => {
   const fetchData = async () => {
     try {
       const res = await StaffService.getLichRanhNS();
-      setLichHenData(null);
+      setLichHenData(res);
     } catch (error) {
       console.error("Lỗi khi lấy dữ liệu lịch hẹn:", error);
     }
