@@ -92,8 +92,7 @@
   padding: 0;
   box-sizing: border-box;
 }
-
-li { list-style: none; }
+#index li { list-style: none; }
 
 a {
   text-decoration: none;
@@ -124,17 +123,6 @@ ion-icon { pointer-events: none; }
 
 address { font-style: normal; }
 
-html {
-  font-family: var(--ff-roboto);
-  font-size: 10px;
-  scroll-behavior: smooth;
-}
-
-body {
-  background-color: var(--white);
-  color: var(--sonic-silver);
-  font-size: 1.5rem;
-}
 
 /*-----------------------------------*\
   #REUSED STYLE
@@ -202,91 +190,6 @@ body {
   height: 100%;
   object-fit: cover;
 }
-
-/*-----------------------------------*\
-  #HEADER
-\*-----------------------------------*/
-
-.header-top,
-.header-bottom .btn { display: none; }
-
-.header-bottom {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  padding-block: 15px;
-  z-index: 4;
-}
-
-.header-bottom.active {
-  position: fixed;
-  top: -81px;
-  background-color: var(--white);
-  box-shadow: var(--shadow-2);
-  animation: slideIn 0.5s var(--cubic-out) forwards;
-}
-
-@keyframes slideIn {
-  0% { transform: translateY(0); }
-  100% { transform: translateY(100%); }
-}
-
-.header-bottom > .container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 20px;
-}
-
-.logo {
-  color: var(--oxford-blue-1);
-  font-family: var(--ff-poppins);
-  font-size: 3.4rem;
-  font-weight: var(--fw-800);
-}
-
-.nav-toggle-btn {
-  color: var(--black);
-  font-size: 30px;
-  border: 1px solid var(--black);
-  padding: 5px;
-}
-
-.nav-toggle-btn.active .menu-icon,
-.nav-toggle-btn .close-icon { display: none; }
-
-.nav-toggle-btn .menu-icon,
-.nav-toggle-btn.active .close-icon { display: block; }
-
-.navbar {
-  position: absolute;
-  top: calc(100% + 5px);
-  left: 25px;
-  right: 25px;
-  background-color: var(--white);
-  padding-inline: 0;
-  box-shadow: var(--shadow-1);
-  max-height: 0;
-  visibility: hidden;
-  overflow: hidden;
-  transition: 0.25s var(--cubic-out);
-}
-
-.navbar.active {
-  visibility: visible;
-  max-height: 244px;
-  transition-duration: 0.5s;
-}
-
-.navbar-list > li:not(:last-child) { border-block-end: 1px solid var(--gainsboro_50); }
-
-.navbar-link {
-  color: var(--jet);
-  text-transform: uppercase;
-  font-weight: var(--fw-600);
-  padding: 15px;
-}
 /*-----------------------------------*\
   #HERO
 \*-----------------------------------*/
@@ -326,8 +229,6 @@ body {
 }
 
 .hero-form .btn { width: 100%; }
-
-
 
 
 

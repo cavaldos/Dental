@@ -4,28 +4,18 @@ import axios from "axios";
 import "../../assets/styles/index.css"
 
 const HomePage = () => {
-  // const navigate = useNavigate();
-  // useEffect( () => {
-  //   axios
-  //     .get("https://fakestoreapi.com/producdts")
-  //     .then((res) => {
-  //       console.log(res.data);
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-  // }, []);
   return (
     <>
+      <div id ="index">
       <main>
         <article>
-          <section className="section hero" id="home" style="background-image: url('./images/hero-bg.png')"
+          <section className="section hero" id="home" style={{ backgroundImage: `url('./images/hero-bg.png')` }}
             aria-label="hero">
             <div className="container">
 
               <div className="hero-content">
 
-                <p className="section-subtitle">Welcome To Dentelo</p>
+                <p className="section-subtitle">Welcome To Tsitned</p>
 
                 <h1 className="h1 hero-title">We Are Best Dental Service</h1>
 
@@ -222,7 +212,7 @@ const HomePage = () => {
                 <li className="scrollbar-item">
                   <div className="doctor-card">
 
-                    <div className="card-banner img-holder" style="--width: 460; --height: 500;">
+                    <div className="card-banner img-holder" style={{ width: 460, height: 500 }}>
                       <img src="./images/doctor-1.png" width="460" height="500" loading="lazy" alt="Howard Holmes"
                         className="img-cover" />
                     </div>
@@ -241,7 +231,7 @@ const HomePage = () => {
                 <li className="scrollbar-item">
                   <div className="doctor-card">
 
-                    <div className="card-banner img-holder" style="--width: 460; --height: 500;">
+                    <div className="card-banner img-holder" style={{ width: 460, height: 500 }}>
                       <img src="./images/doctor-2.png" width="460" height="500" loading="lazy" alt="Ella Thompson"
                         className="img-cover" />
                     </div>
@@ -260,7 +250,7 @@ const HomePage = () => {
                 <li className="scrollbar-item">
                   <div className="doctor-card">
 
-                    <div className="card-banner img-holder" style="--width: 460; --height: 500;">
+                    <div className="card-banner img-holder" style={{ width: 460, height: 500 }}>
                       <img src="./images/doctor-3.png" width="460" height="500" loading="lazy" alt="Vincent Cooper"
                         className="img-cover" />
                     </div>
@@ -279,7 +269,7 @@ const HomePage = () => {
                 <li className="scrollbar-item">
                   <div className="doctor-card">
 
-                    <div className="card-banner img-holder" style="--width: 460; --height: 500;">
+                    <div className="card-banner img-holder" style={{ width: 460, height: 500 }}>
                       <img src="./images/doctor-4.png" width="460" height="500" loading="lazy" alt="Danielle Bryant"
                         className="img-cover" />
                     </div>
@@ -323,115 +313,223 @@ const HomePage = () => {
           </section>
 
 
-          <section className="section blog" id="blog" aria-label="blog">
-            <div className="container">
 
-              <p className="section-subtitle text-center">Our Blog</p>
+          <footer className="footer">
 
-              <h2 className="h2 section-title text-center">Latest Blog & News</h2>
+            <div className="footer-top section">
+              <div className="container">
 
-              <ul className="blog-list">
+                <div className="footer-brand">
 
-                <li>
-                  <div className="blog-card">
+                  <a href="#" className="logo">Tsitned.</a>
 
-                    <figure className="card-banner img-holder" style="--width: 1180; --height: 800;">
-                      <img src="./images/blog-1.jpg" width="1180" height="800" loading="lazy"
-                        alt="Cras accumsan nulla nec lacus ultricies placerat." className="img-cover" />
+                  <p className="footer-text">
+                    Mauris non nisi semper, lacinia neque in, dapibus leo. Curabitur sagittis libero tincidunt tempor finibus.
+                    Mauris at
+                    dignissim ligula, nec tristique orci.Quisque vitae metus.
+                  </p>
 
-                      <div className="card-badge">
-                        <ion-icon name="calendar-outline"></ion-icon>
-
-                        <time className="time" dateTime="2022-03-24">24th March 2022</time>
-                      </div>
-                    </figure>
-
-                    <div className="card-content">
-
-                      <h3 className="h3">
-                        <a href="#" className="card-title">Cras accumsan nulla nec lacus ultricies placerat.</a>
-                      </h3>
-
-                      <p className="card-text">
-                        Curabitur sagittis libero tincidunt tempor finibus. Mauris at dignissim ligula, nec tristique orci.
-                      </p>
-
-                      <a href="#" className="card-link">Read More</a>
-
+                  <div className="schedule">
+                    <div className="schedule-icon">
+                      <ion-icon name="time-outline"></ion-icon>
                     </div>
 
+                    <span className="span">
+                      Monday - Saturday:
+                        9:00am - 10:00Pm
+                    </span>
                   </div>
-                </li>
 
-                <li>
-                  <div className="blog-card">
+                </div>
 
-                    <figure className="card-banner img-holder" style="--width: 1180; --height: 800;">
-                      <img src="./images/blog-2.jpg" width="1180" height="800" loading="lazy"
-                        alt="Dras accumsan nulla nec lacus ultricies placerat." className="img-cover" />
+                <ul className="footer-list">
 
-                      <div className="card-badge">
-                        <ion-icon name="calendar-outline"></ion-icon>
+                  <li>
+                    <p className="footer-list-title">Other Links</p>
+                  </li>
 
-                        <time className="time" dateTime="2022-03-24">24th March 2022</time>
-                      </div>
-                    </figure>
+                  <li>
+                    <a href="#" className="footer-link">
+                      <ion-icon name="add-outline"></ion-icon>
 
-                    <div className="card-content">
+                      <span className="span">Home</span>
+                    </a>
+                  </li>
 
-                      <h3 className="h3">
-                        <a href="#" className="card-title">Dras accumsan nulla nec lacus ultricies placerat.</a>
-                      </h3>
+                  <li>
+                    <a href="#" className="footer-link">
+                      <ion-icon name="add-outline"></ion-icon>
 
-                      <p className="card-text">
-                        Curabitur sagittis libero tincidunt tempor finibus. Mauris at dignissim ligula, nec tristique orci.
-                      </p>
+                      <span className="span">About Us</span>
+                    </a>
+                  </li>
 
-                      <a href="#" className="card-link">Read More</a>
+                  <li>
+                    <a href="#" className="footer-link">
+                      <ion-icon name="add-outline"></ion-icon>
 
+                      <span className="span">Services</span>
+                    </a>
+                  </li>
+
+                  <li>
+                    <a href="#" className="footer-link">
+                      <ion-icon name="add-outline"></ion-icon>
+
+                      <span className="span">Project</span>
+                    </a>
+                  </li>
+
+                  <li>
+                    <a href="#" className="footer-link">
+                      <ion-icon name="add-outline"></ion-icon>
+
+                      <span className="span">Our Team</span>
+                    </a>
+                  </li>
+
+                  <li>
+                    <a href="#" className="footer-link">
+                      <ion-icon name="add-outline"></ion-icon>
+
+                      <span className="span">Latest Blog</span>
+                    </a>
+                  </li>
+
+                </ul>
+
+                <ul className="footer-list">
+
+                  <li>
+                    <p className="footer-list-title">Our Services</p>
+                  </li>
+
+                  <li>
+                    <a href="#" className="footer-link">
+                      <ion-icon name="add-outline"></ion-icon>
+
+                      <span className="span">Root Canal</span>
+                    </a>
+                  </li>
+
+                  <li>
+                    <a href="#" className="footer-link">
+                      <ion-icon name="add-outline"></ion-icon>
+
+                      <span className="span">Alignment Teeth</span>
+                    </a>
+                  </li>
+
+                  <li>
+                    <a href="#" className="footer-link">
+                      <ion-icon name="add-outline"></ion-icon>
+
+                      <span className="span">Cosmetic Teeth</span>
+                    </a>
+                  </li>
+
+                  <li>
+                    <a href="#" className="footer-link">
+                      <ion-icon name="add-outline"></ion-icon>
+
+                      <span className="span">Oral Hygiene</span>
+                    </a>
+                  </li>
+
+                  <li>
+                    <a href="#" className="footer-link">
+                      <ion-icon name="add-outline"></ion-icon>
+
+                      <span className="span">Live Advisory</span>
+                    </a>
+                  </li>
+
+                  <li>
+                    <a href="#" className="footer-link">
+                      <ion-icon name="add-outline"></ion-icon>
+
+                      <span className="span">Cavity Inspection</span>
+                    </a>
+                  </li>
+
+                </ul>
+
+                <ul className="footer-list">
+
+                  <li>
+                    <p className="footer-list-title">Contact Us</p>
+                  </li>
+
+                  <li className="footer-item">
+                    <div className="item-icon">
+                      <ion-icon name="location-outline"></ion-icon>
                     </div>
 
-                  </div>
-                </li>
+                    <address className="item-text">
+                      1247/Plot No. 39, 15th Phase,
+                        LHB Colony, Kanpur
+                    </address>
+                  </li>
 
-                <li>
-                  <div className="blog-card">
-
-                    <figure className="card-banner img-holder" style="--width: 1180; --height: 800;">
-                      <img src="./images/blog-3.jpg" width="1180" height="800" loading="lazy"
-                        alt="Seas accumsan nulla nec lacus ultricies placerat." className="img-cover" />
-
-                      <div className="card-badge">
-                        <ion-icon name="calendar-outline"></ion-icon>
-
-                        <time className="time" dateTime="2022-03-24">24th March 2022</time>
-                      </div>
-                    </figure>
-
-                    <div className="card-content">
-
-                      <h3 className="h3">
-                        <a href="#" className="card-title">Seas accumsan nulla nec lacus ultricies placerat.</a>
-                      </h3>
-
-                      <p className="card-text">
-                        Curabitur sagittis libero tincidunt tempor finibus. Mauris at dignissim ligula, nec tristique orci.
-                      </p>
-
-                      <a href="#" className="card-link">Read More</a>
-
+                  <li className="footer-item">
+                    <div className="item-icon">
+                      <ion-icon name="call-outline"></ion-icon>
                     </div>
 
-                  </div>
-                </li>
+                    <a href="tel:+917052101786" className="footer-link">+91-7052-101-786</a>
+                  </li>
 
-              </ul>
+                  <li className="footer-item">
+                    <div className="item-icon">
+                      <ion-icon name="mail-outline"></ion-icon>
+                    </div>
 
+                    <a href="mailto:help@example.com" className="footer-link">help@example.com</a>
+                  </li>
+
+                </ul>
+
+              </div>
             </div>
-          </section>
+
+            <div className="footer-bottom">
+              <div className="container">
+
+                <p className="copyright">
+                  &copy; 2022 All Rights Reserved by codewithsadee.
+                </p>
+
+                <ul className="social-list">
+
+                  <li>
+                    <a href="#" className="social-link">
+                      <ion-icon name="logo-facebook"></ion-icon>
+                    </a>
+                  </li>
+
+                  <li>
+                    <a href="#" className="social-link">
+                      <ion-icon name="logo-instagram"></ion-icon>
+                    </a>
+                  </li>
+
+                  <li>
+                    <a href="#" className="social-link">
+                      <ion-icon name="logo-twitter"></ion-icon>
+                    </a>
+                  </li>
+
+                </ul>
+
+              </div>
+            </div>
+
+          </footer>
+
 
         </article>
       </main>
+      </div>
     </>
   );
 };
