@@ -1,4 +1,3 @@
-import { lichhen } from "../../fakedata/lhnv";
 import "../../assets/styles/staff.css";
 import StaffService from "../../services/staff";
 

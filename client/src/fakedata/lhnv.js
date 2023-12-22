@@ -746,40 +746,6 @@ const lichhen3 = [
 
 const lichhen4 = [
   {
-<<<<<<< HEAD
-    NGAY: "22/12/2023",
-    CA: [
-      {
-        MACA: "CA001",
-        GIOBATDAU: "09:00",
-        GIOKETTHUC: "11:00",
-        STATUS: "waiting",
-        MANS: "NS0001",
-        SOTTLH: 4,
-      },
-      {
-        MACA: "CA002",
-        GIOBATDAU: "11:00",
-        GIOKETTHUC: "13:00",
-        STATUS: "empty",
-      },
-      {
-        MACA: "CA003",
-        GIOBATDAU: "13:00",
-        GIOKETTHUC: "15:00",
-        STATUS: "empty",
-      },
-      {
-        MACA: "CA004",
-        GIOBATDAU: "15:00",
-        GIOKETTHUC: "17:00",
-        STATUS: "empty",
-      },
-      {
-        MACA: "CA005",
-        GIOBATDAU: "17:00",
-        GIOKETTHUC: "19:00",
-=======
     NGAY: "21/12/2023",
     CA: [
       {
@@ -855,18 +821,12 @@ const lichhen4 = [
         MACA: "CA005",
         GIOBATDAU: "17:00:00",
         GIOKETTHUC: "19:00:00",
->>>>>>> a8b5e2f34371a6aba6d77997efd6953c3baa4814
         STATUS: "full",
       },
       {
         MACA: "CA006",
-<<<<<<< HEAD
-        GIOBATDAU: "19:00",
-        GIOKETTHUC: "21:00",
-=======
         GIOBATDAU: "19:00:00",
         GIOKETTHUC: "21:00:00",
->>>>>>> a8b5e2f34371a6aba6d77997efd6953c3baa4814
         STATUS: "empty",
       },
     ],
@@ -876,24 +836,14 @@ const lichhen4 = [
     CA: [
       {
         MACA: "CA001",
-<<<<<<< HEAD
-        GIOBATDAU: "09:00",
-        GIOKETTHUC: "11:00",
-=======
         GIOBATDAU: "09:00:00",
         GIOKETTHUC: "11:00:00",
->>>>>>> a8b5e2f34371a6aba6d77997efd6953c3baa4814
         STATUS: "empty",
       },
       {
         MACA: "CA002",
-<<<<<<< HEAD
-        GIOBATDAU: "11:00",
-        GIOKETTHUC: "13:00",
-=======
         GIOBATDAU: "11:00:00",
         GIOKETTHUC: "13:00:00",
->>>>>>> a8b5e2f34371a6aba6d77997efd6953c3baa4814
         STATUS: "ordered",
         SODTKH: "0323456789",
         HOTENKH: "Lê Thị Thu Hà",
@@ -903,13 +853,8 @@ const lichhen4 = [
       },
       {
         MACA: "CA003",
-<<<<<<< HEAD
-        GIOBATDAU: "13:00",
-        GIOKETTHUC: "15:00",
-=======
         GIOBATDAU: "13:00:00",
         GIOKETTHUC: "15:00:00",
->>>>>>> a8b5e2f34371a6aba6d77997efd6953c3baa4814
         STATUS: "ordered",
         SODTKH: "0345678901",
         HOTENKH: "Lê Minh Hoàng",
@@ -918,95 +863,47 @@ const lichhen4 = [
       },
       {
         MACA: "CA004",
-<<<<<<< HEAD
-        GIOBATDAU: "15:00",
-        GIOKETTHUC: "17:00",
-=======
         GIOBATDAU: "15:00:00",
         GIOKETTHUC: "17:00:00",
->>>>>>> a8b5e2f34371a6aba6d77997efd6953c3baa4814
         STATUS: "empty",
       },
       {
         MACA: "CA005",
-<<<<<<< HEAD
-        GIOBATDAU: "17:00",
-        GIOKETTHUC: "19:00",
-=======
         GIOBATDAU: "17:00:00",
         GIOKETTHUC: "19:00:00",
->>>>>>> a8b5e2f34371a6aba6d77997efd6953c3baa4814
         STATUS: "empty",
       },
       {
         MACA: "CA006",
-<<<<<<< HEAD
-        GIOBATDAU: "19:00",
-        GIOKETTHUC: "21:00",
-=======
         GIOBATDAU: "19:00:00",
         GIOKETTHUC: "21:00:00",
->>>>>>> a8b5e2f34371a6aba6d77997efd6953c3baa4814
         STATUS: "empty",
       },
     ],
   },
   {
-<<<<<<< HEAD
-    NGAY: "21/12/2023",
-    CA: [
-      {
-        MACA: "CA001",
-        GIOBATDAU: "09:00",
-        GIOKETTHUC: "11:00",
-=======
     NGAY: "24/12/2023",
     CA: [
       {
         MACA: "CA001",
         GIOBATDAU: "09:00:00",
         GIOKETTHUC: "11:00:00",
->>>>>>> a8b5e2f34371a6aba6d77997efd6953c3baa4814
         STATUS: "empty",
       },
       {
         MACA: "CA002",
-<<<<<<< HEAD
-        GIOBATDAU: "11:00",
-        GIOKETTHUC: "13:00",
-=======
         GIOBATDAU: "11:00:00",
         GIOKETTHUC: "13:00:00",
->>>>>>> a8b5e2f34371a6aba6d77997efd6953c3baa4814
         STATUS: "full",
       },
       {
         MACA: "CA003",
-<<<<<<< HEAD
-        GIOBATDAU: "13:00",
-        GIOKETTHUC: "15:00",
-=======
         GIOBATDAU: "13:00:00",
         GIOKETTHUC: "15:00:00",
->>>>>>> a8b5e2f34371a6aba6d77997efd6953c3baa4814
         STATUS: "empty",
       },
       {
         MACA: "CA004",
-<<<<<<< HEAD
-        GIOBATDAU: "15:00",
-        GIOKETTHUC: "17:00",
-        STATUS: "ordered",
-        SODTKH: "0301234567",
-        HOTENKH: "Hoàng Văn Tùng",
-        SOTTLH: 3,
-        LYDOKHAM: "ASSASA",
-      },
-      {
-        MACA: "CA005",
-        GIOBATDAU: "17:00",
-        GIOKETTHUC: "19:00",
-=======
         GIOBATDAU: "15:00:00",
         GIOKETTHUC: "17:00:00",
         STATUS: "empty",
@@ -1015,58 +912,27 @@ const lichhen4 = [
         MACA: "CA005",
         GIOBATDAU: "17:00:00",
         GIOKETTHUC: "19:00:00",
->>>>>>> a8b5e2f34371a6aba6d77997efd6953c3baa4814
         STATUS: "empty",
       },
       {
         MACA: "CA006",
-<<<<<<< HEAD
-        GIOBATDAU: "19:00",
-        GIOKETTHUC: "21:00",
-=======
         GIOBATDAU: "19:00:00",
         GIOKETTHUC: "21:00:00",
->>>>>>> a8b5e2f34371a6aba6d77997efd6953c3baa4814
         STATUS: "empty",
       },
     ],
   },
   {
-<<<<<<< HEAD
-    NGAY: "24/12/2023",
-    CA: [
-      {
-        MACA: "CA001",
-        GIOBATDAU: "09:00",
-        GIOKETTHUC: "11:00",
-=======
     NGAY: "23/12/2023",
     CA: [
       {
         MACA: "CA001",
         GIOBATDAU: "09:00:00",
         GIOKETTHUC: "11:00:00",
->>>>>>> a8b5e2f34371a6aba6d77997efd6953c3baa4814
         STATUS: "empty",
       },
       {
         MACA: "CA002",
-<<<<<<< HEAD
-        GIOBATDAU: "11:00",
-        GIOKETTHUC: "13:00",
-        STATUS: "full",
-      },
-      {
-        MACA: "CA003",
-        GIOBATDAU: "13:00",
-        GIOKETTHUC: "15:00",
-        STATUS: "empty",
-      },
-      {
-        MACA: "CA004",
-        GIOBATDAU: "15:00",
-        GIOKETTHUC: "17:00",
-=======
         GIOBATDAU: "11:00:00",
         GIOKETTHUC: "13:00:00",
         STATUS: "empty",
@@ -1075,7 +941,6 @@ const lichhen4 = [
         MACA: "CA003",
         GIOBATDAU: "13:00:00",
         GIOKETTHUC: "15:00:00",
->>>>>>> a8b5e2f34371a6aba6d77997efd6953c3baa4814
         STATUS: "empty",
       },
       {
@@ -1086,19 +951,8 @@ const lichhen4 = [
       },
       {
         MACA: "CA005",
-<<<<<<< HEAD
-        GIOBATDAU: "17:00",
-        GIOKETTHUC: "19:00",
-        STATUS: "empty",
-      },
-      {
-        MACA: "CA006",
-        GIOBATDAU: "19:00",
-        GIOKETTHUC: "21:00",
-=======
         GIOBATDAU: "17:00:00",
         GIOKETTHUC: "19:00:00",
->>>>>>> a8b5e2f34371a6aba6d77997efd6953c3baa4814
         STATUS: "empty",
       },
       {
@@ -1110,116 +964,42 @@ const lichhen4 = [
     ],
   },
   {
-<<<<<<< HEAD
-    NGAY: "23/12/2023",
-    CA: [
-      {
-        MACA: "CA001",
-        GIOBATDAU: "09:00",
-        GIOKETTHUC: "11:00",
-        STATUS: "empty",
-      },
-      {
-        MACA: "CA002",
-        GIOBATDAU: "11:00",
-        GIOKETTHUC: "13:00",
-        STATUS: "empty",
-      },
-      {
-        MACA: "CA003",
-        GIOBATDAU: "13:00",
-        GIOKETTHUC: "15:00",
-        STATUS: "empty",
-      },
-      {
-        MACA: "CA004",
-        GIOBATDAU: "15:00",
-        GIOKETTHUC: "17:00",
-        STATUS: "full",
-      },
-      {
-        MACA: "CA005",
-        GIOBATDAU: "17:00",
-        GIOKETTHUC: "19:00",
-        STATUS: "empty",
-      },
-      {
-        MACA: "CA006",
-        GIOBATDAU: "19:00",
-        GIOKETTHUC: "21:00",
-        STATUS: "full",
-      },
-    ],
-  },
-  {
-=======
->>>>>>> a8b5e2f34371a6aba6d77997efd6953c3baa4814
     NGAY: "25/12/2023",
     CA: [
       {
         MACA: "CA001",
-<<<<<<< HEAD
-        GIOBATDAU: "09:00",
-        GIOKETTHUC: "11:00",
-=======
         GIOBATDAU: "09:00:00",
         GIOKETTHUC: "11:00:00",
->>>>>>> a8b5e2f34371a6aba6d77997efd6953c3baa4814
         STATUS: "empty",
       },
       {
         MACA: "CA002",
-<<<<<<< HEAD
-        GIOBATDAU: "11:00",
-        GIOKETTHUC: "13:00",
-=======
         GIOBATDAU: "11:00:00",
         GIOKETTHUC: "13:00:00",
->>>>>>> a8b5e2f34371a6aba6d77997efd6953c3baa4814
         STATUS: "empty",
       },
       {
         MACA: "CA003",
-<<<<<<< HEAD
-        GIOBATDAU: "13:00",
-        GIOKETTHUC: "15:00",
-=======
         GIOBATDAU: "13:00:00",
         GIOKETTHUC: "15:00:00",
->>>>>>> a8b5e2f34371a6aba6d77997efd6953c3baa4814
         STATUS: "empty",
       },
       {
         MACA: "CA004",
-<<<<<<< HEAD
-        GIOBATDAU: "15:00",
-        GIOKETTHUC: "17:00",
-=======
         GIOBATDAU: "15:00:00",
         GIOKETTHUC: "17:00:00",
->>>>>>> a8b5e2f34371a6aba6d77997efd6953c3baa4814
         STATUS: "empty",
       },
       {
         MACA: "CA005",
-<<<<<<< HEAD
-        GIOBATDAU: "17:00",
-        GIOKETTHUC: "19:00",
-=======
         GIOBATDAU: "17:00:00",
         GIOKETTHUC: "19:00:00",
->>>>>>> a8b5e2f34371a6aba6d77997efd6953c3baa4814
         STATUS: "full",
       },
       {
         MACA: "CA006",
-<<<<<<< HEAD
-        GIOBATDAU: "19:00",
-        GIOKETTHUC: "21:00",
-=======
         GIOBATDAU: "19:00:00",
         GIOKETTHUC: "21:00:00",
->>>>>>> a8b5e2f34371a6aba6d77997efd6953c3baa4814
         STATUS: "full",
       },
     ],
@@ -1571,9 +1351,5 @@ const lichhen5 = [
     ],
   },
 ];
-<<<<<<< HEAD
-=======
-
->>>>>>> a8b5e2f34371a6aba6d77997efd6953c3baa4814
 
 export { lichhen, lichhen2, lichhen3, lichhen4, lichhen5 };
