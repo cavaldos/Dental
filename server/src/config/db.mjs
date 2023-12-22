@@ -75,21 +75,7 @@ const createPool = async (loginType) => {
         return null;
       }
     }
-    pool.executeSP = async (procedureName, params) => {
-      const request = pool.request();
-      for (const paramName in params) {
-        if (params.hasOwnProperty(paramName)) {
-          request.input(paramName, params[paramName]);
-        }
-      }
-      try {
-        const result = await request.execute(procedureName);
-        return result.recordsets;
-      } catch (error) {
-        throw error;
-      }
-    };
-
+  
     console.log(`🔥 SQL Server pool connection successful!!! ${logMessage}\n`);
 
     return pool;
@@ -100,7 +86,7 @@ const createPool = async (loginType) => {
   }
 };
 
-const getPool = (loginType) => {
+const getPool =  (loginType) => {
   let dbVar = "MSSQL_USERNAME_" + loginType;
   const pool = pools.find((p) => p && p.config.user === process.env[dbVar]);
 
@@ -108,7 +94,21 @@ const getPool = (loginType) => {
     console.error(`No pool found for login type: ${loginType}`);
     return null;
   }
-  return pool;
+  const request = pool.request();
+  request.executeSP = async (procedureName, params) => {
+    for (const paramName in params) {
+      if (params.hasOwnProperty(paramName)) {
+        request.input(paramName, params[paramName]);
+      }
+    }
+    try {
+      const result = await request.execute(procedureName);
+      return result.recordsets;
+    } catch (error) {
+      throw error;
+    }
+  };
+  return request;
 };
 
 pools = await Promise.all(
