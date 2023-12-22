@@ -44,8 +44,8 @@ const DichVuDaChon = ({ ten, soLuong, madv, onClickXoa }) => {
   return (
     <>
       <div className="flex w-[840px]">
-        <Input className="w-[300px]" value={ten} disabled />
-        <Input className="w-[137px] ml-5" value={soLuong} disabled />
+        <Input className="w-[310px]" value={ten} disabled />
+        <Input className="w-[140px] ml-4" value={soLuong} disabled />
         <Button 
           className="w-[90px] font-montserrat text-base font-semibold text-pinkk 
                       text-center border-0 hover:text-darkpinkk" 
@@ -62,9 +62,9 @@ const ThuocDaChon = ({ ten, soLuong, mathuoc, thoidiemdung, onClickXoa }) => {
   return (
     <>
       <div className="flex w-[990px]">
-        <Input className="w-[300px]" value={ten} disabled />
-        <Input className="w-[137px] ml-5" value={soLuong} disabled />
-        <Input className="w-[360px] h-fit ml-5" value={thoidiemdung} disabled />
+        <Input className="w-[310px]" value={ten} disabled />
+        <Input className="w-[140px] ml-4" value={soLuong} disabled />
+        <Input className="w-[370px] h-fit ml-4" value={thoidiemdung} disabled />
         <Button 
           className="w-[90px] font-montserrat text-base font-semibold text-pinkk 
                       text-center border-0 hover:text-darkpinkk" 
@@ -199,8 +199,8 @@ const FormDienThongTin = ({}) => {
             </Item>
             <Item>
               <Button
-                className="ml-2 bg-white border-blue border-2 border-dashed 
-                         text-blue font-montserrat text-sm h-[37px] rounded-lg"
+                className="ml-1 bg-white border-blue border-2 border-dashed 
+                         text-blue font-montserrat text-sm h-[38px] rounded-lg"
                 onClick={handleThemDichVu}
               >
                 Thêm
@@ -271,27 +271,19 @@ const FormDienThongTin = ({}) => {
               />
             </Item>
             <Item>
-              <Button
-                className="ml-2 bg-white border-blue border-2 border-dashed 
-                        text-blue font-montserrat text-sm h-[37px] rounded-lg"
+              <button
+                className="ml-1 bg-white border-blue border-2 border-dashed 
+                        text-blue font-montserrat text-sm h-[38px] rounded-lg mr-0 px-4"
                 onClick={handleThemThuoc}
               >
                 Thêm
-              </Button>
+              </button>
             </Item>
           </Form>
         </div>
-        <div className="flex justify-start mt-5">
-              <ButtonGreen text="HOÀN TẤT HỒ SƠ" func=""/>
-              <Button
-                // onClick={handleReset}
-                style={{ marginLeft: 20, marginBottom: "14px" }}
-                type="danger"
-            
-              >
-                ĐẶT LẠI
-              </Button>
-            </div>
+        <div className="flex justify-center mt-6">
+          <ButtonGreen text="HOÀN TẤT HỒ SƠ" func="" className="mb-0"/>
+        </div>
     </>
   );
 };
@@ -308,7 +300,7 @@ const ThemBenhAnMoi = () => {
 
   return (
     <div className="w-[1160px] flex flex-col gap-5 mt-1">
-      <div className="bg-white p-10 mx-10 pb-8"
+      <div className="bg-white p-11 mx-10 pb-8"
           style={{
             borderRadius: "35px",
             boxShadow: "0px 4px 4px 0px rgba(0, 0, 0, 0.10)",

@@ -32,10 +32,10 @@ const StaffService = {
     });
     if(res && res.response)
     {
-      if (res.response?.status === 422) {
+      if (res?.response?.status === 422) {
         message.error(res.response.data.error);
       }
-      if (res.response?.status === 404) {
+      if (res?.response?.status === 404) {
         message.error(res.response.data.error);
       }
     }
@@ -48,12 +48,15 @@ const StaffService = {
         stt: data.stt,
         manv: data.manv,
       });
-  
-      if (res?.response.status === 422) {
-        message.error(res?.response?.data?.error);
-      }
-      if (res?.response.status === 404) {
-        message.error(res?.response?.data?.error);
+      if(!res.success)
+      {
+        console.log("here")
+        if (res?.response.status === 422) {
+          message.error(res?.response?.data?.error);
+        }
+        if (res?.response.status === 404) {
+          message.error(res?.response?.data?.error);
+        }
       }
   
       return res;

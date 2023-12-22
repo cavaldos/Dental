@@ -191,8 +191,16 @@ const HoaDon = ({ sdt }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    loadInvoiceData(sdt);
+    // Kiểm tra trạng thái xác nhận thanh toán trước khi tải dữ liệu
+    if (!isPaymentConfirmed) {
+      loadInvoiceData(sdt);
+    } else {
+      // Nếu đã xác nhận, đặt lại trạng thái về false
+      setIsPaymentConfirmed(false);
+    }
   }, [currentPage, sdt, isPaymentConfirmed]);
+  
+  
 
   const indexOfLastRecord = currentPage * recordsPerPage;
   const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
@@ -205,16 +213,16 @@ const HoaDon = ({ sdt }) => {
     try {
       const res = await StaffService.getHoaDon(sdt);
       console.log(res);
-
+  
       if (res === undefined) {
         message.info("Không tìm thấy thông tin hồ sơ bệnh!");
       }
-
+  
       setMedicalRecords(res ? res : []);
     } catch (error) {
       console.error("Lỗi khi tải lại hóa đơn:", error);
     }
-  };
+  };  
 
   const paying = async ({ sdt, sott }) => {
     const newData = {
@@ -225,12 +233,19 @@ const HoaDon = ({ sdt }) => {
     try {
       const res = await StaffService.xacNhanThanhToan(newData);
       console.log(res);
-      // Cập nhật state khi thanh toán thành công
-      setIsPaymentConfirmed(true);
+      // Chỉ cập nhật state khi chưa xác nhận thanh toán
+      if (!isPaymentConfirmed) {
+        setIsPaymentConfirmed(true);
+      }
+      else{
+        console.log("done")
+      }
     } catch (error) {
       console.error("Lỗi khi xác nhận thanh toán:", error);
     }
   };
+  
+  
 
   const print = () => {
     navigate(`/print-hoa-don/${sdt}`);
