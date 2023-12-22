@@ -42,7 +42,7 @@
     font-size: 1rem;
     font-weight: 900;
 
-    cursor: alias;
+    cursor: auto;
 }
 
 .input-full2 {
@@ -61,5 +61,5 @@
     font-size: 1rem;
     font-weight: 900;
 
-    cursor: alias;
+    cursor: auto;
 }
