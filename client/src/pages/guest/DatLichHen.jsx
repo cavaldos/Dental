@@ -113,6 +113,7 @@ const ChonNhaSi = () => {
 
 const ChonCa = () => {
   const order = useSelector((state) => state.order);
+
   const [lichRanh, setLichRanh] = useState([]);
   function formatTime(inputDate) {
     const date = new Date(inputDate);
@@ -138,6 +139,10 @@ const ChonCa = () => {
         const new_lichRanh = res.filter((item) => {
           return item.MANS === order.mans;
         });
+        if (new_lichRanh.length === 0) {
+          message.info("Nha sĩ không có lịch rảnh");
+          return;
+        }
         const new_lichRanhformat = new_lichRanh.map((item) => {
           return {
             ...item,
@@ -323,7 +328,7 @@ const DatLichContainer = () => {
     }
 
     await GuestService.taoLichHen(order).then((res) => {
-      if(res.success){
+      if (res.success) {
         setTimeout(() => {
           dispatch(deleteOder());
         }, 500);
