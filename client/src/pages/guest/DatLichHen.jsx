@@ -323,13 +323,14 @@ const DatLichContainer = () => {
     }
 
     await GuestService.taoLichHen(order).then((res) => {
-      // message.success("Đặt lịch thành công");
-      setTimeout(() => {
-        dispatch(deleteOder());
-      }, 500);
-      setTimeout(() => {
-        navigate("/xem-lich-hen");
-      }, 500);
+      if(res.success){
+        setTimeout(() => {
+          dispatch(deleteOder());
+        }, 500);
+        setTimeout(() => {
+          navigate("/xem-lich-hen");
+        }, 500);
+      }
     });
   };
 

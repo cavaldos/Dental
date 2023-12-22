@@ -74,8 +74,7 @@ const XemLichHen = () => {
       };
 
       GuestService.deleteLichHen(data).then((res) => {
-
-        if ((res.response.status === 200) & (res.response.status === 201)) {
+        if (res.success) {
           // Cập nhật lại state sau khi xóa
           setFetchedAppointment((prevAppointments) =>
             prevAppointments.filter((appointment) => appointment.SOTT !== SOTT)

@@ -50,7 +50,6 @@ const StaffService = {
       });
       if(!res.success)
       {
-        console.log("here")
         if (res?.response.status === 422) {
           message.error(res?.response?.data?.error);
         }
@@ -115,6 +114,20 @@ const StaffService = {
   },
   matKhau: async (data) => {
     const res = await Axios.put("/nhanvien/matKhau", data);
+    return res;
+  },
+  taoLichHen: async (data) => {
+    const res = await Axios.post("/nhanvien/lichHen",{
+      sodt: data.sodt,
+      mans: data.mans,
+      sott: data.sott,
+      lydokham: data.lydokham,
+    });
+    if (res && res.response) {
+      if (res.response.status === 422) {
+        message.error(res.response.data.error);
+      }
+    }
     return res;
   },
 };
