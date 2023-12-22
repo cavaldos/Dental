@@ -1,6 +1,6 @@
 import "../../assets/styles/index.scss";
 import BestDoctors from "../../components/home/bestDoctors";
-import Service from "../../components/home/services";
+import Services from "../../components/home/services";
 
 const HomePage = () => {
   return (
@@ -37,7 +37,7 @@ const HomePage = () => {
                   </figure>
                 </div>
               </section>
-              <Service/>
+              <Services/>
 
               <section className="section about" id="about" aria-label="about">
                 <div className="container">
