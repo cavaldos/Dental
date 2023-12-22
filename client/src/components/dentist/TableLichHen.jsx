@@ -1,6 +1,6 @@
 import { Button } from "antd";
 import React, { useState } from "react";
-import { Select, Space, message } from "antd";
+import { Select, Space, message, Pagination } from "antd";
 import moment from 'moment';
 
 import { TwoStateBlue, StatePink, StateGrey, TwoStateBorder } from "~/components/buttonTwoState";
@@ -22,19 +22,18 @@ function compareDates(dateA, dateB) {
     return 1; // B > A
   }
   // Note hàm getTime() chuyển thành ký tự số theo mili giây tính từ 1/1/1970
-}
+};
 
 function selectWeekDays(date) {
   const week = Array(7).fill(new Date(date)).map((el, idx) =>
     new Date(el.setDate(el.getDate() - el.getDay() + idx)));
-
+    return week;
+  }
+  
+  function separateDaysByComparison(date) {
   // Lấy từ thứ 2 đến thứ 6
+  const week = selectWeekDays(date);
   const weekdays = week.slice(1, 7);
-  return weekdays;
-}
-
-function separateDaysByComparison(date) {
-  const weekdays = selectWeekDays(date);
   const dayNow = moment(date).format('YYYY-MM-DD');
 
   const pastDays = [];
@@ -55,13 +54,55 @@ function separateDaysByComparison(date) {
   });
 
   return [pastDays, futureDays];
+};
+
+function getNextSundays(startDate, numberOfSundays) {
+  const sundays = [];
+  const currentDate = new Date(startDate);
+
+  while (sundays.length < numberOfSundays) {
+    if (currentDate.getDay() === 0) {
+      sundays.push(new Date(currentDate));
+    }
+    currentDate.setDate(currentDate.getDate() + 1);
+  }
+
+  return sundays;
+};
+
+function get5WeeksInfo(week) {
+  const nextSundays = getNextSundays(today, 3);
+  nextSundays.unshift(today);
+
+  const next30Days = new Date(today);
+  next30Days.setDate(today.getDate() + 30);
+  nextSundays.push(next30Days);
+
+  return nextSundays;
+};
+
+function createInfo30Days(week) {
+  const sundaysInfo = get5WeeksInfo(week);
+  const result = [];
+
+  for (let i = 0; i < sundaysInfo.length; i++) {
+    result.push([...separateDaysByComparison(sundaysInfo[i])]);
+  }
+
+  // result[4].reverse();
+  return result;
 }
 
-const today = new Date('2023-12-17'); 
+const today = new Date('2023-12-19'); 
 const result = separateDaysByComparison(today);
-const weekdays = selectWeekDays(today);
+const week = selectWeekDays(today);
+
+// Hiển thị trên title
+const weekdays = week.slice(1, 7);
 const weekdays2 = weekdays.map(date => moment(date).format('DD/MM/YYYY'));
-console.log('w ', weekdays2);
+
+const info30Days = createInfo30Days(week);
+console.log('res ', info30Days);
 
 // Hàm chuyển đổi từ 'YYYY-MM-DD' sang 'DD/MM/YYYY'
 function convertDateFormat(dateString) {
@@ -77,7 +118,6 @@ function findIndexByDate(caMotNgayArray, targetDate) {
 
   return -1; // Trả về -1 nếu không tìm thấy
 }
-
 
 const CreateAShift = ({ data, isPassDay, index }) => {
   let shiftContent, caContent;
@@ -158,70 +198,156 @@ const CreateAShift = ({ data, isPassDay, index }) => {
   );
 };
 
-// const mangChuoi = ["chuoi1", "chuoi2", "chuoi3"];
-// const chuoiCanTim = "chuoi3";
-
-// const index3 = mangChuoi.indexOf(chuoiCanTim);
-
-// console.log('i: ', index3); // Nếu chuỗi tồn tại, trả về index của nó trong mảng, ngược lại trả về -1
-
-
 const OneDay = ({ caMotNgay }) => {
-
   const temp = [
-    {MACA: 'CA001', STATUS: ''}, 
-    {MACA: 'CA002', STATUS: ''},
-    {MACA: 'CA003', STATUS: ''},
-    {MACA: 'CA004', STATUS: ''},
-    {MACA: 'CA006', STATUS: ''},
-    {MACA: 'CA003', STATUS: ''},
+    { MACA: 'CA001', STATUS: '' },
+    { MACA: 'CA002', STATUS: '' },
+    { MACA: 'CA003', STATUS: '' },
+    { MACA: 'CA004', STATUS: '' },
+    { MACA: 'CA006', STATUS: '' },
+    { MACA: 'CA003', STATUS: '' },
   ];
 
+  const pageSize = 1; // Số lượng phần tử trên mỗi trang
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const onChangePage = (page) => {
+    setCurrentPage(page);
+  };
+
+  const slicedInfo30Days = info30Days.slice((currentPage - 1) * pageSize, currentPage * pageSize);
+  console.log('cur ', currentPage);
+  console.log('pagesize ', pageSize);
+  console.log('done');
+
   return (
-    <div className="grid grid-cols-6 col-span-2 gap-2 text-center">
-      {result[0].map((element, index) => (
-        <div key={index}>
-          <h5 className="font-montserrat text-md">{element.THU}</h5>
-          <div className="font-montserrat text-md mb-5">
-            {element.NGAY.slice(0, 5)}
-          </div>
-          <span>
-            {temp.map((shift, index2) => (
-              <CreateAShift key={index2} data={shift} isPassDay={0} />
-            ))}
-          </span>
-        </div>
-      ))}
-      {result[1].map((element, index) => (
-        <div key={index}>
-          <h5 className="font-montserrat text-md">{element.THU}</h5>
-          <div className="font-montserrat text-md mb-5">
-            {element.NGAY.slice(0, 5)}
-          </div>
-          <span>
-            {(() => {
-              let index3 = findIndexByDate(caMotNgay, element.NGAY);
-              if (index3 == -1) {
-                let divs = [];
-                for (let k = 1; k < 7; k++) {
-                  divs.push(
-                    <div key={k}>
-                      <CreateAShift data={null} isPassDay={1} index={k} />
-                    </div>
-                  );
-                }
-                return divs;
-              } else {
-                return caMotNgay[index3].CA.map((shift, index2) => (
-                  <div key={index2}>
-                    <CreateAShift data={shift} isPassDay={1} />
+    <div>
+      {slicedInfo30Days.map((subArray, jndex) => (
+        <div key={jndex}>
+          {currentPage < info30Days.length ? (
+            <div className="grid grid-cols-6 col-span-2 gap-2 text-center">
+              {subArray[0].map((element, index) => (
+                <div key={index}>
+                  <h5 className="font-montserrat text-md">{element.THU}</h5>
+                  <div className="font-montserrat text-md mb-5">
+                    {element.NGAY.slice(0, 5)}
                   </div>
-                ));
-              }
-            })()}
-          </span>
+                  <span>
+                    {temp.map((shift, index2) => (
+                      <CreateAShift
+                        key={index2}
+                        data={shift}
+                        isPassDay={0}
+                      />
+                    ))}
+                  </span>
+                </div>
+              ))}
+              {subArray[1].map((element, index) => (
+                <div key={index}>
+                  <h5 className="font-montserrat text-md">{element.THU}</h5>
+                  <div className="font-montserrat text-md mb-5">
+                    {element.NGAY.slice(0, 5)}
+                  </div>
+                  <span>
+                    {(() => {
+                      let index3 = findIndexByDate(caMotNgay, element.NGAY);
+                      if (index3 === -1) {
+                        let divs = [];
+                        for (let k = 1; k < 7; k++) {
+                          divs.push(
+                            <div key={k}>
+                              <CreateAShift
+                                data={null}
+                                isPassDay={1}
+                                index={k}
+                              />
+                            </div>
+                          );
+                        }
+                        return divs;
+                      } else {
+                        return caMotNgay[index3].CA.map((shift, index2) => (
+                          <div key={index2}>
+                            <CreateAShift
+                              data={shift}
+                              isPassDay={1}
+                            />
+                          </div>
+                        ));
+                      }
+                    })()}
+                  </span>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div className="grid grid-cols-6 col-span-2 gap-2 text-center">
+              {subArray[0].map((element, index) => (
+                <div key={index}>
+                  <h5 className="font-montserrat text-md">{element.THU}</h5>
+                  <div className="font-montserrat text-md mb-5">
+                    {element.NGAY.slice(0, 5)}
+                  </div>
+                  <span>
+                    {(() => {
+                      let index3 = findIndexByDate(caMotNgay, element.NGAY);
+                      if (index3 === -1) {
+                        let divs = [];
+                        for (let k = 1; k < 7; k++) {
+                          divs.push(
+                            <div key={k}>
+                              <CreateAShift
+                                data={null}
+                                isPassDay={1}
+                                index={k}
+                              />
+                            </div>
+                          );
+                        }
+                        return divs;
+                      } else {
+                        return caMotNgay[index3].CA.map((shift, index2) => (
+                          <div key={index2}>
+                            <CreateAShift
+                              data={shift}
+                              isPassDay={1}
+                            />
+                          </div>
+                        ));
+                      }
+                    })()}
+                  </span>
+                </div>
+              ))}
+              {subArray[1].map((element, index) => (
+                <div key={index}>
+                  <h5 className="font-montserrat text-md">{element.THU}</h5>
+                  <div className="font-montserrat text-md mb-5">
+                    {element.NGAY.slice(0, 5)}
+                  </div>
+                  <span>
+                    {temp.map((shift, index2) => (
+                      <CreateAShift
+                        key={index2}
+                        data={shift}
+                        isPassDay={0}
+                      />
+                    ))}
+                  </span>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       ))}
+      <Pagination
+        current={currentPage}
+        pageSize={pageSize}
+        total={info30Days.length}
+        onChange={onChangePage}
+        className="flex justify-center mt-3 text-md font-montserrat"
+      />
     </div>
   );
 };
