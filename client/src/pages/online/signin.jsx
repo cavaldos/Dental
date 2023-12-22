@@ -78,7 +78,7 @@ const SignInPage = () => {
           <p className="mb-0 mt-2 pt-1 text-sm font-semibold text-center">
             Chưa có tài khoản?{" "}
             <a
-              href="signup"
+              onClick={() => navigate("/signup")}
               className="text-blue transition duration-150 ease-in-out hover:text-danger-600 focus:text-danger-600 active:text-danger-700"
             >
               Đăng ký
