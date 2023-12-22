@@ -10,7 +10,6 @@ import "../../assets/styles/guest.css";
 const isDaKham = (gioKetThuc) => {
   const gioHienTai = new Date();
   const gioKetThucDate = new Date(gioKetThuc);
-  console.log("here:", gioKetThuc);
   return gioKetThuc > gioHienTai;
 };
 
@@ -19,14 +18,11 @@ function isoDateToLocalDate(ISOTimeString, offsetInMinutes) {
   return new Date(newTime.getTime() - offsetInMinutes * 60000);
 }
 
-function formatTime(localIsoDate) {
-  function z(n) {
-    return (n < 10 ? "0" : "") + n;
-  }
-  var hh = localIsoDate.getUTCHours();
-  var mm = localIsoDate.getUTCMinutes();
-  var ss = localIsoDate.getUTCSeconds();
-  return z(hh) + ":" + z(mm) + ":" + z(ss);
+function formatTime(inputDate) {
+  const date = new Date(inputDate);
+  const hours = date.getUTCHours().toString().padStart(2, '0'); // Lấy giờ theo múi giờ UTC
+  const minutes = date.getUTCMinutes().toString().padStart(2, '0');
+  return `${hours}:${minutes}`;
 }
 
 const XemLichHen = () => {
@@ -77,12 +73,14 @@ const XemLichHen = () => {
         mans: MANS,
       };
 
-      await GuestService.deleteLichHen(data);
-
-      // Cập nhật lại state sau khi xóa
-      setFetchedAppointment((prevAppointments) =>
-        prevAppointments.filter((appointment) => appointment.SOTT !== SOTT)
-      );
+      GuestService.deleteLichHen(data).then((res) => {
+        if (res.success) {
+          // Cập nhật lại state sau khi xóa
+          setFetchedAppointment((prevAppointments) =>
+            prevAppointments.filter((appointment) => appointment.SOTT !== SOTT)
+          );
+        }
+      });
 
       // Đóng modal
       setCancelModalVisible(false);
@@ -160,29 +158,33 @@ const XemLichHen = () => {
         </>
       )}
       <Modal
-        title="Xác nhận hủy lịch hẹn"
+        title={<div className="mt-2 font-black">Xác nhận hủy lịch hẹn</div>}
         open={cancelModalVisible}
         onOk={handleCancel}
         onCancel={() => setCancelModalVisible(false)}
         footer={[
-          <Button
-            key="back"
-            onClick={() => setCancelModalVisible(false)}
-            className="bg-gray-300 custom-button-cancel font-montserrat"
-          >
-            Quay lại
-          </Button>,
-          <Button
-            key="submit"
-            type="primary"
-            onClick={handleCancel}
-            className="bg-rose-500 hover:bg-rose-600 custom-button-accept font-montserrat"
-          >
-            Xác nhận hủy lịch
-          </Button>,
+          <div className="mt-10 mb-3">
+            <Button
+              key="back"
+              onClick={() => setCancelModalVisible(false)}
+              className="bg-gray-300 custom-button-cancel font-montserrat"
+            >
+              Quay lại
+            </Button>
+            ,
+            <Button
+              key="submit"
+              style={{ color: "white", border: "none" }}
+              onClick={handleCancel}
+              className="text-white bg-rose-500 hover:bg-rose-600 hover:text-white custom-button-accept font-montserrat"
+            >
+              Xác nhận hủy lịch
+            </Button>
+            ,
+          </div>,
         ]}
       >
-        <p>Bạn có chắc chắn muốn hủy lịch hẹn?</p>
+        <p className="mt-4">Bạn có chắc chắn muốn hủy lịch hẹn?</p>
       </Modal>
     </div>
   );

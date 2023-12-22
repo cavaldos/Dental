@@ -17,7 +17,6 @@ const formatCurrency = (amount) => {
 };
 
 const GuestInfo = ({ currentRecord }) => {
-  // console.log(currentRecord);
   if (!currentRecord) {
     return null;
   }
@@ -186,18 +185,22 @@ const ThuocTable = memo(({ dataThuoc, openDrawer }) => {
 const HoaDon = ({ sdt }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [medicalRecords, setMedicalRecords] = useState([]);
+  const [isPaymentConfirmed, setIsPaymentConfirmed] = useState(false);
   const recordsPerPage = 1;
   const user = useSelector((state) => state.user);
-  const naviate = useNavigate();
+  const navigate = useNavigate();
+
   useEffect(() => {
-    StaffService.getHoaDon(sdt).then((res) => {
-      console.log(res);
-      if (res === undefined) {
-        message.info("Không tìm thấy thông tin hồ sơ bệnh!");
-      }
-      setMedicalRecords(res ? res : []);
-    });
-  }, [currentPage]);
+    // Kiểm tra trạng thái xác nhận thanh toán trước khi tải dữ liệu
+    if (!isPaymentConfirmed) {
+      loadInvoiceData(sdt);
+    } else {
+      // Nếu đã xác nhận, đặt lại trạng thái về false
+      setIsPaymentConfirmed(false);
+    }
+  }, [currentPage, sdt, isPaymentConfirmed]);
+  
+  
 
   const indexOfLastRecord = currentPage * recordsPerPage;
   const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
@@ -206,19 +209,46 @@ const HoaDon = ({ sdt }) => {
     indexOfLastRecord
   );
 
+  const loadInvoiceData = async (sdt) => {
+    try {
+      const res = await StaffService.getHoaDon(sdt);
+      console.log(res);
+  
+      if (res === undefined) {
+        message.info("Không tìm thấy thông tin hồ sơ bệnh!");
+      }
+  
+      setMedicalRecords(res ? res : []);
+    } catch (error) {
+      console.error("Lỗi khi tải lại hóa đơn:", error);
+    }
+  };  
+
   const paying = async ({ sdt, sott }) => {
     const newData = {
       sdt,
-      sott,
-      manv: user.MANV,
+      stt: sott,
+      manv: user.MANV
     };
-    StaffService.xacNhanThanhToan(newData).then((res) => {
+    try {
+      const res = await StaffService.xacNhanThanhToan(newData);
       console.log(res);
-    });
+      // Chỉ cập nhật state khi chưa xác nhận thanh toán
+      if (!isPaymentConfirmed) {
+        setIsPaymentConfirmed(true);
+      }
+      else{
+        console.log("done")
+      }
+    } catch (error) {
+      console.error("Lỗi khi xác nhận thanh toán:", error);
+    }
   };
+  
+  
 
   const print = () => {
-    naviate(`/print-hoa-don/${sdt}`);
+    navigate(`/print-hoa-don/${sdt}`);
   };
 
   return (
@@ -247,8 +277,10 @@ const HoaDon = ({ sdt }) => {
           <div className="mt-5">
             <p>Nhân viên phụ trách: {currentRecords[0].HOTENNV} </p>
 
-            {currentRecords[0].DATHANHTOAN == false ? (
-              <p className="text-pinkk italic">*Hóa đơn chưa được thanh toán</p>
+            {currentRecords[0].DATHANHTOAN === false ? (
+              <p className="text-pinkk italic">
+                *Hóa đơn chưa được thanh toán
+              </p>
             ) : (
               <p className="text-pinkk italic">*Hóa đơn đã được thanh toán</p>
             )}
@@ -270,7 +302,7 @@ const HoaDon = ({ sdt }) => {
                 func={() => print()}
               />
             </p>
-            {currentRecords[0].DATHANHTOAN == false ? (
+            {currentRecords[0].DATHANHTOAN === false ? (
               <p>
                 <ButtonGreen
                   text="XÁC NHẬN THANH TOÁN"

@@ -45,8 +45,13 @@ const TaoLichHen = ({ handleTaoLichHen }) => {
   };
 
   const onFinish = (values) => {
-    console.log("Submitted values:", values);
-    StaffService.taoLichHen(values).then((res) => {
+    const data ={
+      sodt : values.phoneNumber,
+      mans : values.dentist,
+      sott : values.appointmentNumber,
+      lydokham: values.reason,
+    };
+    StaffService.taoLichHen(data).then((res) => {
       // load lại
       handleTaoLichHen();
     });
@@ -144,7 +149,7 @@ const OneWorkSchedule = ({ data }) => {
     <>
       {data.SODTKH !== null ? (
         <Badge.Ribbon text="Bận" color="#ACACAC">
-          <div className="border-2.4 border-[#b8b8b8] rounded-md h-[40px] flex items-center p-3 mb-2 cursor-alias">
+          <div className="border-2.4 border-[#b8b8b8] rounded-md h-[40px] flex items-center p-3 mb-2 cursor-auto select-none">
             <Dropdown
               menu={{
                 items: detail({ mans: data.MANS, sott: data.SOTTLH }),
@@ -159,7 +164,7 @@ const OneWorkSchedule = ({ data }) => {
         </Badge.Ribbon>
       ) : (
         <Badge.Ribbon text="Rảnh" color="blue">
-          <div className="border-2.4 border-[#b8b8b8] rounded-md h-[40px] flex items-center p-3 mb-2 cursor-alias">
+          <div className="border-2.4 border-[#b8b8b8] rounded-md h-[40px] flex items-center p-3 mb-2 cursor-auto select-none">
             <Dropdown
               menu={{
                 items: detail({ mans: data.MANS, sott: data.SOTTLR }),

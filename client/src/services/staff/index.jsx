@@ -29,29 +29,42 @@ const StaffService = {
     const res = await Axios.post("/nhanvien/taohoaDon", {
       sdt: data.sdt,
       stt: data.stt,
-      manv: data.manv,
     });
     if(res && res.response)
     {
-      if (res.response.status === 422) {
+      if (res?.response?.status === 422) {
         message.error(res.response.data.error);
       }
-      if (res.response.status === 404) {
+      if (res?.response?.status === 404) {
         message.error(res.response.data.error);
       }
     }
     return res;
   },
   xacNhanThanhToan: async (data) => {
-    const res = await Axios.put("/nhanvien/xacNhanHoaDon", {
-      sdt: data.sdt,
-      stt: data.stt,
-      manv: data.manv,
-    });
-    return res;
+    try {
+      const res = await Axios.put("/nhanvien/xacNhanHoaDon", {
+        sdt: data.sdt,
+        stt: data.stt,
+        manv: data.manv,
+      });
+      if(!res.success)
+      {
+        if (res?.response.status === 422) {
+          message.error(res?.response?.data?.error);
+        }
+        if (res?.response.status === 404) {
+          message.error(res?.response?.data?.error);
+        }
+      }
+  
+      return res;
+    } catch (error) {
+      console.error("Lỗi khi xác nhận thanh toán:", error);
+      throw error; // Ném lỗi để bắt ở nơi gọi hàm nếu cần
+    }
   },
   doiMatKhau: async (data) => {
-    console.log("oday: ", data)
     const res = await Axios.put("/nhanvien/matKhau", {
       manv: data.manv,
       matkhaucu: data.matkhaucu,
@@ -101,6 +114,20 @@ const StaffService = {
   },
   matKhau: async (data) => {
     const res = await Axios.put("/nhanvien/matKhau", data);
+    return res;
+  },
+  taoLichHen: async (data) => {
+    const res = await Axios.post("/nhanvien/lichHen",{
+      sodt: data.sodt,
+      mans: data.mans,
+      sott: data.sott,
+      lydokham: data.lydokham,
+    });
+    if (res && res.response) {
+      if (res.response.status === 422) {
+        message.error(res.response.data.error);
+      }
+    }
     return res;
   },
 };

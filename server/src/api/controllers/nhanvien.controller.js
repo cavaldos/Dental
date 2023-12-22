@@ -83,10 +83,17 @@ const nhanVienController = {
       params.SODT = req.body.sdt;
       params.SOTT = req.body.stt;
 
+      console.log(params)
       const sp = 'SP_THANHTOANHOADON_NV';
       const result = await pool.executeSP(sp, params);
       return res.status(200).json({ success: true });
     } catch (error) {
+      if (error.message === "Hoá đơn này không tồn tại") {
+        return res.status(404).json({ error: error.message });
+      }
+      if (error.message === "Hoá đơn này đã được thanh toán") {
+        return res.status(422).json({ error: error.message });
+      }
       console.error('An error occurred:', error.message);
       return res.status(500).json({ error: 'An error occurred while processing the request' });
     }
@@ -222,26 +229,6 @@ const nhanVienController = {
       return res.status(500).json({ error: 'An error occurred while processing the request' });
     }
   },
-  taoLichHen: async (req, res) => {
-    try {
-      if (!pool) {
-        return res.status(500).json({ error: 'Khong the ket noi db' });
-      }
-      const params = {
-        SODT: req.userId,
-        MANS: req.body.mans,
-        SOTT: req.body.sott,
-        LYDOKHAM: req.body.lydokham
-      };
-      const sp = 'SP_DATLICHHEN_NV_KH';
-      const result = await pool.executeSP(sp, params);
-      return res.status(201).json({ succes: true });
-
-    } catch (error) {
-      console.error('An error occurred:', error.message);
-      return res.status(500).json({ error: 'An error occurred while processing the request' });
-    }
-  },
   getLichHenNS: async (req, res) => {
     try {
       if (!pool) {
@@ -271,7 +258,7 @@ const nhanVienController = {
       console.log(params);
       const sp = "SP_DATLICHHEN_NV_KH";
       const result = await pool.executeSP(sp, params);
-      return res.status(201).json({ succes: true });
+      return res.status(201).json({ success: true });
     } catch (error) {
       if (error.message === "Lỗi: Đã có khách hàng đặt lịch hẹn này.") {
         return res.status(422).json({ error: error.message });

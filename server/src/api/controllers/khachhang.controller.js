@@ -106,7 +106,6 @@ const khachHangController = {
       }
       const params = {};
       params.SDT = req.params.sdt;
-      console.log(req.params.sdt);
       const sp = "SP_TRUYVANLICHHEN_KH";
       const result = await pool.executeSP(sp, params);
       return res.status(200).json(result[0]);
@@ -198,7 +197,7 @@ const khachHangController = {
       params.MANS = req.body.mans;
       params.SODT = req.body.sdt;
       params.SOTT = req.body.stt;
-
+      console.log(params)
       const sp = "SP_DELETELICHHEN_NV_KH";
       const result = await pool.executeSP(sp, params);
       return res.status(201).json({ success: true });
@@ -247,8 +246,14 @@ const khachHangController = {
       console.log(params);
       const sp = "SP_DATLICHHEN_NV_KH";
       const result = await pool.executeSP(sp, params);
-      return res.status(201).json({ succes: true });
+      return res.status(201).json({ success: true });
     } catch (error) {
+      if (error.message === "Lỗi: Đã có khách hàng đặt lịch hẹn này.") {
+        return res.status(422).json({ error: error.message });
+      }
+      if (error.message === "Lỗi: Các lịch hẹn của cùng một khách hàng không được trùng ca nhau.") {
+        return res.status(422).json({ error: error.message });
+      }
       console.error("An error occurred:", error.message);
       return res
         .status(500)

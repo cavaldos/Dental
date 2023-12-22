@@ -744,7 +744,6 @@ const lichhen3 = [
   },
 ];
 
-
 const lichhen4 = [
   {
     NGAY: "21/12/2023",
@@ -1352,6 +1351,5 @@ const lichhen5 = [
     ],
   },
 ];
-
 
 export { lichhen, lichhen2, lichhen3, lichhen4, lichhen5 };

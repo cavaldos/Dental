@@ -53,6 +53,11 @@ const GuestService = {
       sott: data.sott,
       lydokham: data.lydokham,
     });
+    if (res && res.response) {
+      if (res.response.status === 422) {
+        message.error(res.response.data.error);
+      }
+    }
     return res;
   },
   benhAn: async (sdt) => {
@@ -99,9 +104,8 @@ const GuestService = {
      matkhaucu: data.matkhaucu,
      matkhaumoi: data.matkhaumoi,
    });
-   console.log(res);
    if (res && res.response) {
-     if (res.response.status === 400) {
+     if (res.response.status === 422) {
        message.error(res.response.data.error);
      }
    }

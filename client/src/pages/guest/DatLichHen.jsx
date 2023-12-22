@@ -323,13 +323,14 @@ const DatLichContainer = () => {
     }
 
     await GuestService.taoLichHen(order).then((res) => {
-      message.success("Đặt lịch thành công");
-      setTimeout(() => {
-        dispatch(deleteOder());
-      }, 500);
-      setTimeout(() => {
-        navigate("/xem-lich-hen");
-      }, 500);
+      if(res.success){
+        setTimeout(() => {
+          dispatch(deleteOder());
+        }, 500);
+        setTimeout(() => {
+          navigate("/xem-lich-hen");
+        }, 500);
+      }
     });
   };
 
@@ -344,7 +345,7 @@ const DatLichContainer = () => {
           <Buttons
             className="mr-2 border-dashed border-2 border-blue-500 hover:bg-gray-400 hover:border-solid bg-slate-300 "
             onClick={() => prev()}
-            text="Truớc"
+            text="Quay lại"
           />
         )}
         {current < steps.length - 1 && (
