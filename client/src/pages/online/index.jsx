@@ -1,4 +1,6 @@
 import "../../assets/styles/index.scss";
+import BestDoctors from "../../components/home/bestDoctors";
+import Service from "../../components/home/services";
 
 const HomePage = () => {
   return (
@@ -15,14 +17,12 @@ const HomePage = () => {
               >
                 <div className="container">
                   <div className="hero-content">
-                    <p className="section-subtitle">Welcome To Tsitned</p>
+                    <p className="section-subtitle">Chào mừng đến với TSITNED</p>
 
                     <h1 className="h1 hero-title">We Are Best Dental Service</h1>
 
                     <p className="hero-text">
-                      Donec vitae libero non enim placerat eleifend aliquam erat
-                      volutpat. Curabitur diam ex, dapibus purus sapien, cursus
-                      sed nisl tristique, commodo gravida lectus non.
+                    Chuyên gia Nha khoa hàng đầu, dịch vụ chăm sóc chất lượng, đội ngũ chuyên nghiệp - chúng tôi cam kết sự thoải mái và sức khỏe của bạn là ưu tiên hàng đầu.
                     </p>
                   </div>
 
@@ -37,178 +37,7 @@ const HomePage = () => {
                   </figure>
                 </div>
               </section>
-              <section
-                className="section service"
-                id="service"
-                aria-label="service"
-              >
-                <div className="container">
-                  <p className="section-subtitle text-center">Our Services</p>
-
-                  <h2 className="h2 section-title text-center">
-                    What We Provide
-                  </h2>
-
-                  <ul className="service-list">
-                    <li>
-                      <div className="service-card">
-                        <div className="card-icon">
-                          <img
-                            src="./images/service-icon-1.png"
-                            width="100"
-                            height="100"
-                            loading="lazy"
-                            alt="service icon"
-                            className="w-100"
-                          />
-                        </div>
-
-                        <div>
-                          <h3 className="h3 card-title">Root Canal</h3>
-
-                          <p className="card-text">
-                            Aenean eleifend turpis tellus, nec laoreet metus
-                            elementum ac.
-                          </p>
-                        </div>
-                      </div>
-                    </li>
-
-                    <li>
-                      <div className="service-card">
-                        <div className="card-icon">
-                          <img
-                            src="./images/service-icon-2.png"
-                            width="100"
-                            height="100"
-                            loading="lazy"
-                            alt="service icon"
-                            className="w-100"
-                          />
-                        </div>
-
-                        <div>
-                          <h3 className="h3 card-title">Alignment Teeth</h3>
-
-                          <p className="card-text">
-                            Aenean eleifend turpis tellus, nec laoreet metus
-                            elementum ac.
-                          </p>
-                        </div>
-                      </div>
-                    </li>
-
-                    <li>
-                      <div className="service-card">
-                        <div className="card-icon">
-                          <img
-                            src="./images/service-icon-3.png"
-                            width="100"
-                            height="100"
-                            loading="lazy"
-                            alt="service icon"
-                            className="w-100"
-                          />
-                        </div>
-
-                        <div>
-                          <h3 className="h3 card-title">Cosmetic Teeth</h3>
-
-                          <p className="card-text">
-                            Aenean eleifend turpis tellus, nec laoreet metus
-                            elementum ac.
-                          </p>
-                        </div>
-                      </div>
-                    </li>
-
-                    <li className="service-banner">
-                      <figure>
-                        <img
-                          src="./images/service-banner.png"
-                          width="409"
-                          height="467"
-                          loading="lazy"
-                          alt="service banner"
-                          className="w-100"
-                        />
-                      </figure>
-                    </li>
-
-                    <li>
-                      <div className="service-card">
-                        <div className="card-icon">
-                          <img
-                            src="./images/service-icon-4.png"
-                            width="100"
-                            height="100"
-                            loading="lazy"
-                            alt="service icon"
-                            className="w-100"
-                          />
-                        </div>
-
-                        <div>
-                          <h3 className="h3 card-title">Oral Hygiene</h3>
-
-                          <p className="card-text">
-                            Aenean eleifend turpis tellus, nec laoreet metus
-                            elementum ac.
-                          </p>
-                        </div>
-                      </div>
-                    </li>
-
-                    <li>
-                      <div className="service-card">
-                        <div className="card-icon">
-                          <img
-                            src="./images/service-icon-5.png"
-                            width="100"
-                            height="100"
-                            loading="lazy"
-                            alt="service icon"
-                            className="w-100"
-                          />
-                        </div>
-
-                        <div>
-                          <h3 className="h3 card-title">Live Advisory</h3>
-
-                          <p className="card-text">
-                            Aenean eleifend turpis tellus, nec laoreet metus
-                            elementum ac.
-                          </p>
-                        </div>
-                      </div>
-                    </li>
-
-                    <li>
-                      <div className="service-card">
-                        <div className="card-icon">
-                          <img
-                            src="./images/service-icon-6.png"
-                            width="100"
-                            height="100"
-                            loading="lazy"
-                            alt="service icon"
-                            className="w-100"
-                          />
-                        </div>
-
-                        <div>
-                          <h3 className="h3 card-title">Cavity Inspection</h3>
-
-                          <p className="card-text">
-                            Aenean eleifend turpis tellus, nec laoreet metus
-                            elementum ac.
-                          </p>
-                        </div>
-                      </div>
-                    </li>
-                  </ul>
-                </div>
-              </section>
+              <Service/>
 
               <section className="section about" id="about" aria-label="about">
                 <div className="container">
@@ -224,10 +53,10 @@ const HomePage = () => {
                   </figure>
 
                   <div className="about-content">
-                    <p className="section-subtitle">About Us</p>
+                    <p className="section-subtitle">Về Chúng Tôi</p>
 
                     <h2 className="h2 section-title">
-                      We Care For Your Dental Health
+                      Chúng Tôi Quan Tâm Đến Bạn
                     </h2>
 
                     <p className="section-text section-text-1">
@@ -248,118 +77,7 @@ const HomePage = () => {
                   </div>
                 </div>
               </section>
-
-              <section className="section doctor" aria-label="doctor">
-                <div className="container">
-                  <p className="section-subtitle text-center">Our Doctor</p>
-
-                  <h2 className="h2 section-title text-center">
-                    Best Expert Dentist
-                  </h2>
-
-                  <ul className="has-scrollbar">
-                    <li className="scrollbar-item">
-                      <div className="doctor-card">
-                        <div
-                          className="card-banner img-holder"
-                        >
-                          <img
-                            src="./images/doctor-1.png"
-                            width="460"
-                            height="500"
-                            loading="lazy"
-                            alt="Howard Holmes"
-                            className="img-cover"
-                          />
-                        </div>
-
-                        <h3 className="h3">
-                          <a href="#" className="card-title">
-                            Howard Holmes
-                          </a>
-                        </h3>
-
-                        <p className="card-subtitle">Dentist</p>
-                      </div>
-                    </li>
-
-                    <li className="scrollbar-item">
-                      <div className="doctor-card">
-                        <div
-                          className="card-banner img-holder"
-                        >
-                          <img
-                            src="./images/doctor-2.png"
-                            width="460"
-                            height="500"
-                            loading="lazy"
-                            alt="Ella Thompson"
-                            className="img-cover"
-                          />
-                        </div>
-
-                        <h3 className="h3">
-                          <a href="#" className="card-title">
-                            Ella Thompson
-                          </a>
-                        </h3>
-
-                        <p className="card-subtitle">Dentist</p>
-                      </div>
-                    </li>
-
-                    <li className="scrollbar-item">
-                      <div className="doctor-card">
-                        <div
-                          className="card-banner img-holder"
-                        >
-                          <img
-                            src="./images/doctor-3.png"
-                            width="460"
-                            height="500"
-                            loading="lazy"
-                            alt="Vincent Cooper"
-                            className="img-cover"
-                          />
-                        </div>
-
-                        <h3 className="h3">
-                          <a href="#" className="card-title">
-                            Vincent Cooper
-                          </a>
-                        </h3>
-
-                        <p className="card-subtitle">Dentist</p>
-                      </div>
-                    </li>
-
-                    <li className="scrollbar-item">
-                      <div className="doctor-card">
-                        <div
-                          className="card-banner img-holder"
-                        >
-                          <img
-                            src="./images/doctor-4.png"
-                            width="460"
-                            height="500"
-                            loading="lazy"
-                            alt="Danielle Bryant"
-                            className="img-cover"
-                          />
-                        </div>
-
-                        <h3 className="h3">
-                          <a href="#" className="card-title">
-                            Danielle Bryant
-                          </a>
-                        </h3>
-
-                        <p className="card-subtitle">Dentist</p>
-                      </div>
-                    </li>
-                  </ul>
-                </div>
-              </section>
+              <BestDoctors/>
 
               <section className="section cta" aria-label="cta">
                 <div className="container">
@@ -375,14 +93,14 @@ const HomePage = () => {
                   </figure>
 
                   <div className="cta-content">
-                    <p className="section-subtitle">Book Dentail Appointment</p>
+                    <p className="section-subtitle">Đặt Lịch Hẹn</p>
 
                     <h2 className="h2 section-title">
-                      We Are open And Welcoming Patients
+                      Chúng Tôi Luôn Luôn Chào Đón Bệnh Nhân
                     </h2>
 
                     <a href="/dat-lich-hen" className="btn">
-                      Book appointment
+                      Đặt lịch hẹn 
                     </a>
 
                   </div>
@@ -391,9 +109,6 @@ const HomePage = () => {
 
             </article>
           </main>
-         
-
-
         </div>
 
       </div>
