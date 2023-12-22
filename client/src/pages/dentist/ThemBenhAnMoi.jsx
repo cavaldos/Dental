@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { Input, Select, message, Button, Form, InputNumber } from "antd";
 import {
   DeleteOutlined 
@@ -9,6 +10,7 @@ const { TextArea } = Input;
 import moment from 'moment';
 import { ButtonGreen } from "../../components/button";
 import '../../assets/styles/dentist.css'
+import DentistService from "../../services/dentist";
 
 const { Item } = Form;
 
@@ -78,11 +80,23 @@ const ThuocDaChon = ({ ten, soLuong, mathuoc, thoidiemdung, onClickXoa }) => {
 
 const FormDienThongTin = ({}) => {
   const [form] = Form.useForm();
-  const [dichVuList, setDichVuList] = useState(dv);
+  const [dichVuList, setDichVuList] = useState([]);
   const [chonDichVu, setChonDichVu] = useState([]);
-  const [thuocList, setThuocList] = useState(thuoc);
+  const [thuocList, setThuocList] = useState([]);
   const [chonThuoc, setChonThuoc] = useState([]);
 
+  useEffect(() => {
+    // Gọi API để lấy danh sách thuốc
+    DentistService.getAllThuoc().then((res) => {
+      setThuocList(res)
+    });
+  
+    // Gọi API để lấy danh sách dịch vụ
+    DentistService.getAllDV().then((res) => {
+      setDichVuList(res)
+    });
+  
+  }, []);
   const handleThemDichVu = () => {
     const formData = form.getFieldsValue();
     const { MADV, SOLUONG } = formData;
@@ -107,11 +121,21 @@ const FormDienThongTin = ({}) => {
     };
     setChonDichVu([...chonDichVu, newData]);
     form.resetFields();
-
   };
+
   const handleThemThuoc = () => {
     const formData = form.getFieldsValue();
-    const { MATHUOC, SLTHUOC } = formData;
+    const { MATHUOC, SLTHUOC, THOIDIEMDUNG } = formData;
+    // Tìm thông tin thuốc trong danh sách thuốc
+    const selectedThuoc = thuocList.find((item) => item.MATHUOC === MATHUOC);
+  
+    // Kiểm tra số lượng tồn
+    if (selectedThuoc && SLTHUOC > selectedThuoc.SLTON) {
+      message.error("Số lượng thuốc vượt quá số lượng tồn.");
+      return;
+    }
+  
+    // Tiến hành thêm thuốc vào danh sách chonThuoc
     const daChon = chonThuoc.find((item) => item.MATHUOC === MATHUOC);
     if (!MATHUOC) {
       message.error("Vui lòng chọn thuốc");
@@ -125,17 +149,17 @@ const FormDienThongTin = ({}) => {
       message.error("Đã chọn thuốc này!");
       return;
     }
-    const tenThuoc = thuocList.find(
-      (item) => item.MATHUOC === MATHUOC
-    ).TENTHUOC;
+    const tenThuoc = selectedThuoc.TENTHUOC;
     const newData = {
       MATHUOC,
       TENTHUOC: tenThuoc,
       soLuong: SLTHUOC,
+      THOIDIEMDUNG: THOIDIEMDUNG, // Thêm thông tin thời điểm dùng vào đây
     };
     setChonThuoc([...chonThuoc, newData]);
     form.resetFields();
   };
+  
 
   console.log("ct",chonThuoc);
   const handleXoaDichVu = (maDV) => {
@@ -219,6 +243,7 @@ const FormDienThongTin = ({}) => {
                   ten={item.TENTHUOC}
                   mathuoc={item.MATHUOC}
                   soLuong={item.soLuong}
+                  thoidiemdung={item.THOIDIEMDUNG}
                   onClickXoa={handleXoaThuoc}
                   key={index}
                 />
@@ -289,12 +314,13 @@ const FormDienThongTin = ({}) => {
 };
 
 const ThemBenhAnMoi = () => {
-
+  const user = useSelector((state) => state.user);
+  const [thuocList, setThuocList] = useState([]);
   const infos = {
     HOTENKH: "Vũ Nguyễn Xuân Uyên",
     SODT: "0932312908",
     NGAYKHAM: moment(),
-    HOTENNS: "",
+    HOTENNS: user.HOTEN,
   }
   infos.NGAYKHAM = infos.NGAYKHAM.format('DD/MM/YYYY');
 

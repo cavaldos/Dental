@@ -345,7 +345,7 @@ const DatLichContainer = () => {
           <Buttons
             className="mr-2 border-dashed border-2 border-blue-500 hover:bg-gray-400 hover:border-solid bg-slate-300 "
             onClick={() => prev()}
-            text="Truớc"
+            text="Quay lại"
           />
         )}
         {current < steps.length - 1 && (
