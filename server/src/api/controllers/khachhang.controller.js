@@ -221,6 +221,7 @@ const khachHangController = {
       }
       const params = {};
       params.SODT = req.params.sdt;
+      console.log(params)
       const sp = "SP_GETHSB1KH_NV_NS_KH";
       const result = await pool.executeSP(sp, params);
       const groupedResult = groupHSB(result[0]);
