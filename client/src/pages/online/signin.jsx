@@ -51,19 +51,19 @@ const SignInPage = () => {
           <p>Đăng nhập vào Tsitned.</p>
           <Form.Item
             name="matk"
-            rules={[{ required: true, message: 'Please input your username!' }]}
+            rules={[{ required: true, message: 'Vui lòng nhập mã tài khoản / số điện thoại!' }]}
           >
             <Input
-              placeholder="Username"
+              placeholder="Mã tài khoản / Số điện thoại"
             />
           </Form.Item>
 
           <Form.Item
             name="matkhau"
-            rules={[{ required: true, message: 'Please input your password!' }]}
+            rules={[{ required: true, message: 'Vui lòng nhập mật khẩu!' }]}
           >
             <Input.Password
-              placeholder="Password"
+              placeholder="Mật khẩu"
             />
           </Form.Item>
 
