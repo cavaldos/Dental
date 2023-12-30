@@ -155,11 +155,9 @@ const CreateAShift = ({ data, isPassDay, index }) => {
         case 'full':
           shiftContent = <StateGrey text={caContent} />;
           break;
-        case 'empty':
+        default:
           shiftContent = <TwoStateBlue text={caContent} />;
           break;
-        default:
-          shiftContent = null;
       }
     } else {
       shiftContent = <StateGrey text={caContent} />;
