@@ -32,29 +32,31 @@ const ThongTinLichHen = memo(({ props }) => {
 
   return (
     <>
-      <div className="bg-white w-[440px] h-fit rounded-3xl mx-2 py-4 px-8">
-        <h1 className="text-2xl font-montserrat mt-2 mb-6 text-center">THÔNG TIN LỊCH HẸN</h1>
+      <div className="bg-white w-[440px] h-[608px] rounded-3xl mx-2 py-4 px-8 grid grid-rows-[1fr auto]">
         <div>
-          <p className="leading-9 font-montserrat font-semibold text-base text-#4B4B4B">
-            <span className="text-grey">Ngày, giờ: </span>
-            {dateTime}
-          </p>
-          <p className="leading-9 font-montserrat font-semibold text-base text-#4B4B4B">
-            <span className="text-grey">Số điện thoại: </span>
-            {props.SODTKH}
-          </p>
-          <p className="leading-9 font-montserrat font-semibold text-base text-#4B4B4B">
-            <span className="text-grey">Họ tên: </span>
-            {props.HOTENKH}
-          </p>
-          <p className="leading-9 font-montserrat font-semibold text-base text-#4B4B4B">
-            <span className="text-grey">Lý do khám: </span>
-          </p>
-          <p className="leading-7 font-montserrat font-semibold text-base text-#4B4B4B">
-          {props.LYDOKHAM}
-          </p>
+          <h1 className="text-2xl font-montserrat mt-2 mb-6 text-center">THÔNG TIN LỊCH HẸN</h1>
+          <div>
+            <p className="leading-9 font-montserrat font-semibold text-base text-#4B4B4B">
+              <span className="text-grey">Ngày, giờ: </span>
+              {dateTime}
+            </p>
+            <p className="leading-9 font-montserrat font-semibold text-base text-#4B4B4B">
+              <span className="text-grey">Số điện thoại: </span>
+              {props.SODTKH}
+            </p>
+            <p className="leading-9 font-montserrat font-semibold text-base text-#4B4B4B">
+              <span className="text-grey">Họ tên: </span>
+              {props.HOTENKH}
+            </p>
+            <p className="leading-9 font-montserrat font-semibold text-base text-#4B4B4B">
+              <span className="text-grey">Lý do khám: </span>
+            </p>
+            <p className="leading-7 font-montserrat font-semibold text-base text-#4B4B4B">
+            {props.LYDOKHAM}
+            </p>
+          </div>
         </div>
-        <div className=" mt-6 flex justify-center gap-5">
+        <div className="justify-self-end self-end flex justify-center items-center gap-5">
           <ButtonBorderGreen
             text="Bệnh án cũ"
             func={() => HandleBenhAnCu("123456789")}
