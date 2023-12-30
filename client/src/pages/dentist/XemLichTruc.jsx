@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 
 import { ButtonBlue, ButtonPink, ButtonGrey } from "~/components/buttonTwoState";
 import { ButtonGreen, ButtonBorderGreen } from "../../components/button";
+import TaoBenhAnMoi from "../../components/dentist/TaoBenhAnMoi";
 import moment from 'moment';
 
 //------------------------------------------------
@@ -369,7 +370,11 @@ const WorkSchedule = ({ data, func }) => {
 
   return (
     <>
-      <div className=" bg-white rounded-3xl h-fit w-[700px] mx-2 py-4 px-6">
+      <div className=" bg-white rounded-3xl h-fit w-[700px] mx-2 py-4 px-6"
+            style={{
+              borderRadius: "35px",
+              boxShadow: "0px 4px 4px 0px rgba(0, 0, 0, 0.10)",
+            }}>
         <h1 className="text-2xl font-montserrat mt-2 mb-6 text-center">LỊCH TRỰC CA</h1>
         <OneDay caMotNgay={lichhen4} func={func}/>
         <div className="mt-5 mb-2">
@@ -393,27 +398,24 @@ const WorkSchedule = ({ data, func }) => {
 //----------------------------------------------------------------------
 //----------------------------------------------------------------------
 
-const ThongTinLichHen = memo(({ props }) => {
-  // const { thoigian, sdt, hoten, ly_do_kham } = props;
-  console.log(props);
+const ThongTinLichHen = memo(({ props, funcTaoHSB }) => {
+  const sdtkh = props.SODTKH;
+
   const navigate = useNavigate();
-  const HandleBenhAnCu = (sdt) => {
-    navigate(`/xem-benh-an-cu/${sdt}`);
+  const HandleBenhAnCu = () => {
+    navigate(`/xem-benh-an-cu/${sdtkh}`);
     message.success("Đã chuyển đến trang xem bệnh án cũ", 5);
-  };
-  const handleTaoBenhAn = async (sdt) => {
-    navigate(`/tao-benh-an-moi/${sdt}`);
-    message.success(
-      `Đã chuyển đến trang tạo bệnh án mới cho khách hàng có số điện thoại ${sdt}`,
-      5
-    );
   };
 
   const dateTime = mergeStringDateTime(props.GIOBATDAU, props.NGAY);
 
   return (
     <>
-      <div className="bg-white w-[440px] h-[608px] rounded-3xl mx-2 py-4 px-8 grid grid-rows-[1fr auto]">
+      <div className="bg-white w-[440px] h-[608px] rounded-3xl mx-2 py-4 px-8 grid grid-rows-[1fr auto]"
+            style={{
+              borderRadius: "35px",
+              boxShadow: "0px 4px 4px 0px rgba(0, 0, 0, 0.10)",
+            }}>
         <div>
           <h1 className="text-2xl font-montserrat mt-2 mb-6 text-center">THÔNG TIN LỊCH HẸN</h1>
           <div>
@@ -440,11 +442,11 @@ const ThongTinLichHen = memo(({ props }) => {
         <div className="justify-self-end self-end flex justify-center items-center gap-5">
           <ButtonBorderGreen
             text="Bệnh án cũ"
-            func={() => HandleBenhAnCu("123456789")}
+            func={() => HandleBenhAnCu()}
           />
           <ButtonGreen
             text="Tạo bệnh án mới"
-            func={() => HandleBenhAnCu("123456789")}
+            func={() => funcTaoHSB(props)}
           />
         </div>
       </div>
@@ -457,33 +459,39 @@ const XemLichTruc = () => {
   const changeDetail = (info) => {
     setDetail(info);
   };
-  // const data = {
-  //   NGAY: "20/12/2023",
-  //   MACA: "CA002",
-  //   GIOBATDAU: "11:00:00",
-  //   GIOKETTHUC: "13:00:00",
-  //   STATUS: "ordered",
-  //   SODTKH: "0323456789",
-  //   HOTENKH: "Lê Thị Thu Hà",
-  //   SOTTLH: 1,
-  //   LYDOKHAM:
-  //     "Đau rát răng và nướu: Tôi đã cảm thấy đau rát và sưng nướu ở chiếc răng ở phía dưới bên trái trong vài ngày qua. Đau đớn khi chải răng và ăn.",
-  // };
+
+  const [newMeidcalRecord, setNewMeidcalRecord] = useState(null);
+  const changeNewMeidcalRecord = (infoClient) => {
+    setNewMeidcalRecord(infoClient);
+  };
+
   return (
     <>
       <div className="flex flex-col">
         <div className="flex flex-row gap-2">
           <WorkSchedule data={lichhen4} func={changeDetail}/>
           {detail !== null ? (
-            <ThongTinLichHen props={detail || []} />
+            <ThongTinLichHen props={detail || []} funcTaoHSB={changeNewMeidcalRecord} />
           ) : (
-            <div className="bg-white w-[400px] h-fit rounded-3xl mx-2 py-6 px-8">
+            <div className="bg-white w-[440px] h-fit rounded-3xl mx-2 py-6 px-8"
+                  style={{
+                    borderRadius: "35px",
+                    boxShadow: "0px 4px 4px 0px rgba(0, 0, 0, 0.10)",
+                  }}>
               <h1 className="text-2xl font-montserrat mb-5 text-center">THÔNG TIN LỊCH HẸN</h1>
-                <Empty />
+              <Empty />
             </div>
           )}
         </div>
+        <div className="mt-5">
+          {newMeidcalRecord !== null && (
+            <div>
+              <TaoBenhAnMoi props={newMeidcalRecord || []} />
+            </div>
+          )}
+          </div>
       </div>
+
     </>
   );
 };
