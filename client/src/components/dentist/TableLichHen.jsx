@@ -97,10 +97,6 @@ const today = new Date('2023-12-19');
 const result = separateDaysByComparison(today);
 const week = selectWeekDays(today);
 
-// Hiển thị trên title
-const weekdays = week.slice(1, 7);
-const weekdays2 = weekdays.map(date => moment(date).format('DD/MM/YYYY'));
-
 const info30Days = createInfo30Days(week);
 console.log('res ', info30Days);
 
@@ -362,8 +358,8 @@ const TableLichHen = ({ data }) => {
 
   return (
     <>
-      <div className=" bg-white rounded-2xl h-fit w-[1030px] mx-2 py-8 px-12">
-        <h1 className="text-xl font-montserrat mb-8 text-center">ĐĂNG KÝ LỊCH TRỰC {weekdays2[0]} - {weekdays2[5]}</h1>
+      <div className=" bg-white rounded-3xl h-fit w-[1030px] mx-2 py-8 px-12">
+        <h1 className="text-2xl font-montserrat mb-8 text-center">ĐĂNG KÝ LỊCH TRỰC</h1>
         <OneDay caMotNgay={lichhen4}/>
         <div className="mt-9 grid grid-cols-2 gap-0">
           {/* left */}

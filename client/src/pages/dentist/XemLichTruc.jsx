@@ -1,8 +1,17 @@
 import React, { memo } from "react";
-import { Button, message } from "antd";
+import { message } from "antd";
 import { lichhen4 } from "~/fakedata/lhnv";
 import WorkSchedule from "~/components/dentist/OwnWorkSchedule";
 import { useNavigate } from "react-router-dom";
+import { ButtonGreen, ButtonBorderGreen } from "../../components/button";
+
+function mergeStringDateTime(gioBatDau, ngay) {
+  const gioBatDauMoi = gioBatDau.slice(0, 5);
+
+  return `${ngay} - ${gioBatDauMoi} `;
+}
+
+
 const ThongTinLichHen = memo(({ props }) => {
   // const { thoigian, sdt, hoten, ly_do_kham } = props;
   console.log(props);
@@ -18,47 +27,42 @@ const ThongTinLichHen = memo(({ props }) => {
       5
     );
   };
+
+  const dateTime = mergeStringDateTime(props.GIOBATDAU, props.NGAY);
+
   return (
     <>
-      <div className="bg-gray-200 min-h-[400px] min-w-[350px] rounded-lg p-2 flex  flex-col">
-        <h1 className="text-2xl">Thông tin lịch hẹn</h1>
-        <div className="flex flex-col gap-2 mt-5">
-          <div className="flex flex-row gap-2">
-            <div className="font-bold  text-gray-400">Thời gian:</div>
-            <p className="break-word">{"fadsfa"}</p>
-          </div>
-          <div className="flex flex-row gap-2">
-            <div className="font-bold  text-gray-400">Số điện thoại:</div>
-            <p className="break-word">{"sdt"}</p>
-          </div>
-          <div className="flex flex-row gap-2">
-            <div className="font-bold  text-gray-400">Họ tên:</div>
-            <p className="break-word">{"hoten"}</p>
-          </div>
-          <div className="flex gap-2 max-w-[350px] flex-col">
-            <div className="font-bold   text-gray-400">Lý do khám:</div>
-            <p
-              className="break-word max-w-[300px]"
-              style={{ wordWrap: "break-word" }}
-            >
-              {"Uyen chinh lai mau cho  nay nha"}
-            </p>
-          </div>
+      <div className="bg-white w-[440px] h-fit rounded-3xl mx-2 py-4 px-8">
+        <h1 className="text-2xl font-montserrat mt-2 mb-6 text-center">THÔNG TIN LỊCH HẸN</h1>
+        <div>
+          <p className="leading-9 font-montserrat font-semibold text-base text-#4B4B4B">
+            <span className="text-grey">Ngày, giờ: </span>
+            {dateTime}
+          </p>
+          <p className="leading-9 font-montserrat font-semibold text-base text-#4B4B4B">
+            <span className="text-grey">Số điện thoại: </span>
+            {props.SODTKH}
+          </p>
+          <p className="leading-9 font-montserrat font-semibold text-base text-#4B4B4B">
+            <span className="text-grey">Họ tên: </span>
+            {props.HOTENKH}
+          </p>
+          <p className="leading-9 font-montserrat font-semibold text-base text-#4B4B4B">
+            <span className="text-grey">Lý do khám: </span>
+          </p>
+          <p className="leading-7 font-montserrat font-semibold text-base text-#4B4B4B">
+          {props.LYDOKHAM}
+          </p>
         </div>
-        <div className=" mt-auto h-[50px] flex justify-center items-center gap-12">
-          <Button
-            className="  text-grin border border-grin h"
-            onClick={() => HandleBenhAnCu("123456789")}
-          >
-            Benh an cu
-          </Button>
-          <Button
-            type="primary"
-            className=" bg-grin hover:bg-green-700"
-            onClick={() => handleTaoBenhAn("123456789")}
-          >
-            Them benh an
-          </Button>
+        <div className=" mt-6 flex justify-center gap-5">
+          <ButtonBorderGreen
+            text="Bệnh án cũ"
+            func={() => HandleBenhAnCu("123456789")}
+          />
+          <ButtonGreen
+            text="Tạo bệnh án mới"
+            func={() => HandleBenhAnCu("123456789")}
+          />
         </div>
       </div>
     </>
@@ -67,17 +71,29 @@ const ThongTinLichHen = memo(({ props }) => {
 
 const XemLichTruc = () => {
   const data = {
-    thoigian: "12:00",
-    sdt: "123456789",
-    hoten: "Nguyen Van A",
-    ly_do_kham: "Uyen chinh lai mau cho  nay nha",
+    NGAY: "20/12/2023",
+    MACA: "CA002",
+    GIOBATDAU: "11:00:00",
+    GIOKETTHUC: "13:00:00",
+    STATUS: "ordered",
+    SODTKH: "0323456789",
+    HOTENKH: "Lê Thị Thu Hà",
+    SOTTLH: 1,
+    LYDOKHAM:
+      "Đau rát răng và nướu: Tôi đã cảm thấy đau rát và sưng nướu ở chiếc răng ở phía dưới bên trái trong vài ngày qua. Đau đớn khi chải răng và ăn.",
   };
   return (
     <>
       <div className="flex flex-col">
-        <div className="flex flex-row gap-4">
+        <div className="flex flex-row gap-2">
           <WorkSchedule data={lichhen4} />
-          <ThongTinLichHen props={data} />
+          {data !== null ? (
+            <ThongTinLichHen props={data || []} />
+          ) : (
+            <div className="bg-white w-[400px] h-fit rounded-3xl mx-2 py-4 px-8">
+                <Empty />
+            </div>
+          )}
         </div>
       </div>
     </>
