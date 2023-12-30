@@ -3,15 +3,8 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Form, Input, Button, message } from "antd";
 import OnlineService from "~/services/online";
+import "../../assets/styles/signin.scss";
 
-const layout = {
-  labelCol: {
-    span: 8,
-  },
-  wrapperCol: {
-    span: 16,
-  },
-};
 import useCookie from "~/hooks/useCookie";
 const SignInPage = () => {
   const [cookie, setCookie] = useCookie("token", "");
@@ -39,50 +32,65 @@ const SignInPage = () => {
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
   };
+  
+
   return (
-    <div className=" w-full h-[100vh] flex flex-col">
-      <div className="w-[500px] h-[600px]  drop-shadow-md bg-gray-200 flex flex-col justify-center mx-auto  my-auto items-center ">
-        <button className="text-3xl mt-0 mb-10"> Đăng nhập</button>
+
+    <div className="login-page">
+      <div className="login-box">
+        <div className="illustration-wrapper">
+          <img src="https://mixkit.imgix.net/art/preview/mixkit-left-handed-man-sitting-at-a-table-writing-in-a-notebook-27-original-large.png?q=80&auto=format%2Ccompress&h=700" alt="Login" />
+        </div>
         <Form
-          {...layout}
-          name="signin_form"
+          name="login-form"
           initialValues={{ remember: true }}
           onFinish={onFinish}
           onFinishFailed={onFinishFailed}
         >
+          <p className="form-title">Welcome back</p>
+          <p>Đăng nhập vào Tsitned.</p>
           <Form.Item
-            className="flex flex-col "
-            label="Mã Tài Khoản"
             name="matk"
+            rules={[{ required: true, message: 'Vui lòng nhập mã tài khoản / số điện thoại!' }]}
           >
-            <Input />
+            <Input
+              placeholder="Mã tài khoản / Số điện thoại"
+            />
           </Form.Item>
 
           <Form.Item
-            label="Mật khẩu"
             name="matkhau"
-            rules={[{ required: true, message: "Vui lòng nhập mật khẩu!" }]}
+            rules={[{ required: true, message: 'Vui lòng nhập mật khẩu!' }]}
           >
-            <Input.Password />
+            <Input.Password
+              placeholder="Mật khẩu"
+            />
           </Form.Item>
-          <Form.Item className=" flex justify-center mt-6 ">
-            <div className="flex w-[300px] justify-center gap-7">
-              <button
-                onClick={() => navigate(-1)}
-               className="flex w-[100px] justify-center rounded-md  px-3 py-1.5 text-sm font-semibold leading-6 bg-gray-400 hover:bg-gray-300 hover:text-gray-900 text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 ">
-                Huỷ
-              </button>
-              <button
-                htmlFor="submit"
-                className="flex w-[100px] justify-center rounded-md bg-sky-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-sky-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-700 "
-              >
-                Đăng nhập
-              </button>
-            </div>
+
+
+
+          <Form.Item>
+            <Button type="primary" htmlType="submit" className="font-semibold login-form-button">
+              Đăng nhập
+            </Button>
           </Form.Item>
+
+          <p className="mb-0 mt-2 pt-1 text-sm font-semibold text-center">
+            Chưa có tài khoản?{" "}
+            <a
+              onClick={() => navigate("/signup")}
+              className="text-blue transition duration-150 ease-in-out hover:text-danger-600 focus:text-danger-600 active:text-danger-700"
+            >
+              Đăng ký
+            </a>
+          </p>
+
         </Form>
+
       </div>
     </div>
   );
 };
+
+
 export default SignInPage;

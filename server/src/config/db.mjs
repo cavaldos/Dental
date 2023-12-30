@@ -76,7 +76,7 @@ const createPool = async (loginType) => {
       }
     }
     pool.executeSP = async (procedureName, params) => {
-      const request = pool.request();
+      const request = await pool.request();
       for (const paramName in params) {
         if (params.hasOwnProperty(paramName)) {
           request.input(paramName, params[paramName]);
@@ -88,7 +88,8 @@ const createPool = async (loginType) => {
       } catch (error) {
         throw error;
       }
-    };
+
+    }
 
     console.log(`🔥 SQL Server pool connection successful!!! ${logMessage}\n`);
 
@@ -108,6 +109,7 @@ const getPool = (loginType) => {
     console.error(`No pool found for login type: ${loginType}`);
     return null;
   }
+
   return pool;
 };
 

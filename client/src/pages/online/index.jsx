@@ -1,8 +1,27 @@
+import { message } from "antd";
 import "../../assets/styles/index.scss";
 import BestDoctors from "../../components/home/bestDoctors";
-import Service from "../../components/home/services";
+import Services from "../../components/home/services";
 
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 const HomePage = () => {
+  const user = useSelector((state) => state.user);
+  const navigate = useNavigate();
+  console.log(user);
+
+  const handleDatLich = () => {
+    message.info("Vui lòng đăng nhập để đặt lịch hẹn", 5);
+
+    if (user.ROLE === "online") {
+      setTimeout(() => {
+        navigate("/signin");
+      }, 1100);
+    } else {
+      navigate("/dat-lich");
+    }
+  };
+
   return (
     <>
       <div id="index">
@@ -17,12 +36,18 @@ const HomePage = () => {
               >
                 <div className="container">
                   <div className="hero-content">
-                    <p className="section-subtitle">Chào mừng đến với TSITNED</p>
+                    <p className="section-subtitle">
+                      Chào mừng đến với TSITNED
+                    </p>
 
-                    <h1 className="h1 hero-title">We Are Best Dental Service</h1>
+                    <h1 className="h1 hero-title">
+                      We Are Best Dental Service
+                    </h1>
 
                     <p className="hero-text">
-                    Chuyên gia Nha khoa hàng đầu, dịch vụ chăm sóc chất lượng, đội ngũ chuyên nghiệp - chúng tôi cam kết sự thoải mái và sức khỏe của bạn là ưu tiên hàng đầu.
+                      Chuyên gia Nha khoa hàng đầu, dịch vụ chăm sóc chất lượng,
+                      đội ngũ chuyên nghiệp - chúng tôi cam kết sự thoải mái và
+                      sức khỏe của bạn là ưu tiên hàng đầu.
                     </p>
                   </div>
 
@@ -37,7 +62,7 @@ const HomePage = () => {
                   </figure>
                 </div>
               </section>
-              <Service/>
+              <Services />
 
               <section className="section about" id="about" aria-label="about">
                 <div className="container">
@@ -67,17 +92,15 @@ const HomePage = () => {
                     </p>
 
                     <p className="section-text">
-                      Aliquam erat volutpat. Aliquam enim massa, sagittis blandit
-                      ex mattis, ultricies posuere sapien. Morbi a dignissim enim.
-                      Fusce elementum, augue in elementum porta, sapien nunc
-                      volutpat ex, a accumsan nunc lectus eu lectus.
+                      Aliquam erat volutpat. Aliquam enim massa, sagittis
+                      blandit ex mattis, ultricies posuere sapien. Morbi a
+                      dignissim enim. Fusce elementum, augue in elementum porta,
+                      sapien nunc volutpat ex, a accumsan nunc lectus eu lectus.
                     </p>
-
-
                   </div>
                 </div>
               </section>
-              <BestDoctors/>
+              <BestDoctors />
 
               <section className="section cta" aria-label="cta">
                 <div className="container">
@@ -99,18 +122,15 @@ const HomePage = () => {
                       Chúng Tôi Luôn Luôn Chào Đón Bệnh Nhân
                     </h2>
 
-                    <a href="/dat-lich-hen" className="btn">
-                      Đặt lịch hẹn 
+                    <a onClick={handleDatLich} className="btn">
+                      Đặt lịch hẹn
                     </a>
-
                   </div>
                 </div>
               </section>
-
             </article>
           </main>
         </div>
-
       </div>
     </>
   );
