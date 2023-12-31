@@ -1,6 +1,5 @@
 import React, {  useState } from "react";
 import { message, Pagination } from "antd";
-import { lichhen4 } from "~/fakedata/lhnv";
 
 import { ButtonBlue, ButtonPink, ButtonGrey } from "~/components/buttonTwoState";
 import moment from 'moment';
@@ -194,6 +193,7 @@ const OneDay = ({ caMotNgay, func }) => {
     { MACA: 'CA006', STATUS: '' },
     { MACA: 'CA003', STATUS: '' },
   ];
+  console.log('ca', caMotNgay);
 
   const pageSize = 1; // Số lượng phần tử trên mỗi trang
   const [currentPage, setCurrentPage] = useState(1);
@@ -355,7 +355,7 @@ const WorkSchedule = ({ data, func }) => {
     message.info(`selected ${value}`);
     setLichHen(get7DaysFrom(data, value));
   };
-  console.log("data", data)
+
   return (
     <>
       <div className=" bg-white rounded-3xl h-fit w-[700px] mx-2 py-4 px-6"
@@ -364,7 +364,7 @@ const WorkSchedule = ({ data, func }) => {
               boxShadow: "0px 4px 4px 0px rgba(0, 0, 0, 0.08)",
             }}>
         <h1 className="text-2xl font-montserrat mt-2 mb-6 text-center">LỊCH TRỰC CA</h1>
-        <OneDay caMotNgay={lichhen4} func={func}/>
+        <OneDay caMotNgay={data} func={func}/>
         <div className="mt-5 mb-2">
         <div className="col-span-1">
             <div className="flex my-2">
