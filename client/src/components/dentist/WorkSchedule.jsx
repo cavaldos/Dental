@@ -361,7 +361,7 @@ const WorkSchedule = ({ data, func }) => {
       <div className=" bg-white rounded-3xl h-fit w-[700px] mx-2 py-4 px-6"
             style={{
               borderRadius: "35px",
-              boxShadow: "0px 4px 4px 0px rgba(0, 0, 0, 0.10)",
+              boxShadow: "0px 4px 4px 0px rgba(0, 0, 0, 0.08)",
             }}>
         <h1 className="text-2xl font-montserrat mt-2 mb-6 text-center">LỊCH TRỰC CA</h1>
         <OneDay caMotNgay={lichhen4} func={func}/>

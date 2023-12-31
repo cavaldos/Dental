@@ -31,7 +31,7 @@ const ThongTinLichHen = memo(({ props, funcTaoHSB }) => {
       <div className="bg-white w-[440px] h-[608px] rounded-3xl mx-2 py-4 px-8 grid grid-rows-[1fr auto]"
             style={{
               borderRadius: "35px",
-              boxShadow: "0px 4px 4px 0px rgba(0, 0, 0, 0.10)",
+              boxShadow: "0px 4px 4px 0px rgba(0, 0, 0, 0.08)",
             }}>
         <div>
           <h1 className="text-2xl font-montserrat mt-2 mb-6 text-center">THÔNG TIN LỊCH HẸN</h1>
@@ -93,7 +93,7 @@ const XemLichTruc = () => {
             <div className="bg-white w-[440px] h-fit rounded-3xl mx-2 py-6 px-8"
                   style={{
                     borderRadius: "35px",
-                    boxShadow: "0px 4px 4px 0px rgba(0, 0, 0, 0.10)",
+                    boxShadow: "0px 4px 4px 0px rgba(0, 0, 0, 0.08)",
                   }}>
               <h1 className="text-2xl font-montserrat mb-5 text-center">THÔNG TIN LỊCH HẸN</h1>
               <Empty />
