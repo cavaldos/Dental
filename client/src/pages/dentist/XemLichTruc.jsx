@@ -1,11 +1,12 @@
-import React, { memo, useState } from "react";
+import React, { memo, useState, useEffect } from "react";
 import { message, Empty } from "antd";
-import { lichhen4 } from "~/fakedata/lhnv";
+// import { lichhen4 } from "~/fakedata/lhnv";
 import { useNavigate } from "react-router-dom";
-
+import DentistService from "../../services/dentist";
 import { ButtonGreen, ButtonBorderGreen } from "../../components/button";
 import TaoBenhAnMoi from "../../components/dentist/TaoBenhAnMoi";
 import WorkSchedule from "../../components/dentist/WorkSchedule";
+import { useDispatch, useSelector } from "react-redux";
 
 function mergeStringDateTime(gioBatDau, ngay) {
   const gioBatDauMoi = gioBatDau.slice(0, 5);
@@ -72,21 +73,39 @@ const ThongTinLichHen = memo(({ props, funcTaoHSB }) => {
 });
 
 const XemLichTruc = () => {
+  const user = useSelector((state) => state.user);
   const [detail, setDetail] = useState(null);
+  const [newMeidcalRecord, setNewMeidcalRecord] = useState(null);
+  const [lichhen4, setTableLH] = useState([]);
+  const [dataLoaded, setDataLoaded] = useState(false);
+  useEffect(() => {
+    DentistService.xemTableLichNS(user.MANS).then((res) => {
+      setTableLH(res || []);
+    });
+  }, []);
   const changeDetail = (info) => {
     setDetail(info);
   };
 
-  const [newMeidcalRecord, setNewMeidcalRecord] = useState(null);
   const changeNewMeidcalRecord = (infoClient) => {
     setNewMeidcalRecord(infoClient);
   };
-
   return (
     <>
       <div className="flex flex-col">
         <div className="flex flex-row gap-2">
-          <WorkSchedule data={lichhen4} func={changeDetail}/>
+        {lichhen4 !== null ? (
+        <WorkSchedule data={lichhen4} func={changeDetail} />
+      ) : (
+        <div className="bg-white w-[440px] h-fit rounded-3xl mx-2 py-6 px-8"
+          style={{
+            borderRadius: "35px",
+            boxShadow: "0px 4px 4px 0px rgba(0, 0, 0, 0.10)",
+          }}>
+          <h1 className="text-2xl font-montserrat mb-5 text-center">THÔNG TIN LỊCH HẸN</h1>
+          <Empty />
+        </div>
+      )}
           {detail !== null ? (
             <ThongTinLichHen props={detail || []} funcTaoHSB={changeNewMeidcalRecord} />
           ) : (

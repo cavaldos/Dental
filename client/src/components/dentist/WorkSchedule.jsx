@@ -87,7 +87,7 @@ function createInfo30Days(week) {
   return result;
 }
 
-const today = new Date('2023-12-19'); 
+const today = new Date(); 
 const result = separateDaysByComparison(today);
 const week = selectWeekDays(today);
 
@@ -355,7 +355,7 @@ const WorkSchedule = ({ data, func }) => {
     message.info(`selected ${value}`);
     setLichHen(get7DaysFrom(data, value));
   };
-
+  console.log("data", data)
   return (
     <>
       <div className=" bg-white rounded-3xl h-fit w-[700px] mx-2 py-4 px-6"
