@@ -94,7 +94,6 @@ const ChonNhaSi = () => {
   const [nhasi, setNhaSi] = useState([]);
   useEffect(() => {
     GuestService.getAllDSNS().then((res) => {
-      console.log("NS", res)
       setNhaSi(res);
     });
   }, []);

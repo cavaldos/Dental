@@ -18,7 +18,8 @@ const ThongTinLichHen = ({ info }) => {
   if (!info) {
     return null;
   }
-
+  const user = useSelector((state) => state.user);
+  console.log(user)
   return (
     <div>
       <p className="leading-9 font-montserrat font-semibold text-base text-#4B4B4B">
@@ -35,7 +36,7 @@ const ThongTinLichHen = ({ info }) => {
       </p>
       <p className="leading-9 font-montserrat font-semibold text-base text-#4B4B4B">
         <span className="text-grey">Tên nha sĩ: </span>
-        {"LÀM SAO LẤY ĐƯỢC MÃ NS ĐỂ TRUY RA TÊN NS"}
+        {user.HOTEN}
       </p>
     </div>
   );
@@ -77,7 +78,7 @@ const ThuocDaChon = ({ ten, soLuong, mathuoc, thoidiemdung, onClickXoa }) => {
   );
 };
 
-const FormDienThongTin = ({}) => {
+const FormDienThongTin = ({benhNhan}) => {
   const [form] = Form.useForm();
   const [dichVuList, setDichVuList] = useState([]);
   const [chonDichVu, setChonDichVu] = useState([]);
@@ -160,7 +161,6 @@ const FormDienThongTin = ({}) => {
   };
   
 
-  console.log("ct",chonThuoc);
   const handleXoaDichVu = (maDV) => {
     setChonDichVu(chonDichVu.filter((item) => item.MADV !== maDV));
   };
@@ -169,6 +169,24 @@ const FormDienThongTin = ({}) => {
     setChonThuoc(chonThuoc.filter((item) => item.MATHUOC !== maThuoc));
   };
 
+  const handleTaoBenhAn = (sdt) =>{
+    if (!Array.isArray(chonDichVu) || chonDichVu.length === 0) {
+      message.error('Vui lòng điền chi tiết dịch vụ');
+    }
+    else{
+      const user = useSelector((state) => state.user);
+      // console.log(moment())
+      const newBenhAn = {
+        sdt: sdt,
+        mans: user.MANS,
+        ngaykham: moment(),
+        matkhaumoi: values.matkhaumoi,
+      };
+      DentistService.taoBenhAn(user.MANS).then((res) => {
+        setTableLH(res || []);
+      }); 
+    }
+  }
   return (
     <>
         <div className="my-1">
@@ -273,10 +291,6 @@ const FormDienThongTin = ({}) => {
             <Item name="THOIDIEMDUNG"
                   rules={[
                     {
-                      required: true,
-                      message: 'Vui lòng nhập thời điểm dùng',
-                    },
-                    {
                       max: 200,
                       message: 'Không quá 200 ký tự',
                     },
@@ -306,16 +320,15 @@ const FormDienThongTin = ({}) => {
           </Form>
         </div>
         <div className="flex justify-center mt-6">
-          <ButtonGreen text="HOÀN TẤT HỒ SƠ" func="" className="mb-0"/>
+          <ButtonGreen text="HOÀN TẤT HỒ SƠ" func={()=>handleTaoBenhAn(benhNhan.SODT, values)} className="mb-0"/>
         </div>
     </>
   );
 };
 
 const TaoBenhAnMoi = ({ props }) => {
-  const user = useSelector((state) => state.user);
   const [thuocList, setThuocList] = useState([]);
-
+  const user = useSelector((state) => state.user);
   return (
     <div className="w-[1184px] flex flex-col gap-5 mt-1">
       <div className="bg-white py-10 px-9 mx-2 pb-8"
@@ -325,7 +338,7 @@ const TaoBenhAnMoi = ({ props }) => {
           }}
       >
             <ThongTinLichHen info={props}/>
-            <FormDienThongTin />
+            <FormDienThongTin benhNhan={props} />
       </div>
     </div>
   );

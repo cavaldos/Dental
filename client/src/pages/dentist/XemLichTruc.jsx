@@ -1,12 +1,11 @@
 import React, { memo, useState, useEffect } from "react";
 import { message, Empty } from "antd";
-// import { lichhen4 } from "~/fakedata/lhnv";
 import { useNavigate } from "react-router-dom";
 import DentistService from "../../services/dentist";
 import { ButtonGreen, ButtonBorderGreen } from "../../components/button";
 import TaoBenhAnMoi from "../../components/dentist/TaoBenhAnMoi";
 import WorkSchedule from "../../components/dentist/WorkSchedule";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 function mergeStringDateTime(gioBatDau, ngay) {
   const gioBatDauMoi = gioBatDau.slice(0, 5);
@@ -29,13 +28,17 @@ const ThongTinLichHen = memo(({ props, funcTaoHSB }) => {
 
   return (
     <>
-      <div className="bg-white w-[440px] h-[608px] rounded-3xl mx-2 py-4 px-8 grid grid-rows-[1fr auto]"
-            style={{
-              borderRadius: "35px",
-              boxShadow: "0px 4px 4px 0px rgba(0, 0, 0, 0.08)",
-            }}>
+      <div
+        className="bg-white w-[440px] h-fit rounded-3xl mx-2 py-4 px-8 grid grid-rows-[1fr auto]"
+        style={{
+          borderRadius: "35px",
+          boxShadow: "0px 4px 4px 0px rgba(0, 0, 0, 0.08)",
+        }}
+      >
         <div>
-          <h1 className="text-2xl font-montserrat mt-2 mb-6 text-center">THÔNG TIN LỊCH HẸN</h1>
+          <h1 className="text-2xl font-montserrat mt-2 mb-6 text-center">
+            THÔNG TIN LỊCH HẸN
+          </h1>
           <div>
             <p className="leading-9 font-montserrat font-semibold text-base text-#4B4B4B">
               <span className="text-grey">Ngày, giờ: </span>
@@ -53,19 +56,13 @@ const ThongTinLichHen = memo(({ props, funcTaoHSB }) => {
               <span className="text-grey">Lý do khám: </span>
             </p>
             <p className="leading-7 font-montserrat font-semibold text-base text-#4B4B4B">
-            {props.LYDOKHAM}
+              {props.LYDOKHAM}
             </p>
           </div>
         </div>
         <div className="justify-self-end self-end flex justify-center items-center gap-5">
-          <ButtonBorderGreen
-            text="Bệnh án cũ"
-            func={() => HandleBenhAnCu()}
-          />
-          <ButtonGreen
-            text="Tạo bệnh án mới"
-            func={() => funcTaoHSB(props)}
-          />
+          <ButtonBorderGreen text="Bệnh án cũ" func={() => HandleBenhAnCu()} />
+          <ButtonGreen text="Tạo bệnh án mới" func={() => funcTaoHSB(props)} />
         </div>
       </div>
     </>
@@ -94,27 +91,38 @@ const XemLichTruc = () => {
     <>
       <div className="flex flex-col">
         <div className="flex flex-row gap-2">
-        {lichhen4 !== null ? (
-        <WorkSchedule data={lichhen4} func={changeDetail} />
-      ) : (
-        <div className="bg-white w-[440px] h-fit rounded-3xl mx-2 py-6 px-8"
-          style={{
-            borderRadius: "35px",
-            boxShadow: "0px 4px 4px 0px rgba(0, 0, 0, 0.10)",
-          }}>
-          <h1 className="text-2xl font-montserrat mb-5 text-center">THÔNG TIN LỊCH HẸN</h1>
-          <Empty />
-        </div>
-      )}
-          {detail !== null ? (
-            <ThongTinLichHen props={detail || []} funcTaoHSB={changeNewMeidcalRecord} />
+          {lichhen4 !== null ? (
+            <WorkSchedule data={lichhen4} func={changeDetail} />
           ) : (
-            <div className="bg-white w-[440px] h-fit rounded-3xl mx-2 py-6 px-8"
-                  style={{
-                    borderRadius: "35px",
-                    boxShadow: "0px 4px 4px 0px rgba(0, 0, 0, 0.08)",
-                  }}>
-              <h1 className="text-2xl font-montserrat mb-5 text-center">THÔNG TIN LỊCH HẸN</h1>
+            <div
+              className="bg-white w-[440px] h-fit rounded-3xl mx-2 py-6 px-8"
+              style={{
+                borderRadius: "35px",
+                boxShadow: "0px 4px 4px 0px rgba(0, 0, 0, 0.10)",
+              }}
+            >
+              <h1 className="text-2xl font-montserrat mb-5 text-center">
+                THÔNG TIN LỊCH HẸN
+              </h1>
+              <Empty />
+            </div>
+          )}
+          {detail !== null ? (
+            <ThongTinLichHen
+              props={detail || []}
+              funcTaoHSB={changeNewMeidcalRecord}
+            />
+          ) : (
+            <div
+              className="bg-white w-[440px] h-fit rounded-3xl mx-2 py-6 px-8"
+              style={{
+                borderRadius: "35px",
+                boxShadow: "0px 4px 4px 0px rgba(0, 0, 0, 0.08)",
+              }}
+            >
+              <h1 className="text-2xl font-montserrat mb-5 text-center">
+                THÔNG TIN LỊCH HẸN
+              </h1>
               <Empty />
             </div>
           )}
@@ -125,9 +133,8 @@ const XemLichTruc = () => {
               <TaoBenhAnMoi props={newMeidcalRecord || []} />
             </div>
           )}
-          </div>
+        </div>
       </div>
-
     </>
   );
 };
