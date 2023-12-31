@@ -1,26 +1,22 @@
-import React from 'react';
+import React, { useState } from "react";
 import "~/assets/styles/buttonTwoState.css";
 
-const TwoStateBlue = ({text, func}) => {
-  const changeState = (event) => {
-    const checkbox = event.target;
-    const label = checkbox.parentElement;
+const TwoStateBlue = ({ text, func }) => {
+  const [isChecked, setIsChecked] = useState(false);
 
-    if (checkbox.checked) {
-      label.classList.add('checked');
-    } else {
-      label.classList.remove('checked');
-    }
+  const changeState = () => {
+    setIsChecked((prevChecked) => !prevChecked);
   };
 
   return (
-    <label className="input-check">
+    <label className={`input-check ${isChecked ? 'checked' : ''}`}>
       <input
         onChange={changeState}
         type="checkbox"
         value="something"
         name="test"
         className="hidden"
+        checked={isChecked}
       />
       {text}
     </label>
@@ -76,4 +72,37 @@ const StateGrey = ({text, func, info}) => {
   );
 };
 
-export { TwoStateBlue, StatePink, StateGrey, TwoStateBorder };
+const ButtonBlue = ({text, func, info}) => {
+  return (
+    <button
+      className="btn-blue"
+      onClick={!func ? null : func}
+    >
+      {text}
+    </button>
+  );
+};
+
+const ButtonGrey = ({text, func, info}) => {
+  return (
+    <button
+      className="btn-grey"
+      onClick={!func ? null : func}
+    >
+      {text}
+    </button>
+  );
+};
+
+const ButtonPink = ({text, func, info}) => {
+  return (
+    <button
+      className="btn-pink"
+      onClick={!func ? null : func}
+    >
+      {text}
+    </button>
+  );
+};
+
+export { TwoStateBlue, StatePink, StateGrey, TwoStateBorder, ButtonBlue, ButtonGrey, ButtonPink };

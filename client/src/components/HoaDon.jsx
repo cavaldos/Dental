@@ -76,23 +76,26 @@ const DichVuTable = memo(({ dataDV, openDrawer }) => {
     {
       title: "STT",
       key: "STT",
+      width: "5%",
       render: (text, record, index) => index + 1,
     },
     {
       title: "Tên dịch vụ",
       dataIndex: "TENDV",
       key: "TENDV",
-      width: "23%",
+      width: "21%",
     },
     {
       title: "Số lượng",
       dataIndex: "SLDV",
       key: "SLDV",
+      width: "33%",
     },
     {
       title: "Đơn giá",
       dataIndex: "DONGIADV",
       key: "DONGIADV",
+      width: "17%",
       render: (text, record) => <p>{formatCurrency(record.DONGIADV)}</p>,
     },
     {
@@ -137,28 +140,32 @@ const ThuocTable = memo(({ dataThuoc, openDrawer }) => {
     {
       title: "STT",
       key: "STT",
+      width: "5%",
       render: (text, record, index) => index + 1,
     },
     {
       title: "Tên thuốc",
       dataIndex: "TENTHUOC",
       key: "TENTHUOC",
-      width: "23%",
+      width: "21%",
     },
     {
       title: "Số lượng",
       dataIndex: "SLTHUOC",
       key: "SLTHUOC",
+      width: "15%",
     },
     {
       title: "Đơn vị tính",
       dataIndex: "DONVITINH",
       key: "DONVITINH",
+      width: "18%",
     },
     {
       title: "Đơn giá",
       dataIndex: "DONGIATHUOC",
       key: "DONGIATHUOC",
+      width: "17%",
       render: (text, record) => <p>{formatCurrency(record.DONGIATHUOC)}</p>,
     },
     {
