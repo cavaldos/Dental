@@ -1,14 +1,9 @@
-import { Button } from "antd";
-import React, { useState } from "react";
-import { Select, Space, message, Pagination } from "antd";
+import React, {  useState } from "react";
+import { message, Pagination } from "antd";
+import { lichhen4 } from "~/fakedata/lhnv";
+
+import { ButtonBlue, ButtonPink, ButtonGrey } from "~/components/buttonTwoState";
 import moment from 'moment';
-
-import { TwoStateBlue, StatePink, StateGrey, TwoStateBorder } from "~/components/buttonTwoState";
-import { ButtonGreen } from "~/components/button";
-import { CloseCircleOutlined } from "@ant-design/icons";
-import { lichhen4 } from "../../fakedata/lhnv";
-
-// import { lichhen4 } from "~/components/fakedata/lhnv";
 
 function compareDates(dateA, dateB) {
   const date1 = new Date(dateA);
@@ -89,7 +84,6 @@ function createInfo30Days(week) {
     result.push([...separateDaysByComparison(sundaysInfo[i])]);
   }
 
-  // result[4].reverse();
   return result;
 }
 
@@ -98,7 +92,6 @@ const result = separateDaysByComparison(today);
 const week = selectWeekDays(today);
 
 const info30Days = createInfo30Days(week);
-console.log('res ', info30Days);
 
 // Hàm chuyển đổi từ 'YYYY-MM-DD' sang 'DD/MM/YYYY'
 function convertDateFormat(dateString) {
@@ -115,7 +108,7 @@ function findIndexByDate(caMotNgayArray, targetDate) {
   return -1; // Trả về -1 nếu không tìm thấy
 }
 
-const CreateAShift = ({ data, isPassDay, index }) => {
+const CreateAShift = ({ data, isPassDay, index, func }) => {
   let shiftContent, caContent;
 
   if (data != null && index == null) {
@@ -143,20 +136,20 @@ const CreateAShift = ({ data, isPassDay, index }) => {
     if (isPassDay === 1) {
       switch (data.STATUS) {
         case 'waiting':
-          shiftContent = <TwoStateBorder text={caContent} />;
+          shiftContent = <ButtonBlue text={caContent} />;
           break;
         case 'ordered':
-          shiftContent = <StatePink text={caContent} />;
+          shiftContent = <ButtonPink text={caContent} func={() => func(data)} />;
           break;
         case 'full':
-          shiftContent = <StateGrey text={caContent} />;
+          shiftContent = <ButtonGrey text={caContent} />;
           break;
         default:
-          shiftContent = <TwoStateBlue text={caContent} />;
+          shiftContent = <ButtonGrey text={caContent} />;
           break;
       }
     } else {
-      shiftContent = <StateGrey text={caContent} />;
+      shiftContent = <ButtonGrey text={caContent} />;
     }
 
   } else if (index != null) {
@@ -181,7 +174,7 @@ const CreateAShift = ({ data, isPassDay, index }) => {
         break;
     }
 
-    shiftContent = <TwoStateBlue text={caContent} />;
+    shiftContent = <ButtonGrey text={caContent} />;
   }
 
 
@@ -192,7 +185,7 @@ const CreateAShift = ({ data, isPassDay, index }) => {
   );
 };
 
-const OneDay = ({ caMotNgay }) => {
+const OneDay = ({ caMotNgay, func }) => {
   const temp = [
     { MACA: 'CA001', STATUS: '' },
     { MACA: 'CA002', STATUS: '' },
@@ -219,19 +212,20 @@ const OneDay = ({ caMotNgay }) => {
       {slicedInfo30Days.map((subArray, jndex) => (
         <div key={jndex}>
           {currentPage < info30Days.length ? (
-            <div className="grid grid-cols-6 col-span-2 gap-2 text-center">
+            <div className="grid grid-cols-6 col-span-0 gap-0 text-center">
               {subArray[0].map((element, index) => (
                 <div key={index}>
-                  <h5 className="font-montserrat text-md">{element.THU}</h5>
-                  <div className="font-montserrat text-md mb-5">
+                  <h5 className="font-montserrat text-sm">{element.THU}</h5>
+                  <div className="font-montserrat text-sm mb-3">
                     {element.NGAY.slice(0, 5)}
                   </div>
                   <span>
                     {temp.map((shift, index2) => (
                       <CreateAShift
                         key={index2}
-                        data={shift}
+                        data={{ ...shift, NGAY: element.NGAY }}
                         isPassDay={0}
+                        func={func}
                       />
                     ))}
                   </span>
@@ -239,8 +233,8 @@ const OneDay = ({ caMotNgay }) => {
               ))}
               {subArray[1].map((element, index) => (
                 <div key={index}>
-                  <h5 className="font-montserrat text-md">{element.THU}</h5>
-                  <div className="font-montserrat text-md mb-5">
+                  <h5 className="font-montserrat text-sm">{element.THU}</h5>
+                  <div className="font-montserrat text-sm mb-3">
                     {element.NGAY.slice(0, 5)}
                   </div>
                   <span>
@@ -255,6 +249,7 @@ const OneDay = ({ caMotNgay }) => {
                                 data={null}
                                 isPassDay={1}
                                 index={k}
+                                func={func}
                               />
                             </div>
                           );
@@ -264,8 +259,9 @@ const OneDay = ({ caMotNgay }) => {
                         return caMotNgay[index3].CA.map((shift, index2) => (
                           <div key={index2}>
                             <CreateAShift
-                              data={shift}
+                              data={{ ...shift, NGAY: element.NGAY }}
                               isPassDay={1}
+                              func={func}
                             />
                           </div>
                         ));
@@ -276,11 +272,11 @@ const OneDay = ({ caMotNgay }) => {
               ))}
             </div>
           ) : (
-            <div className="grid grid-cols-6 col-span-2 gap-2 text-center">
+            <div className="grid grid-cols-6 col-span-2 gap-0 text-center">
               {subArray[0].map((element, index) => (
                 <div key={index}>
-                  <h5 className="font-montserrat text-md">{element.THU}</h5>
-                  <div className="font-montserrat text-md mb-5">
+                  <h5 className="font-montserrat text-sm">{element.THU}</h5>
+                  <div className="font-montserrat text-sm mb-3">
                     {element.NGAY.slice(0, 5)}
                   </div>
                   <span>
@@ -295,6 +291,7 @@ const OneDay = ({ caMotNgay }) => {
                                 data={null}
                                 isPassDay={1}
                                 index={k}
+                                func={func}
                               />
                             </div>
                           );
@@ -304,8 +301,9 @@ const OneDay = ({ caMotNgay }) => {
                         return caMotNgay[index3].CA.map((shift, index2) => (
                           <div key={index2}>
                             <CreateAShift
-                              data={shift}
+                              data={{ ...shift, NGAY: element.NGAY }}
                               isPassDay={1}
+                              func={func}
                             />
                           </div>
                         ));
@@ -316,16 +314,17 @@ const OneDay = ({ caMotNgay }) => {
               ))}
               {subArray[1].map((element, index) => (
                 <div key={index}>
-                  <h5 className="font-montserrat text-md">{element.THU}</h5>
-                  <div className="font-montserrat text-md mb-5">
+                  <h5 className="font-montserrat text-sm">{element.THU}</h5>
+                  <div className="font-montserrat text-sm mb-3">
                     {element.NGAY.slice(0, 5)}
                   </div>
                   <span>
                     {temp.map((shift, index2) => (
                       <CreateAShift
                         key={index2}
-                        data={shift}
+                        data={{ ...shift, NGAY: element.NGAY }}
                         isPassDay={0}
+                        func={func}
                       />
                     ))}
                   </span>
@@ -346,8 +345,9 @@ const OneDay = ({ caMotNgay }) => {
   );
 };
 
+//----------------------------------------------------------------------
 
-const TableLichHen = ({ data }) => {
+const WorkSchedule = ({ data, func }) => {
   const [day, setDay] = useState(data.map((item) => item.NGAY));
   const [lichhen, setLichHen] = useState(data);
 
@@ -358,33 +358,23 @@ const TableLichHen = ({ data }) => {
 
   return (
     <>
-      <div className=" bg-white rounded-3xl h-fit w-[1030px] mx-2 py-8 px-12">
-        <h1 className="text-2xl font-montserrat mb-8 text-center">ĐĂNG KÝ LỊCH TRỰC</h1>
-        <OneDay caMotNgay={lichhen4}/>
-        <div className="mt-9 grid grid-cols-2 gap-0">
-          {/* left */}
-          <div className="col-span-1">
-            <div className="flex my-3">
-              <div className="bg-white border-3 border-[#A1A1A1] w-[29px] h-[29px] rounded-lg"></div>
-              <div className="font-montserrat ml-3"> Đã đủ số lượng nha sĩ trực ca</div>
+      <div className=" bg-white rounded-3xl h-fit w-[700px] mx-2 py-4 px-6"
+            style={{
+              borderRadius: "35px",
+              boxShadow: "0px 4px 4px 0px rgba(0, 0, 0, 0.10)",
+            }}>
+        <h1 className="text-2xl font-montserrat mt-2 mb-6 text-center">LỊCH TRỰC CA</h1>
+        <OneDay caMotNgay={lichhen4} func={func}/>
+        <div className="mt-5 mb-2">
+        <div className="col-span-1">
+            <div className="flex my-2">
+              <div className="bg-blue border-3 border-blue w-[23px] h-[23px] rounded-lg"></div>
+              <div className="font-montserrat ml-3"> Ca trực đã đăng ký </div>
             </div>
-            <div className="flex my-3">
-              <div className="bg-white border-3 border-blue border-dashed w-[29px] h-[29px] rounded-lg"></div>
-              <div className="font-montserrat ml-3"> Ca trực có thể chọn</div>
+            <div className="flex my-2">
+              <div className="bg-pinkk border-3 border-pinkk w-[23px] h-[23px] rounded-lg"></div>
+              <div className="font-montserrat ml-3"> Ca có hẹn với khách</div>
             </div>
-            <div className="flex my-3">
-              <div className="bg-blue border-3 border-blue w-[29px] h-[29px] rounded-lg"></div>
-              <div className="font-montserrat ml-3"> Ca trực đang chọn</div>
-            </div>
-            <div className="flex my-3">
-              <div className="bg-pinkk border-3 border-pinkk w-[29px] h-[29px] rounded-lg"></div>
-              <div className="font-montserrat ml-3"> Khách hàng đã đặt lịch này</div>
-            </div>
-          </div>
-          {/* right */}
-          <div className="col-span-1 justify-self-end self-end">
-            <Button className="mr-3 font-montserrat text-[#737777] font-bold text-base shadow-none border-none"><CloseCircleOutlined/> HOÀN TÁC</Button>
-            <ButtonGreen text="ĐĂNG KÝ" className="w-[150px] rounded-2xl"/>
           </div>
         </div>
 
@@ -393,4 +383,4 @@ const TableLichHen = ({ data }) => {
   );
 };
 
-export default TableLichHen;
+export default WorkSchedule;
