@@ -193,7 +193,6 @@ const OneDay = ({ caMotNgay, func }) => {
     { MACA: 'CA006', STATUS: '' },
     { MACA: 'CA003', STATUS: '' },
   ];
-  console.log('ca', caMotNgay);
 
   const pageSize = 1; // Số lượng phần tử trên mỗi trang
   const [currentPage, setCurrentPage] = useState(1);
@@ -203,9 +202,6 @@ const OneDay = ({ caMotNgay, func }) => {
   };
 
   const slicedInfo30Days = info30Days.slice((currentPage - 1) * pageSize, currentPage * pageSize);
-  console.log('cur ', currentPage);
-  console.log('pagesize ', pageSize);
-  console.log('done');
 
   return (
     <div>
