@@ -38,7 +38,7 @@ function selectWeekDays(date) {
 
   weekdays.forEach((day, index) => {
     const formattedDay = moment(day).format('YYYY-MM-DD');
-    if (moment(formattedDay, 'YYYY-MM-DD', true).isValid() && compareDates(formattedDay, dayNow) <= 0) {
+    if (moment(formattedDay, 'YYYY-MM-DD', true).isValid() && compareDates(formattedDay, dayNow) < 0) {
       temp = convertDateFormat(formattedDay);
       pastDays.push({ THU: weekDayNames[index], NGAY: temp });
     } else {
