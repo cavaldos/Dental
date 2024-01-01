@@ -2529,7 +2529,7 @@ BEGIN
         (SODT, SOTT, NGAYKHAM, MANS, DANDO)
     VALUES
         (@SoDienThoai, @Sott, @NgayKham, @MaNS, @DanDo);
-
+	SELECT @Sott STT
 END;
 END TRY 
 BEGIN CATCH 
