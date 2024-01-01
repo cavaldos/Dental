@@ -346,7 +346,7 @@ const OneDay = ({ caMotNgay, func }) => {
 const WorkSchedule = ({ data, func }) => {
   const [day, setDay] = useState(data.map((item) => item.NGAY));
   const [lichhen, setLichHen] = useState(data);
-
+  console.log(data);
   const handleChange = (value) => {
     message.info(`selected ${value}`);
     setLichHen(get7DaysFrom(data, value));

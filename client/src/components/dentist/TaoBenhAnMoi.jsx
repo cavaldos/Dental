@@ -192,7 +192,7 @@ const FormDienThongTin = ({benhNhan}) => {
         <div className="my-1">
         <p className="leading-9 font-montserrat font-semibold text-base text-#4B4B4B">
           <span className="text-grey">Dặn dò: </span>
-        </p>
+                  </p>
           <TextArea
             className="border border-spacing-2"
             rows={3}
