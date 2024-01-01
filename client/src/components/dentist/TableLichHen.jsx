@@ -1,14 +1,12 @@
 import { Button } from "antd";
 import React, { useState } from "react";
-import { Select, Space, message, Pagination } from "antd";
+import { message, Pagination } from "antd";
 import moment from 'moment';
 
 import { TwoStateBlue, StatePink, StateGrey, TwoStateBorder } from "~/components/buttonTwoState";
 import { ButtonGreen } from "~/components/button";
 import { CloseCircleOutlined } from "@ant-design/icons";
 import { lichhen4 } from "../../fakedata/lhnv";
-
-// import { lichhen4 } from "~/components/fakedata/lhnv";
 
 function compareDates(dateA, dateB) {
   const date1 = new Date(dateA);
@@ -94,11 +92,9 @@ function createInfo30Days(week) {
 }
 
 const today = new Date('2023-12-19'); 
-const result = separateDaysByComparison(today);
 const week = selectWeekDays(today);
 
 const info30Days = createInfo30Days(week);
-console.log('res ', info30Days);
 
 // Hàm chuyển đổi từ 'YYYY-MM-DD' sang 'DD/MM/YYYY'
 function convertDateFormat(dateString) {
@@ -348,14 +344,6 @@ const OneDay = ({ caMotNgay }) => {
 
 
 const TableLichHen = ({ data }) => {
-  const [day, setDay] = useState(data.map((item) => item.NGAY));
-  const [lichhen, setLichHen] = useState(data);
-
-  const handleChange = (value) => {
-    message.info(`selected ${value}`);
-    setLichHen(get7DaysFrom(data, value));
-  };
-
   return (
     <>
       <div className=" bg-white rounded-3xl h-fit w-[1030px] mx-2 py-8 px-12">
