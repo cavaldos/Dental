@@ -3,9 +3,6 @@ import HoSoBenh from "~/components/HoSoBenh";
 import React, { useState } from "react";
 import HoaDon from "~/components/HoaDon";
 const DentistPage = () => {
-  return (
-    <>
-    </>
-  );
+  return <></>;
 };
 export default DentistPage;
