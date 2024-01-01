@@ -111,8 +111,9 @@ function findIndexByDate(caMotNgayArray, targetDate) {
   return -1; // Trả về -1 nếu không tìm thấy
 }
 
-const CreateAShift = ({ data, isPassDay, index }) => {
+const CreateAShift = ({ data, isPassDay, index, customKey }) => {
   let shiftContent, caContent;
+  console.log(customKey); 
 
   if (data != null && index == null) {
     switch (data.MACA) {
@@ -182,7 +183,7 @@ const CreateAShift = ({ data, isPassDay, index }) => {
 
 
   return (
-    <div className="mb-3">
+    <div className="mb-3" id={customKey}>
       {shiftContent}
     </div>
   );
@@ -194,8 +195,8 @@ const OneDay = ({ caMotNgay }) => {
     { MACA: 'CA002', STATUS: '' },
     { MACA: 'CA003', STATUS: '' },
     { MACA: 'CA004', STATUS: '' },
+    { MACA: 'CA005', STATUS: '' },
     { MACA: 'CA006', STATUS: '' },
-    { MACA: 'CA003', STATUS: '' },
   ];
 
   const pageSize = 1; // Số lượng phần tử trên mỗi trang
@@ -206,26 +207,27 @@ const OneDay = ({ caMotNgay }) => {
   };
 
   const slicedInfo30Days = info30Days.slice((currentPage - 1) * pageSize, currentPage * pageSize);
-  console.log('cur ', currentPage);
-  console.log('pagesize ', pageSize);
-  console.log('done');
+  console.log('slicedInfo30Days ', slicedInfo30Days);
 
   return (
     <div>
       {slicedInfo30Days.map((subArray, jndex) => (
         <div key={jndex}>
+          {/* Nếu là 4 tuần đầu thì vô đây */}
           {currentPage < info30Days.length ? (
             <div className="grid grid-cols-6 col-span-2 gap-2 text-center">
+              {/* Các ngày trong quá khứ thì tô xám */}
               {subArray[0].map((element, index) => (
                 <div key={index}>
                   <h5 className="font-montserrat text-md">{element.THU}</h5>
                   <div className="font-montserrat text-md mb-5">
                     {element.NGAY.slice(0, 5)}
                   </div>
-                  <span>
+                  <span key={`${jndex}-pass1-4`}>
                     {temp.map((shift, index2) => (
                       <CreateAShift
-                        key={index2}
+                        key={`${jndex}-${index2}`}
+                        customKey={shift.MACA + "-" + element.NGAY}
                         data={shift}
                         isPassDay={0}
                       />
@@ -233,21 +235,25 @@ const OneDay = ({ caMotNgay }) => {
                   </span>
                 </div>
               ))}
+              {/* Các ngày trong tương lai thì có 2 dạng */}
               {subArray[1].map((element, index) => (
                 <div key={index}>
                   <h5 className="font-montserrat text-md">{element.THU}</h5>
                   <div className="font-montserrat text-md mb-5">
                     {element.NGAY.slice(0, 5)}
                   </div>
-                  <span>
+                  <span key={`${jndex}-futur1-4`}>
                     {(() => {
                       let index3 = findIndexByDate(caMotNgay, element.NGAY);
+                      // Dạng 1 : Nếu ngày có xuất hiện trong db thì thực hiện điều này
                       if (index3 === -1) {
                         let divs = [];
                         for (let k = 1; k < 7; k++) {
                           divs.push(
-                            <div key={k}>
+                            <div>
                               <CreateAShift
+                                key={`${jndex}-${k}`}
+                                customKey={temp[k-1].MACA + "-" + element.NGAY}
                                 data={null}
                                 isPassDay={1}
                                 index={k}
@@ -257,9 +263,12 @@ const OneDay = ({ caMotNgay }) => {
                         }
                         return divs;
                       } else {
-                        return caMotNgay[index3].CA.map((shift, index2) => (
-                          <div key={index2}>
+                        // Dạng 2 : Nếu ngày không xuất hiện trong db thì tô xanh hết
+                        return caMotNgay[index3].CA.map((shift, index4) => (
+                          <div>
                             <CreateAShift
+                              key={`${jndex}-${index4}`}
+                              customKey={shift.MACA + "-" + element.NGAY}
                               data={shift}
                               isPassDay={1}
                             />
@@ -272,22 +281,27 @@ const OneDay = ({ caMotNgay }) => {
               ))}
             </div>
           ) : (
+            // Nếu là tuần cuối thì vô đây
             <div className="grid grid-cols-6 col-span-2 gap-2 text-center">
+              {/* Nếu trong 30 ngày kể từ ngày hiện tại thì ở đây */}
               {subArray[0].map((element, index) => (
                 <div key={index}>
                   <h5 className="font-montserrat text-md">{element.THU}</h5>
                   <div className="font-montserrat text-md mb-5">
                     {element.NGAY.slice(0, 5)}
                   </div>
-                  <span>
+                  <span key={`${jndex}-pass5`}>
                     {(() => {
-                      let index3 = findIndexByDate(caMotNgay, element.NGAY);
-                      if (index3 === -1) {
+                      let index5 = findIndexByDate(caMotNgay, element.NGAY);
+                      // Dạng 1 : Nếu ngày có xuất hiện trong db thì thực hiện điều này
+                      if (index5 === -1) {
                         let divs = [];
                         for (let k = 1; k < 7; k++) {
                           divs.push(
-                            <div key={k}>
+                            <div >
                               <CreateAShift
+                                key={`${jndex}-${k}`}
+                                customKey={temp[k-1].MACA + "-" + element.NGAY}
                                 data={null}
                                 isPassDay={1}
                                 index={k}
@@ -297,9 +311,12 @@ const OneDay = ({ caMotNgay }) => {
                         }
                         return divs;
                       } else {
-                        return caMotNgay[index3].CA.map((shift, index2) => (
-                          <div key={index2}>
+                        // Dạng 2 : Nếu ngày không xuất hiện trong db thì tô xanh hết
+                        return caMotNgay[index5].CA.map((shift, index6) => (
+                          <div>
                             <CreateAShift
+                              key={`${jndex}-${index6}`}
+                              customKey={shift.MACA + "-" + element.NGAY}
                               data={shift}
                               isPassDay={1}
                             />
@@ -310,16 +327,18 @@ const OneDay = ({ caMotNgay }) => {
                   </span>
                 </div>
               ))}
+              {/* Nếu quá 30 ngày thì ở đây */}
               {subArray[1].map((element, index) => (
                 <div key={index}>
                   <h5 className="font-montserrat text-md">{element.THU}</h5>
                   <div className="font-montserrat text-md mb-5">
                     {element.NGAY.slice(0, 5)}
                   </div>
-                  <span>
-                    {temp.map((shift, index2) => (
+                  <span key={`${jndex}-futur5`}>
+                    {temp.map((shift, index7) => (
                       <CreateAShift
-                        key={index2}
+                      key={`${jndex}-${index7}`}
+                        customKey={shift.MACA + "-" + element.NGAY}
                         data={shift}
                         isPassDay={0}
                       />
@@ -348,7 +367,7 @@ const TableLichHen = ({ data }) => {
     <>
       <div className=" bg-white rounded-3xl h-fit w-[1030px] mx-2 py-8 px-12">
         <h1 className="text-2xl font-montserrat mb-8 text-center">ĐĂNG KÝ LỊCH TRỰC</h1>
-        <OneDay caMotNgay={lichhen4}/>
+        <OneDay caMotNgay={data}/>
         <div className="mt-9 grid grid-cols-2 gap-0">
           {/* left */}
           <div className="col-span-1">
