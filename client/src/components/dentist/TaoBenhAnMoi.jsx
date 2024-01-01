@@ -170,7 +170,6 @@ const FormDienThongTin = ({benhNhan}) => {
   };
 
   const handleTaoBenhAn = async (sdt, DanDo) =>{
-    console.log("doneee")
     if (!Array.isArray(chonDichVu) || chonDichVu.length === 0) {
       message.error('Vui lòng điền chi tiết dịch vụ');
     }

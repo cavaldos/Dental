@@ -129,6 +129,18 @@ const nhaSiController = {
       const result = await pool.executeSP(sp, params);
       return res.status(201).json({ success: true });
     } catch (error) {
+      if (error.message === "Số lượng dịch vụ không thể null.") {
+        return res.status(400).json({ error: error.message });
+      }
+      if (error.message === "Không tồn tại hồ sơ bệnh.") {
+        return res.status(404).json({ error: error.message });
+      }
+      if (error.message === "Dịch vụ này không tồn tại") {
+        return res.status(404).json({ error: error.message });
+      }
+      if (error.message === "Lỗi: đã xuất hóa đơn, không thể thêm dịch vụ được") {
+        return res.status(409).json({ error: error.message });
+      }
       console.error("An error occurred:", error.message);
       return res
         .status(500)
@@ -151,6 +163,18 @@ const nhaSiController = {
       const result = await pool.executeSP(sp, params);
       return res.status(201).json({ success: true });
     } catch (error) {
+      if (error.message === "Số lượng và thời điểm sử dụng không thể null.") {
+        return res.status(400).json({ error: error.message });
+      }
+      if (error.message === "Không tồn tại hồ sơ bệnh.") {
+        return res.status(404).json({ error: error.message });
+      }
+      if (error.message === "Thuốc này không tồn tại trong kho") {
+        return res.status(404).json({ error: error.message });
+      }
+      if (error.message === "Lỗi: đã xuất hóa đơn, không thể thêm đơn thuốc được") {
+        return res.status(409).json({ error: error.message });
+      }
       console.error("An error occurred:", error.message);
       return res
         .status(500)

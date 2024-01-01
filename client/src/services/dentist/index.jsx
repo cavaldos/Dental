@@ -33,6 +33,17 @@ const DentistService = {
       sdt: data.sdt,
       sldv: data.sldv,
     });
+    if (res && res.response) {
+      if (res.response.status === 400) {
+        message.error(res.response.data.error);
+      }
+      if (res.response.status === 404) {
+        message.error(res.response.data.error);
+      }
+      if (res.response.status === 409) {
+        message.error(res.response.data.error);
+      }
+    }
     return res;
   },
   themCTTHUOC: async (data) => {
@@ -43,6 +54,17 @@ const DentistService = {
       slthuoc: data.slthuoc,
       thoidiemdung: data.thoidiemdung,
     });
+    if (res && res.response) {
+      if (res.response.status === 400) {
+        message.error(res.response.data.error);
+      }
+      if (res.response.status === 404) {
+        message.error(res.response.data.error);
+      }
+      if (res.response.status === 409) {
+        message.error(res.response.data.error);
+      }
+    }
     return res;
   },
   doiMatKhau: async (data) => {
