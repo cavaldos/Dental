@@ -1,16 +1,29 @@
 import { Button, Calendar, Select } from "antd";
 import { lichhen4 } from "~/fakedata/lhnv";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import TableLichHen from "~/components/dentist/TableLichHen";
 
-import { TwoStateBlue, StatePink, StateGrey } from "~/components/buttonTwoState";
-
+import {
+  TwoStateBlue,
+  StatePink,
+  StateGrey,
+} from "~/components/buttonTwoState";
+import DentistService from "../../services/dentist";
 const DangKiLichRanh = () => {
+  const [lichHen, setLichHen] = useState([]);
+
+  useEffect(() => {
+    DentistService.xemTableLichNS("NS001").then((res) => {
+      setLichHen(res);
+    });
+  }, []);
+
+
   return (
     <>
       <div className="">
-        <TableLichHen data={lichhen4} />
-        
+        sdafdasdfasd
+        <TableLichHen data={lichHen} />
       </div>
     </>
   );

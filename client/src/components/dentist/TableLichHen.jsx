@@ -1,9 +1,14 @@
 import { Button } from "antd";
 import React, { useState } from "react";
 import { Select, Space, message, Pagination } from "antd";
-import moment from 'moment';
+import moment from "moment";
 
-import { TwoStateBlue, StatePink, StateGrey, TwoStateBorder } from "~/components/buttonTwoState";
+import {
+  TwoStateBlue,
+  StatePink,
+  StateGrey,
+  TwoStateBorder,
+} from "~/components/buttonTwoState";
 import { ButtonGreen } from "~/components/button";
 import { CloseCircleOutlined } from "@ant-design/icons";
 import { lichhen4 } from "../../fakedata/lhnv";
@@ -22,29 +27,39 @@ function compareDates(dateA, dateB) {
     return 1; // B > A
   }
   // Note hàm getTime() chuyển thành ký tự số theo mili giây tính từ 1/1/1970
-};
+}
 
 function selectWeekDays(date) {
-  const week = Array(7).fill(new Date(date)).map((el, idx) =>
-    new Date(el.setDate(el.getDate() - el.getDay() + idx)));
-    return week;
-  }
-  
-  function separateDaysByComparison(date) {
+  const week = Array(7)
+    .fill(new Date(date))
+    .map((el, idx) => new Date(el.setDate(el.getDate() - el.getDay() + idx)));
+  return week;
+}
+
+function separateDaysByComparison(date) {
   // Lấy từ thứ 2 đến thứ 6
   const week = selectWeekDays(date);
   const weekdays = week.slice(1, 7);
-  const dayNow = moment(date).format('YYYY-MM-DD');
+  const dayNow = moment(date).format("YYYY-MM-DD");
 
   const pastDays = [];
   const futureDays = [];
-  const weekDayNames = ['THỨ HAI', 'THỨ BA', 'THỨ TƯ', 
-                        'THỨ NĂM', 'THỨ SÁU', 'THỨ BẢY'];
+  const weekDayNames = [
+    "THỨ HAI",
+    "THỨ BA",
+    "THỨ TƯ",
+    "THỨ NĂM",
+    "THỨ SÁU",
+    "THỨ BẢY",
+  ];
   let temp;
 
   weekdays.forEach((day, index) => {
-    const formattedDay = moment(day).format('YYYY-MM-DD');
-    if (moment(formattedDay, 'YYYY-MM-DD', true).isValid() && compareDates(formattedDay, dayNow) <= 0) {
+    const formattedDay = moment(day).format("YYYY-MM-DD");
+    if (
+      moment(formattedDay, "YYYY-MM-DD", true).isValid() &&
+      compareDates(formattedDay, dayNow) <= 0
+    ) {
       temp = convertDateFormat(formattedDay);
       pastDays.push({ THU: weekDayNames[index], NGAY: temp });
     } else {
@@ -54,7 +69,7 @@ function selectWeekDays(date) {
   });
 
   return [pastDays, futureDays];
-};
+}
 
 function getNextSundays(startDate, numberOfSundays) {
   const sundays = [];
@@ -68,7 +83,7 @@ function getNextSundays(startDate, numberOfSundays) {
   }
 
   return sundays;
-};
+}
 
 function get5WeeksInfo(week) {
   const nextSundays = getNextSundays(today, 3);
@@ -79,7 +94,7 @@ function get5WeeksInfo(week) {
   nextSundays.push(next30Days);
 
   return nextSundays;
-};
+}
 
 function createInfo30Days(week) {
   const sundaysInfo = get5WeeksInfo(week);
@@ -93,16 +108,16 @@ function createInfo30Days(week) {
   return result;
 }
 
-const today = new Date('2023-12-19'); 
+const today = new Date("2023-12-19");
 const result = separateDaysByComparison(today);
 const week = selectWeekDays(today);
 
 const info30Days = createInfo30Days(week);
-console.log('res ', info30Days);
+console.log("res ", info30Days);
 
 // Hàm chuyển đổi từ 'YYYY-MM-DD' sang 'DD/MM/YYYY'
 function convertDateFormat(dateString) {
-  return moment(dateString, 'YYYY-MM-DD').format('DD/MM/YYYY');
+  return moment(dateString, "YYYY-MM-DD").format("DD/MM/YYYY");
 }
 
 function findIndexByDate(caMotNgayArray, targetDate) {
@@ -117,7 +132,6 @@ function findIndexByDate(caMotNgayArray, targetDate) {
 
 const CreateAShift = ({ data, isPassDay, index }) => {
   let shiftContent, caContent;
-
   if (data != null && index == null) {
     switch (data.MACA) {
       case "CA001":
@@ -142,23 +156,22 @@ const CreateAShift = ({ data, isPassDay, index }) => {
 
     if (isPassDay === 1) {
       switch (data.STATUS) {
-        case 'waiting':
-          shiftContent = <TwoStateBorder text={caContent} />;
+        case "waiting":
+          shiftContent = <TwoStateBlue text={caContent} maca={data.MACA} />;
           break;
-        case 'ordered':
+        case "ordered":
           shiftContent = <StatePink text={caContent} />;
           break;
-        case 'full':
+        case "full":
           shiftContent = <StateGrey text={caContent} />;
           break;
         default:
-          shiftContent = <TwoStateBlue text={caContent} />;
+          shiftContent = <TwoStateBlue text={caContent} maca={data.MACA} />;
           break;
       }
     } else {
       shiftContent = <StateGrey text={caContent} />;
     }
-
   } else if (index != null) {
     switch (index) {
       case 1:
@@ -180,26 +193,20 @@ const CreateAShift = ({ data, isPassDay, index }) => {
         caContent = <span>19:00</span>;
         break;
     }
-
-    shiftContent = <TwoStateBlue text={caContent} />;
+    shiftContent = <TwoStateBlue text={caContent} maca={data.MACA} />;
   }
 
-
-  return (
-    <div className="mb-3">
-      {shiftContent}
-    </div>
-  );
+  return <div className="mb-3">{shiftContent}</div>;
 };
 
 const OneDay = ({ caMotNgay }) => {
   const temp = [
-    { MACA: 'CA001', STATUS: '' },
-    { MACA: 'CA002', STATUS: '' },
-    { MACA: 'CA003', STATUS: '' },
-    { MACA: 'CA004', STATUS: '' },
-    { MACA: 'CA006', STATUS: '' },
-    { MACA: 'CA003', STATUS: '' },
+    { MACA: "CA001", STATUS: "" },
+    { MACA: "CA002", STATUS: "" },
+    { MACA: "CA003", STATUS: "" },
+    { MACA: "CA004", STATUS: "" },
+    { MACA: "CA006", STATUS: "" },
+    { MACA: "CA003", STATUS: "" },
   ];
 
   const pageSize = 1; // Số lượng phần tử trên mỗi trang
@@ -209,11 +216,17 @@ const OneDay = ({ caMotNgay }) => {
     setCurrentPage(page);
   };
 
-  const slicedInfo30Days = info30Days.slice((currentPage - 1) * pageSize, currentPage * pageSize);
-  console.log('cur ', currentPage);
-  console.log('pagesize ', pageSize);
-  console.log('done');
-
+  const slicedInfo30Days = info30Days.slice(
+    (currentPage - 1) * pageSize,
+    currentPage * pageSize
+  );
+  console.log("cur ", currentPage);
+  console.log("pagesize ", pageSize);
+  console.log("done");
+  const handleChooseDay = (value) => {
+    console.log("value ", value);
+    message.info(`selected ${value}`);
+  };
   return (
     <div>
       {slicedInfo30Days.map((subArray, jndex) => (
@@ -228,17 +241,13 @@ const OneDay = ({ caMotNgay }) => {
                   </div>
                   <span>
                     {temp.map((shift, index2) => (
-                      <CreateAShift
-                        key={index2}
-                        data={shift}
-                        isPassDay={0}
-                      />
+                      <CreateAShift key={index2} data={shift} isPassDay={0} />
                     ))}
                   </span>
                 </div>
               ))}
               {subArray[1].map((element, index) => (
-                <div key={index}>
+                <div key={index} className="bg-gray-800">
                   <h5 className="font-montserrat text-md">{element.THU}</h5>
                   <div className="font-montserrat text-md mb-5">
                     {element.NGAY.slice(0, 5)}
@@ -250,7 +259,10 @@ const OneDay = ({ caMotNgay }) => {
                         let divs = [];
                         for (let k = 1; k < 7; k++) {
                           divs.push(
-                            <div key={k}>
+                            <div
+                              key={k}
+                              onClick={handleChooseDay(element.NGAY)}
+                            >
                               <CreateAShift
                                 data={null}
                                 isPassDay={1}
@@ -263,10 +275,7 @@ const OneDay = ({ caMotNgay }) => {
                       } else {
                         return caMotNgay[index3].CA.map((shift, index2) => (
                           <div key={index2}>
-                            <CreateAShift
-                              data={shift}
-                              isPassDay={1}
-                            />
+                            <CreateAShift data={shift} isPassDay={1} />
                           </div>
                         ));
                       }
@@ -278,7 +287,7 @@ const OneDay = ({ caMotNgay }) => {
           ) : (
             <div className="grid grid-cols-6 col-span-2 gap-2 text-center">
               {subArray[0].map((element, index) => (
-                <div key={index}>
+                <div key={index} className="bg-pink-500">
                   <h5 className="font-montserrat text-md">{element.THU}</h5>
                   <div className="font-montserrat text-md mb-5">
                     {element.NGAY.slice(0, 5)}
@@ -303,10 +312,7 @@ const OneDay = ({ caMotNgay }) => {
                       } else {
                         return caMotNgay[index3].CA.map((shift, index2) => (
                           <div key={index2}>
-                            <CreateAShift
-                              data={shift}
-                              isPassDay={1}
-                            />
+                            <CreateAShift data={shift} isPassDay={1} />
                           </div>
                         ));
                       }
@@ -315,18 +321,14 @@ const OneDay = ({ caMotNgay }) => {
                 </div>
               ))}
               {subArray[1].map((element, index) => (
-                <div key={index}>
+                <div key={index} className="bg-red-400">
                   <h5 className="font-montserrat text-md">{element.THU}</h5>
                   <div className="font-montserrat text-md mb-5">
                     {element.NGAY.slice(0, 5)}
                   </div>
                   <span>
                     {temp.map((shift, index2) => (
-                      <CreateAShift
-                        key={index2}
-                        data={shift}
-                        isPassDay={0}
-                      />
+                      <CreateAShift key={index2} data={shift} isPassDay={0} />
                     ))}
                   </span>
                 </div>
@@ -346,7 +348,6 @@ const OneDay = ({ caMotNgay }) => {
   );
 };
 
-
 const TableLichHen = ({ data }) => {
   const [day, setDay] = useState(data.map((item) => item.NGAY));
   const [lichhen, setLichHen] = useState(data);
@@ -359,14 +360,19 @@ const TableLichHen = ({ data }) => {
   return (
     <>
       <div className=" bg-white rounded-3xl h-fit w-[1030px] mx-2 py-8 px-12">
-        <h1 className="text-2xl font-montserrat mb-8 text-center">ĐĂNG KÝ LỊCH TRỰC</h1>
-        <OneDay caMotNgay={lichhen4}/>
+        <h1 className="text-2xl font-montserrat mb-8 text-center">
+          ĐĂNG KÝ LỊCH TRỰC
+        </h1>
+        <OneDay caMotNgay={lichhen4} />
         <div className="mt-9 grid grid-cols-2 gap-0">
           {/* left */}
           <div className="col-span-1">
             <div className="flex my-3">
               <div className="bg-white border-3 border-[#A1A1A1] w-[29px] h-[29px] rounded-lg"></div>
-              <div className="font-montserrat ml-3"> Đã đủ số lượng nha sĩ trực ca</div>
+              <div className="font-montserrat ml-3">
+                {" "}
+                Đã đủ số lượng nha sĩ trực ca
+              </div>
             </div>
             <div className="flex my-3">
               <div className="bg-white border-3 border-blue border-dashed w-[29px] h-[29px] rounded-lg"></div>
@@ -378,16 +384,20 @@ const TableLichHen = ({ data }) => {
             </div>
             <div className="flex my-3">
               <div className="bg-pinkk border-3 border-pinkk w-[29px] h-[29px] rounded-lg"></div>
-              <div className="font-montserrat ml-3"> Khách hàng đã đặt lịch này</div>
+              <div className="font-montserrat ml-3">
+                {" "}
+                Khách hàng đã đặt lịch này
+              </div>
             </div>
           </div>
           {/* right */}
           <div className="col-span-1 justify-self-end self-end">
-            <Button className="mr-3 font-montserrat text-[#737777] font-bold text-base shadow-none border-none"><CloseCircleOutlined/> HOÀN TÁC</Button>
-            <ButtonGreen text="ĐĂNG KÝ" className="w-[150px] rounded-2xl"/>
+            <Button className="mr-3 font-montserrat text-[#737777] font-bold text-base shadow-none border-none">
+              <CloseCircleOutlined /> HOÀN TÁC
+            </Button>
+            <ButtonGreen text="ĐĂNG KÝ" className="w-[150px] rounded-2xl" />
           </div>
         </div>
-
       </div>
     </>
   );

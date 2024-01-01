@@ -10,7 +10,7 @@ const { TextArea } = Input;
 import moment from 'moment';
 import { ButtonGreen } from "../../components/button";
 import '../../assets/styles/dentist.css'
-import DentistService from "../../services/dentist";
+import DentistService from "../../services/dentist/index";
 
 const { Item } = Form;
 
@@ -18,7 +18,7 @@ const ThongTinLichHen = ({ info }) => {
   if (!info) {
     return null;
   }
-
+  const user = useSelector((state) => state.user);
   return (
     <div>
       <p className="leading-9 font-montserrat font-semibold text-base text-#4B4B4B">
@@ -35,7 +35,7 @@ const ThongTinLichHen = ({ info }) => {
       </p>
       <p className="leading-9 font-montserrat font-semibold text-base text-#4B4B4B">
         <span className="text-grey">Tên nha sĩ: </span>
-        {"LÀM SAO LẤY ĐƯỢC MÃ NS ĐỂ TRUY RA TÊN NS"}
+        {user.HOTEN}
       </p>
     </div>
   );
@@ -77,13 +77,14 @@ const ThuocDaChon = ({ ten, soLuong, mathuoc, thoidiemdung, onClickXoa }) => {
   );
 };
 
-const FormDienThongTin = ({}) => {
+const FormDienThongTin = ({benhNhan}) => {
   const [form] = Form.useForm();
   const [dichVuList, setDichVuList] = useState([]);
   const [chonDichVu, setChonDichVu] = useState([]);
   const [thuocList, setThuocList] = useState([]);
   const [chonThuoc, setChonThuoc] = useState([]);
-
+  const [danDo, setDanDo] = useState("");
+  const user = useSelector((state) => state.user);  
   useEffect(() => {
     // Gọi API để lấy danh sách thuốc
     DentistService.getAllThuoc().then((res) => {
@@ -127,10 +128,14 @@ const FormDienThongTin = ({}) => {
     const { MATHUOC, SLTHUOC, THOIDIEMDUNG } = formData;
     // Tìm thông tin thuốc trong danh sách thuốc
     const selectedThuoc = thuocList.find((item) => item.MATHUOC === MATHUOC);
-  
     // Kiểm tra số lượng tồn
+    
     if (selectedThuoc && SLTHUOC > selectedThuoc.SLTON) {
       message.error("Số lượng thuốc vượt quá số lượng tồn.");
+      return;
+    }
+    else if (moment(selectedThuoc.NGAYHETHAN).isBefore(moment())) {
+      message.error("Thuốc đã hết hạn.");
       return;
     }
   
@@ -160,7 +165,6 @@ const FormDienThongTin = ({}) => {
   };
   
 
-  console.log("ct",chonThuoc);
   const handleXoaDichVu = (maDV) => {
     setChonDichVu(chonDichVu.filter((item) => item.MADV !== maDV));
   };
@@ -169,17 +173,77 @@ const FormDienThongTin = ({}) => {
     setChonThuoc(chonThuoc.filter((item) => item.MATHUOC !== maThuoc));
   };
 
+  const handleTaoBenhAn = async (sdt, DanDo) =>{
+    if (!Array.isArray(chonDichVu) || chonDichVu.length === 0) {
+      message.error('Vui lòng điền chi tiết dịch vụ');
+    }
+    else{
+      const benhAn = {
+        sdt: sdt,
+        ngaykham: moment().format('YYYY-MM-DD'),
+        mans: user.MANS,
+        DanDo: DanDo,
+      };
+      console.log(benhAn);
+      console.log(chonThuoc);
+      console.log(chonDichVu);
+       // Tạo bệnh án và lấy stt (số thứ tự) của bệnh án vừa tạo
+    const benhAnRes = await DentistService.taoBenhAn(benhAn);
+    const sttBenhAn = benhAnRes?.stt; // Điều chỉnh dựa vào API trả về stt
+
+    // Kiểm tra lỗi khi tạo bệnh án
+    if (!sttBenhAn) {
+      console.error('Lỗi khi tạo bệnh án');
+      return;
+    }
+
+    // Thêm chi tiết dịch vụ
+    for (const dv of chonDichVu) {
+      const resDV = await DentistService.themCTDV({
+        madv: dv.MADV,
+        stt: sttBenhAn,
+        sdt: sdt,
+        sldv: dv.soLuong,
+      });
+      
+      // Kiểm tra lỗi khi thêm chi tiết dịch vụ
+      if (!resDV) {
+        console.error('Lỗi khi thêm chi tiết dịch vụ');
+        return;
+      }
+    }
+
+    // Thêm chi tiết thuốc
+    for (const thuoc of chonThuoc) {
+      const resThuoc = await DentistService.themCTTHUOC({
+        mathuoc: thuoc.MATHUOC,
+        stt: sttBenhAn,
+        sdt: sdt,
+        slthuoc: thuoc.soLuong,
+        thoidiemdung: thuoc.THOIDIEMDUNG,
+      });
+
+      // Kiểm tra lỗi khi thêm chi tiết thuốc
+      if (!resThuoc) {
+        console.error('Lỗi khi thêm chi tiết thuốc');
+        return;
+      }
+    }
+    }
+  }
   return (
     <>
         <div className="my-1">
         <p className="leading-9 font-montserrat font-semibold text-base text-#4B4B4B">
           <span className="text-grey">Dặn dò: </span>
-        </p>
+                  </p>
           <TextArea
             className="border border-spacing-2"
             rows={3}
             placeholder="Nhập các chẩn đoán và lời dặn cho bệnh nhân."
             maxLength={500}
+            value={danDo}
+            onChange={(e) => setDanDo(e.target.value)}
           />
         </div>
         <div>
@@ -273,10 +337,6 @@ const FormDienThongTin = ({}) => {
             <Item name="THOIDIEMDUNG"
                   rules={[
                     {
-                      required: true,
-                      message: 'Vui lòng nhập thời điểm dùng',
-                    },
-                    {
                       max: 200,
                       message: 'Không quá 200 ký tự',
                     },
@@ -298,7 +358,7 @@ const FormDienThongTin = ({}) => {
               <button
                 className="ml-1 bg-white border-blue border-2 border-dashed 
                         text-blue font-montserrat text-sm h-[38px] rounded-lg mr-0 px-4"
-                onClick={handleThemThuoc}
+                onClick={()=>handleThemThuoc()}
               >
                 Thêm
               </button>
@@ -306,16 +366,15 @@ const FormDienThongTin = ({}) => {
           </Form>
         </div>
         <div className="flex justify-center mt-6">
-          <ButtonGreen text="HOÀN TẤT HỒ SƠ" func="" className="mb-0"/>
+          <ButtonGreen text="HOÀN TẤT HỒ SƠ" func={()=>handleTaoBenhAn(benhNhan.SODTKH,danDo)} className="mb-0"/>
         </div>
     </>
   );
 };
 
 const TaoBenhAnMoi = ({ props }) => {
-  const user = useSelector((state) => state.user);
   const [thuocList, setThuocList] = useState([]);
-
+  const user = useSelector((state) => state.user);
   return (
     <div className="w-[1184px] flex flex-col gap-5 mt-1">
       <div className="bg-white py-10 px-9 mx-2 pb-8"
@@ -325,7 +384,7 @@ const TaoBenhAnMoi = ({ props }) => {
           }}
       >
             <ThongTinLichHen info={props}/>
-            <FormDienThongTin />
+            <FormDienThongTin benhNhan={props} />
       </div>
     </div>
   );

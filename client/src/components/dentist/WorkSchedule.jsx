@@ -1,6 +1,5 @@
 import React, {  useState } from "react";
 import { message, Pagination } from "antd";
-import { lichhen4 } from "~/fakedata/lhnv";
 
 import { ButtonBlue, ButtonPink, ButtonGrey } from "~/components/buttonTwoState";
 import moment from 'moment';
@@ -39,7 +38,7 @@ function selectWeekDays(date) {
 
   weekdays.forEach((day, index) => {
     const formattedDay = moment(day).format('YYYY-MM-DD');
-    if (moment(formattedDay, 'YYYY-MM-DD', true).isValid() && compareDates(formattedDay, dayNow) <= 0) {
+    if (moment(formattedDay, 'YYYY-MM-DD', true).isValid() && compareDates(formattedDay, dayNow) < 0) {
       temp = convertDateFormat(formattedDay);
       pastDays.push({ THU: weekDayNames[index], NGAY: temp });
     } else {
@@ -87,7 +86,7 @@ function createInfo30Days(week) {
   return result;
 }
 
-const today = new Date('2023-12-19'); 
+const today = new Date(); 
 const result = separateDaysByComparison(today);
 const week = selectWeekDays(today);
 
@@ -203,9 +202,6 @@ const OneDay = ({ caMotNgay, func }) => {
   };
 
   const slicedInfo30Days = info30Days.slice((currentPage - 1) * pageSize, currentPage * pageSize);
-  console.log('cur ', currentPage);
-  console.log('pagesize ', pageSize);
-  console.log('done');
 
   return (
     <div>
@@ -350,7 +346,7 @@ const OneDay = ({ caMotNgay, func }) => {
 const WorkSchedule = ({ data, func }) => {
   const [day, setDay] = useState(data.map((item) => item.NGAY));
   const [lichhen, setLichHen] = useState(data);
-
+  console.log(data);
   const handleChange = (value) => {
     message.info(`selected ${value}`);
     setLichHen(get7DaysFrom(data, value));
@@ -361,10 +357,10 @@ const WorkSchedule = ({ data, func }) => {
       <div className=" bg-white rounded-3xl h-fit w-[700px] mx-2 py-4 px-6"
             style={{
               borderRadius: "35px",
-              boxShadow: "0px 4px 4px 0px rgba(0, 0, 0, 0.10)",
+              boxShadow: "0px 4px 4px 0px rgba(0, 0, 0, 0.08)",
             }}>
         <h1 className="text-2xl font-montserrat mt-2 mb-6 text-center">LỊCH TRỰC CA</h1>
-        <OneDay caMotNgay={lichhen4} func={func}/>
+        <OneDay caMotNgay={data} func={func}/>
         <div className="mt-5 mb-2">
         <div className="col-span-1">
             <div className="flex my-2">
