@@ -55,7 +55,7 @@ BEGIN
         KHACHHANG KH ON LH.SODT = KH.SODT
     WHERE 
         LH.MANS = @MANS
-        AND LR.NGAY BETWEEN GETDATE() AND DATEADD(DAY, 30, GETDATE());
+        AND LR.NGAY BETWEEN GETDATE() - 1 AND DATEADD(DAY, 30, GETDATE());
 END;
 END TRY 
 BEGIN CATCH 
@@ -93,7 +93,7 @@ BEGIN
         FROM LICHHEN LHEN
         WHERE LHEN.MANS = LR.MANS AND LHEN.SOTT = LR.SOTT
         )
-        AND LR.NGAY BETWEEN GETDATE() AND DATEADD(DAY, 30, GETDATE());
+        AND LR.NGAY BETWEEN GETDATE() - 1 AND DATEADD(DAY, 30, GETDATE());
 END;
 END TRY 
 BEGIN CATCH 
@@ -218,7 +218,7 @@ BEGIN
         (SODT, SOTT, NGAYKHAM, MANS, DANDO)
     VALUES
         (@SoDienThoai, @Sott, @NgayKham, @MaNS, @DanDo);
-
+	SELECT @Sott STT
 END;
 END TRY 
 BEGIN CATCH 
@@ -244,6 +244,29 @@ BEGIN
     BEGIN
         ROLLBACK TRAN
         RAISERROR(N'Số lượng dịch vụ không thể null.',16,1);
+        RETURN
+    END
+
+	IF (NOT EXISTS(SELECT * 
+				   FROM HOSOBENH 
+				   WHERE SOTT = @SOTT AND SODT = @SoDienThoai))
+	BEGIN
+        ROLLBACK TRAN
+        RAISERROR(N'Không tồn tại hồ sơ bệnh.',16,1);
+        RETURN
+    END
+
+	IF(NOT EXISTS(SELECT * FROM LOAIDICHVU WHERE MADV = @MaDV))
+    BEGIN
+        RAISERROR(N'Dịch vụ này không tồn tại',16,1)
+        ROLLBACK TRAN
+        RETURN
+    END
+
+	IF(EXISTS(SELECT SODT, SOTT, _DAXUATHOADON FROM HOSOBENH WHERE SODT = @SoDienThoai AND SOTT = @SOTT AND _DAXUATHOADON = 1))
+    BEGIN
+        RAISERROR(N'Lỗi: đã xuất hóa đơn, không thể thêm dịch vụ được',16,1)
+        ROLLBACK TRAN
         RETURN
     END
 
