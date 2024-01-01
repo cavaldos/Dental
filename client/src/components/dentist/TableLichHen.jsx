@@ -132,10 +132,6 @@ function findIndexByDate(caMotNgayArray, targetDate) {
 
 const CreateAShift = ({ data, isPassDay, index }) => {
   let shiftContent, caContent;
-  const handleChooseDay = (value) => {
-    console.log("value ", value);
-    message.info(`selected ${value}`);
-  };
   if (data != null && index == null) {
     switch (data.MACA) {
       case "CA001":
@@ -161,7 +157,7 @@ const CreateAShift = ({ data, isPassDay, index }) => {
     if (isPassDay === 1) {
       switch (data.STATUS) {
         case "waiting":
-          shiftContent = <TwoStateBorder text={caContent} />;
+          shiftContent = <TwoStateBlue text={caContent} maca={data.MACA} />;
           break;
         case "ordered":
           shiftContent = <StatePink text={caContent} />;
@@ -170,7 +166,7 @@ const CreateAShift = ({ data, isPassDay, index }) => {
           shiftContent = <StateGrey text={caContent} />;
           break;
         default:
-          shiftContent = <TwoStateBlue text={caContent} />;
+          shiftContent = <TwoStateBlue text={caContent} maca={data.MACA} />;
           break;
       }
     } else {
@@ -197,8 +193,7 @@ const CreateAShift = ({ data, isPassDay, index }) => {
         caContent = <span>19:00</span>;
         break;
     }
-
-    shiftContent = <TwoStateBlue text={caContent} />;
+    shiftContent = <TwoStateBlue text={caContent} maca={data.MACA} />;
   }
 
   return <div className="mb-3">{shiftContent}</div>;
@@ -252,7 +247,7 @@ const OneDay = ({ caMotNgay }) => {
                 </div>
               ))}
               {subArray[1].map((element, index) => (
-                <div key={index}>
+                <div key={index} className="bg-gray-800">
                   <h5 className="font-montserrat text-md">{element.THU}</h5>
                   <div className="font-montserrat text-md mb-5">
                     {element.NGAY.slice(0, 5)}
@@ -292,7 +287,7 @@ const OneDay = ({ caMotNgay }) => {
           ) : (
             <div className="grid grid-cols-6 col-span-2 gap-2 text-center">
               {subArray[0].map((element, index) => (
-                <div key={index}>
+                <div key={index} className="bg-pink-500">
                   <h5 className="font-montserrat text-md">{element.THU}</h5>
                   <div className="font-montserrat text-md mb-5">
                     {element.NGAY.slice(0, 5)}
@@ -326,7 +321,7 @@ const OneDay = ({ caMotNgay }) => {
                 </div>
               ))}
               {subArray[1].map((element, index) => (
-                <div key={index}>
+                <div key={index} className="bg-red-400">
                   <h5 className="font-montserrat text-md">{element.THU}</h5>
                   <div className="font-montserrat text-md mb-5">
                     {element.NGAY.slice(0, 5)}
@@ -365,8 +360,10 @@ const TableLichHen = ({ data }) => {
   return (
     <>
       <div className=" bg-white rounded-3xl h-fit w-[1030px] mx-2 py-8 px-12">
-        <h1 className="text-2xl font-montserrat mb-8 text-center">ĐĂNG KÝ LỊCH TRỰC</h1>
-        <OneDay caMotNgay={lichhen4}/>
+        <h1 className="text-2xl font-montserrat mb-8 text-center">
+          ĐĂNG KÝ LỊCH TRỰC
+        </h1>
+        <OneDay caMotNgay={lichhen4} />
         <div className="mt-9 grid grid-cols-2 gap-0">
           {/* left */}
           <div className="col-span-1">
@@ -407,4 +404,3 @@ const TableLichHen = ({ data }) => {
 };
 
 export default TableLichHen;
- 
