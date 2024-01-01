@@ -106,7 +106,7 @@ const nhaSiController = {
 
       const sp = "SP_TAOBENHAN_NS";
       const result = await pool.executeSP(sp, params);
-      return res.status(201).json({ success: true });
+      return res.status(201).json({ stt: result[0][0].STT });
     } catch (error) {
       console.error("An error occurred:", error.message);
       return res
@@ -146,7 +146,7 @@ const nhaSiController = {
       params.SODT = req.body.sdt;
       params.SOLUONG = req.body.slthuoc;
       params.THOIDIEMDUNG = req.body.thoidiemdung;
-
+      console.log(params);
       const sp = "SP_THEMCTTHUOC_NS";
       const result = await pool.executeSP(sp, params);
       return res.status(201).json({ success: true });

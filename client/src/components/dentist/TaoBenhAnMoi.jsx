@@ -10,7 +10,7 @@ const { TextArea } = Input;
 import moment from 'moment';
 import { ButtonGreen } from "../../components/button";
 import '../../assets/styles/dentist.css'
-import DentistService from "../../services/dentist";
+import DentistService from "../../services/dentist/index";
 
 const { Item } = Form;
 
@@ -19,7 +19,6 @@ const ThongTinLichHen = ({ info }) => {
     return null;
   }
   const user = useSelector((state) => state.user);
-  console.log(user)
   return (
     <div>
       <p className="leading-9 font-montserrat font-semibold text-base text-#4B4B4B">
@@ -84,7 +83,8 @@ const FormDienThongTin = ({benhNhan}) => {
   const [chonDichVu, setChonDichVu] = useState([]);
   const [thuocList, setThuocList] = useState([]);
   const [chonThuoc, setChonThuoc] = useState([]);
-
+  const [danDo, setDanDo] = useState("");
+  const user = useSelector((state) => state.user);  
   useEffect(() => {
     // Gọi API để lấy danh sách thuốc
     DentistService.getAllThuoc().then((res) => {
@@ -169,22 +169,63 @@ const FormDienThongTin = ({benhNhan}) => {
     setChonThuoc(chonThuoc.filter((item) => item.MATHUOC !== maThuoc));
   };
 
-  const handleTaoBenhAn = (sdt) =>{
+  const handleTaoBenhAn = async (sdt, DanDo) =>{
+    console.log("doneee")
     if (!Array.isArray(chonDichVu) || chonDichVu.length === 0) {
       message.error('Vui lòng điền chi tiết dịch vụ');
     }
     else{
-      const user = useSelector((state) => state.user);
-      // console.log(moment())
-      const newBenhAn = {
+      const benhAn = {
         sdt: sdt,
+        ngaykham: moment().format('YYYY-MM-DD'),
         mans: user.MANS,
-        ngaykham: moment(),
-        matkhaumoi: values.matkhaumoi,
+        DanDo: DanDo,
       };
-      DentistService.taoBenhAn(user.MANS).then((res) => {
-        setTableLH(res || []);
-      }); 
+      console.log(benhAn);
+      console.log(chonThuoc);
+      console.log(chonDichVu);
+       // Tạo bệnh án và lấy stt (số thứ tự) của bệnh án vừa tạo
+    const benhAnRes = await DentistService.taoBenhAn(benhAn);
+    const sttBenhAn = benhAnRes?.stt; // Điều chỉnh dựa vào API trả về stt
+
+    // Kiểm tra lỗi khi tạo bệnh án
+    if (!sttBenhAn) {
+      console.error('Lỗi khi tạo bệnh án');
+      return;
+    }
+
+    // Thêm chi tiết dịch vụ
+    for (const dv of chonDichVu) {
+      const resDV = await DentistService.themCTDV({
+        madv: dv.MADV,
+        stt: sttBenhAn,
+        sdt: sdt,
+        sldv: dv.soLuong,
+      });
+      
+      // Kiểm tra lỗi khi thêm chi tiết dịch vụ
+      if (!resDV) {
+        console.error('Lỗi khi thêm chi tiết dịch vụ');
+        return;
+      }
+    }
+
+    // Thêm chi tiết thuốc
+    for (const thuoc of chonThuoc) {
+      const resThuoc = await DentistService.themCTTHUOC({
+        mathuoc: thuoc.MATHUOC,
+        stt: sttBenhAn,
+        sdt: sdt,
+        slthuoc: thuoc.soLuong,
+        thoidiemdung: thuoc.THOIDIEMDUNG,
+      });
+
+      // Kiểm tra lỗi khi thêm chi tiết thuốc
+      if (!resThuoc) {
+        console.error('Lỗi khi thêm chi tiết thuốc');
+        return;
+      }
+    }
     }
   }
   return (
@@ -198,6 +239,8 @@ const FormDienThongTin = ({benhNhan}) => {
             rows={3}
             placeholder="Nhập các chẩn đoán và lời dặn cho bệnh nhân."
             maxLength={500}
+            value={danDo}
+            onChange={(e) => setDanDo(e.target.value)}
           />
         </div>
         <div>
@@ -320,7 +363,7 @@ const FormDienThongTin = ({benhNhan}) => {
           </Form>
         </div>
         <div className="flex justify-center mt-6">
-          <ButtonGreen text="HOÀN TẤT HỒ SƠ" func={()=>handleTaoBenhAn(benhNhan.SODT, values)} className="mb-0"/>
+          <ButtonGreen text="HOÀN TẤT HỒ SƠ" func={()=>handleTaoBenhAn(benhNhan.SODTKH,danDo)} className="mb-0"/>
         </div>
     </>
   );
