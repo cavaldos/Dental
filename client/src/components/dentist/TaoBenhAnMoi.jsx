@@ -128,10 +128,14 @@ const FormDienThongTin = ({benhNhan}) => {
     const { MATHUOC, SLTHUOC, THOIDIEMDUNG } = formData;
     // Tìm thông tin thuốc trong danh sách thuốc
     const selectedThuoc = thuocList.find((item) => item.MATHUOC === MATHUOC);
-  
     // Kiểm tra số lượng tồn
+    
     if (selectedThuoc && SLTHUOC > selectedThuoc.SLTON) {
       message.error("Số lượng thuốc vượt quá số lượng tồn.");
+      return;
+    }
+    else if (moment(selectedThuoc.NGAYHETHAN).isBefore(moment())) {
+      message.error("Thuốc đã hết hạn.");
       return;
     }
   
@@ -354,7 +358,7 @@ const FormDienThongTin = ({benhNhan}) => {
               <button
                 className="ml-1 bg-white border-blue border-2 border-dashed 
                         text-blue font-montserrat text-sm h-[38px] rounded-lg mr-0 px-4"
-                onClick={handleThemThuoc}
+                onClick={()=>handleThemThuoc()}
               >
                 Thêm
               </button>
