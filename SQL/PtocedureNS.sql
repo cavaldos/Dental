@@ -247,6 +247,29 @@ BEGIN
         RETURN
     END
 
+	IF (NOT EXISTS(SELECT * 
+				   FROM HOSOBENH 
+				   WHERE SOTT = @SOTT AND SODT = @SoDienThoai))
+	BEGIN
+        ROLLBACK TRAN
+        RAISERROR(N'Không tồn tại hồ sơ bệnh.',16,1);
+        RETURN
+    END
+
+	IF(NOT EXISTS(SELECT * FROM LOAIDICHVU WHERE MADV = @MaDV))
+    BEGIN
+        RAISERROR(N'Dịch vụ này không tồn tại',16,1)
+        ROLLBACK TRAN
+        RETURN
+    END
+
+	IF(EXISTS(SELECT SODT, SOTT, _DAXUATHOADON FROM HOSOBENH WHERE SODT = @SoDienThoai AND SOTT = @SOTT AND _DAXUATHOADON = 1))
+    BEGIN
+        RAISERROR(N'Lỗi: đã xuất hóa đơn, không thể thêm dịch vụ được',16,1)
+        ROLLBACK TRAN
+        RETURN
+    END
+
     DECLARE @DONGIALUCTHEM FLOAT
     SELECT @DONGIALUCTHEM = DONGIA FROM LOAIDICHVU WHERE MADV = @MaDV
 

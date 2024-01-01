@@ -2576,7 +2576,7 @@ BEGIN
 
 	IF(EXISTS(SELECT SODT, SOTT, _DAXUATHOADON FROM HOSOBENH WHERE SODT = @SoDienThoai AND SOTT = @SOTT AND _DAXUATHOADON = 1))
     BEGIN
-        RAISERROR(N'Lỗi: đã xuất hóa đơn, không thể thêm đơn thuốc được',16,1)
+        RAISERROR(N'Lỗi: đã xuất hóa đơn, không thể thêm dịch vụ được',16,1)
         ROLLBACK TRAN
         RETURN
     END
