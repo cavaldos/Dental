@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import "~/assets/styles/buttonTwoState.css";
 
-const TwoStateBlue = ({ text, func }) => {
-  const [isChecked, setIsChecked] = useState(false);
+const TwoStateBlue = ({ text, func, isChecked  }) => {
+  // const [isChecked, setIsChecked] = useState(false);
 
   const changeState = () => {
-    setIsChecked((prevChecked) => !prevChecked);
+    if (func) func(); // Gọi hàm func khi checkbox thay đổi
   };
 
   return (

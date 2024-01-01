@@ -111,7 +111,7 @@ function findIndexByDate(caMotNgayArray, targetDate) {
   return -1; // Trả về -1 nếu không tìm thấy
 }
 
-const CreateAShift = ({ data, isPassDay, index, customKey }) => {
+const CreateAShift = ({ data, isPassDay, index, customKey, onSelect, isSelected }) => {
   let shiftContent, caContent;
   console.log(customKey); 
 
@@ -181,10 +181,17 @@ const CreateAShift = ({ data, isPassDay, index, customKey }) => {
     shiftContent = <TwoStateBlue text={caContent} />;
   }
 
+  const handleShiftClick = () => {
+    onSelect(customKey); // Gọi hàm onSelect khi người dùng click vào ca trực
+  };
 
   return (
-    <div className="mb-3" id={customKey}>
-      {shiftContent}
+    <div className="mb-3" id={customKey} onClick={handleShiftClick}>
+      <TwoStateBlue 
+        text={caContent} 
+        func={()=>handleShiftClick()}
+        isChecked={isSelected} // Sử dụng trạng thái được chọn từ props
+      />
     </div>
   );
 };
@@ -201,153 +208,87 @@ const OneDay = ({ caMotNgay }) => {
 
   const pageSize = 1; // Số lượng phần tử trên mỗi trang
   const [currentPage, setCurrentPage] = useState(1);
+  const [selectedShift, setSelectedShift] = useState(null); // Thêm state này để lưu giá trị được chọn
+
+  const handleShiftClick = (shiftCustomKey) => {
+    setSelectedShift(shiftCustomKey); // Cập nhật giá trị khi click vào một ca trực
+    console.log(selectedShift)
+  };
 
   const onChangePage = (page) => {
     setCurrentPage(page);
   };
 
   const slicedInfo30Days = info30Days.slice((currentPage - 1) * pageSize, currentPage * pageSize);
-  console.log('slicedInfo30Days ', slicedInfo30Days);
 
   return (
     <div>
       {slicedInfo30Days.map((subArray, jndex) => (
-        <div key={jndex}>
-          {/* Nếu là 4 tuần đầu thì vô đây */}
-          {currentPage < info30Days.length ? (
-            <div className="grid grid-cols-6 col-span-2 gap-2 text-center">
-              {/* Các ngày trong quá khứ thì tô xám */}
-              {subArray[0].map((element, index) => (
-                <div key={index}>
-                  <h5 className="font-montserrat text-md">{element.THU}</h5>
-                  <div className="font-montserrat text-md mb-5">
-                    {element.NGAY.slice(0, 5)}
-                  </div>
-                  <span key={`${jndex}-pass1-4`}>
-                    {temp.map((shift, index2) => (
-                      <CreateAShift
-                        key={`${jndex}-${index2}`}
-                        customKey={shift.MACA + "-" + element.NGAY}
-                        data={shift}
-                        isPassDay={0}
-                      />
-                    ))}
-                  </span>
-                </div>
-              ))}
-              {/* Các ngày trong tương lai thì có 2 dạng */}
-              {subArray[1].map((element, index) => (
-                <div key={index}>
-                  <h5 className="font-montserrat text-md">{element.THU}</h5>
-                  <div className="font-montserrat text-md mb-5">
-                    {element.NGAY.slice(0, 5)}
-                  </div>
-                  <span key={`${jndex}-futur1-4`}>
-                    {(() => {
-                      let index3 = findIndexByDate(caMotNgay, element.NGAY);
-                      // Dạng 1 : Nếu ngày có xuất hiện trong db thì thực hiện điều này
-                      if (index3 === -1) {
-                        let divs = [];
-                        for (let k = 1; k < 7; k++) {
-                          divs.push(
-                            <div>
-                              <CreateAShift
-                                key={`${jndex}-${k}`}
-                                customKey={temp[k-1].MACA + "-" + element.NGAY}
-                                data={null}
-                                isPassDay={1}
-                                index={k}
-                              />
-                            </div>
-                          );
-                        }
-                        return divs;
-                      } else {
-                        // Dạng 2 : Nếu ngày không xuất hiện trong db thì tô xanh hết
-                        return caMotNgay[index3].CA.map((shift, index4) => (
-                          <div>
-                            <CreateAShift
-                              key={`${jndex}-${index4}`}
-                              customKey={shift.MACA + "-" + element.NGAY}
-                              data={shift}
-                              isPassDay={1}
-                            />
-                          </div>
-                        ));
-                      }
-                    })()}
-                  </span>
-                </div>
-              ))}
+        <div key={jndex} className="grid grid-cols-6 col-span-2 gap-2 text-center">
+          {/* Xử lý các ngày trong quá khứ */}
+          {subArray[0].map((element, index) => (
+            <div key={index}>
+              <h5 className="font-montserrat text-md">{element.THU}</h5>
+              <div className="font-montserrat text-md mb-5">
+                {element.NGAY.slice(0, 5)}
+              </div>
+              {temp.map((shift, index2) => {
+                const shiftCustomKey = `${shift.MACA}-${element.NGAY}-${currentPage}-${jndex}-${index2}`;
+                return (
+                  <CreateAShift
+                    key={shiftCustomKey}
+                    customKey={shiftCustomKey}
+                    data={shift}
+                    isPassDay={0}
+                    onSelect={() => handleShiftClick(shiftCustomKey)}
+                    isSelected={shiftCustomKey === selectedShift}
+                  />
+                );
+              })}
             </div>
-          ) : (
-            // Nếu là tuần cuối thì vô đây
-            <div className="grid grid-cols-6 col-span-2 gap-2 text-center">
-              {/* Nếu trong 30 ngày kể từ ngày hiện tại thì ở đây */}
-              {subArray[0].map((element, index) => (
-                <div key={index}>
-                  <h5 className="font-montserrat text-md">{element.THU}</h5>
-                  <div className="font-montserrat text-md mb-5">
-                    {element.NGAY.slice(0, 5)}
-                  </div>
-                  <span key={`${jndex}-pass5`}>
-                    {(() => {
-                      let index5 = findIndexByDate(caMotNgay, element.NGAY);
-                      // Dạng 1 : Nếu ngày có xuất hiện trong db thì thực hiện điều này
-                      if (index5 === -1) {
-                        let divs = [];
-                        for (let k = 1; k < 7; k++) {
-                          divs.push(
-                            <div >
-                              <CreateAShift
-                                key={`${jndex}-${k}`}
-                                customKey={temp[k-1].MACA + "-" + element.NGAY}
-                                data={null}
-                                isPassDay={1}
-                                index={k}
-                              />
-                            </div>
-                          );
-                        }
-                        return divs;
-                      } else {
-                        // Dạng 2 : Nếu ngày không xuất hiện trong db thì tô xanh hết
-                        return caMotNgay[index5].CA.map((shift, index6) => (
-                          <div>
-                            <CreateAShift
-                              key={`${jndex}-${index6}`}
-                              customKey={shift.MACA + "-" + element.NGAY}
-                              data={shift}
-                              isPassDay={1}
-                            />
-                          </div>
-                        ));
-                      }
-                    })()}
-                  </span>
-                </div>
-              ))}
-              {/* Nếu quá 30 ngày thì ở đây */}
-              {subArray[1].map((element, index) => (
-                <div key={index}>
-                  <h5 className="font-montserrat text-md">{element.THU}</h5>
-                  <div className="font-montserrat text-md mb-5">
-                    {element.NGAY.slice(0, 5)}
-                  </div>
-                  <span key={`${jndex}-futur5`}>
-                    {temp.map((shift, index7) => (
+          ))}
+          {/* Xử lý các ngày trong tương lai hoặc các trường hợp khác */}
+          {subArray[1] && subArray[1].map((element, index) => (
+            <div key={index}>
+              <h5 className="font-montserrat text-md">{element.THU}</h5>
+              <div className="font-montserrat text-md mb-5">
+                {element.NGAY.slice(0, 5)}
+              </div>
+              {(() => {
+                let index3 = findIndexByDate(caMotNgay, element.NGAY);
+                if (index3 === -1) {
+                  return temp.map((shift, index2) => {
+                    const shiftCustomKey = `${shift.MACA}-${element.NGAY}-${currentPage}-${jndex}-${index2}`;
+                    return (
                       <CreateAShift
-                      key={`${jndex}-${index7}`}
-                        customKey={shift.MACA + "-" + element.NGAY}
-                        data={shift}
-                        isPassDay={0}
+                        key={shiftCustomKey}
+                        customKey={shiftCustomKey}
+                        data={null}
+                        isPassDay={1}
+                        index={index2 + 1}
+                        onSelect={() => handleShiftClick(shiftCustomKey)}
+                        isSelected={shiftCustomKey === selectedShift}
                       />
-                    ))}
-                  </span>
-                </div>
-              ))}
+                    );
+                  });
+                } else {
+                  return caMotNgay[index3].CA.map((shift, index4) => {
+                    const shiftCustomKey = `${shift.MACA}-${element.NGAY}-${currentPage}-${jndex}-${index4}`;
+                    return (
+                      <CreateAShift
+                        key={shiftCustomKey}
+                        customKey={shiftCustomKey}
+                        data={shift}
+                        isPassDay={1}
+                        onSelect={() => handleShiftClick(shiftCustomKey)}
+                        isSelected={shiftCustomKey === selectedShift}
+                      />
+                    );
+                  });
+                }
+              })()}
             </div>
-          )}
+          ))}
         </div>
       ))}
       <Pagination
