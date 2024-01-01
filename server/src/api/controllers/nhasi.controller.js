@@ -106,7 +106,7 @@ const nhaSiController = {
 
       const sp = "SP_TAOBENHAN_NS";
       const result = await pool.executeSP(sp, params);
-      return res.status(201).json({ success: true });
+      return res.status(201).json({ stt: result[0][0].STT });
     } catch (error) {
       console.error("An error occurred:", error.message);
       return res
@@ -129,6 +129,18 @@ const nhaSiController = {
       const result = await pool.executeSP(sp, params);
       return res.status(201).json({ success: true });
     } catch (error) {
+      if (error.message === "Số lượng dịch vụ không thể null.") {
+        return res.status(400).json({ error: error.message });
+      }
+      if (error.message === "Không tồn tại hồ sơ bệnh.") {
+        return res.status(404).json({ error: error.message });
+      }
+      if (error.message === "Dịch vụ này không tồn tại") {
+        return res.status(404).json({ error: error.message });
+      }
+      if (error.message === "Lỗi: đã xuất hóa đơn, không thể thêm dịch vụ được") {
+        return res.status(409).json({ error: error.message });
+      }
       console.error("An error occurred:", error.message);
       return res
         .status(500)
@@ -146,11 +158,23 @@ const nhaSiController = {
       params.SODT = req.body.sdt;
       params.SOLUONG = req.body.slthuoc;
       params.THOIDIEMDUNG = req.body.thoidiemdung;
-
+      console.log(params);
       const sp = "SP_THEMCTTHUOC_NS";
       const result = await pool.executeSP(sp, params);
       return res.status(201).json({ success: true });
     } catch (error) {
+      if (error.message === "Số lượng và thời điểm sử dụng không thể null.") {
+        return res.status(400).json({ error: error.message });
+      }
+      if (error.message === "Không tồn tại hồ sơ bệnh.") {
+        return res.status(404).json({ error: error.message });
+      }
+      if (error.message === "Thuốc này không tồn tại trong kho") {
+        return res.status(404).json({ error: error.message });
+      }
+      if (error.message === "Lỗi: đã xuất hóa đơn, không thể thêm đơn thuốc được") {
+        return res.status(409).json({ error: error.message });
+      }
       console.error("An error occurred:", error.message);
       return res
         .status(500)
