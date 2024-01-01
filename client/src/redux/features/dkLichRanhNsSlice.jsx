@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 export const dkLRSlice = createSlice({
-  name: "dangkiLichRanh",
+  name: "dangky",
   initialState: {
     mans: "",
     maca: "",

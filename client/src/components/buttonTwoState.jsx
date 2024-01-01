@@ -10,7 +10,7 @@ const TwoStateBlue = ({ text, func, ngay, maca }) => {
     setIsChecked((prevChecked) => !prevChecked);
   };
   const handleOnClick = (value) => {
-    dispatch(dangkiLichRanh({ maca: value, ngay: ngay }));  
+    dispatch(dangkiLichRanh({ maca: value }));  
     message.success("Đăng kí thành công");
   };
 

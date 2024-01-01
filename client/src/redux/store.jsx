@@ -2,6 +2,7 @@ import countSlice from "./features/countSlice";
 import userSlice from "./features/userSlice";
 import orderSlice from "./features/orderSlice";
 import  dataSlice  from "./features/dataSlice";
+import dkLichRanhNsSlice from "./features/dkLichRanhNsSlice";
 import { configureStore, combineReducers } from "@reduxjs/toolkit";
 import {
   persistStore,
@@ -25,6 +26,7 @@ const rootReducer = combineReducers({
   user: userSlice,
   order: orderSlice,
   stateData: dataSlice,
+  dangky: dkLichRanhNsSlice,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
