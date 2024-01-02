@@ -131,5 +131,9 @@ const StaffService = {
     }
     return res;
   },
+  getAllNS: async () => {
+    const res = await Axios.get("/online/getAllDSNhaSi");
+    return res;
+  },
 };
 export default StaffService;
