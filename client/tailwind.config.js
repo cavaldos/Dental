@@ -59,6 +59,15 @@ export default {
         '2.4': '2.4px',
         '3': '3.7px',
       },
+      backgroundSize: {
+        '123.88%': '123.88%',
+      },
+      backgroundPosition: {
+        '50-11.94': '50% 11.94%',
+      },
+      backgroundImage: {
+        'radial-gradient': 'radial-gradient(123.88% 123.88% at 50% 11.94%, #5855E8 5.73%, #1577FF 100%)',
+      },
     },
   },
   plugins: [],

@@ -490,6 +490,11 @@ const TableLichHen = ({ data }) => {
     huyCa.splice(0, huyCa.length); 
     window.location.reload();
   };
+
+  const cancelData = () => {
+    datCa.splice(0, datCa.length); 
+    huyCa.splice(0, huyCa.length); 
+  }
   return (
     <>
       <div className=" bg-white rounded-3xl h-fit w-[1030px] mx-2 py-8 px-12">
@@ -525,9 +530,6 @@ const TableLichHen = ({ data }) => {
           </div>
           {/* right */}
           <div className="col-span-1 justify-self-end self-end">
-            <Button className="mr-3 font-montserrat text-[#737777] font-bold text-base shadow-none border-none">
-              <CloseCircleOutlined /> HOÀN TÁC
-            </Button>
             <ButtonGreen
               text="ĐĂNG KÝ"
               className="w-[150px] rounded-2xl"

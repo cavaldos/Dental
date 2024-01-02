@@ -67,10 +67,10 @@ const DangKyTaiKhoan = () => {
             },
           ]}
           labelCol={{
-            span: 5,
+            span: 6,
           }}
           wrapperCol={{
-            span: 19,
+            span: 18,
           }}
           validateTrigger={["onBlur"]}
         >
@@ -87,10 +87,10 @@ const DangKyTaiKhoan = () => {
             },
           ]}
           labelCol={{
-            span: 5,
+            span: 6,
           }}
           wrapperCol={{
-            span: 19,
+            span: 18,
           }}
         >
           <Input />
@@ -106,10 +106,10 @@ const DangKyTaiKhoan = () => {
             },
           ]}
           labelCol={{
-            span: 5,
+            span: 6,
           }}
           wrapperCol={{
-            span: 19,
+            span: 18,
           }}
         >
           <Select>
@@ -128,10 +128,10 @@ const DangKyTaiKhoan = () => {
             },
           ]}
           labelCol={{
-            span: 5,
+            span: 6,
           }}
           wrapperCol={{
-            span: 19,
+            span: 18,
           }}
         >
           <DatePicker
@@ -156,10 +156,10 @@ const DangKyTaiKhoan = () => {
             },
           ]}
           labelCol={{
-            span: 5,
+            span: 6,
           }}
           wrapperCol={{
-            span: 19,
+            span: 18,
           }}
         >
           <Input />
@@ -177,8 +177,8 @@ const DangKyTaiKhoan = () => {
               message: "Mật khẩu cần ít nhất 6 ký tự",
             },
           ]}
-          labelCol={{ span: 5 }}
-          wrapperCol={{ span: 19 }}
+          labelCol={{ span: 6 }}
+          wrapperCol={{ span: 18 }}
         >
           <Input.Password />
         </Form.Item>
@@ -201,10 +201,10 @@ const DangKyTaiKhoan = () => {
             }),
           ]}
           labelCol={{
-            span: 5,
+            span: 6,
           }}
           wrapperCol={{
-            span: 19,
+            span: 18,
           }}
           validateTrigger={["onBlur"]}
         >
