@@ -45,27 +45,6 @@ const NhaSiTable = ({ data }) => {
       key: "GIOITHIEU",
       render: (text) => format(text),
     },
-
-    {
-      title: "Đã khóa",
-      dataIndex: "_DAKHOA",
-      key: "_DAKHOA",
-      render: (_, record) => {
-        const tags = record._DAKHOA ? ["Locked"] : ["Open"]; // Update with your custom status values
-        return (
-          <>
-            {tags.map((tag) => {
-              let color = tag === "Locked" ? "volcano" : "green"; // Customize colors based on status
-              return (
-                <Tag color={color} key={tag}>
-                  {tag.toUpperCase()}
-                </Tag>
-              );
-            })}
-          </>
-        );
-      },
-    },
   ];
 
   const paginationOptions = {
