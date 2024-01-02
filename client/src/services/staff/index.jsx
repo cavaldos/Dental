@@ -29,6 +29,7 @@ const StaffService = {
     const res = await Axios.post("/nhanvien/taohoaDon", {
       sdt: data.sdt,
       stt: data.stt,
+      manv: data.manv
     });
     if(res && res.response)
     {
@@ -128,6 +129,10 @@ const StaffService = {
         message.error(res.response.data.error);
       }
     }
+    return res;
+  },
+  getAllNS: async () => {
+    const res = await Axios.get("/online/getAllDSNhaSi");
     return res;
   },
 };

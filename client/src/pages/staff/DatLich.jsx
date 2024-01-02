@@ -31,9 +31,13 @@ const NhaSi = ({ mans, tenns }) => {
 
 const TaoLichHen = ({ handleTaoLichHen }) => {
   const [form] = Form.useForm();
-  const [nhaSiList, setNhaSiList] = useState(ns);
+  const [nhaSiList, setNhaSiList] = useState([]);
   const [chonNhaSi, setChonNhaSi] = useState("");
-
+  useEffect(() => {
+    StaffService.getAllDSNhaSi().then((res) => {
+      setNhaSiList(res);
+    });
+  }, []);
   const inputNhaSi = () => {
     const tenNS = nhaSiList.find((item) => item.MANS === MANS).HOTEN;
     const newData = {
