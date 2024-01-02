@@ -7,7 +7,6 @@ import { ButtonGreen } from "~/components/button";
 import { CloseCircleOutlined } from "@ant-design/icons";
 import DentistService from "../../services/dentist/index";
 import { useSelector } from "react-redux";
-import { useHistory } from 'react-router-dom';
 const datCa = [];
 const huyCa = [];
 
@@ -422,32 +421,32 @@ const TableLichHen = ({ data }) => {
   const user = useSelector((state) => state.user);
   const handleSubmit = async() =>{
       // Đặt lịch
-    for (const ca of datCa) {
-      const resCa = await DentistService.dangKyLichRanh({
-        mans: user.MANS,
-        maca: ca.MACA,
-        ngay: moment(ca.NGAY, 'DD/MM/YYYY').format('YYYY-MM-DD')
-      });
-      //Kiểm tra lỗi khi thêm đặt lịch
-      if (!resCa) {
-        message.error('Lỗi khi đặt lịch');
-        console.error('Lỗi khi đặt lịch');
-        return;
-      }
-    }
-    for (const ca of huyCa) {
-      const resCa = await DentistService.huyLichRanh({
-        mans: user.MANS,
-        stt : ca.SOTT
-      });
+    // for (const ca of datCa) {
+    //   const resCa = await DentistService.dangKyLichRanh({
+    //     mans: user.MANS,
+    //     maca: ca.MACA,
+    //     ngay: moment(ca.NGAY, 'DD/MM/YYYY').format('YYYY-MM-DD')
+    //   });
+    //   //Kiểm tra lỗi khi thêm đặt lịch
+    //   if (!resCa) {
+    //     message.error('Lỗi khi đặt lịch');
+    //     console.error('Lỗi khi đặt lịch');
+    //     return;
+    //   }
+    // }
+    // for (const ca of huyCa) {
+    //   const resCa = await DentistService.huyLichRanh({
+    //     mans: user.MANS,
+    //     stt : ca.SOTT
+    //   });
       
-      // Kiểm tra lỗi khi hủy lịch
-      if (!resCa) {
-        message.error('Lỗi khi hủy lịch');
-        console.error('Lỗi khi hủy lịch');
-        return;
-      }
-    }
+    //   // Kiểm tra lỗi khi hủy lịch
+    //   if (!resCa) {
+    //     message.error('Lỗi khi hủy lịch');
+    //     console.error('Lỗi khi hủy lịch');
+    //     return;
+    //   }
+    // }
   };
   return (
     <>
