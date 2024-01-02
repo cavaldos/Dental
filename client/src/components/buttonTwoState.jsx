@@ -1,25 +1,16 @@
-import { message } from "antd";
 import React, { useState } from "react";
 import "~/assets/styles/buttonTwoState.css";
-import { dangkiLichRanh } from "../redux/features/dkLichRanhNsSlice";
-import { useDispatch } from "react-redux";
-const TwoStateBlue = ({ text, func, ngay, maca   }) => {
 
+const TwoStateBlue = ({ text, func }) => {
   const [isChecked, setIsChecked] = useState(false);
-  const dispatch = useDispatch();
+
   const changeState = () => {
     setIsChecked((prevChecked) => !prevChecked);
   };
-  const handleOnClick = (value) => {
-    dispatch(dangkiLichRanh({ maca: value }));  
-    message.success(value);
-  };
-  
   return (
-    <label className={`input-check ${isChecked ? "checked" : ""}`}>
+    <label className={`input-check ${isChecked ? 'checked' : ''}`}>
       <input
         onChange={changeState}
-        onClick={() => handleOnClick(text)}
         type="checkbox"
         value="something"
         name="test"
@@ -31,15 +22,15 @@ const TwoStateBlue = ({ text, func, ngay, maca   }) => {
   );
 };
 
-const TwoStateBorder = ({ text, func, ngay }) => {
+const TwoStateBorder = ({ text, func }) => {
   const changeState = (event) => {
     const checkbox = event.target;
     const label = checkbox.parentElement;
 
     if (checkbox.checked) {
-      label.classList.remove("checked");
+      label.classList.remove('checked');
     } else {
-      label.classList.add("checked");
+      label.classList.add('checked');
     }
   };
 
@@ -53,57 +44,64 @@ const TwoStateBorder = ({ text, func, ngay }) => {
         className="hidden"
         // defaultChecked  // Thêm thuộc tính defaultChecked để đặt giá trị mặc định là checked
       />
-      {text}ss
+      {text}
     </label>
   );
 };
 
-const StatePink = ({ text, func, info }) => {
+const StatePink = ({text, func, info}) => {
   return (
-    <button className="input-planned" onClick={!func ? null : func}>
+    <button
+      className="input-planned"
+      onClick={!func ? null : func}
+    >
       {text}
     </button>
   );
 };
 
-const StateGrey = ({ text, func, info }) => {
+const StateGrey = ({text, func, info}) => {
   return (
-    <button className="input-full2" onClick={!func ? null : func}>
+    <button
+      className="input-full2"
+      onClick={!func ? null : func}
+    >
       {text}
     </button>
   );
 };
 
-const ButtonBlue = ({ text, func, info }) => {
+const ButtonBlue = ({text, func, info}) => {
   return (
-    <button className="btn-blue" onClick={!func ? null : func}>
+    <button
+      className="btn-blue"
+      onClick={!func ? null : func}
+    >
       {text}
     </button>
   );
 };
 
-const ButtonGrey = ({ text, func, info }) => {
+const ButtonGrey = ({text, func, info}) => {
   return (
-    <button className="btn-grey" onClick={!func ? null : func}>
+    <button
+      className="btn-grey"
+      onClick={!func ? null : func}
+    >
       {text}
     </button>
   );
 };
 
-const ButtonPink = ({ text, func, info }) => {
+const ButtonPink = ({text, func, info}) => {
   return (
-    <button className="btn-pink" onClick={!func ? null : func}>
+    <button
+      className="btn-pink"
+      onClick={!func ? null : func}
+    >
       {text}
     </button>
   );
 };
 
-export {
-  TwoStateBlue,
-  StatePink,
-  StateGrey,
-  TwoStateBorder,
-  ButtonBlue,
-  ButtonGrey,
-  ButtonPink,
-};
+export { TwoStateBlue, StatePink, StateGrey, TwoStateBorder, ButtonBlue, ButtonGrey, ButtonPink };
