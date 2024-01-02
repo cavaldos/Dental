@@ -136,7 +136,8 @@ COMMIT TRAN
 
 -- Unrepeatable read khi dang nhap nha si
 /****** Object:  StoredProcedure [dbo].[SP_DANGNHAP_ALL]    Script Date: 12/30/2023 1:31:40 PM ******/
-
+GO
+CREATE PROC SP_DANGNHAP_ALL
 	@MATK VARCHAR(100),
 	@MATKHAU VARCHAR(20)
 AS
@@ -231,7 +232,7 @@ COMMIT TRAN
 
 -- Phantom read       khi  nhan vien tao hoa don
 /****** Object:  StoredProcedure [dbo].[SP_TAOHOADON_NV]    Script Date: 12/30/2023 1:31:40 PM ******/
-
+GO
 CREATE PROC SP_TAOHOADON_NV
 	@SODT VARCHAR(100),
 	@SOTT INT,
