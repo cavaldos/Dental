@@ -5,7 +5,6 @@ const AdminLayout = lazy(() => import("~/components/layout/adminLayout"));
 const DentistPage = lazy(() => import("~/pages/dentist"));
 const DangKiLichRanh = lazy(() => import("~/pages/dentist/DkLichRanh"));
 const XemBenhAnCu = lazy(() => import("~/pages/dentist/XemBenhAnCu"));
-const ThemBenhAnMoi = lazy(() => import("~/pages/dentist/ThemBenhAnMoi"));
 const XemLichTruc = lazy(() => import("~/pages/dentist/XemLichTruc"));
 const DoiMatKhau = lazy(() => import("../pages/dentist/DoiMatKhau"));
 
