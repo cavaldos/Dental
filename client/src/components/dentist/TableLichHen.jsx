@@ -420,8 +420,9 @@ const OneDay = ({ caMotNgay }) => {
 
 const TableLichHen = ({ data }) => {
   const user = useSelector((state) => state.user);
+  console.log(huyCa)
   const handleSubmit = async() =>{
-      // Thêm chi tiết dịch vụ
+      // Đặt lịch
     for (const ca of datCa) {
       const resCa = await DentistService.dangKyLichRanh({
         mans: user.MANS,
@@ -436,18 +437,17 @@ const TableLichHen = ({ data }) => {
       }
     }
     for (const ca of huyCa) {
-      // const resCa = await DentistService.huyLichRanh({
-      //   mans: user.MANS,
-      //   stt : ca.SOTT
-      // });
+      const resCa = await DentistService.huyLichRanh({
+        mans: user.MANS,
+        stt : ca.SOTT
+      });
       
-      // // Kiểm tra lỗi khi hủy lịch
-      // if (!resCa) {
-      //   message.error('Lỗi khi hủy lịch');
-      //   console.error('Lỗi khi hủy lịch');
-      //   return;
-      // }
-      console.log(ca)
+      // Kiểm tra lỗi khi hủy lịch
+      if (!resCa) {
+        message.error('Lỗi khi hủy lịch');
+        console.error('Lỗi khi hủy lịch');
+        return;
+      }
     }
   };
   return (

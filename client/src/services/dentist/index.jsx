@@ -8,6 +8,14 @@ const DentistService = {
       maca: data.maca,
       ngay: data.ngay,
     });
+    if (res && res.response) {
+      if (res.response.status === 400) {
+        message.error(res.response.data.error);
+      }
+      if (res.response.status === 409) {
+        message.error(res.response.data.error);
+      }
+    }
     return res;
   },
   huyLichRanh: async (data) => {
@@ -15,6 +23,11 @@ const DentistService = {
       mans: data.mans,
       stt: data.stt,
     });
+    if (res && res.response) {
+      if (res.response.status === 409) {
+        message.error(res.response.data.error);
+      }
+    }
     return res;
   },
   taoBenhAn: async (data) => {
