@@ -4,8 +4,6 @@ import { Input, Select, message, Button, Form, InputNumber } from "antd";
 import {
   DeleteOutlined 
 } from "@ant-design/icons";
-import dv from "~/fakedata/dv";
-import thuoc from "~/fakedata/thuoc";
 const { TextArea } = Input;
 import moment from 'moment';
 import { ButtonGreen } from "../../components/button";
@@ -160,8 +158,6 @@ const FormDienThongTin = ({}) => {
     form.resetFields();
   };
   
-
-  console.log("ct",chonThuoc);
   const handleXoaDichVu = (maDV) => {
     setChonDichVu(chonDichVu.filter((item) => item.MADV !== maDV));
   };

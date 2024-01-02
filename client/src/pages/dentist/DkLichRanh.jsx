@@ -11,13 +11,14 @@ const DangKiLichRanh = () => {
 
   useEffect(() => {
     DentistService.xemTableLichNS(user.MANS).then((res) => {
+      console.log(res);
       setLichHen(res || []);
     });
   }, []);
   return (
     <>
-      <div className="">
-        <TableLichHen data={lichhen4} />
+      <div>
+        <TableLichHen data={lichhen} />
       </div>
     </>
   );
