@@ -171,7 +171,7 @@ AS
 BEGIN TRAN
 	BEGIN TRY
 		IF (EXISTS(SELECT * 
-				   FROM LICHHEN
+				   FROM LICHRANH
 				   WHERE MANS = @MANS AND SOTT = @SOTT))
 		BEGIN
 			RAISERROR(N'Lỗi: Đã có khách hàng đặt lịch hẹn này.',16,1)
