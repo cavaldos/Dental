@@ -1,5 +1,5 @@
 import { Button } from "antd";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { message, Pagination } from "antd";
 import moment from 'moment';
 
@@ -7,6 +7,9 @@ import { TwoStateBlue, StatePink, StateGrey, TwoStateBorder } from "~/components
 import { ButtonGreen } from "~/components/button";
 import { CloseCircleOutlined } from "@ant-design/icons";
 import { lichhen4 } from "../../fakedata/lhnv";
+
+const datCa = [];
+const huyCa = [];
 
 function compareDates(dateA, dateB) {
   const date1 = new Date(dateA);
@@ -111,9 +114,53 @@ function findIndexByDate(caMotNgayArray, targetDate) {
   return -1; // Trả về -1 nếu không tìm thấy
 }
 
-const CreateAShift = ({ data, isPassDay, index, customKey, onSelect, isSelected }) => {
+const CreateAShift = ({ data, isPassDay, index, customKey }) => {
+  const pushPopDatCa = (el) => {
+    const changeStructure = {
+      'MACA': el.slice(0, 5),
+      'NGAY': el.slice(6),
+    };
+
+    const indexToRemove = datCa.findIndex(item => item.MACA === changeStructure.MACA && item.NGAY === changeStructure.NGAY);
+    
+    if (indexToRemove !== -1) {
+        datCa.splice(indexToRemove, 1);
+        console.log(`Chuỗi "${el}" đã được xóa khỏi mảng datCa.`);
+    } else {
+        datCa.push(changeStructure);
+        console.log(`Đã thêm chuỗi "${el}" vào mảng datCa.`);
+    }
+
+    console.log('datCa:', datCa);
+  };
+
+  const pushPopHuyCa = (el) => {
+    const changeStructure = {
+      'MACA': el.slice(0, 5),
+      'NGAY': el.slice(6),
+    };
+
+    if(huyCa == []) {
+      huyCa.push(changeStructure);
+    }
+    else {
+      const indexToRemove = huyCa.findIndex(item => item.MACA === changeStructure.MACA && item.NGAY === changeStructure.NGAY);
+      
+      if (indexToRemove !== -1) {
+          huyCa.splice(indexToRemove, 1);
+          // console.log(`Chuỗi "${el}" đã được xóa khỏi mảng datCa.`);
+      } else {
+          huyCa.push(changeStructure);
+          // console.log(`Đã thêm chuỗi "${el}" vào mảng datCa.`);
+      }
+    }
+
+    console.log('huyCa:', huyCa);
+  };
+
+
   let shiftContent, caContent;
-  console.log(customKey); 
+  // console.log(customKey); 
 
   if (data != null && index == null) {
     switch (data.MACA) {
@@ -140,7 +187,12 @@ const CreateAShift = ({ data, isPassDay, index, customKey, onSelect, isSelected 
     if (isPassDay === 1) {
       switch (data.STATUS) {
         case 'waiting':
-          shiftContent = <TwoStateBorder text={caContent} />;
+          shiftContent = <TwoStateBlue 
+                              text={caContent} 
+                              func={pushPopHuyCa} 
+                              id={customKey}
+                              array={huyCa}
+                        />;
           break;
         case 'ordered':
           shiftContent = <StatePink text={caContent} />;
@@ -149,7 +201,12 @@ const CreateAShift = ({ data, isPassDay, index, customKey, onSelect, isSelected 
           shiftContent = <StateGrey text={caContent} />;
           break;
         default:
-          shiftContent = <TwoStateBlue text={caContent} />;
+          shiftContent = <TwoStateBorder 
+                              text={caContent} 
+                              func={pushPopDatCa} 
+                              id={customKey}
+                              array={datCa}
+                        />;
           break;
       }
     } else {
@@ -178,7 +235,12 @@ const CreateAShift = ({ data, isPassDay, index, customKey, onSelect, isSelected 
         break;
     }
 
-    shiftContent = <TwoStateBlue text={caContent} />;
+    shiftContent = <TwoStateBorder 
+                    text={caContent} 
+                    func={pushPopDatCa} 
+                    id={customKey}
+                    array={datCa}
+                  />;
   }
 
   const handleShiftClick = () => {
@@ -186,12 +248,8 @@ const CreateAShift = ({ data, isPassDay, index, customKey, onSelect, isSelected 
   };
 
   return (
-    <div className="mb-3" id={customKey} onClick={handleShiftClick}>
-      <TwoStateBlue 
-        text={caContent} 
-        func={()=>handleShiftClick()}
-        isChecked={isSelected} // Sử dụng trạng thái được chọn từ props
-      />
+    <div className="mb-3">
+      {shiftContent}
     </div>
   );
 };

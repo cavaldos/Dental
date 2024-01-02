@@ -3,8 +3,6 @@ import { lichhen4 } from "~/fakedata/lhnv";
 import React, { useState } from "react";
 import TableLichHen from "~/components/dentist/TableLichHen";
 
-import { TwoStateBlue, StatePink, StateGrey } from "~/components/buttonTwoState";
-
 const DangKiLichRanh = () => {
   return (
     <>
