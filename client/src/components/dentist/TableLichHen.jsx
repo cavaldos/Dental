@@ -94,7 +94,7 @@ function createInfo30Days(week) {
   return result;
 }
 
-const today = new Date('2023-12-19'); 
+const today = new Date(); 
 const week = selectWeekDays(today);
 
 const info30Days = createInfo30Days(week);
