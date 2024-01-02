@@ -1,5 +1,4 @@
-import React, { useState, useEffect, lazy, Suspense } from "react";
-import hsb from "../../fakedata/hsb";
+import React, { lazy, Suspense } from "react";
 import "../../assets/styles/guest.css";
 const HoSoBenh = lazy(() => import("~/components/HoSoBenh"));
 import { useSelector } from "react-redux";

@@ -2,8 +2,6 @@ import { Button } from "antd";
 import React, { useState, useEffect } from "react";
 import { message, Pagination } from "antd";
 import moment from "moment";
-import { useDispatch, useSelector } from "react-redux";
-import DentistService from "~/services/dentist";
 import {
   TwoStateBlue,
   StatePink,
@@ -12,6 +10,8 @@ import {
 } from "~/components/buttonTwoState";
 import { ButtonGreen } from "~/components/button";
 import { CloseCircleOutlined } from "@ant-design/icons";
+import DentistService from "../../services/dentist/index";
+import { useSelector } from "react-redux";
 
 const datCa = [];
 const huyCa = [];
@@ -143,19 +143,17 @@ const CreateAShift = ({ data, isPassDay, index, customKey }) => {
 
     if (indexToRemove !== -1) {
       datCa.splice(indexToRemove, 1);
-      console.log(`Chuỗi "${el}" đã được xóa khỏi mảng datCa.`);
+      // console.log(`Chuỗi "${el}" đã được xóa khỏi mảng datCa.`);
     } else {
       datCa.push(changeStructure);
-      console.log(`Đã thêm chuỗi "${el}" vào mảng datCa.`);
+      // console.log(`Đã thêm chuỗi "${el}" vào mảng datCa.`);
     }
-
-    console.log("datCa:", datCa);
   };
 
   const pushPopHuyCa = (el) => {
     const changeStructure = {
       MACA: el.slice(0, 5),
-      NGAY: el.slice(6),
+      SOTT: data.SOTTLH,
     };
 
     if (huyCa == []) {
@@ -175,12 +173,9 @@ const CreateAShift = ({ data, isPassDay, index, customKey }) => {
         // console.log(`Đã thêm chuỗi "${el}" vào mảng datCa.`);
       }
     }
-
-    console.log("huyCa:", huyCa);
   };
 
   let shiftContent, caContent;
-  // console.log(customKey);
 
   if (data != null && index == null) {
     switch (data.MACA) {
@@ -292,7 +287,6 @@ const OneDay = ({ caMotNgay }) => {
     (currentPage - 1) * pageSize,
     currentPage * pageSize
   );
-  // console.log("slicedInfo30Days ", slicedInfo30Days);
 
   return (
     <div>
@@ -356,16 +350,14 @@ const OneDay = ({ caMotNgay }) => {
                       } else {
                         // Dạng 2 : Nếu ngày không xuất hiện trong db thì tô xanh hết
                         return caMotNgay[index3].CA.map((shift, index4) => (
-                          <div key={index4}>
-                            <CreateAShift
-                              key={`${jndex}-${index4}`}
-                              customKey={shift.MACA + "-" + element.NGAY}
-                              maca={shift.MACA}
-                              ngay={element.NGAY}
-                              data={shift}
-                              isPassDay={1}
-                            />
-                          </div>
+                          <CreateAShift
+                            key={`${jndex}-${index4}`}
+                            customKey={shift.MACA + "-" + element.NGAY}
+                            maca={shift.MACA}
+                            ngay={element.NGAY}
+                            data={shift}
+                            isPassDay={1}
+                          />
                         ));
                       }
                     })()}
@@ -410,7 +402,7 @@ const OneDay = ({ caMotNgay }) => {
                       } else {
                         // Dạng 2 : Nếu ngày không xuất hiện trong db thì tô xanh hết
                         return caMotNgay[index5].CA.map((shift, index6) => (
-                          <div>
+                          <div key={`${jndex}-${index6}`}>
                             <CreateAShift
                               key={`${jndex}-${index6}`}
                               customKey={shift.MACA + "-" + element.NGAY}
@@ -463,10 +455,36 @@ const OneDay = ({ caMotNgay }) => {
 };
 
 const TableLichHen = ({ data }) => {
-  const dangky = useSelector((state) => state.dangky);
-  const dispatch = useDispatch();
-  const handleOnClick = async () => {
-    message.info(`Đa chon thành công ca `);
+  const user = useSelector((state) => state.user);
+  const handleSubmit = async () => {
+    // Thêm chi tiết dịch vụ
+    for (const ca of datCa) {
+      const resCa = await DentistService.dangKyLichRanh({
+        mans: user.MANS,
+        maca: ca.MACA,
+        ngay: moment(ca.NGAY, "DD/MM/YYYY").format("YYYY-MM-DD"),
+      });
+      //Kiểm tra lỗi khi thêm đặt lịch
+      if (!resCa) {
+        message.error("Lỗi khi đặt lịch");
+        console.error("Lỗi khi đặt lịch");
+        return;
+      }
+    }
+    for (const ca of huyCa) {
+      // const resCa = await DentistService.huyLichRanh({
+      //   mans: user.MANS,
+      //   stt : ca.SOTT
+      // });
+
+      // // Kiểm tra lỗi khi hủy lịch
+      // if (!resCa) {
+      //   message.error('Lỗi khi hủy lịch');
+      //   console.error('Lỗi khi hủy lịch');
+      //   return;
+      // }
+      console.log(ca);
+    }
   };
   return (
     <>
@@ -507,9 +525,9 @@ const TableLichHen = ({ data }) => {
               <CloseCircleOutlined /> HOÀN TÁC
             </Button>
             <ButtonGreen
-              func={handleOnClick}
               text="ĐĂNG KÝ"
               className="w-[150px] rounded-2xl"
+              func={() => handleSubmit()}
             />
           </div>
         </div>

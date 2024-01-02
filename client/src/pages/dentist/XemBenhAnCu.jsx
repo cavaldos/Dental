@@ -1,6 +1,6 @@
 import { Empty } from "antd";
 import { AudioOutlined } from "@ant-design/icons";
-import { Input, Space } from "antd";
+import { Input } from "antd";
 import { useState, Suspense, lazy } from "react";
 import { useLocation } from "react-router-dom";
 import '../../assets/styles/dentist.css'

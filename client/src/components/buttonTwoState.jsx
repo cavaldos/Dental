@@ -8,7 +8,7 @@ const TwoStateBorder = ({ text, func, id, array }) => {
 
   useEffect(() => {
     // Kiểm tra xem id có trong mảng datCa không
-    const isInArray = array.some(item => item.MACA + '-' + item.NGAY === id);
+    const isInArray = array.some((item) => item.MACA + "-" + item.NGAY === id);
     setIsChecked(isInArray);
   }, [id]);
 
@@ -31,7 +31,7 @@ const TwoStateBorder = ({ text, func, id, array }) => {
     // message.info(`Đa chon thành công ca ${maca} ngày ${ngay}`);
   };
   return (
-    <label id={id} className={`input-check ${isChecked ? 'checked' : ''}`}>
+    <label id={id} className={`input-check ${isChecked ? "checked" : ""}`}>
       <input
         onChange={changeState}
         onClick={handleOnClick}
@@ -41,7 +41,7 @@ const TwoStateBorder = ({ text, func, id, array }) => {
         className="hidden"
         checked={isChecked}
       />
-      {text}jjjj
+      {text}
     </label>
   );
 };
@@ -51,7 +51,7 @@ const TwoStateBlue = ({ text, func, id, array }) => {
 
   useEffect(() => {
     // Kiểm tra xem id có trong mảng huyCa không
-    const isInArray = array.some(item => item.MACA + '-' + item.NGAY === id);
+    const isInArray = array.some((item) => item.MACA + "-" + item.NGAY === id);
     setIsChecked(!isInArray);
   }, [id]);
 
@@ -63,7 +63,7 @@ const TwoStateBlue = ({ text, func, id, array }) => {
   };
 
   return (
-    <label id={id} className={`input-check ${isChecked ? 'checked' : ''}`}>
+    <label id={id} className={`input-check ${isChecked ? "checked" : ""}`}>
       <input
         onChange={changeState}
         type="checkbox"
