@@ -305,72 +305,59 @@ BEGIN TRAN
 	END CATCH
 COMMIT TRAN
 
+-- NS08/ THÊM CTDV VÀO BỆNH ÁN
 GO
-CREATE PROC SP_THEMCTTHUOC_NS
-    @MATHUOC VARCHAR(10),
+CREATE PROCEDURE SP_THEMCTDV_NS
+    @MaDV VARCHAR(10),
     @SOTT INT,
-    @SODT VARCHAR(10),
-    @SOLUONG INT,
-    @THOIDIEMDUNG NVARCHAR(200)
+    @SoDienThoai VARCHAR(10),
+    @SoLuongDV INT
+
 AS
-BEGIN TRAN
+BEGIN TRAN 
 BEGIN TRY
 BEGIN
-    IF @SOLUONG IS NULL OR @THOIDIEMDUNG IS NULL
+     IF @SoLuongDV IS NULL
     BEGIN
         ROLLBACK TRAN
-        RAISERROR(N'Số lượng và thời điểm dùng không thể null.',16,1);
+        RAISERROR(N'Số lượng dịch vụ không thể null.',16,1);
         RETURN
     END
 
 	IF (NOT EXISTS(SELECT * 
 				   FROM HOSOBENH 
-				   WHERE SOTT = @SOTT AND SODT = @SODT))
+				   WHERE SOTT = @SOTT AND SODT = @SoDienThoai))
 	BEGIN
         ROLLBACK TRAN
         RAISERROR(N'Không tồn tại hồ sơ bệnh.',16,1);
         RETURN
     END
 
-	IF(NOT EXISTS(SELECT * FROM LOAITHUOC WHERE MATHUOC = @MATHUOC))
+	IF(NOT EXISTS(SELECT * FROM LOAIDICHVU WHERE MADV = @MaDV))
     BEGIN
-        RAISERROR(N'Thuốc này không tồn tại trong kho',16,1)
+        RAISERROR(N'Dịch vụ này không tồn tại',16,1)
         ROLLBACK TRAN
         RETURN
     END
 
 	IF(EXISTS(SELECT SODT, SOTT, _DAXUATHOADON 
-                FROM HOSOBENH WITH(UPDLOCK, HOLDLOCK)
-                WHERE SODT = @SODT 
-                AND SOTT = @SOTT 
-                AND _DAXUATHOADON = 1))
+				FROM HOSOBENH WITH(UPDLOCK, HOLDLOCK)
+				WHERE SODT = @SoDienThoai 
+				AND SOTT = @SOTT AND _DAXUATHOADON = 1))
     BEGIN
-        RAISERROR(N'Lỗi: đã xuất hóa đơn, không thể thêm đơn thuốc được',16,1)
+        RAISERROR(N'Lỗi: đã xuất hóa đơn, không thể thêm dịch vụ được',16,1)
         ROLLBACK TRAN
         RETURN
     END
 
-    ELSE 
-        DECLARE @SLTON INT
-        SELECT @SLTON = SLTON FROM LOAITHUOC WHERE MATHUOC = @MATHUOC
-        
-        DECLARE @DONGIALUCTHEM FLOAT
-        SELECT @DONGIALUCTHEM = DONGIA FROM LOAITHUOC WHERE MATHUOC = @MATHUOC
-		
-        IF(EXISTS(SELECT *
-                  FROM LOAITHUOC LT
-                  WHERE LT.MATHUOC = @MATHUOC AND @SOLUONG <= @SLTON AND LT.NGAYHETHAN > GETDATE()))
-        BEGIN
-            INSERT INTO CHITIETTHUOC(MATHUOC,SOTT,SODT,SOLUONG,THOIDIEMDUNG, DONGIALUCTHEM)
-		    VALUES(@MATHUOC, @SOTT, @SODT, @SOLUONG, @THOIDIEMDUNG, @DONGIALUCTHEM);
-		    UPDATE LOAITHUOC SET SLTON = @SLTON - @SOLUONG WHERE MATHUOC = @MATHUOC;
-        END
-        ELSE
-        BEGIN
-            RAISERROR(N'Lỗi: không đủ số lượng thuốc tồn kho để bán',16,1)
-            ROLLBACK TRAN
-            RETURN
-        END
+    DECLARE @DONGIALUCTHEM FLOAT
+    SELECT @DONGIALUCTHEM = DONGIA FROM LOAIDICHVU WHERE MADV = @MaDV
+
+    INSERT INTO CHITIETDV
+        (MADV, SOTT, SODT, SOLUONG, DONGIALUCTHEM)
+    VALUES
+        (@MaDV, @SOTT, @SoDienThoai, @SoLuongDV, @DONGIALUCTHEM);
+
 END;
 END TRY 
 BEGIN CATCH 
@@ -380,6 +367,7 @@ BEGIN CATCH
 		RETURN
 END CATCH
 COMMIT TRAN
+GO
 
 -- Dirty read khi quản trị viên cập nhật thông tin dịch vụ và xem danh sách tất cả dịch vụ
 GO
