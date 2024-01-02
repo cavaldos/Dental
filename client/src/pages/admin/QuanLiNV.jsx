@@ -1,7 +1,6 @@
-import nhanviens from "../../fakedata/nhanvien";
 import "../../assets/styles/admin.css";
 import AdminService from "../../services/admin";
-import React, { useState, useCallback, useEffect, useRef, memo } from "react";
+import React, { useState, useCallback, useEffect, memo } from "react";
 import { changeState } from "~/redux/features/dataSlice";
 import { useSelector, useDispatch } from "react-redux";
 import {

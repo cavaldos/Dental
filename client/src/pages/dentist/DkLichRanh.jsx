@@ -1,5 +1,3 @@
-import { Button, Calendar, Select } from "antd";
-import { lichhen4 } from "~/fakedata/lhnv";
 import React, { useState, useEffect } from "react";
 import TableLichHen from "~/components/dentist/TableLichHen";
 import DentistService from "../../services/dentist";

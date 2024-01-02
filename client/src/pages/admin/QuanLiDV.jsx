@@ -1,7 +1,6 @@
-import dv from "../../fakedata/dv";
 import "../../assets/styles/admin.css";
 import AdminService from "../../services/admin";
-import React, { useState, useCallback, useEffect, useRef } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import {
   Table,
   Button,
@@ -9,10 +8,6 @@ import {
   Modal,
   Form,
   Input,
-  Select,
-  Checkbox,
-  DatePicker,
-  Tag,
   Space,
   InputNumber,
 } from "antd";

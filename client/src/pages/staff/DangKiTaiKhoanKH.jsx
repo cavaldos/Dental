@@ -1,11 +1,10 @@
 import "../../assets/styles/staff.css";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import StaffService from "../../services/staff";
 import {
   Button,
   Form,
   Input,
-  InputNumber,
   Select,
   DatePicker,
   message,
