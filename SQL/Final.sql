@@ -309,6 +309,9 @@ END
 USE PKNHAKHOA 
 GO
 INSERT INTO NHASI (MANS, HOTEN, PHAI, GIOITHIEU, MATKHAU)
+VALUES ('NS0000', N'Lê Văn', N'Nam', N'Chuyên gia: Điều trị nha chu, chữa răng nội nha, tiểu phẫu răng miệng: nhổ răng khôn, nhổ răng mọc ngầm,… phục hình răng giả tháo lắp, phục hình răng sứ thẩm mỹ, cầu răng sứ.\nNgôn ngữ: Tiếng Việt, Tiếng Anh.\nHọc vấn: Tốt nghiệp Bác sỹ Trường Đại học Y Khoa Quảng Tây năm 2012. Tốt nghiệp thạc sỹ Trường Đại học Y khoa Quảng Tây năm 2016.\nKinh nghiệm: Bác sĩ Răng Hàm Mặt – Đại học Y Dược (2019).', '123');
+
+INSERT INTO NHASI (MANS, HOTEN, PHAI, GIOITHIEU, MATKHAU)
 VALUES ('NS0001', N'Lê Văn Hòa', N'Nam', N'Chuyên gia: Điều trị nha chu, chữa răng nội nha, tiểu phẫu răng miệng: nhổ răng khôn, nhổ răng mọc ngầm,… phục hình răng giả tháo lắp, phục hình răng sứ thẩm mỹ, cầu răng sứ.\nNgôn ngữ: Tiếng Việt, Tiếng Anh.\nHọc vấn: Tốt nghiệp Bác sỹ Trường Đại học Y Khoa Quảng Tây năm 2012. Tốt nghiệp thạc sỹ Trường Đại học Y khoa Quảng Tây năm 2016.\nKinh nghiệm: Bác sĩ Răng Hàm Mặt – Đại học Y Dược (2019).', 'S4f3&H@ppy*Day');
 
 INSERT INTO NHASI (MANS, HOTEN, PHAI, GIOITHIEU, MATKHAU)
@@ -357,7 +360,7 @@ GO
 -- Thêm LICHRANH
 -- Ngày 2024-01-01
 DECLARE @TODAY DATE;
-SET @TODAY = '2023-12-28';
+SET @TODAY = '2024-01-01';
 PRINT @TODAY
 INSERT INTO LICHRANH (MANS, SOTT, MACA, NGAY)
 VALUES
@@ -442,7 +445,7 @@ INSERT INTO KHACHHANG (SODT, HOTEN, PHAI, NGAYSINH, DIACHI, MATKHAU)
 VALUES ('0712345678', N'Ngô Đình Quân', N'Nam', '1998-08-02', N'201 Lê Thị Riêng, Phường Bến Thành, Quận 1, TP.HCM', 'H@ppyD@ys7');
 
 INSERT INTO KHACHHANG (SODT, HOTEN, PHAI, NGAYSINH, DIACHI, MATKHAU)
-VALUES ('0987654321', N'Dương Thị Thảo', N'Nữ', '1989-06-19', N'72/3 Nguyễn Thị Minh Khai, Phường Đa Kao, Quận 1, TP.HCM', 'L0ngP@ssw0rd#');
+VALUES ('0987654321', N'Dương Thị Thảo', N'Nữ', '1989-06-19', N'72/3 Nguyễn Thị Minh Khai, Phường Đa Kao, Quận 1, TP.HCM', '123');
 
 INSERT INTO KHACHHANG (SODT, HOTEN, PHAI, NGAYSINH, DIACHI, MATKHAU)
 VALUES ('0301234567', N'Hoàng Văn Tùng', N'Nam', '2002-01-30', N'52/14 Lý Thường Kiệt, Phường 10, Quận 11, TP.HCM', 'P!n3@pple$2');
@@ -505,6 +508,9 @@ INSERT INTO KHACHHANG (SODT, HOTEN, PHAI, NGAYSINH, DIACHI, MATKHAU)
 VALUES ('0789652221', N'Nguyễn Thị Thuý Nga', N'Nữ', '1981-03-07', N'121 Lê Thị Riêng, Phường Bến Thành, Quận 1, TP.HCM', 'Qwerty123#');
 
 --Nhap lieu bang NHANVIEN
+INSERT INTO NHANVIEN (MANV, HOTEN, PHAI, VITRICV, MATKHAU)
+VALUES ('NV0000', N'Trần Thị Bảo', N'Nữ', N'Hành chính phòng khám', '123');
+
 INSERT INTO NHANVIEN (MANV, HOTEN, PHAI, VITRICV, MATKHAU)
 VALUES ('NV0001', N'Trần Thị Bảo Trâm', N'Nữ', N'Hành chính phòng khám', 'B@n4n@&Sm1l3*');
 
@@ -679,6 +685,9 @@ VALUES
 
 --Nhap lieu bang QTV
 INSERT INTO QTV (MAQTV, HOTEN, PHAI, MATKHAU)
+VALUES ('QTV0000', N'Nguyễn Văn A', N'Nam', '123');
+
+INSERT INTO QTV (MAQTV, HOTEN, PHAI, MATKHAU)
 VALUES ('QTV0001', N'Vũ Thành Công', N'Nam', '21126054');
 
 INSERT INTO QTV (MAQTV, HOTEN, PHAI, MATKHAU)
@@ -706,7 +715,7 @@ GO
 
 
 -- ALL00/ KIỂM TRA MATK HỢP LỆ
-CREATE OR ALTER PROC SP_KTTK_ALL
+CREATE PROC SP_KTTK_ALL
 	@MATK VARCHAR(100)
 AS
 BEGIN TRAN
@@ -860,7 +869,7 @@ COMMIT TRAN
 ----------------------------------
 --ALL04/ ĐĂNG NHẬP
 GO
-CREATE OR ALTER PROC SP_DANGNHAP_ALL
+CREATE PROC SP_DANGNHAP_ALL
 	@MATK VARCHAR(100),
 	@MATKHAU VARCHAR(20)
 AS
