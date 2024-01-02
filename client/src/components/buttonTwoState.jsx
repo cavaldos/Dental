@@ -1,15 +1,24 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "~/assets/styles/buttonTwoState.css";
 
-const TwoStateBlue = ({ text, func }) => {
+const TwoStateBorder = ({ text, func, id, array }) => {
   const [isChecked, setIsChecked] = useState(false);
+
+  useEffect(() => {
+    // Kiểm tra xem id có trong mảng datCa không
+    const isInArray = array.some(item => item.MACA + '-' + item.NGAY === id);
+    setIsChecked(isInArray);
+  }, [id]);
 
   const changeState = () => {
     setIsChecked((prevChecked) => !prevChecked);
+    if (func) {
+      func(id);
+    }
   };
 
   return (
-    <label className={`input-check ${isChecked ? 'checked' : ''}`}>
+    <label id={id} className={`input-check ${isChecked ? 'checked' : ''}`}>
       <input
         onChange={changeState}
         type="checkbox"
@@ -23,27 +32,30 @@ const TwoStateBlue = ({ text, func }) => {
   );
 };
 
-const TwoStateBorder = ({ text, func }) => {
-  const changeState = (event) => {
-    const checkbox = event.target;
-    const label = checkbox.parentElement;
+const TwoStateBlue = ({ text, func, id, array }) => {
+  const [isChecked, setIsChecked] = useState(true);
 
-    if (checkbox.checked) {
-      label.classList.remove('checked');
-    } else {
-      label.classList.add('checked');
+  useEffect(() => {
+    // Kiểm tra xem id có trong mảng huyCa không
+    const isInArray = array.some(item => item.MACA + '-' + item.NGAY === id);
+    setIsChecked(!isInArray);
+  }, [id]);
+
+  const changeState = () => {
+    setIsChecked((prevChecked) => !prevChecked);
+    if (func) {
+      func(id);
     }
   };
 
   return (
-    <label className="input-check checked">
+    <label id={id} className={`input-check ${isChecked ? 'checked' : ''}`}>
       <input
         onChange={changeState}
         type="checkbox"
         value="something"
         name="test"
         className="hidden"
-        // defaultChecked  // Thêm thuộc tính defaultChecked để đặt giá trị mặc định là checked
       />
       {text}
     </label>
