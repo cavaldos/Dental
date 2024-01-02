@@ -57,7 +57,7 @@ const Header = () => {
       <div className="bg-radial-gradient bg-cover bg-center w-full h-16 flex gap-1  justify-end  px-5 drop-shadow-lg z-50">
         <div className=" h-full text-center  flex mr-auto ml-4">
           <h1 className="my-auto mr-3 text-white text-2xl font-serif">
-            Phòng Khám Của Bác Sĩ Vũ
+              PHÒNG KHÁM NHA KHOA HAHA
           </h1>
         </div>
 

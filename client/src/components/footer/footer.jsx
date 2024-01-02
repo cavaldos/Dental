@@ -15,9 +15,9 @@ const Footer = () => {
             <div className="container mx-auto py-10">
                 <div className="">
                     <div className="footer-brand">
-                        <a href="#" className="logo text-2xl font-bold font-serif">
-                            PHÒNG KHÁM TSITNED.
-                        </a>
+                        <p href="#" className="logo text-2xl font-bold font-serif">
+                            PHÒNG KHÁM NHA KHOA HAHA
+                        </p>
 
                         <div className="schedule flex items-center mt-4">
                             <div className="schedule-icon">
