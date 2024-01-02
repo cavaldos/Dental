@@ -21,6 +21,11 @@ export const dkLRSlice = createSlice({
       }
     },
   },
+  deleteLichRanh: (state) => {
+    state.mans = "";
+    state.maca = "";
+    state.ngay = "";
+  },
 });
 
 export const { dangkiLichRanh } = dkLRSlice.actions;

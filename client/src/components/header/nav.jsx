@@ -1,10 +1,7 @@
 import { useNavigate, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 const KhachHangItem = [
-  {
-    name: "Home",
-    path: "/",
-  },
+ 
   {
     name: `Đặt lịch hẹn`,
     path: "/dat-lich-hen",

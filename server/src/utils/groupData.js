@@ -222,7 +222,7 @@ const groupTableLich = (data) => {
         HOTENKH: item.TEN_KHACH,
         SOTTLH: item.SOTT,
         LYDOKHAM: item.LYDOKHAM,
-        SOTTLR: item.SOTTLR,
+        // SOTTLR: item.SOTTLR,
       });
     }
   });

@@ -2,7 +2,7 @@ import khachhangs from "../../fakedata/khachhang";
 
 import AdminService from "../../services/admin";
 import React, { useEffect } from "react";
-import { Table, Tag, Popconfirm, message } from "antd";
+import { Table, Tag, Popconfirm } from "antd";
 
 import "../../assets/styles/admin.css";
 import { LockOutlined, UnlockOutlined } from "@ant-design/icons";

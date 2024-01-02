@@ -1,4 +1,3 @@
-import qtvs from "../../fakedata/qtv";
 import AdminService from "../../services/admin";
 import React, { useEffect, useState } from "react";
 import { Table, Button, Modal, Form, Select, Input } from "antd";

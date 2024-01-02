@@ -29,7 +29,7 @@ const ThongTinLichHen = memo(({ props, funcTaoHSB }) => {
   return (
     <>
       <div
-        className="bg-white w-[440px] h-fit rounded-3xl mx-2 py-4 px-8 grid grid-rows-[1fr auto]"
+        className="bg-white w-[440px] h-[100%] rounded-3xl mx-2 py-4 px-8 grid grid-rows-[1fr auto]"
         style={{
           borderRadius: "35px",
           boxShadow: "0px 4px 4px 0px rgba(0, 0, 0, 0.08)",
@@ -60,7 +60,7 @@ const ThongTinLichHen = memo(({ props, funcTaoHSB }) => {
             </p>
           </div>
         </div>
-        <div className="justify-self-end self-end flex justify-center items-center gap-5">
+        <div className="flex justify-between mt-5 items-end">
           <ButtonBorderGreen text="Bệnh án cũ" func={() => HandleBenhAnCu()} />
           <ButtonGreen text="Tạo bệnh án mới" func={() => funcTaoHSB(props)} />
         </div>
@@ -95,7 +95,7 @@ const XemLichTruc = () => {
             <WorkSchedule data={lichhen4} func={changeDetail} />
           ) : (
             <div
-              className="bg-white w-[440px] h-fit rounded-3xl mx-2 py-6 px-8"
+              className="bg-white w-[440px] h-[100%] rounded-3xl mx-2 py-6 px-8"
               style={{
                 borderRadius: "35px",
                 boxShadow: "0px 4px 4px 0px rgba(0, 0, 0, 0.10)",

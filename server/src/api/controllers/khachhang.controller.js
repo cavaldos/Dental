@@ -249,6 +249,9 @@ const khachHangController = {
       const result = await pool.executeSP(sp, params);
       return res.status(201).json({ success: true });
     } catch (error) {
+      if (error.message === "Lỗi: Lịch rảnh này đã bị xóa.") {
+        return res.status(422).json({ error: error.message });
+      }
       if (error.message === "Lỗi: Đã có khách hàng đặt lịch hẹn này.") {
         return res.status(422).json({ error: error.message });
       }

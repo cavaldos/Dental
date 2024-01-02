@@ -8,7 +8,7 @@ import moment from "moment";
 import { StopOutlined } from "@ant-design/icons";
 import ColumnSearch from "~/hooks/useSortTable";
 
-import { ButtonGreen, ButtonPink } from "../../components/button";
+import { ButtonPink } from "../../components/button";
 
 const ModalHuyHen = ({ data }) => {
   const [formValues, setFormValues] = useState(data);
