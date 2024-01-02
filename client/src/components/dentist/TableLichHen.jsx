@@ -125,19 +125,17 @@ const CreateAShift = ({ data, isPassDay, index, customKey }) => {
     
     if (indexToRemove !== -1) {
         datCa.splice(indexToRemove, 1);
-        console.log(`Chuỗi "${el}" đã được xóa khỏi mảng datCa.`);
+        // console.log(`Chuỗi "${el}" đã được xóa khỏi mảng datCa.`);
     } else {
         datCa.push(changeStructure);
-        console.log(`Đã thêm chuỗi "${el}" vào mảng datCa.`);
+        // console.log(`Đã thêm chuỗi "${el}" vào mảng datCa.`);
     }
-
-    console.log('datCa:', datCa);
   };
 
   const pushPopHuyCa = (el) => {
     const changeStructure = {
       'MACA': el.slice(0, 5),
-      'NGAY': el.slice(6),
+      'SOTT': data.SOTTLH,
     };
 
     if(huyCa == []) {
@@ -154,13 +152,10 @@ const CreateAShift = ({ data, isPassDay, index, customKey }) => {
           // console.log(`Đã thêm chuỗi "${el}" vào mảng datCa.`);
       }
     }
-
-    console.log('huyCa:', huyCa);
   };
 
 
   let shiftContent, caContent;
-  // console.log(customKey); 
 
   if (data != null && index == null) {
     switch (data.MACA) {
@@ -269,7 +264,6 @@ const OneDay = ({ caMotNgay }) => {
   };
 
   const slicedInfo30Days = info30Days.slice((currentPage - 1) * pageSize, currentPage * pageSize);
-  console.log('slicedInfo30Days ', slicedInfo30Days);
 
   return (
     <div>
@@ -444,7 +438,7 @@ const TableLichHen = ({ data }) => {
     for (const ca of huyCa) {
       // const resCa = await DentistService.huyLichRanh({
       //   mans: user.MANS,
-      //   stt
+      //   stt : ca.SOTT
       // });
       
       // // Kiểm tra lỗi khi hủy lịch
