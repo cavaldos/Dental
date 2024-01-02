@@ -1,5 +1,5 @@
 import { Button } from "antd";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { message, Pagination } from "antd";
 import moment from "moment";
 import { useDispatch, useSelector } from "react-redux";
@@ -12,7 +12,9 @@ import {
 } from "~/components/buttonTwoState";
 import { ButtonGreen } from "~/components/button";
 import { CloseCircleOutlined } from "@ant-design/icons";
-import { lichhen4 } from "../../fakedata/lhnv";
+
+const datCa = [];
+const huyCa = [];
 
 function compareDates(dateA, dateB) {
   const date1 = new Date(dateA);
@@ -107,7 +109,7 @@ function createInfo30Days(week) {
   return result;
 }
 
-const today = new Date("2023-12-19");
+const today = new Date();
 const week = selectWeekDays(today);
 
 const info30Days = createInfo30Days(week);
@@ -127,9 +129,58 @@ function findIndexByDate(caMotNgayArray, targetDate) {
   return -1; // Trả về -1 nếu không tìm thấy
 }
 
-const CreateAShift = ({ data, isPassDay, index, customKey, maca, ngay }) => {
+const CreateAShift = ({ data, isPassDay, index, customKey }) => {
+  const pushPopDatCa = (el) => {
+    const changeStructure = {
+      MACA: el.slice(0, 5),
+      NGAY: el.slice(6),
+    };
+
+    const indexToRemove = datCa.findIndex(
+      (item) =>
+        item.MACA === changeStructure.MACA && item.NGAY === changeStructure.NGAY
+    );
+
+    if (indexToRemove !== -1) {
+      datCa.splice(indexToRemove, 1);
+      console.log(`Chuỗi "${el}" đã được xóa khỏi mảng datCa.`);
+    } else {
+      datCa.push(changeStructure);
+      console.log(`Đã thêm chuỗi "${el}" vào mảng datCa.`);
+    }
+
+    console.log("datCa:", datCa);
+  };
+
+  const pushPopHuyCa = (el) => {
+    const changeStructure = {
+      MACA: el.slice(0, 5),
+      NGAY: el.slice(6),
+    };
+
+    if (huyCa == []) {
+      huyCa.push(changeStructure);
+    } else {
+      const indexToRemove = huyCa.findIndex(
+        (item) =>
+          item.MACA === changeStructure.MACA &&
+          item.NGAY === changeStructure.NGAY
+      );
+
+      if (indexToRemove !== -1) {
+        huyCa.splice(indexToRemove, 1);
+        // console.log(`Chuỗi "${el}" đã được xóa khỏi mảng datCa.`);
+      } else {
+        huyCa.push(changeStructure);
+        // console.log(`Đã thêm chuỗi "${el}" vào mảng datCa.`);
+      }
+    }
+
+    console.log("huyCa:", huyCa);
+  };
+
   let shiftContent, caContent;
-  // console.log("custom keyy", customKey);
+  // console.log(customKey);
 
   if (data != null && index == null) {
     switch (data.MACA) {
@@ -156,11 +207,14 @@ const CreateAShift = ({ data, isPassDay, index, customKey, maca, ngay }) => {
     if (isPassDay === 1) {
       switch (data.STATUS) {
         case "waiting":
-          // shiftContent = <TwoStateBorder text={caContent} />;
           shiftContent = (
-            <TwoStateBlue text={caContent} maca={maca} ngay={ngay} />
+            <TwoStateBlue
+              text={caContent}
+              func={pushPopHuyCa}
+              id={customKey}
+              array={huyCa}
+            />
           );
-
           break;
         case "ordered":
           shiftContent = <StatePink text={caContent} />;
@@ -170,7 +224,12 @@ const CreateAShift = ({ data, isPassDay, index, customKey, maca, ngay }) => {
           break;
         default:
           shiftContent = (
-            <TwoStateBlue text={caContent} maca={maca} ngay={ngay} />
+            <TwoStateBorder
+              text={caContent}
+              func={pushPopDatCa}
+              id={customKey}
+              array={datCa}
+            />
           );
           break;
       }
@@ -199,14 +258,17 @@ const CreateAShift = ({ data, isPassDay, index, customKey, maca, ngay }) => {
         break;
     }
 
-    shiftContent = <TwoStateBlue text={caContent} maca={maca} ngay={ngay} />;
+    shiftContent = (
+      <TwoStateBorder
+        text={caContent}
+        func={pushPopDatCa}
+        id={customKey}
+        array={datCa}
+      />
+    );
   }
 
-  return (
-    <div className="mb-3" id={customKey}>
-      {shiftContent}
-    </div>
-  );
+  return <div className="mb-3">{shiftContent}</div>;
 };
 
 const OneDay = ({ caMotNgay }) => {
@@ -404,9 +466,8 @@ const TableLichHen = ({ data }) => {
   const dangky = useSelector((state) => state.dangky);
   const dispatch = useDispatch();
   const handleOnClick = async () => {
-    DentistService.dangKyLichRanh;
-     
-  }
+    message.info(`Đa chon thành công ca `);
+  };
   return (
     <>
       <div className=" bg-white rounded-3xl h-fit w-[1030px] mx-2 py-8 px-12">
