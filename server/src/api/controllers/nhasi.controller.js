@@ -68,6 +68,15 @@ const nhaSiController = {
       const result = await pool.executeSP(sp, params);
       return res.status(201).json({ success: true });
     } catch (error) {
+      if (error.message === "Ngày đăng ký không thể null.") {
+        return res.status(400).json({ error: error.message });
+      }
+      if (error.message === "Ngày đăng ký không thể nhỏ hơn ngày hiện tại.") {
+        return res.status(400).json({ error: error.message });
+      }
+      if (error.message === "Lỗi: ca đã đủ 2 người đăng ký.") {
+        return res.status(409).json({ error: error.message });
+      }
       console.error("An error occurred:", error.message);
       return res
         .status(500)
@@ -87,6 +96,9 @@ const nhaSiController = {
       const result = await pool.executeSP(sp, params);
       return res.status(201).json({ success: true });
     } catch (error) {
+      if (error.message === "Lịch rảnh đã được hẹn, không thể hủy.") {
+        return res.status(409).json({ error: error.message });
+      }
       console.error("An error occurred:", error.message);
       return res
         .status(500)
