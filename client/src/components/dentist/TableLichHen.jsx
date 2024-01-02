@@ -7,7 +7,7 @@ import { ButtonGreen } from "~/components/button";
 import { CloseCircleOutlined } from "@ant-design/icons";
 import DentistService from "../../services/dentist/index";
 import { useSelector } from "react-redux";
-
+import { useHistory } from 'react-router-dom';
 const datCa = [];
 const huyCa = [];
 
@@ -420,7 +420,6 @@ const OneDay = ({ caMotNgay }) => {
 
 const TableLichHen = ({ data }) => {
   const user = useSelector((state) => state.user);
-  console.log(huyCa)
   const handleSubmit = async() =>{
       // Đặt lịch
     for (const ca of datCa) {
