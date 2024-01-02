@@ -2,8 +2,6 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Input, Select, message, Button, Form, InputNumber } from "antd";
 import { DeleteOutlined } from "@ant-design/icons";
-import dv from "~/fakedata/dv";
-import thuoc from "~/fakedata/thuoc";
 const { TextArea } = Input;
 import moment from "moment";
 import { ButtonGreen } from "../../components/button";
@@ -373,7 +371,7 @@ const TaoBenhAnMoi = ({ props }) => {
   const [thuocList, setThuocList] = useState([]);
   const user = useSelector((state) => state.user);
   return (
-    <div className="w-[1184px] flex flex-col gap-5 mt-1">
+    <div className="w-[100%] flex flex-col gap-5 mt-1">
       <div
         className="bg-white py-10 px-9 mx-2 pb-8"
         style={{
