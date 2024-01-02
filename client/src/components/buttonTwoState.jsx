@@ -3,7 +3,8 @@ import React, { useState } from "react";
 import "~/assets/styles/buttonTwoState.css";
 import { dangkiLichRanh } from "../redux/features/dkLichRanhNsSlice";
 import { useDispatch } from "react-redux";
-const TwoStateBlue = ({ text, func, ngay, maca }) => {
+const TwoStateBlue = ({ text, func, ngay, maca   }) => {
+
   const [isChecked, setIsChecked] = useState(false);
   const dispatch = useDispatch();
   const changeState = () => {
@@ -11,14 +12,14 @@ const TwoStateBlue = ({ text, func, ngay, maca }) => {
   };
   const handleOnClick = (value) => {
     dispatch(dangkiLichRanh({ maca: value }));  
-    message.success("Đăng kí thành công");
+    message.success(value);
   };
-
+  
   return (
     <label className={`input-check ${isChecked ? "checked" : ""}`}>
       <input
         onChange={changeState}
-        onClick={() => handleOnClick(maca)}
+        onClick={() => handleOnClick(text)}
         type="checkbox"
         value="something"
         name="test"

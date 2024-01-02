@@ -157,7 +157,7 @@ const CreateAShift = ({ data, isPassDay, index }) => {
     if (isPassDay === 1) {
       switch (data.STATUS) {
         case "waiting":
-          shiftContent = <TwoStateBlue text={caContent} maca={data.MACA} />;
+          shiftContent = <TwoStateBlue text={caContent}  />;
           break;
         case "ordered":
           shiftContent = <StatePink text={caContent} />;
@@ -166,7 +166,7 @@ const CreateAShift = ({ data, isPassDay, index }) => {
           shiftContent = <StateGrey text={caContent} />;
           break;
         default:
-          shiftContent = <TwoStateBlue text={caContent} maca={data.MACA} />;
+          shiftContent = <TwoStateBlue text={caContent} />;
           break;
       }
     } else {
@@ -193,7 +193,7 @@ const CreateAShift = ({ data, isPassDay, index }) => {
         caContent = <span>19:00</span>;
         break;
     }
-    shiftContent = <TwoStateBlue text={caContent} maca={data.MACA} />;
+    shiftContent = <TwoStateBlue text={caContent}  />;
   }
 
   return <div className="mb-3">{shiftContent}</div>;
