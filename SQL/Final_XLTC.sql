@@ -1228,7 +1228,7 @@ BEGIN TRAN
             ELSE
             BEGIN
                 -- Nếu mật khẩu cũ không đúng, in ra thông báo lỗi
-                RAISERROR(N'Sai mật khẩu cũ', 16, 1);
+                RAISERROR(N'Mật khẩu xác nhận không chính xác', 16, 1);
                 ROLLBACK TRAN;
                 RETURN;
             END
