@@ -4,6 +4,7 @@ import StaffService from "../services/staff";
 import "~/assets/styles/guest.css";
 import { ButtonGreen } from "~/components/button";
 import GuestService from "../services/guest";
+import DentistService from "../services/dentist";
 import { useSelector } from "react-redux";
 const escapedNewLineToLineBreakTag = (text) => {
   const replacedText = text.replace(/\\n/g, "\n");
@@ -179,6 +180,7 @@ const ThuocTable = memo(({ dataThuoc, openDrawer }) => {
 });
 
 const HoSoBenh = ({ sdt, isStaff }) => {
+  const user = useSelector((state) => state.user);
   const MANV = useSelector((state) => state.user.MANV);
   const [currentPage, setCurrentPage] = useState(1);
   const [medicalRecords, setMedicalRecords] = useState([]);
@@ -226,12 +228,21 @@ const HoSoBenh = ({ sdt, isStaff }) => {
         setMedicalRecords(res ? res : []);
       });
     } else {
-      GuestService.benhAn(sdt).then((res) => {
-        if (res === undefined) {
-          message.info("Không tìm thấy thông tin hồ sơ bệnh!");
-        }
-        setMedicalRecords(res ? res : []);
-      });
+      if (user.ROLE === "KH") {
+        GuestService.benhAn(sdt).then((res) => {
+          if (res === undefined) {
+            message.info("Không tìm thấy thông tin hồ sơ bệnh!");
+          }
+          setMedicalRecords(res ? res : []);
+        });
+      } else if (user.ROLE === "NS") {
+        DentistService.xemBenhAn(sdt).then((res) => {
+          if (res === undefined) {
+            message.info("Không tìm thấy thông tin hồ sơ bệnh!");
+          }
+          setMedicalRecords(res ? res : []);
+        });
+      }
     }
   }, [sdt]);
 
