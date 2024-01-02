@@ -39,7 +39,7 @@ const authMiddleware = {
     }
   },
   protected: (requireRole) => (req, res, next) => {
-    if (req.userId === requireRole) {
+    if (req.userRole == requireRole) {
       next();
     } else{
       return res

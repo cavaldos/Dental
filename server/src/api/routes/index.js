@@ -27,8 +27,8 @@ const routers = (app) => {
   );
   app.use(
     "/nhanvien",
-    // authMiddleware.authenticateToken,
-    // authMiddleware.protected("NV"),
+     authMiddleware.authenticateToken,
+     authMiddleware.protected("NV"),
     NhanVienRoutes
   );
   app.use("/online", OnlineRoutes);
