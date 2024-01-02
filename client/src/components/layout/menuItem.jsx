@@ -21,11 +21,11 @@ const menuDentist = [
     icon: <FaBookMedical size={30} />,
     path: "/xem-benh-an-cu",
   },
-  {
-    name: "Tạo bệnh án mới",
-    icon: <FaFileMedical size={30} />,
-    path: "/tao-benh-an-moi",
-  },
+  // {
+  //   name: "Tạo bệnh án mới",
+  //   icon: <FaFileMedical size={30} />,
+  //   path: "/tao-benh-an-moi",
+  // },
   {
     name: "Đổi mật khẩu",
     icon: <AiOutlineMenuFold size={30} />,

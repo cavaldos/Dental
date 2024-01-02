@@ -11,7 +11,7 @@ const DoiMatKhau = lazy(() => import("../pages/guest/DoiMatKhau"));
 const GuestRouter = [
   {
     path: "/",
-    component: GuestPage,
+    component: DatLichHen,
     Layout: DefaultLayout,
   },
   {
@@ -36,10 +36,9 @@ const GuestRouter = [
   },
   {
     path: "doi-mat-khau",
-    component:  DoiMatKhau,
-    Layout: DefaultLayout
-  }
-
+    component: DoiMatKhau,
+    Layout: DefaultLayout,
+  },
 ];
 
 export default GuestRouter;

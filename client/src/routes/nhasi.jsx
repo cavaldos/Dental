@@ -12,7 +12,7 @@ const DoiMatKhau = lazy(() => import("../pages/dentist/DoiMatKhau"));
 const DentistRouter = [
   {
     path: "/",
-    component: DentistPage,
+    component: DangKiLichRanh,
     Layout: AdminLayout,
   },
   {
@@ -37,21 +37,21 @@ const DentistRouter = [
     Layout: AdminLayout,
   },
 
-  {
-    path: "/tao-benh-an-moi/",
-    component: ThemBenhAnMoi,
-    Layout: AdminLayout,
-  },
-  {
-    path: "/tao-benh-an-moi/:sdt",
-    component: ThemBenhAnMoi,
-    Layout: AdminLayout,
-  },
+  // {
+  //   path: "/tao-benh-an-moi/",
+  //   component: ThemBenhAnMoi,
+  //   Layout: AdminLayout,
+  // },
+  // {
+  //   path: "/tao-benh-an-moi/:sdt",
+  //   component: ThemBenhAnMoi,
+  //   Layout: AdminLayout,
+  // },
   {
     path: "/doi-mat-khau",
     component: DoiMatKhau,
     Layout: AdminLayout,
-  }
+  },
 ];
 
 export default DentistRouter;
