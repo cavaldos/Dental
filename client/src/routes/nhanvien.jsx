@@ -18,7 +18,7 @@ const PrintLayout = lazy(() => import("../components/layout/PrintLayout"));
 const StaffRouter = [
   {
     path: "/",
-    component: StaffPage,
+    component: DangKiTaiKhoanKhachHang,
     Layout: AdminLayout,
   },
   {

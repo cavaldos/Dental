@@ -1,7 +1,8 @@
 // khach hang
 
 import { lazy } from "react";
-import DefaultLayout from "~/components/layout/defaultLayout";
+// import DefaultLayout from "~/components/layout/defaultLayout";
+const DefaultLayout = lazy(() => import("~/components/layout/defaultLayout"));
 const GuestPage = lazy(() => import("../pages/guest"));
 const CapNhatTaiKhoan = lazy(() => import("../pages/guest/CapNhatTk"));
 const DatLichHen = lazy(() => import("../pages/guest/DatLichHen"));
@@ -11,7 +12,7 @@ const DoiMatKhau = lazy(() => import("../pages/guest/DoiMatKhau"));
 const GuestRouter = [
   {
     path: "/",
-    component: GuestPage,
+    component: DatLichHen,
     Layout: DefaultLayout,
   },
   {
@@ -36,10 +37,9 @@ const GuestRouter = [
   },
   {
     path: "doi-mat-khau",
-    component:  DoiMatKhau,
-    Layout: DefaultLayout
-  }
-
+    component: DoiMatKhau,
+    Layout: DefaultLayout,
+  },
 ];
 
 export default GuestRouter;

@@ -51,6 +51,7 @@ const onlineController = {
       console.log(req.body);
       const result = await pool.executeSP(sp, params);
       if (result.error) {
+        
         if (result.error.message === "Tài khoản đăng nhập không hợp lệ.") {
           return res.status(401).json({ error: error.message });
         }
@@ -81,6 +82,7 @@ const onlineController = {
         });
       }
     } catch (error) {
+      
       if (error.message === "Tài khoản đăng nhập không hợp lệ.") {
         return res.status(401).json({ error: error.message });
       }

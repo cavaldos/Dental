@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken";
 import { getPool } from "../../config/db.mjs";
-const pool =  getPool("KHONLINE");
+const pool = getPool("KHONLINE");
 const authMiddleware = {
   authenticateToken: async (req, res, next) => {
     const authorizationHeader = req.header("Authorization");
@@ -39,13 +39,13 @@ const authMiddleware = {
     }
   },
   protected: (requireRole) => (req, res, next) => {
-    if (req.userId === requireRole) {
+    if (req.userRole == requireRole) {
       next();
-    } else
+    } else{
       return res
-        .status(403)
-        .send("Protected route")
-        .json({ message: "Protected route" });
+      .status(403)
+      .json({ message: "Protected route" });
+    }
   },
 };
 export default authMiddleware;

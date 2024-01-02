@@ -13,7 +13,7 @@ import Loading from "./components/err/loading";
 const NotfoundError = lazy(() => import("~/components/err"));
 
 import Auth from "./components/Auth";
-import Test from "./test";
+// import Test from "./test";
 
 function App() {
   const user = useSelector((state) => state.user);
@@ -32,12 +32,11 @@ function App() {
         return OnlineRouter;
     }
   };
-  // console.log("khanh", VerifyRoure());
 
   return (
     <>
-      <Test />
-      {/* <Auth /> */}
+      {/* <Test /> */}
+      <Auth />
       <Router>
         <Suspense fallback={<Loading />}>
           <Routes>

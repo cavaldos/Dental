@@ -1,4 +1,3 @@
-import nhasis from "../../fakedata/nhasi";
 import "../../assets/styles/admin.css";
 import AdminService from "../../services/admin";
 

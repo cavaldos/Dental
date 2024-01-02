@@ -1,7 +1,6 @@
-import thuocs from "../../fakedata/thuoc";
 import "../../assets/styles/admin.css";
 import AdminService from "../../services/admin";
-import React, { useState, useCallback, useEffect, useRef } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import moment from "moment";
 import "moment/locale/vi";
 import {

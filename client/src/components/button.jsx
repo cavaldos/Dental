@@ -16,7 +16,7 @@ const ButtonBorderGreen = memo(({ text, func, className }) => {
   return (
     <button
       className={`bg-white font-montserrat font-bold text-md text-grin py-2 
-            px-4 rounded-xl border-grin mb-3 border-3 hover:bg-grin hover:text-white active:bg-white ${className}`}
+            px-4 rounded-xl border-grin mb-3 border-2 hover:bg-grin hover:text-white active:bg-white ${className}`}
       onClick={!func ? null : func}
     >
       {text}

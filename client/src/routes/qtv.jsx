@@ -13,7 +13,7 @@ const DoiMatKhau = lazy(() => import("../pages/admin/DoiMatKhau"));
 const AdminRouter = [
   {
     path: "/",
-    component: AdminPage,
+    component: QuanLiKH,
     Layout: AdminLayout,
   },
   {
