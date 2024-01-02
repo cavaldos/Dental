@@ -142,12 +142,13 @@ const CreateAShift = ({ data, isPassDay, index, customKey }) => {
     );
 
     if (indexToRemove !== -1) {
-      datCa.splice(indexToRemove, 1);
-      // console.log(`Chuỗi "${el}" đã được xóa khỏi mảng datCa.`);
+        datCa.splice(indexToRemove, 1);
+        console.log(`Chuỗi "${el}" đã được xóa khỏi mảng datCa.`);
     } else {
-      datCa.push(changeStructure);
-      // console.log(`Đã thêm chuỗi "${el}" vào mảng datCa.`);
+        datCa.push(changeStructure);
+        console.log(`Đã thêm chuỗi "${el}" vào mảng datCa.`);
     }
+    console.log('datCa', datCa);
   };
 
   const pushPopHuyCa = (el) => {
@@ -166,13 +167,14 @@ const CreateAShift = ({ data, isPassDay, index, customKey }) => {
       );
 
       if (indexToRemove !== -1) {
-        huyCa.splice(indexToRemove, 1);
-        // console.log(`Chuỗi "${el}" đã được xóa khỏi mảng datCa.`);
+          huyCa.splice(indexToRemove, 1);
+          console.log(`Chuỗi "${el}" đã được xóa khỏi mảng huyCa.`);
       } else {
-        huyCa.push(changeStructure);
-        // console.log(`Đã thêm chuỗi "${el}" vào mảng datCa.`);
+          huyCa.push(changeStructure);
+          console.log(`Đã thêm chuỗi "${el}" vào mảng huyCa.`);
       }
     }
+    console.log('huyCa', huyCa);
   };
 
   let shiftContent, caContent;
@@ -456,7 +458,6 @@ const OneDay = ({ caMotNgay }) => {
 
 const TableLichHen = ({ data }) => {
   const user = useSelector((state) => state.user);
-  console.log(huyCa)
   const handleSubmit = async() =>{
       // Đặt lịch
     for (const ca of datCa) {
@@ -485,6 +486,9 @@ const TableLichHen = ({ data }) => {
         return;
       }
     }
+    datCa.splice(0, datCa.length); 
+    huyCa.splice(0, huyCa.length); 
+    window.location.reload();
   };
   return (
     <>

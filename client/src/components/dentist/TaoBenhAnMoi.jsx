@@ -220,6 +220,9 @@ const FormDienThongTin = ({ benhNhan }) => {
         }
       }
     }
+    chonThuoc.splice(0, chonThuoc.length); 
+    chonDichVu.splice(0, chonDichVu.length); 
+    window.location.reload();
   };
   return (
     <>
