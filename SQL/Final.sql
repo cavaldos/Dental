@@ -972,7 +972,7 @@ AS
 BEGIN TRAN
 	BEGIN TRY
 		IF (NOT EXISTS(SELECT * 
-				   FROM LICHHEN
+				   FROM LICHRANH
 				   WHERE MANS = @MANS AND SOTT = @SOTT))
 		BEGIN
 			RAISERROR(N'Lỗi: Lịch rảnh này đã bị xóa.',16,1)
