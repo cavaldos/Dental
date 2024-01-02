@@ -52,7 +52,6 @@ const nhanVienController = {
       params.SODT = req.body.sdt;
       params.SOTT = req.body.stt;
       params.MANV = req.body.manv;
-      console.log(params);
 
       const sp = 'SP_TAOHOADON_NV';
       const result = await pool.executeSP(sp, params);

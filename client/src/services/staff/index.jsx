@@ -29,6 +29,7 @@ const StaffService = {
     const res = await Axios.post("/nhanvien/taohoaDon", {
       sdt: data.sdt,
       stt: data.stt,
+      manv: data.manv
     });
     if(res && res.response)
     {
