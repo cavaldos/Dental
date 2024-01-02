@@ -41,11 +41,11 @@ const authMiddleware = {
   protected: (requireRole) => (req, res, next) => {
     if (req.userId === requireRole) {
       next();
-    } else
+    } else{
       return res
-        .status(403)
-        .send("Protected route")
-        .json({ message: "Protected route" });
+      .status(403)
+      .json({ message: "Protected route" });
+    }
   },
 };
 export default authMiddleware;
