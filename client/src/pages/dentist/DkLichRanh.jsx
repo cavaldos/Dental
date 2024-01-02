@@ -9,7 +9,7 @@ const DangKiLichRanh = () => {
 
   useEffect(() => {
     DentistService.xemTableLichNS(user.MANS).then((res) => {
-      console.log(res);
+      // console.log(res);
       setLichHen(res || []);
     });
   }, []);

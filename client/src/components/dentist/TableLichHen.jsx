@@ -7,6 +7,7 @@ import { ButtonGreen } from "~/components/button";
 import { CloseCircleOutlined } from "@ant-design/icons";
 import DentistService from "../../services/dentist/index";
 import { useSelector } from "react-redux";
+
 const datCa = [];
 const huyCa = [];
 
@@ -124,11 +125,12 @@ const CreateAShift = ({ data, isPassDay, index, customKey }) => {
     
     if (indexToRemove !== -1) {
         datCa.splice(indexToRemove, 1);
-        // console.log(`Chuỗi "${el}" đã được xóa khỏi mảng datCa.`);
+        console.log(`Chuỗi "${el}" đã được xóa khỏi mảng datCa.`);
     } else {
         datCa.push(changeStructure);
-        // console.log(`Đã thêm chuỗi "${el}" vào mảng datCa.`);
+        console.log(`Đã thêm chuỗi "${el}" vào mảng datCa.`);
     }
+    console.log('datCa', datCa);
   };
 
   const pushPopHuyCa = (el) => {
@@ -145,12 +147,13 @@ const CreateAShift = ({ data, isPassDay, index, customKey }) => {
       
       if (indexToRemove !== -1) {
           huyCa.splice(indexToRemove, 1);
-          // console.log(`Chuỗi "${el}" đã được xóa khỏi mảng datCa.`);
+          console.log(`Chuỗi "${el}" đã được xóa khỏi mảng huyCa.`);
       } else {
           huyCa.push(changeStructure);
-          // console.log(`Đã thêm chuỗi "${el}" vào mảng datCa.`);
+          console.log(`Đã thêm chuỗi "${el}" vào mảng huyCa.`);
       }
     }
+    console.log('huyCa', huyCa);
   };
 
 
@@ -447,6 +450,17 @@ const TableLichHen = ({ data }) => {
     //     return;
     //   }
     // }
+  
+    console.log('datCa truoc reset', datCa);
+    console.log('huyCa truoc reset', huyCa);
+
+    datCa.splice(0, datCa.length); 
+    huyCa.splice(0, huyCa.length); 
+
+    console.log('datCa sau reset', datCa);
+    console.log('huyCa sau reset', huyCa);
+
+    window.location.reload();
   };
   return (
     <>
