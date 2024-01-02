@@ -424,42 +424,34 @@ const TableLichHen = ({ data }) => {
   const user = useSelector((state) => state.user);
   const handleSubmit = async() =>{
       // Đặt lịch
-    // for (const ca of datCa) {
-    //   const resCa = await DentistService.dangKyLichRanh({
-    //     mans: user.MANS,
-    //     maca: ca.MACA,
-    //     ngay: moment(ca.NGAY, 'DD/MM/YYYY').format('YYYY-MM-DD')
-    //   });
-    //   //Kiểm tra lỗi khi thêm đặt lịch
-    //   if (!resCa) {
-    //     message.error('Lỗi khi đặt lịch');
-    //     console.error('Lỗi khi đặt lịch');
-    //     return;
-    //   }
-    // }
-    // for (const ca of huyCa) {
-    //   const resCa = await DentistService.huyLichRanh({
-    //     mans: user.MANS,
-    //     stt : ca.SOTT
-    //   });
+    for (const ca of datCa) {
+      const resCa = await DentistService.dangKyLichRanh({
+        mans: user.MANS,
+        maca: ca.MACA,
+        ngay: moment(ca.NGAY, 'DD/MM/YYYY').format('YYYY-MM-DD')
+      });
+      //Kiểm tra lỗi khi thêm đặt lịch
+      if (!resCa) {
+        message.error('Lỗi khi đặt lịch');
+        console.error('Lỗi khi đặt lịch');
+        return;
+      }
+    }
+    for (const ca of huyCa) {
+      const resCa = await DentistService.huyLichRanh({
+        mans: user.MANS,
+        stt : ca.SOTT
+      });
       
-    //   // Kiểm tra lỗi khi hủy lịch
-    //   if (!resCa) {
-    //     message.error('Lỗi khi hủy lịch');
-    //     console.error('Lỗi khi hủy lịch');
-    //     return;
-    //   }
-    // }
-  
-    console.log('datCa truoc reset', datCa);
-    console.log('huyCa truoc reset', huyCa);
-
+      // Kiểm tra lỗi khi hủy lịch
+      if (!resCa) {
+        message.error('Lỗi khi hủy lịch');
+        console.error('Lỗi khi hủy lịch');
+        return;
+      }
+    }
     datCa.splice(0, datCa.length); 
     huyCa.splice(0, huyCa.length); 
-
-    console.log('datCa sau reset', datCa);
-    console.log('huyCa sau reset', huyCa);
-
     window.location.reload();
   };
   return (
