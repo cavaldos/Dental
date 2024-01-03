@@ -90,9 +90,14 @@ const GuestService = {
       matkhaucu: data.matkhaucu,
       matkhaumoi: data.matkhaumoi,
     });
-    console.log(res);
+    console.log(res)
+    console.log("here");
+
     if (res && res.response) {
+
       if (res.response.status === 400) {
+        console.log("400 sai")
+
         message.error(res.response.data.error);
       }
     }

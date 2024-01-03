@@ -17,11 +17,11 @@ const DoiMatKhau = () => {
       matkhaumoi: values.matkhaumoi,
     };
     GuestService.doiMatKhau(newInfo).then((res) => {
-      if (res && res.data) {
-        if (res.data.status === 200) {
+      if (res && res.response) {
+        if (res.response.status === 200) {
           message.success("Đổi mật khẩu thành công");
         }
-        if (res.data.status === 404) {
+        if (res.response.status === 400) {
           message.error("Mật khẩu cũ không đúng");
         }
       }
