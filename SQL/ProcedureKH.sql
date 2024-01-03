@@ -106,7 +106,7 @@ BEGIN TRAN
             ELSE
             BEGIN
                 -- Nếu mật khẩu cũ không đúng, in ra thông báo lỗi
-                RAISERROR(N'Sai mật khẩu cũ', 16, 1);
+                RAISERROR(N'Mật khẩu xác nhận không chính xác', 16, 1);
                 ROLLBACK TRAN;
                 RETURN;
             END
@@ -133,9 +133,10 @@ CREATE OR ALTER PROC SP_LRCHUADATTATCANS_KH
 AS
 BEGIN TRAN
 	BEGIN TRY
-		SELECT LR.*
+		SELECT LR.*, GIOBATDAU, GIOKETTHUC
 		FROM LICHRANH LR LEFT JOIN LICHHEN LH 
 		ON (LR.MANS = LH.MANS AND LR.SOTT = LH.SOTT)
+        JOIN CA ON CA.MACA = LR.MACA
 		WHERE LH.MANS IS NULL AND LH.SOTT IS NULL
 		AND DATEDIFF(DAY, GETDATE(), LR.NGAY) <= 30
 		ORDER BY NGAY 

@@ -61,7 +61,7 @@ BEGIN TRAN
 		
 		ELSE
 		BEGIN
-			SELECT HSB.SOTT, HSB.SODT SODT, KH.HOTEN HOTEN, DATEDIFF(year,KH.NGAYSINH,GETDATE()) TUOI, NGAYKHAM, NS.HOTEN NHASI, DANDO, CTDV.MADV, TENDV, CTDV.SOLUONG SLDV, CTT.MATHUOC, TENTHUOC, CTT.SOLUONG SLTHUOC, DONVITINH, THOIDIEMDUNG
+			SELECT HSB.SOTT, HSB.SODT SODT, KH.HOTEN HOTEN, DATEDIFF(year,KH.NGAYSINH,GETDATE()) TUOI, NGAYKHAM, NS.HOTEN NHASI, DANDO, CTDV.MADV, TENDV, CTDV.SOLUONG SLDV, CTT.MATHUOC, TENTHUOC, CTT.SOLUONG SLTHUOC, DONVITINH, THOIDIEMDUNG, SP_GETHSB1KH_NV_NS_KH
 			FROM HOSOBENH HSB 
 			JOIN NHASI NS ON HSB.MANS = NS.MANS
 			JOIN KHACHHANG KH ON KH.SODT = HSB.SODT
@@ -185,6 +185,14 @@ CREATE PROC SP_DATLICHHEN_NV_KH
 AS
 BEGIN TRAN
 	BEGIN TRY
+		IF (NOT EXISTS(SELECT * 
+				   FROM LICHHEN
+				   WHERE MANS = @MANS AND SOTT = @SOTT))
+		BEGIN
+			RAISERROR(N'Lỗi: Lịch rảnh này đã bị xóa.',16,1)
+			ROLLBACK TRAN
+			RETURN
+		END
 		IF (EXISTS(SELECT * 
 				   FROM LICHHEN
 				   WHERE MANS = @MANS AND SOTT = @SOTT))
@@ -393,7 +401,7 @@ BEGIN TRAN
             ELSE
             BEGIN
                 -- Nếu mật khẩu cũ không đúng, in ra thông báo lỗi
-                RAISERROR(N'Sai mật khẩu cũ', 16, 1);
+                RAISERROR(N'Mật khẩu xác nhận không chính xác', 16, 1);
                 ROLLBACK TRAN;
                 RETURN;
             END
@@ -420,9 +428,10 @@ CREATE PROC SP_LRCHUADATTATCANS_KH
 AS
 BEGIN TRAN
 	BEGIN TRY
-		SELECT LR.*
+		SELECT LR.*, GIOBATDAU, GIOKETTHUC
 		FROM LICHRANH LR LEFT JOIN LICHHEN LH 
 		ON (LR.MANS = LH.MANS AND LR.SOTT = LH.SOTT)
+		JOIN CA ON CA.MACA = LR.MACA
 		WHERE LH.MANS IS NULL AND LH.SOTT IS NULL
 		AND DATEDIFF(DAY, GETDATE(), LR.NGAY) <= 30
 		ORDER BY NGAY 
@@ -805,9 +814,16 @@ AS
 BEGIN TRAN
 BEGIN TRY 
 BEGIN
+	IF @NGAYHETHAN < GETDATE()
+		BEGIN
+        RAISERROR(N'Không thể thêm thuốc đã hết hạn.', 16, 1)
+        ROLLBACK TRAN
+        RETURN
+    END
+	
     IF @SLNHAP < 1 OR @DONGIA < 1
     BEGIN
-        RAISERROR(N'Số lượng nhập và đơn giá không được nhỏ hơn hoặc bằng 0', 16, 1)
+        RAISERROR(N'Số lượng nhập và đơn giá phải lớn hơn 0.', 16, 1)
         ROLLBACK TRAN
         RETURN
     END
@@ -921,7 +937,14 @@ BEGIN
     SET NOCOUNT ON;
     IF @SOLUONGNHAP < 1
     BEGIN
-        RAISERROR(N'Số lượng nhập không được nhỏ hơn hoặc bằng 0', 16, 1)
+        RAISERROR(N'Số lượng nhập phải lớn hơn 0', 16, 1)
+        ROLLBACK TRAN
+        RETURN
+    END
+
+	IF @NGAYHETHAN <= GETDATE()
+    BEGIN
+        RAISERROR(N'Ngày hết hạn không hợp lệ', 16, 1)
         ROLLBACK TRAN
         RETURN
     END
@@ -955,7 +978,7 @@ BEGIN
     END
     ELSE
     BEGIN
-        RAISERROR(N'Ngày hết hạn không hợp lệ hoặc thuốc đã hết hạn.',16,1);
+        RAISERROR(N'Không thể nhập vì thuốc chưa hết hạn hoặc chưa hết số lượng.',16,1);
         ROLLBACK TRAN
         RETURN
     END
@@ -1240,7 +1263,7 @@ COMMIT TRAN
 GO
 CREATE PROC SP_UPDATENS_QTV
     @MANS VARCHAR(100),
-    @GIOITHIEU NVARCHAR(200)
+    @GIOITHIEU NVARCHAR(500)
 AS
 BEGIN TRAN
     BEGIN TRY

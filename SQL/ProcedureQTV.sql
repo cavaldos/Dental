@@ -13,9 +13,15 @@ AS
 BEGIN TRAN
 BEGIN TRY 
 BEGIN
+    IF @NGAYHETHAN < GETDATE()
+		BEGIN
+        RAISERROR(N'Không thể thêm thuốc đã hết hạn.', 16, 1)
+        ROLLBACK TRAN
+        RETURN
+    END
     IF @SLNHAP < 1 OR @DONGIA < 1
     BEGIN
-        RAISERROR(N'Số lượng nhập và đơn giá không được nhỏ hơn hoặc bằng 0', 16, 1)
+        RAISERROR(N'Số lượng nhập và đơn giá phải lớn hơn 0.', 16, 1)
         ROLLBACK TRAN
         RETURN
     END
@@ -129,7 +135,14 @@ BEGIN
     SET NOCOUNT ON;
     IF @SOLUONGNHAP < 1
     BEGIN
-        RAISERROR(N'Số lượng nhập không được nhỏ hơn hoặc bằng 0', 16, 1)
+        RAISERROR(N'Số lượng nhập phải lớn hơn 0', 16, 1)
+        ROLLBACK TRAN
+        RETURN
+    END
+
+	IF @NGAYHETHAN <= GETDATE()
+    BEGIN
+        RAISERROR(N'Ngày hết hạn không hợp lệ', 16, 1)
         ROLLBACK TRAN
         RETURN
     END
@@ -163,7 +176,7 @@ BEGIN
     END
     ELSE
     BEGIN
-        RAISERROR(N'Ngày hết hạn không hợp lệ hoặc thuốc đã hết hạn.',16,1);
+        RAISERROR(N'Không thể nhập vì thuốc chưa hết hạn hoặc chưa hết số lượng.',16,1);
         ROLLBACK TRAN
         RETURN
     END
@@ -446,9 +459,9 @@ COMMIT TRAN
 
 --QTV14/ CẬP NHẬT THÔNG TIN NHA SĨ
 GO
-CREATE OR ALTER PROC SP_UPDATENV_QTV
+CREATE OR ALTER PROC SP_UPDATENS_QTV
     @MANS VARCHAR(100),
-    @GIOITHIEU NVARCHAR(200)
+    @GIOITHIEU NVARCHAR(500)
 AS
 BEGIN TRAN
     BEGIN TRY
