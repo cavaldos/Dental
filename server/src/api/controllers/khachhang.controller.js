@@ -34,16 +34,18 @@ const khachHangController = {
       params.MAT_KHAU_CU = req.body.matkhaucu;
       params.MAT_KHAU_MOI = req.body.matkhaumoi;
       const sp = "SP_CAPNHATTHONGTIN_KH";
+      console.log(params)
       const result = await pool.executeSP(sp, params);
+      console.log(result)
       return res.status(200).json({ success: true });
     } catch (error) {
+      console.error("An error occurred:", error.message);
       if (error.message === "Mật khẩu xác nhận không chính xác") {
         return res.status(400).json({ error: error.message });
       }
       if (error.message === "Tài khoản không tồn tại trong hệ thống") {
         return res.status(400).json({ error: error.message });
       }
-      console.error("An error occurred:", error.message);
       return res
         .status(500)
         .json({ error: "An error occurred while processing the request" });

@@ -208,6 +208,12 @@ const nhanVienController = {
       return res.status(201).json({ success: true });
     } catch (error) {
       console.error('An error occurred:', error.message);
+      if (error.message === "Lịch hẹn này không tồn tại") {
+        return res.status(400).json({ error: error.message });
+      }
+      if (error.message === "Không thể hủy lịch hẹn trước 1 ngày") {
+        return res.status(400).json({ error: error.message });
+      }
       return res.status(500).json({ error: 'An error occurred while processing the request' });
     }
   },
