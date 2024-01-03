@@ -32,7 +32,7 @@ const ModalCapNhatDV = ({ data }) => {
       madv: values.MADV,
       tendv: values.TENDV,
       mota: values.MOTA,
-      dongia: values.DONGIA,  
+      dongia: values.DONGIA,
     }).then((res) => {
       console.log(res);
     });
