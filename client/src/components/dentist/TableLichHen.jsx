@@ -11,7 +11,7 @@ import {
 import { ButtonGreen } from "~/components/button";
 import { CloseCircleOutlined } from "@ant-design/icons";
 import DentistService from "../../services/dentist/index";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 
 const datCa = [];
 const huyCa = [];
@@ -142,13 +142,13 @@ const CreateAShift = ({ data, isPassDay, index, customKey }) => {
     );
 
     if (indexToRemove !== -1) {
-        datCa.splice(indexToRemove, 1);
-        console.log(`Chuỗi "${el}" đã được xóa khỏi mảng datCa.`);
+      datCa.splice(indexToRemove, 1);
+      console.log(`Chuỗi "${el}" đã được xóa khỏi mảng datCa.`);
     } else {
-        datCa.push(changeStructure);
-        console.log(`Đã thêm chuỗi "${el}" vào mảng datCa.`);
+      datCa.push(changeStructure);
+      console.log(`Đã thêm chuỗi "${el}" vào mảng datCa.`);
     }
-    console.log('datCa', datCa);
+    console.log("datCa", datCa);
   };
 
   const pushPopHuyCa = (el) => {
@@ -167,14 +167,14 @@ const CreateAShift = ({ data, isPassDay, index, customKey }) => {
       );
 
       if (indexToRemove !== -1) {
-          huyCa.splice(indexToRemove, 1);
-          console.log(`Chuỗi "${el}" đã được xóa khỏi mảng huyCa.`);
+        huyCa.splice(indexToRemove, 1);
+        console.log(`Chuỗi "${el}" đã được xóa khỏi mảng huyCa.`);
       } else {
-          huyCa.push(changeStructure);
-          console.log(`Đã thêm chuỗi "${el}" vào mảng huyCa.`);
+        huyCa.push(changeStructure);
+        console.log(`Đã thêm chuỗi "${el}" vào mảng huyCa.`);
       }
     }
-    console.log('huyCa', huyCa);
+    console.log("huyCa", huyCa);
   };
 
   let shiftContent, caContent;
@@ -457,9 +457,10 @@ const OneDay = ({ caMotNgay }) => {
 };
 
 const TableLichHen = ({ data }) => {
+  const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
-  const handleSubmit = async() =>{
-      // Đặt lịch
+  const handleSubmit = async () => {
+    // Đặt lịch
     for (const ca of datCa) {
       const resCa = await DentistService.dangKyLichRanh({
         mans: user.MANS,
@@ -476,25 +477,25 @@ const TableLichHen = ({ data }) => {
     for (const ca of huyCa) {
       const resCa = await DentistService.huyLichRanh({
         mans: user.MANS,
-        stt : ca.SOTT
+        stt: ca.SOTT,
       });
-      
+
       // Kiểm tra lỗi khi hủy lịch
       if (!resCa) {
-        message.error('Lỗi khi hủy lịch');
-        console.error('Lỗi khi hủy lịch');
+        message.error("Lỗi khi hủy lịch");
+        console.error("Lỗi khi hủy lịch");
         return;
       }
     }
-    datCa.splice(0, datCa.length); 
-    huyCa.splice(0, huyCa.length); 
-    window.location.reload();
+    datCa.splice(0, datCa.length);
+    huyCa.splice(0, huyCa.length);
+    dispatch(changeState());
   };
 
   const cancelData = () => {
-    datCa.splice(0, datCa.length); 
-    huyCa.splice(0, huyCa.length); 
-  }
+    datCa.splice(0, datCa.length);
+    huyCa.splice(0, huyCa.length);
+  };
   return (
     <>
       <div className=" bg-white rounded-3xl h-fit w-[1030px] mx-2 py-8 px-12">
