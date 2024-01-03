@@ -62,6 +62,7 @@ const GuestInfo = ({ currentRecord }) => {
 };
 
 const DichVuTable = memo(({ dataDV, openDrawer }) => {
+  console.log(dataDV);
   const formatDVData = (dvData) => {
     if (!dvData || !Array.isArray(dvData) || dvData[0].MATHUOC === null) {
       return [];
@@ -112,6 +113,7 @@ const DichVuTable = memo(({ dataDV, openDrawer }) => {
 });
 
 const ThuocTable = memo(({ dataThuoc, openDrawer }) => {
+  console.log(dataThuoc);
   const formatThuocData = (thuocData) => {
     if (
       !thuocData ||
@@ -193,23 +195,29 @@ const HoSoBenh = ({ sdt, isStaff }) => {
   const [selectedType, setSelectedType] = useState("");
 
   const openDrawer = async (type, id) => {
-    setDrawerVisible(true);
-    try {
-      const response = await GuestService.chitietHoSo(type, id).then((res) => {
-        return res ? res : [];
-      });
-      const item = response.map((item) => {
-        return item;
-      })[0];
-      setSelectedType(type);
-      if (type === "loaiDV") {
-        setSelectedService(item);
-      } else if (type === "loaiThuoc") {
-        setSelectedDrug(item);
+    if (user.ROLE === "KH") {
+      setDrawerVisible(true);
+      try {
+        const response = await GuestService.chitietHoSo(type, id).then(
+          (res) => {
+            console.log("khanh", res);
+            return res ? res : [];
+          }
+        );
+        const item = response.map((item) => {
+          return item;
+        })[0];
+        setSelectedType(type);
+        if (type === "loaiDV") {
+          setSelectedService(item);
+        } else if (type === "loaiThuoc") {
+          setSelectedDrug(item);
+        }
+      } catch (error) {
+        console.log("Lỗi khi lấy thông tin:", error);
       }
-    } catch (error) {
-      console.log("Lỗi khi lấy thông tin:", error);
     }
+    return;
   };
 
   const closeDrawer = () => {
