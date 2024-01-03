@@ -32,11 +32,16 @@ const ModalHuyHen = ({ data }) => {
   }, [data, form, formattedTime]);
 
   const handleSubmit = (values) => {
-    console.log("Success:", values);
-    message.success("Hủy lịch hẹn thành công!");
+    const lichHen = {
+      sdt: data.SODTKH,
+      stt: data.SOTTLH,
+      mans: data.MANS,
+    };
+    StaffService.deleteLichHen(lichHen).then((res) => {
+      console.log(res);
+    });
     form.resetFields();
     setFormValues({});
-    window.location.reload();
   };
 
   return (

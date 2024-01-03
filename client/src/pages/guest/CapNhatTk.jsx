@@ -67,7 +67,7 @@ const CapNhatTaiKhoan = () => {
         formData.append(key, value);
       }
     });
-
+    console.log("heree")
     GuestService.capnhatKH({
       userId: formData.get("phone"),
       hoten: formData.get("name"),

@@ -111,6 +111,11 @@ const StaffService = {
       sdt: data.sdt,
       stt: data.stt,
     });
+    if (res && res.response) {
+      if (res.response.status === 400) {
+        message.error(res.response.data.error);
+      }
+    }
     return res;
   },
   matKhau: async (data) => {
