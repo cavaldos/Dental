@@ -60,7 +60,7 @@ const Sidebar = (props) => {
 
   return (
     <>
-      <div className="h-[70px]">LOGO</div>
+      <div className="h-[70px]"></div>
       <div className="flex flex-col gap-2">
         {Veryrole().map((item, index) => (
           <Menu
