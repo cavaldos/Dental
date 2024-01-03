@@ -34,8 +34,8 @@ const routers = (app) => {
   app.use("/online", OnlineRoutes);
   app.use(
     "/nhasi",
-    // authMiddleware.authenticateToken,
-    // authMiddleware.protected("NS"),
+    authMiddleware.authenticateToken,
+    authMiddleware.protected("NS"),
     NhasiRoutes
   );
 };
