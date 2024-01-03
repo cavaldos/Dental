@@ -200,7 +200,6 @@ const HoSoBenh = ({ sdt, isStaff }) => {
       try {
         const response = await GuestService.chitietHoSo(type, id).then(
           (res) => {
-            console.log("khanh", res);
             return res ? res : [];
           }
         );
