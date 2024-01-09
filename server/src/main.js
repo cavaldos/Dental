@@ -11,7 +11,7 @@ import AllRouters from "./api/routes/index.js";
 
 dotenv.config();
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.json());
 app.use(morgan("tiny"));
 app.use(cors());
