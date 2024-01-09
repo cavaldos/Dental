@@ -2,7 +2,7 @@
 ## Description
 This is a simple dental clinic management system that allows the user to add, edit, delete, and view patients, dentists, and appointments. The system also allows the user to view the appointments of a specific dentist and patient. The system is implemented using React and NodeJS for the GUI. The system uses a SQLServer database to store the data. The system is implemented using the MVC design pattern.
 ## Installation
-
+ 
 
 
 1. Clone the repository
